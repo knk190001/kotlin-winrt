@@ -1,0 +1,39 @@
+{
+  "Name": "SmsDevice",
+  "Namespace": "Windows.Devices.Sms",
+  "Interfaces": [
+    {
+      "Name": "ISmsDevice",
+      "Namespace": "Windows.Devices.Sms",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ISmsDeviceStatics",
+          "Namespace": "Windows.Devices.Sms"
+        },
+        {
+          "Name": "ISmsDeviceStatics2",
+          "Namespace": "Windows.Devices.Sms"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISmsDevice",
+        "Namespace": "Windows.Devices.Sms",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

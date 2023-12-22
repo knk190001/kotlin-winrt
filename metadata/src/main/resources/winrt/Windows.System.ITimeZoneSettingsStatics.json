@@ -1,0 +1,79 @@
+{
+  "Name": "ITimeZoneSettingsStatics",
+  "Namespace": "Windows.System",
+  "Guid": "9b3b2beaa10141ae9fbd028728bab73d",
+  "Methods": [
+    {
+      "Name": "get_CurrentTimeZoneDisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedTimeZoneDisplayNames",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CanChangeTimeZone",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ChangeTimeZoneByDisplayName",
+      "Parameters": [
+        {
+          "Name": "timeZoneDisplayName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

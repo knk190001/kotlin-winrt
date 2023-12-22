@@ -1,0 +1,114 @@
+{
+  "Name": "IGeotagHelperStatics",
+  "Namespace": "Windows.Storage.FileProperties",
+  "Guid": "414932442524465586a6ed16f5fc716b",
+  "Methods": [
+    {
+      "Name": "GetGeotagAsync",
+      "Parameters": [
+        {
+          "Name": "file",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Geopoint",
+              "Namespace": "Windows.Devices.Geolocation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetGeotagFromGeolocatorAsync",
+      "Parameters": [
+        {
+          "Name": "file",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "geolocator",
+          "Type": {
+            "Name": "Geolocator",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetGeotagAsync",
+      "Parameters": [
+        {
+          "Name": "file",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "geopoint",
+          "Type": {
+            "Name": "Geopoint",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

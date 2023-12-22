@@ -1,0 +1,500 @@
+{
+  "Name": "IWindow",
+  "Namespace": "Microsoft.UI.Xaml",
+  "Guid": "61f0ec795d5256b586fb40fa4af288b0",
+  "Methods": [
+    {
+      "Name": "get_Bounds",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Rect",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Visible",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Content",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UIElement",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Content",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CoreWindow",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CoreWindow",
+        "Namespace": "Windows.UI.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Compositor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Compositor",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Dispatcher",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CoreDispatcher",
+        "Namespace": "Windows.UI.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DispatcherQueue",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DispatcherQueue",
+        "Namespace": "Microsoft.UI.Dispatching",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Title",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Title",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ExtendsContentIntoTitleBar",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ExtendsContentIntoTitleBar",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_Activated",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WindowActivatedEventArgs",
+                  "Namespace": "Microsoft.UI.Xaml",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_Activated",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_Closed",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WindowEventArgs",
+                  "Namespace": "Microsoft.UI.Xaml",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_Closed",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_SizeChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WindowSizeChangedEventArgs",
+                  "Namespace": "Microsoft.UI.Xaml",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_SizeChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_VisibilityChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WindowVisibilityChangedEventArgs",
+                  "Namespace": "Microsoft.UI.Xaml",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_VisibilityChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Activate",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Close",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetTitleBar",
+      "Parameters": [
+        {
+          "Name": "titleBar",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,320 @@
+{
+  "Name": "IWebView4",
+  "Namespace": "Windows.UI.Xaml.Controls",
+  "Guid": "e28243bc67f3462ab4e03bbf6c3dab0b",
+  "Methods": [
+    {
+      "Name": "get_ExecutionMode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebViewExecutionMode",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DeferredPermissionRequests",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WebViewDeferredPermissionRequest",
+              "Namespace": "Windows.UI.Xaml.Controls",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Settings",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebViewSettings",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_UnsupportedUriSchemeIdentified",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "WebView",
+                  "Namespace": "Windows.UI.Xaml.Controls",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WebViewUnsupportedUriSchemeIdentifiedEventArgs",
+                  "Namespace": "Windows.UI.Xaml.Controls",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_UnsupportedUriSchemeIdentified",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_NewWindowRequested",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "WebView",
+                  "Namespace": "Windows.UI.Xaml.Controls",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WebViewNewWindowRequestedEventArgs",
+                  "Namespace": "Windows.UI.Xaml.Controls",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_NewWindowRequested",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_PermissionRequested",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "WebView",
+                  "Namespace": "Windows.UI.Xaml.Controls",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WebViewPermissionRequestedEventArgs",
+                  "Namespace": "Windows.UI.Xaml.Controls",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_PermissionRequested",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddWebAllowedObject",
+      "Parameters": [
+        {
+          "Name": "name",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pObject",
+          "Type": {
+            "Name": "Object",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeferredPermissionRequestById",
+      "Parameters": [
+        {
+          "Name": "id",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WebViewDeferredPermissionRequest",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

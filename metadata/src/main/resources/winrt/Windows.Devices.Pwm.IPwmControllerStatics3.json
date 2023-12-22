@@ -1,0 +1,80 @@
+{
+  "Name": "IPwmControllerStatics3",
+  "Namespace": "Windows.Devices.Pwm",
+  "Guid": "b258187102294344ae3f9b7cd0e66b94",
+  "Methods": [
+    {
+      "Name": "GetDeviceSelector",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelector",
+      "Parameters": [
+        {
+          "Name": "friendlyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FromIdAsync",
+      "Parameters": [
+        {
+          "Name": "deviceId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PwmController",
+              "Namespace": "Windows.Devices.Pwm",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,79 @@
+{
+  "Name": "IPaymentDetailsModifier",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Guid": "be1c7d65432341d7b305dfcb765f69de",
+  "Methods": [
+    {
+      "Name": "get_JsonData",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedMethodIds",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Total",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PaymentItem",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AdditionalDisplayItems",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "PaymentItem",
+              "Namespace": "Windows.ApplicationModel.Payments",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

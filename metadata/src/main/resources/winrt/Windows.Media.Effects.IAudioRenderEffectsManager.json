@@ -1,0 +1,103 @@
+{
+  "Name": "IAudioRenderEffectsManager",
+  "Namespace": "Windows.Media.Effects",
+  "Guid": "4dc98966875142b2bfcb39ca7864bd47",
+  "Methods": [
+    {
+      "Name": "add_AudioRenderEffectsChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "AudioRenderEffectsManager",
+                  "Namespace": "Windows.Media.Effects",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_AudioRenderEffectsChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAudioRenderEffects",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "AudioEffect",
+              "Namespace": "Windows.Media.Effects",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

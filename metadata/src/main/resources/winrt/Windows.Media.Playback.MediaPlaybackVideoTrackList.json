@@ -1,0 +1,76 @@
+{
+  "Name": "MediaPlaybackVideoTrackList",
+  "Namespace": "Windows.Media.Playback",
+  "Interfaces": [
+    {
+      "Name": "IVectorView`1",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "T",
+          "Position": 0,
+          "Type": {
+            "Name": "VideoTrack",
+            "Namespace": "Windows.Media.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IIterable`1",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "T",
+          "Position": 0,
+          "Type": {
+            "Name": "VideoTrack",
+            "Namespace": "Windows.Media.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISingleSelectMediaTrackList",
+      "Namespace": "Windows.Media.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "VideoTrack",
+              "Namespace": "Windows.Media.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

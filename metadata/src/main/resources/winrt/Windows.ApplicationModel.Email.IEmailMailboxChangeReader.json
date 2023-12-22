@@ -1,0 +1,80 @@
+{
+  "Name": "IEmailMailboxChangeReader",
+  "Namespace": "Windows.ApplicationModel.Email",
+  "Guid": "bdbd0ebbc53d433197bebe75a2146a75",
+  "Methods": [
+    {
+      "Name": "AcceptChanges",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AcceptChangesThrough",
+      "Parameters": [
+        {
+          "Name": "lastChangeToAcknowledge",
+          "Type": {
+            "Name": "EmailMailboxChange",
+            "Namespace": "Windows.ApplicationModel.Email",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReadBatchAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "EmailMailboxChange",
+                    "Namespace": "Windows.ApplicationModel.Email",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

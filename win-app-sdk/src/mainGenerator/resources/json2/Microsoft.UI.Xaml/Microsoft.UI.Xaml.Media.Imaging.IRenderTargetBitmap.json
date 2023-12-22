@@ -1,0 +1,124 @@
+{
+  "Name": "IRenderTargetBitmap",
+  "Namespace": "Microsoft.UI.Xaml.Media.Imaging",
+  "Guid": "cf10407dfa8b57a39574710529ae0b04",
+  "Methods": [
+    {
+      "Name": "get_PixelWidth",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PixelHeight",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RenderAsync",
+      "Parameters": [
+        {
+          "Name": "element",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RenderAsync",
+      "Parameters": [
+        {
+          "Name": "element",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "scaledWidth",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "scaledHeight",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetPixelsAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IBuffer",
+              "Namespace": "Windows.Storage.Streams",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

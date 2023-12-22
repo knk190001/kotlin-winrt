@@ -1,0 +1,114 @@
+{
+  "Name": "ISpiDeviceStatics",
+  "Namespace": "Windows.Devices.Spi",
+  "Guid": "a278e55957204d3fbd9356f5ff5a5879",
+  "Methods": [
+    {
+      "Name": "GetDeviceSelector",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelector",
+      "Parameters": [
+        {
+          "Name": "friendlyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetBusInfo",
+      "Parameters": [
+        {
+          "Name": "busId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpiBusInfo",
+        "Namespace": "Windows.Devices.Spi",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FromIdAsync",
+      "Parameters": [
+        {
+          "Name": "busId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "settings",
+          "Type": {
+            "Name": "SpiConnectionSettings",
+            "Namespace": "Windows.Devices.Spi",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SpiDevice",
+              "Namespace": "Windows.Devices.Spi",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,1045 @@
+{
+  "Name": "ISpatialGestureRecognizer",
+  "Namespace": "Windows.UI.Input.Spatial",
+  "Guid": "71605bcc0c354673adbdcc04caa6ef45",
+  "Methods": [
+    {
+      "Name": "add_RecognitionStarted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialRecognitionStartedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_RecognitionStarted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_RecognitionEnded",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialRecognitionEndedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_RecognitionEnded",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_Tapped",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialTappedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_Tapped",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_HoldStarted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialHoldStartedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_HoldStarted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_HoldCompleted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialHoldCompletedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_HoldCompleted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_HoldCanceled",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialHoldCanceledEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_HoldCanceled",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_ManipulationStarted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialManipulationStartedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_ManipulationStarted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_ManipulationUpdated",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialManipulationUpdatedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_ManipulationUpdated",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_ManipulationCompleted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialManipulationCompletedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_ManipulationCompleted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_ManipulationCanceled",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialManipulationCanceledEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_ManipulationCanceled",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_NavigationStarted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialNavigationStartedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_NavigationStarted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_NavigationUpdated",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialNavigationUpdatedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_NavigationUpdated",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_NavigationCompleted",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialNavigationCompletedEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_NavigationCompleted",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_NavigationCanceled",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "SpatialGestureRecognizer",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "SpatialNavigationCanceledEventArgs",
+                  "Namespace": "Windows.UI.Input.Spatial",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_NavigationCanceled",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CaptureInteraction",
+      "Parameters": [
+        {
+          "Name": "interaction",
+          "Type": {
+            "Name": "SpatialInteraction",
+            "Namespace": "Windows.UI.Input.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CancelPendingGestures",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TrySetGestureSettings",
+      "Parameters": [
+        {
+          "Name": "settings",
+          "Type": {
+            "Name": "SpatialGestureSettings",
+            "Namespace": "Windows.UI.Input.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_GestureSettings",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialGestureSettings",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

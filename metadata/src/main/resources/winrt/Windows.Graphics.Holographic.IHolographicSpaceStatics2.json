@@ -1,0 +1,91 @@
+{
+  "Name": "IHolographicSpaceStatics2",
+  "Namespace": "Windows.Graphics.Holographic",
+  "Guid": "0e77708875fc48af87580652f6f07c59",
+  "Methods": [
+    {
+      "Name": "get_IsSupported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsAvailable",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_IsAvailableChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "EventHandler`1",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_IsAvailableChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

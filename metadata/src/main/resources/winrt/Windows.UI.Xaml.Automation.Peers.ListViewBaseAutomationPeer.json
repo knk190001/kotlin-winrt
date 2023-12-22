@@ -1,0 +1,58 @@
+{
+  "Name": "ListViewBaseAutomationPeer",
+  "Namespace": "Windows.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "IListViewBaseAutomationPeer",
+      "Namespace": "Windows.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IDropTargetProvider",
+      "Namespace": "Windows.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IListViewBaseAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IListViewBaseAutomationPeerFactory",
+          "Namespace": "Windows.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "SelectorAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

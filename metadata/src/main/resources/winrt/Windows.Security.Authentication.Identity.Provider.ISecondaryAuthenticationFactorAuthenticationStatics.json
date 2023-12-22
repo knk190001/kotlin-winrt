@@ -1,0 +1,172 @@
+{
+  "Name": "ISecondaryAuthenticationFactorAuthenticationStatics",
+  "Namespace": "Windows.Security.Authentication.Identity.Provider",
+  "Guid": "3f58265628f84e0fae8c5898b9ae2469",
+  "Methods": [
+    {
+      "Name": "ShowNotificationMessageAsync",
+      "Parameters": [
+        {
+          "Name": "deviceName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "message",
+          "Type": {
+            "Name": "SecondaryAuthenticationFactorAuthenticationMessage",
+            "Namespace": "Windows.Security.Authentication.Identity.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartAuthenticationAsync",
+      "Parameters": [
+        {
+          "Name": "deviceId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "serviceAuthenticationNonce",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SecondaryAuthenticationFactorAuthenticationResult",
+              "Namespace": "Windows.Security.Authentication.Identity.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_AuthenticationStageChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "EventHandler`1",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs",
+                  "Namespace": "Windows.Security.Authentication.Identity.Provider",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_AuthenticationStageChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAuthenticationStageInfoAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SecondaryAuthenticationFactorAuthenticationStageInfo",
+              "Namespace": "Windows.Security.Authentication.Identity.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

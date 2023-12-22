@@ -1,0 +1,102 @@
+{
+  "Name": "IAppCapture",
+  "Namespace": "Windows.Media.Capture",
+  "Guid": "9749d453a29a45ed8f2922d09942cff7",
+  "Methods": [
+    {
+      "Name": "get_IsCapturingAudio",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsCapturingVideo",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_CapturingChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "AppCapture",
+                  "Namespace": "Windows.Media.Capture",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_CapturingChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

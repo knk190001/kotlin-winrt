@@ -1,0 +1,102 @@
+{
+  "Name": "IMessageWebSocket2",
+  "Namespace": "Windows.Networking.Sockets",
+  "Guid": "bed0cee7f9c8440a9ad5737281d9742e",
+  "Methods": [
+    {
+      "Name": "add_ServerCustomValidationRequested",
+      "Parameters": [
+        {
+          "Name": "eventHandler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "MessageWebSocket",
+                  "Namespace": "Windows.Networking.Sockets",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "WebSocketServerCustomValidationRequestedEventArgs",
+                  "Namespace": "Windows.Networking.Sockets",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_ServerCustomValidationRequested",
+      "Parameters": [
+        {
+          "Name": "eventCookie",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IMessageWebSocket",
+      "Namespace": "Windows.Networking.Sockets",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IWebSocket",
+      "Namespace": "Windows.Networking.Sockets",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

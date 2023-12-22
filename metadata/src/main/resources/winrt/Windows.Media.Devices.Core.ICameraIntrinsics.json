@@ -1,0 +1,191 @@
+{
+  "Name": "ICameraIntrinsics",
+  "Namespace": "Windows.Media.Devices.Core",
+  "Guid": "0aa6ed32658949daafde594270ca0aac",
+  "Methods": [
+    {
+      "Name": "get_FocalLength",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector2",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PrincipalPoint",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector2",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RadialDistortion",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector3",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_TangentialDistortion",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector2",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ImageWidth",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ImageHeight",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProjectOntoFrame",
+      "Parameters": [
+        {
+          "Name": "coordinate",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnprojectAtUnitDepth",
+      "Parameters": [
+        {
+          "Name": "pixelCoordinate",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Vector2",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProjectManyOntoFrame",
+      "Parameters": [
+        {
+          "Name": "coordinates",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnprojectPixelsAtUnitDepth",
+      "Parameters": [
+        {
+          "Name": "pixelCoordinates",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

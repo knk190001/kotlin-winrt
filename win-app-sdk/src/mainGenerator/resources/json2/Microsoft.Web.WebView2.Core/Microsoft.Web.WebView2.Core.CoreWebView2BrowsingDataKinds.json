@@ -1,0 +1,40 @@
+{
+  "Name": "CoreWebView2BrowsingDataKinds",
+  "Namespace": "Microsoft.Web.WebView2.Core",
+  "Values": {
+    "FileSystems": 1,
+    "IndexedDb": 2,
+    "LocalStorage": 4,
+    "WebSql": 8,
+    "CacheStorage": 16,
+    "AllDomStorage": 32,
+    "Cookies": 64,
+    "AllSite": 128,
+    "DiskCache": 256,
+    "DownloadHistory": 512,
+    "GeneralAutofill": 1024,
+    "PasswordAutosave": 2048,
+    "BrowsingHistory": 4096,
+    "Settings": 8192,
+    "AllProfile": 16384
+  },
+  "Traits": [
+    {
+      "TraitType": "ValueType"
+    },
+    {
+      "TraitType": "FlagEnum"
+    },
+    {
+      "Superclass": {
+        "Name": "Enum",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Enum"
+}

@@ -1,0 +1,95 @@
+{
+  "Name": "IMediaStreamSource2",
+  "Namespace": "Windows.Media.Core",
+  "Guid": "ec55d0ad2e6a4f74adbbb562d1533849",
+  "Methods": [
+    {
+      "Name": "add_SampleRendered",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "MediaStreamSource",
+                  "Namespace": "Windows.Media.Core",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "MediaStreamSourceSampleRenderedEventArgs",
+                  "Namespace": "Windows.Media.Core",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_SampleRendered",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IMediaStreamSource",
+      "Namespace": "Windows.Media.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IMediaSource",
+      "Namespace": "Windows.Media.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

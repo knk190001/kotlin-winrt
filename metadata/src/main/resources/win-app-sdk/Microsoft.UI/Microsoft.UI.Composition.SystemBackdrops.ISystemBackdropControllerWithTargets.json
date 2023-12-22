@@ -1,0 +1,186 @@
+{
+  "Name": "ISystemBackdropControllerWithTargets",
+  "Namespace": "Microsoft.UI.Composition.SystemBackdrops",
+  "Guid": "9c56fe7c98eb5f89ad97dad57fc30c8c",
+  "Methods": [
+    {
+      "Name": "get_State",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SystemBackdropState",
+        "Namespace": "Microsoft.UI.Composition.SystemBackdrops",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddSystemBackdropTarget",
+      "Parameters": [
+        {
+          "Name": "systemBackdropTarget",
+          "Type": {
+            "Name": "ICompositionSupportsSystemBackdrop",
+            "Namespace": "Microsoft.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveAllSystemBackdropTargets",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveSystemBackdropTarget",
+      "Parameters": [
+        {
+          "Name": "systemBackdropTarget",
+          "Type": {
+            "Name": "ICompositionSupportsSystemBackdrop",
+            "Namespace": "Microsoft.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetSystemBackdropConfiguration",
+      "Parameters": [
+        {
+          "Name": "configuration",
+          "Type": {
+            "Name": "SystemBackdropConfiguration",
+            "Namespace": "Microsoft.UI.Composition.SystemBackdrops",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_StateChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "ISystemBackdropControllerWithTargets",
+                  "Namespace": "Microsoft.UI.Composition.SystemBackdrops",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_StateChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "ISystemBackdropController",
+      "Namespace": "Microsoft.UI.Composition.SystemBackdrops",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

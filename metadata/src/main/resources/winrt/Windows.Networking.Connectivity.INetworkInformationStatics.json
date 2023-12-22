@@ -1,0 +1,230 @@
+{
+  "Name": "INetworkInformationStatics",
+  "Namespace": "Windows.Networking.Connectivity",
+  "Guid": "5074f851950d41659c15365619481eea",
+  "Methods": [
+    {
+      "Name": "GetConnectionProfiles",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ConnectionProfile",
+              "Namespace": "Windows.Networking.Connectivity",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetInternetConnectionProfile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ConnectionProfile",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetLanIdentifiers",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "LanIdentifier",
+              "Namespace": "Windows.Networking.Connectivity",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetHostNames",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "HostName",
+              "Namespace": "Windows.Networking",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetProxyConfigurationAsync",
+      "Parameters": [
+        {
+          "Name": "uri",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ProxyConfiguration",
+              "Namespace": "Windows.Networking.Connectivity",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSortedEndpointPairs",
+      "Parameters": [
+        {
+          "Name": "destinationList",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "EndpointPair",
+                  "Namespace": "Windows.Networking",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "sortOptions",
+          "Type": {
+            "Name": "HostNameSortOptions",
+            "Namespace": "Windows.Networking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "EndpointPair",
+              "Namespace": "Windows.Networking",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_NetworkStatusChanged",
+      "Parameters": [
+        {
+          "Name": "networkStatusHandler",
+          "Type": {
+            "Name": "NetworkStatusChangedEventHandler",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_NetworkStatusChanged",
+      "Parameters": [
+        {
+          "Name": "eventCookie",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

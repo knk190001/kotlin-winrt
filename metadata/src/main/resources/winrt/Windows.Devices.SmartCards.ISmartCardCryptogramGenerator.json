@@ -1,0 +1,503 @@
+{
+  "Name": "ISmartCardCryptogramGenerator",
+  "Namespace": "Windows.Devices.SmartCards",
+  "Guid": "e39f587bedd34e49b5940ff5e4d0c76f",
+  "Methods": [
+    {
+      "Name": "get_SupportedCryptogramMaterialTypes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramMaterialType",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedCryptogramAlgorithms",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramAlgorithm",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedCryptogramMaterialPackageFormats",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramMaterialPackageFormat",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedCryptogramMaterialPackageConfirmationResponseFormats",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramMaterialPackageConfirmationResponseFormat",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedSmartCardCryptogramStorageKeyCapabilities",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramStorageKeyCapabilities",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteCryptogramMaterialStorageKeyAsync",
+      "Parameters": [
+        {
+          "Name": "storageKeyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramGeneratorOperationStatus",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateCryptogramMaterialStorageKeyAsync",
+      "Parameters": [
+        {
+          "Name": "promptingBehavior",
+          "Type": {
+            "Name": "SmartCardUnlockPromptingBehavior",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "storageKeyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "algorithm",
+          "Type": {
+            "Name": "SmartCardCryptogramStorageKeyAlgorithm",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "capabilities",
+          "Type": {
+            "Name": "SmartCardCryptogramStorageKeyCapabilities",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramGeneratorOperationStatus",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestCryptogramMaterialStorageKeyInfoAsync",
+      "Parameters": [
+        {
+          "Name": "promptingBehavior",
+          "Type": {
+            "Name": "SmartCardUnlockPromptingBehavior",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "storageKeyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "CryptographicPublicKeyBlobType",
+            "Namespace": "Windows.Security.Cryptography.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramStorageKeyInfo",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ImportCryptogramMaterialPackageAsync",
+      "Parameters": [
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "SmartCardCryptogramMaterialPackageFormat",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "storageKeyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "materialPackageName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "cryptogramMaterialPackage",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramGeneratorOperationStatus",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryProvePossessionOfCryptogramMaterialPackageAsync",
+      "Parameters": [
+        {
+          "Name": "promptingBehavior",
+          "Type": {
+            "Name": "SmartCardUnlockPromptingBehavior",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "responseFormat",
+          "Type": {
+            "Name": "SmartCardCryptogramMaterialPackageConfirmationResponseFormat",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "materialPackageName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "materialName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "challenge",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramMaterialPossessionProof",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestUnlockCryptogramMaterialForUseAsync",
+      "Parameters": [
+        {
+          "Name": "promptingBehavior",
+          "Type": {
+            "Name": "SmartCardUnlockPromptingBehavior",
+            "Namespace": "Windows.Devices.SmartCards",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramGeneratorOperationStatus",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteCryptogramMaterialPackageAsync",
+      "Parameters": [
+        {
+          "Name": "materialPackageName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SmartCardCryptogramGeneratorOperationStatus",
+              "Namespace": "Windows.Devices.SmartCards",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

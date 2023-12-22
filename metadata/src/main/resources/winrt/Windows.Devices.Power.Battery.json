@@ -1,0 +1,35 @@
+{
+  "Name": "Battery",
+  "Namespace": "Windows.Devices.Power",
+  "Interfaces": [
+    {
+      "Name": "IBattery",
+      "Namespace": "Windows.Devices.Power",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IBatteryStatics",
+          "Namespace": "Windows.Devices.Power"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IBattery",
+        "Namespace": "Windows.Devices.Power",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

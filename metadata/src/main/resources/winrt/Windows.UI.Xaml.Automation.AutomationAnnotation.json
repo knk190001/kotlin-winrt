@@ -1,0 +1,60 @@
+{
+  "Name": "AutomationAnnotation",
+  "Namespace": "Windows.UI.Xaml.Automation",
+  "Interfaces": [
+    {
+      "Name": "IAutomationAnnotation",
+      "Namespace": "Windows.UI.Xaml.Automation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IAutomationAnnotationStatics",
+          "Namespace": "Windows.UI.Xaml.Automation"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAutomationAnnotation",
+        "Namespace": "Windows.UI.Xaml.Automation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IAutomationAnnotationFactory",
+          "Namespace": "Windows.UI.Xaml.Automation",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "DependencyObject",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

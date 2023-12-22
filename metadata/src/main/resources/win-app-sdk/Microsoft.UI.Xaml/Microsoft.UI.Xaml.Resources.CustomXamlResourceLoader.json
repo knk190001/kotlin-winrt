@@ -1,0 +1,54 @@
+{
+  "Name": "CustomXamlResourceLoader",
+  "Namespace": "Microsoft.UI.Xaml.Resources",
+  "Interfaces": [
+    {
+      "Name": "ICustomXamlResourceLoader",
+      "Namespace": "Microsoft.UI.Xaml.Resources",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ICustomXamlResourceLoaderOverrides",
+      "Namespace": "Microsoft.UI.Xaml.Resources",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ICustomXamlResourceLoaderStatics",
+          "Namespace": "Microsoft.UI.Xaml.Resources"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ICustomXamlResourceLoader",
+        "Namespace": "Microsoft.UI.Xaml.Resources",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "ICustomXamlResourceLoaderFactory",
+          "Namespace": "Microsoft.UI.Xaml.Resources",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    }
+  ],
+  "Type": "Class"
+}

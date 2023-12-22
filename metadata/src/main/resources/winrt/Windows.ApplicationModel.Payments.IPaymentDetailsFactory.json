@@ -1,0 +1,80 @@
+{
+  "Name": "IPaymentDetailsFactory",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Guid": "cfe8afeec0ea4ca18bc76de67b1f3763",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "total",
+          "Type": {
+            "Name": "PaymentItem",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentDetails",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithDisplayItems",
+      "Parameters": [
+        {
+          "Name": "total",
+          "Type": {
+            "Name": "PaymentItem",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "displayItems",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "PaymentItem",
+                  "Namespace": "Windows.ApplicationModel.Payments",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentDetails",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

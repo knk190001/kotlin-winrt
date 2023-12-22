@@ -1,0 +1,106 @@
+{
+  "Name": "IGattDeviceService2",
+  "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+  "Guid": "fc54520b0b0d4708bae09ffd9489bc59",
+  "Methods": [
+    {
+      "Name": "get_Device",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothLEDevice",
+        "Namespace": "Windows.Devices.Bluetooth",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ParentServices",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "GattDeviceService",
+              "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAllCharacteristics",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "GattCharacteristic",
+              "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAllIncludedServices",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "GattDeviceService",
+              "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IGattDeviceService",
+      "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

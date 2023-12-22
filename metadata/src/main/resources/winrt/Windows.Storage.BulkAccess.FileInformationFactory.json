@@ -1,0 +1,38 @@
+{
+  "Name": "FileInformationFactory",
+  "Namespace": "Windows.Storage.BulkAccess",
+  "Interfaces": [
+    {
+      "Name": "IFileInformationFactory",
+      "Namespace": "Windows.Storage.BulkAccess",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IFileInformationFactory",
+        "Namespace": "Windows.Storage.BulkAccess",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IFileInformationFactoryFactory",
+          "Namespace": "Windows.Storage.BulkAccess",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

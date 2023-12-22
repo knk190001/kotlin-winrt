@@ -1,0 +1,92 @@
+{
+  "Name": "IConnectivityManagerStatics",
+  "Namespace": "Windows.Networking.Connectivity",
+  "Guid": "5120d4b14fb148b0afc942e0092a8164",
+  "Methods": [
+    {
+      "Name": "AcquireConnectionAsync",
+      "Parameters": [
+        {
+          "Name": "cellularApnContext",
+          "Type": {
+            "Name": "CellularApnContext",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ConnectionSession",
+              "Namespace": "Windows.Networking.Connectivity",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddHttpRoutePolicy",
+      "Parameters": [
+        {
+          "Name": "routePolicy",
+          "Type": {
+            "Name": "RoutePolicy",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveHttpRoutePolicy",
+      "Parameters": [
+        {
+          "Name": "routePolicy",
+          "Type": {
+            "Name": "RoutePolicy",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

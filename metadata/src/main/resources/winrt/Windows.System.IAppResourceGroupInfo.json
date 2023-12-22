@@ -1,0 +1,101 @@
+{
+  "Name": "IAppResourceGroupInfo",
+  "Namespace": "Windows.System",
+  "Guid": "b913f77ae80749f4845e7b8bdcfe8ee7",
+  "Methods": [
+    {
+      "Name": "get_InstanceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsShared",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetBackgroundTaskReports",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "AppResourceGroupBackgroundTaskReport",
+              "Namespace": "Windows.System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetMemoryReport",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppResourceGroupMemoryReport",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetProcessDiagnosticInfos",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ProcessDiagnosticInfo",
+              "Namespace": "Windows.System.Diagnostics",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetStateReport",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppResourceGroupStateReport",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

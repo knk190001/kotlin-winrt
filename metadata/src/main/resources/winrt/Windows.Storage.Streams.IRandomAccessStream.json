@@ -1,0 +1,180 @@
+{
+  "Name": "IRandomAccessStream",
+  "Namespace": "Windows.Storage.Streams",
+  "Guid": "905a0fe1bc5311df8c49001e4fc686da",
+  "Methods": [
+    {
+      "Name": "get_Size",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt64",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Size",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetInputStreamAt",
+      "Parameters": [
+        {
+          "Name": "position",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IInputStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetOutputStreamAt",
+      "Parameters": [
+        {
+          "Name": "position",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IOutputStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Position",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt64",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Seek",
+      "Parameters": [
+        {
+          "Name": "position",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CloneStream",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IRandomAccessStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CanRead",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CanWrite",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IInputStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IOutputStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

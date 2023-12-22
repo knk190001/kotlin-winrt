@@ -1,0 +1,91 @@
+{
+  "Name": "IEmailMailboxResolveRecipientsRequest",
+  "Namespace": "Windows.ApplicationModel.Email.DataProvider",
+  "Guid": "efa4cf707b394c9b811e41eaf43a332d",
+  "Methods": [
+    {
+      "Name": "get_EmailMailboxId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Recipients",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportCompletedAsync",
+      "Parameters": [
+        {
+          "Name": "resolutionResults",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "EmailRecipientResolutionResult",
+                  "Namespace": "Windows.ApplicationModel.Email",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportFailedAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

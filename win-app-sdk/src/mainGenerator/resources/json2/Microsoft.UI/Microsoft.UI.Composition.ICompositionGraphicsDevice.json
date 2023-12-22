@@ -1,0 +1,125 @@
+{
+  "Name": "ICompositionGraphicsDevice",
+  "Namespace": "Microsoft.UI.Composition",
+  "Guid": "3d47e3f5f76c5f1f88c054a5f2a090d6",
+  "Methods": [
+    {
+      "Name": "CreateDrawingSurface",
+      "Parameters": [
+        {
+          "Name": "sizePixels",
+          "Type": {
+            "Name": "Size",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pixelFormat",
+          "Type": {
+            "Name": "DirectXPixelFormat",
+            "Namespace": "Microsoft.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "alphaMode",
+          "Type": {
+            "Name": "DirectXAlphaMode",
+            "Namespace": "Microsoft.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionDrawingSurface",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_RenderingDeviceReplaced",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "CompositionGraphicsDevice",
+                  "Namespace": "Microsoft.UI.Composition",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "RenderingDeviceReplacedEventArgs",
+                  "Namespace": "Microsoft.UI.Composition",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_RenderingDeviceReplaced",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

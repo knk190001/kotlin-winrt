@@ -1,0 +1,60 @@
+{
+  "Name": "Shape",
+  "Namespace": "Microsoft.UI.Xaml.Shapes",
+  "Interfaces": [
+    {
+      "Name": "IShape",
+      "Namespace": "Microsoft.UI.Xaml.Shapes",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IShapeStatics",
+          "Namespace": "Microsoft.UI.Xaml.Shapes"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IShape",
+        "Namespace": "Microsoft.UI.Xaml.Shapes",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IShapeFactory",
+          "Namespace": "Microsoft.UI.Xaml.Shapes",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkElement",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

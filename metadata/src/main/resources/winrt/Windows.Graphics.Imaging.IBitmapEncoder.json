@@ -1,0 +1,326 @@
+{
+  "Name": "IBitmapEncoder",
+  "Namespace": "Windows.Graphics.Imaging",
+  "Guid": "2bc468e3e1f84b5495e832919551ce62",
+  "Methods": [
+    {
+      "Name": "get_EncoderInformation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BitmapCodecInformation",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BitmapProperties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BitmapProperties",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BitmapContainerProperties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BitmapProperties",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsThumbnailGenerated",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_IsThumbnailGenerated",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_GeneratedThumbnailWidth",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_GeneratedThumbnailWidth",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_GeneratedThumbnailHeight",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_GeneratedThumbnailHeight",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BitmapTransform",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BitmapTransform",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetPixelData",
+      "Parameters": [
+        {
+          "Name": "pixelFormat",
+          "Type": {
+            "Name": "BitmapPixelFormat",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "alphaMode",
+          "Type": {
+            "Name": "BitmapAlphaMode",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "width",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "height",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dpiX",
+          "Type": {
+            "Name": "Double",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dpiY",
+          "Type": {
+            "Name": "Double",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pixels",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GoToNextFrameAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GoToNextFrameAsync",
+      "Parameters": [
+        {
+          "Name": "encodingOptions",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "IKeyValuePair`2",
+                  "Namespace": "Windows.Foundation.Collections",
+                  "GenericParameters": [
+                    {
+                      "Name": "K",
+                      "Position": 0,
+                      "Type": {
+                        "Name": "String",
+                        "Namespace": "System",
+                        "GenericParameters": null,
+                        "IsArray": false,
+                        "IsReference": false
+                      }
+                    },
+                    {
+                      "Name": "V",
+                      "Position": 1,
+                      "Type": {
+                        "Name": "BitmapTypedValue",
+                        "Namespace": "Windows.Graphics.Imaging",
+                        "GenericParameters": null,
+                        "IsArray": false,
+                        "IsReference": false
+                      }
+                    }
+                  ],
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FlushAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,57 @@
+{
+  "Name": "IGattServiceProviderTriggerStatics",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Guid": "b413a36ae2944591a5a664891a828153",
+  "Methods": [
+    {
+      "Name": "CreateAsync",
+      "Parameters": [
+        {
+          "Name": "triggerId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "serviceUuid",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "GattServiceProviderTriggerResult",
+              "Namespace": "Windows.ApplicationModel.Background",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

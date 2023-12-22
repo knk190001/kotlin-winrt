@@ -1,0 +1,41 @@
+{
+  "Name": "UICommand",
+  "Namespace": "Windows.UI.Popups",
+  "Interfaces": [
+    {
+      "Name": "IUICommand",
+      "Namespace": "Windows.UI.Popups",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IUICommand",
+        "Namespace": "Windows.UI.Popups",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IUICommandFactory",
+          "Namespace": "Windows.UI.Popups",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

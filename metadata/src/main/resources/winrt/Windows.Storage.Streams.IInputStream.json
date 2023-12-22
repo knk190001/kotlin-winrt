@@ -1,0 +1,87 @@
+{
+  "Name": "IInputStream",
+  "Namespace": "Windows.Storage.Streams",
+  "Guid": "905a0fe2bc5311df8c49001e4fc686da",
+  "Methods": [
+    {
+      "Name": "ReadAsync",
+      "Parameters": [
+        {
+          "Name": "buffer",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "count",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "InputStreamOptions",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IBuffer",
+              "Namespace": "Windows.Storage.Streams",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "UInt32",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

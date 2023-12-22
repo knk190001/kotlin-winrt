@@ -1,0 +1,81 @@
+{
+  "Name": "IResourceIndexer",
+  "Namespace": "Windows.ApplicationModel.Resources.Management",
+  "Guid": "2d4cf9a5e32f4ab2874896350a016da3",
+  "Methods": [
+    {
+      "Name": "IndexFilePath",
+      "Parameters": [
+        {
+          "Name": "filePath",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IndexedResourceCandidate",
+        "Namespace": "Windows.ApplicationModel.Resources.Management",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IndexFileContentsAsync",
+      "Parameters": [
+        {
+          "Name": "file",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "IndexedResourceCandidate",
+                    "Namespace": "Windows.ApplicationModel.Resources.Management",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

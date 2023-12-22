@@ -1,0 +1,78 @@
+package Windows.ApplicationModel.Search.Core
+
+import com.github.knk190001.winrtbinding.runtime.JNAPointer
+import com.github.knk190001.winrtbinding.runtime.JNAPointer.NULL
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.Signature
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
+import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.checkHR
+import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
+import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
+import com.github.knk190001.winrtbinding.runtime.com.IWinRTObject
+import com.github.knk190001.winrtbinding.runtime.getValue
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.github.knk190001.winrtbinding.runtime.interop.guidOf
+import com.github.knk190001.winrtbinding.runtime.toHandle
+import com.sun.jna.Native.POINTER_SIZE
+import com.sun.jna.Pointer
+import com.sun.jna.PointerType
+import com.sun.jna.platform.win32.Guid
+import com.sun.jna.ptr.PointerByReference
+import java.lang.foreign.MemoryAddress
+import java.lang.foreign.MemoryLayout
+import java.lang.foreign.ValueLayout
+import kotlin.Array
+import kotlin.Unit
+import kotlin.reflect.typeOf
+
+@ABIMarker(SearchSuggestion.ABI::class)
+@Signature("rc(Windows.ApplicationModel.Search.Core.SearchSuggestion;{5b5554b0-1527-437b-95c5-8d18d2b8af55})")
+@WinRTByReference(brClass = SearchSuggestion.ByReference::class)
+public class SearchSuggestion(
+  ptr: JNAPointer? = NULL
+) : PointerType(ptr), ISearchSuggestion.WithDefault, IWinRTObject {
+  private val __778913702_Interface: ISearchSuggestion.WithDefault by lazy {
+    as_778913702()
+  }
+
+
+  public override val __778913702_Ptr: JNAPointer? by lazy {
+    __778913702_Interface.__778913702_Ptr
+  }
+
+
+  public override val interfaces: Array<IWinRTInterface>
+    get() = arrayOf(__778913702_Interface)
+
+  private fun as_778913702(): ISearchSuggestion.WithDefault {
+    if(pointer == NULL) {
+      return(ISearchSuggestion.ABI.makeISearchSuggestion(NULL))
+    }
+    val refiid = Guid.REFIID(guidOf<ISearchSuggestion>())
+    val ref = PointerByReference()
+    IUnknownVtbl(pointer.getPointer(0)).queryInterface(pointer, refiid, ref)
+    return(ISearchSuggestion.ABI.makeISearchSuggestion(ref.value))
+  }
+
+  public class ByReference : com.sun.jna.ptr.ByReference(POINTER_SIZE),
+      IByReference<SearchSuggestion> {
+    public override fun getValue() = SearchSuggestion(pointer.getPointer(0))
+
+    public fun setValue(value: SearchSuggestion): Unit {
+      pointer.setPointer(0, value.pointer)
+    }
+  }
+
+  public object ABI : IABI<SearchSuggestion, MemoryAddress> {
+    public override val layout: MemoryLayout = ValueLayout.ADDRESS
+
+    public override fun fromNative(segment: MemoryAddress): SearchSuggestion {
+      val address = segment.toRawLongValue()
+      return SearchSuggestion(Pointer(address))
+    }
+
+    public override fun toNative(obj: SearchSuggestion): MemoryAddress =
+        MemoryAddress.ofLong(Pointer.nativeValue(obj.pointer))
+  }
+}

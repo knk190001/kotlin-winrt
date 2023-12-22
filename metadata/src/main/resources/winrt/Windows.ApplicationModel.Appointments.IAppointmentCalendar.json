@@ -1,0 +1,779 @@
+{
+  "Name": "IAppointmentCalendar",
+  "Namespace": "Windows.ApplicationModel.Appointments",
+  "Guid": "5273819d83393d4fa02f64084452bb5d",
+  "Methods": [
+    {
+      "Name": "get_DisplayColor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Color",
+        "Namespace": "Windows.UI",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_DisplayName",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_LocalId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsHidden",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_OtherAppReadAccess",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppointmentCalendarOtherAppReadAccess",
+        "Namespace": "Windows.ApplicationModel.Appointments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_OtherAppReadAccess",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "AppointmentCalendarOtherAppReadAccess",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_OtherAppWriteAccess",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppointmentCalendarOtherAppWriteAccess",
+        "Namespace": "Windows.ApplicationModel.Appointments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_OtherAppWriteAccess",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "AppointmentCalendarOtherAppWriteAccess",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SourceDisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SummaryCardView",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppointmentSummaryCardView",
+        "Namespace": "Windows.ApplicationModel.Appointments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_SummaryCardView",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "AppointmentSummaryCardView",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindAppointmentsAsync",
+      "Parameters": [
+        {
+          "Name": "rangeStart",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rangeLength",
+          "Type": {
+            "Name": "TimeSpan",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "Appointment",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindAppointmentsAsync",
+      "Parameters": [
+        {
+          "Name": "rangeStart",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rangeLength",
+          "Type": {
+            "Name": "TimeSpan",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "FindAppointmentsOptions",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "Appointment",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindExceptionsFromMasterAsync",
+      "Parameters": [
+        {
+          "Name": "masterLocalId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "AppointmentException",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindAllInstancesAsync",
+      "Parameters": [
+        {
+          "Name": "masterLocalId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rangeStart",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rangeLength",
+          "Type": {
+            "Name": "TimeSpan",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "Appointment",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindAllInstancesAsync",
+      "Parameters": [
+        {
+          "Name": "masterLocalId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rangeStart",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rangeLength",
+          "Type": {
+            "Name": "TimeSpan",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pOptions",
+          "Type": {
+            "Name": "FindAppointmentsOptions",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "Appointment",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAppointmentAsync",
+      "Parameters": [
+        {
+          "Name": "localId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Appointment",
+              "Namespace": "Windows.ApplicationModel.Appointments",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAppointmentInstanceAsync",
+      "Parameters": [
+        {
+          "Name": "localId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "instanceStartTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Appointment",
+              "Namespace": "Windows.ApplicationModel.Appointments",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindUnexpandedAppointmentsAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "Appointment",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindUnexpandedAppointmentsAsync",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "FindAppointmentsOptions",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "Appointment",
+                    "Namespace": "Windows.ApplicationModel.Appointments",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SaveAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteAppointmentAsync",
+      "Parameters": [
+        {
+          "Name": "localId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteAppointmentInstanceAsync",
+      "Parameters": [
+        {
+          "Name": "localId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "instanceStartTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SaveAppointmentAsync",
+      "Parameters": [
+        {
+          "Name": "pAppointment",
+          "Type": {
+            "Name": "Appointment",
+            "Namespace": "Windows.ApplicationModel.Appointments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

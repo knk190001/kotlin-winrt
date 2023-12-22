@@ -1,0 +1,42 @@
+{
+  "Name": "SerialDevice",
+  "Namespace": "Windows.Devices.SerialCommunication",
+  "Interfaces": [
+    {
+      "Name": "ISerialDevice",
+      "Namespace": "Windows.Devices.SerialCommunication",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ISerialDeviceStatics",
+          "Namespace": "Windows.Devices.SerialCommunication"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISerialDevice",
+        "Namespace": "Windows.Devices.SerialCommunication",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

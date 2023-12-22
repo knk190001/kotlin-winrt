@@ -1,0 +1,92 @@
+{
+  "Name": "ISpeechRecognitionListConstraintFactory",
+  "Namespace": "Windows.Media.SpeechRecognition",
+  "Guid": "40f3cdc7562a426a9f3b3b4e282be1d5",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "commands",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpeechRecognitionListConstraint",
+        "Namespace": "Windows.Media.SpeechRecognition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithTag",
+      "Parameters": [
+        {
+          "Name": "commands",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "tag",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpeechRecognitionListConstraint",
+        "Namespace": "Windows.Media.SpeechRecognition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

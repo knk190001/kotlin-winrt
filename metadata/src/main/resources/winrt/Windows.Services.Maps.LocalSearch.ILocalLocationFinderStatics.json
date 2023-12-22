@@ -1,0 +1,79 @@
+{
+  "Name": "ILocalLocationFinderStatics",
+  "Namespace": "Windows.Services.Maps.LocalSearch",
+  "Guid": "d2ef7344a0de48ca81a807c7dcfd37ab",
+  "Methods": [
+    {
+      "Name": "FindLocalLocationsAsync",
+      "Parameters": [
+        {
+          "Name": "searchTerm",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "searchArea",
+          "Type": {
+            "Name": "Geocircle",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "localCategory",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "maxResults",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LocalLocationFinderResult",
+              "Namespace": "Windows.Services.Maps.LocalSearch",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

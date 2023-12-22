@@ -1,0 +1,157 @@
+{
+  "Name": "IPrintTicketFeature",
+  "Namespace": "Windows.Graphics.Printing.PrintTicket",
+  "Guid": "e7607d6a59f541038858b97710963d39",
+  "Methods": [
+    {
+      "Name": "get_Name",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_XmlNamespace",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_XmlNode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IXmlNode",
+        "Namespace": "Windows.Data.Xml.Dom",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetOption",
+      "Parameters": [
+        {
+          "Name": "name",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "xmlNamespace",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PrintTicketOption",
+        "Namespace": "Windows.Graphics.Printing.PrintTicket",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Options",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "PrintTicketOption",
+              "Namespace": "Windows.Graphics.Printing.PrintTicket",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSelectedOption",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintTicketOption",
+        "Namespace": "Windows.Graphics.Printing.PrintTicket",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetSelectedOption",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "PrintTicketOption",
+            "Namespace": "Windows.Graphics.Printing.PrintTicket",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SelectionType",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintTicketFeatureSelectionType",
+        "Namespace": "Windows.Graphics.Printing.PrintTicket",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

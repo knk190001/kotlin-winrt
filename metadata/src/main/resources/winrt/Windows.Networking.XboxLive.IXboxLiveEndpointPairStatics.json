@@ -1,0 +1,101 @@
+{
+  "Name": "IXboxLiveEndpointPairStatics",
+  "Namespace": "Windows.Networking.XboxLive",
+  "Guid": "64316b30217a42438ee16729281d27db",
+  "Methods": [
+    {
+      "Name": "FindEndpointPairBySocketAddressBytes",
+      "Parameters": [
+        {
+          "Name": "localSocketAddress",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "remoteSocketAddress",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "XboxLiveEndpointPair",
+        "Namespace": "Windows.Networking.XboxLive",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindEndpointPairByHostNamesAndPorts",
+      "Parameters": [
+        {
+          "Name": "localHostName",
+          "Type": {
+            "Name": "HostName",
+            "Namespace": "Windows.Networking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "localPort",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "remoteHostName",
+          "Type": {
+            "Name": "HostName",
+            "Namespace": "Windows.Networking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "remotePort",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "XboxLiveEndpointPair",
+        "Namespace": "Windows.Networking.XboxLive",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,46 @@
+{
+  "Name": "IProximitySensorStatics2",
+  "Namespace": "Windows.Devices.Sensors",
+  "Guid": "cbf473aee9ca422fad674c3d25df350c",
+  "Methods": [
+    {
+      "Name": "GetReadingsFromTriggerDetails",
+      "Parameters": [
+        {
+          "Name": "triggerDetails",
+          "Type": {
+            "Name": "SensorDataThresholdTriggerDetails",
+            "Namespace": "Windows.Devices.Sensors",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ProximitySensorReading",
+              "Namespace": "Windows.Devices.Sensors",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

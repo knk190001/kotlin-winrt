@@ -1,0 +1,68 @@
+{
+  "Name": "IPlayReadySecureStopServiceRequestFactory",
+  "Namespace": "Windows.Media.Protection.PlayReady",
+  "Guid": "0e448ac9e67e494e9f496285438c76cf",
+  "Methods": [
+    {
+      "Name": "CreateInstance",
+      "Parameters": [
+        {
+          "Name": "publisherCertBytes",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PlayReadySecureStopServiceRequest",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateInstanceFromSessionID",
+      "Parameters": [
+        {
+          "Name": "sessionID",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "publisherCertBytes",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PlayReadySecureStopServiceRequest",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

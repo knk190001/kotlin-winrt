@@ -1,0 +1,47 @@
+{
+  "Name": "LearningModelDevice",
+  "Namespace": "Windows.AI.MachineLearning",
+  "Interfaces": [
+    {
+      "Name": "ILearningModelDevice",
+      "Namespace": "Windows.AI.MachineLearning",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ILearningModelDeviceStatics",
+          "Namespace": "Windows.AI.MachineLearning"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ILearningModelDevice",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ILearningModelDeviceFactory",
+          "Namespace": "Windows.AI.MachineLearning",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

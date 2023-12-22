@@ -1,0 +1,158 @@
+{
+  "Name": "IVideoFrameStatics",
+  "Namespace": "Windows.Media",
+  "Guid": "ab2a556f61114b338ec32b209a02e17a",
+  "Methods": [
+    {
+      "Name": "CreateAsDirect3D11SurfaceBacked",
+      "Parameters": [
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "DirectXPixelFormat",
+            "Namespace": "Windows.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "width",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "height",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "VideoFrame",
+        "Namespace": "Windows.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateAsDirect3D11SurfaceBacked",
+      "Parameters": [
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "DirectXPixelFormat",
+            "Namespace": "Windows.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "width",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "height",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "device",
+          "Type": {
+            "Name": "IDirect3DDevice",
+            "Namespace": "Windows.Graphics.DirectX.Direct3D11",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "VideoFrame",
+        "Namespace": "Windows.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithSoftwareBitmap",
+      "Parameters": [
+        {
+          "Name": "bitmap",
+          "Type": {
+            "Name": "SoftwareBitmap",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "VideoFrame",
+        "Namespace": "Windows.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithDirect3D11Surface",
+      "Parameters": [
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "IDirect3DSurface",
+            "Namespace": "Windows.Graphics.DirectX.Direct3D11",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "VideoFrame",
+        "Namespace": "Windows.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

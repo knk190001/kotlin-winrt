@@ -1,0 +1,71 @@
+{
+  "Name": "IVideoFrame",
+  "Namespace": "Windows.Media",
+  "Guid": "0cc0662590fc4c92bd957ded21819d1c",
+  "Methods": [
+    {
+      "Name": "get_SoftwareBitmap",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SoftwareBitmap",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CopyToAsync",
+      "Parameters": [
+        {
+          "Name": "frame",
+          "Type": {
+            "Name": "VideoFrame",
+            "Namespace": "Windows.Media",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Direct3DSurface",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IDirect3DSurface",
+        "Namespace": "Windows.Graphics.DirectX.Direct3D11",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IMediaFrame",
+      "Namespace": "Windows.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

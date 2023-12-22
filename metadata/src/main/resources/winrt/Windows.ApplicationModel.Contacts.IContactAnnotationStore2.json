@@ -1,0 +1,58 @@
+{
+  "Name": "IContactAnnotationStore2",
+  "Namespace": "Windows.ApplicationModel.Contacts",
+  "Guid": "7ede23fd61e749678ec5bdf280a24063",
+  "Methods": [
+    {
+      "Name": "FindAnnotationsForContactListAsync",
+      "Parameters": [
+        {
+          "Name": "contactListId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "ContactAnnotation",
+                    "Namespace": "Windows.ApplicationModel.Contacts",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

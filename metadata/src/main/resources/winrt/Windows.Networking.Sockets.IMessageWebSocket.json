@@ -1,0 +1,117 @@
+{
+  "Name": "IMessageWebSocket",
+  "Namespace": "Windows.Networking.Sockets",
+  "Guid": "33727d0834d54746ad7b8dde5bc2ef88",
+  "Methods": [
+    {
+      "Name": "get_Control",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MessageWebSocketControl",
+        "Namespace": "Windows.Networking.Sockets",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Information",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MessageWebSocketInformation",
+        "Namespace": "Windows.Networking.Sockets",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_MessageReceived",
+      "Parameters": [
+        {
+          "Name": "eventHandler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "MessageWebSocket",
+                  "Namespace": "Windows.Networking.Sockets",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "MessageWebSocketMessageReceivedEventArgs",
+                  "Namespace": "Windows.Networking.Sockets",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_MessageReceived",
+      "Parameters": [
+        {
+          "Name": "eventCookie",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IWebSocket",
+      "Namespace": "Windows.Networking.Sockets",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

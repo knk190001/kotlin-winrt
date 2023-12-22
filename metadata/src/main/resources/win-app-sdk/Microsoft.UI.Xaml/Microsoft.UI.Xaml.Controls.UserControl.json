@@ -1,0 +1,60 @@
+{
+  "Name": "UserControl",
+  "Namespace": "Microsoft.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IUserControl",
+      "Namespace": "Microsoft.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IUserControlStatics",
+          "Namespace": "Microsoft.UI.Xaml.Controls"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IUserControl",
+        "Namespace": "Microsoft.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IUserControlFactory",
+          "Namespace": "Microsoft.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "Control",
+        "Namespace": "Microsoft.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

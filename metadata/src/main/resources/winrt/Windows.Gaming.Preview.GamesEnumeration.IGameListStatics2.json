@@ -1,0 +1,104 @@
+{
+  "Name": "IGameListStatics2",
+  "Namespace": "Windows.Gaming.Preview.GamesEnumeration",
+  "Guid": "395f2098ea1a45aa9268a83905686f27",
+  "Methods": [
+    {
+      "Name": "MergeEntriesAsync",
+      "Parameters": [
+        {
+          "Name": "left",
+          "Type": {
+            "Name": "GameListEntry",
+            "Namespace": "Windows.Gaming.Preview.GamesEnumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "right",
+          "Type": {
+            "Name": "GameListEntry",
+            "Namespace": "Windows.Gaming.Preview.GamesEnumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "GameListEntry",
+              "Namespace": "Windows.Gaming.Preview.GamesEnumeration",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnmergeEntryAsync",
+      "Parameters": [
+        {
+          "Name": "mergedEntry",
+          "Type": {
+            "Name": "GameListEntry",
+            "Namespace": "Windows.Gaming.Preview.GamesEnumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "GameListEntry",
+                    "Namespace": "Windows.Gaming.Preview.GamesEnumeration",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

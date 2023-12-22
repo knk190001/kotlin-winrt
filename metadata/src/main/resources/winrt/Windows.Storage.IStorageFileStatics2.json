@@ -1,0 +1,57 @@
+{
+  "Name": "IStorageFileStatics2",
+  "Namespace": "Windows.Storage",
+  "Guid": "5c76a781212e4af98f04740cae108974",
+  "Methods": [
+    {
+      "Name": "GetFileFromPathForUserAsync",
+      "Parameters": [
+        {
+          "Name": "user",
+          "Type": {
+            "Name": "User",
+            "Namespace": "Windows.System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "path",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StorageFile",
+              "Namespace": "Windows.Storage",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

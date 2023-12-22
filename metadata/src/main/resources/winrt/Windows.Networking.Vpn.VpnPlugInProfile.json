@@ -1,0 +1,43 @@
+{
+  "Name": "VpnPlugInProfile",
+  "Namespace": "Windows.Networking.Vpn",
+  "Interfaces": [
+    {
+      "Name": "IVpnPlugInProfile",
+      "Namespace": "Windows.Networking.Vpn",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IVpnProfile",
+      "Namespace": "Windows.Networking.Vpn",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IVpnPlugInProfile2",
+      "Namespace": "Windows.Networking.Vpn",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IVpnPlugInProfile",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

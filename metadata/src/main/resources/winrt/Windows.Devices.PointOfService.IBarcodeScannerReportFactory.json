@@ -1,0 +1,56 @@
+{
+  "Name": "IBarcodeScannerReportFactory",
+  "Namespace": "Windows.Devices.PointOfService",
+  "Guid": "a25473262013457c896349c15dca78ce",
+  "Methods": [
+    {
+      "Name": "CreateInstance",
+      "Parameters": [
+        {
+          "Name": "scanDataType",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "scanData",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "scanDataLabel",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "BarcodeScannerReport",
+        "Namespace": "Windows.Devices.PointOfService",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

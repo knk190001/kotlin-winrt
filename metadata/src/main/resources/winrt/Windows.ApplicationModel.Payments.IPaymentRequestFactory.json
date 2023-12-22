@@ -1,0 +1,182 @@
+{
+  "Name": "IPaymentRequestFactory",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Guid": "3e8a79dc6b7442d3b103f0de35fb1848",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "details",
+          "Type": {
+            "Name": "PaymentDetails",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "methodData",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "PaymentMethodData",
+                  "Namespace": "Windows.ApplicationModel.Payments",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentRequest",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithMerchantInfo",
+      "Parameters": [
+        {
+          "Name": "details",
+          "Type": {
+            "Name": "PaymentDetails",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "methodData",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "PaymentMethodData",
+                  "Namespace": "Windows.ApplicationModel.Payments",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "merchantInfo",
+          "Type": {
+            "Name": "PaymentMerchantInfo",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentRequest",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithMerchantInfoAndOptions",
+      "Parameters": [
+        {
+          "Name": "details",
+          "Type": {
+            "Name": "PaymentDetails",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "methodData",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "PaymentMethodData",
+                  "Namespace": "Windows.ApplicationModel.Payments",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "merchantInfo",
+          "Type": {
+            "Name": "PaymentMerchantInfo",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "PaymentOptions",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentRequest",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

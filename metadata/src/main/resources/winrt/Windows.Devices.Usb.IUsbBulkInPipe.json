@@ -1,0 +1,100 @@
+{
+  "Name": "IUsbBulkInPipe",
+  "Namespace": "Windows.Devices.Usb",
+  "Guid": "f01d2d3b45484d50b326d82cdabe1220",
+  "Methods": [
+    {
+      "Name": "get_MaxTransferSizeBytes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_EndpointDescriptor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UsbBulkInEndpointDescriptor",
+        "Namespace": "Windows.Devices.Usb",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ClearStallAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ReadOptions",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UsbReadOptions",
+            "Namespace": "Windows.Devices.Usb",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ReadOptions",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UsbReadOptions",
+        "Namespace": "Windows.Devices.Usb",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FlushBuffer",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_InputStream",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IInputStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

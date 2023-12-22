@@ -1,0 +1,42 @@
+{
+  "Name": "InstalledDesktopApp",
+  "Namespace": "Windows.System.Inventory",
+  "Interfaces": [
+    {
+      "Name": "IInstalledDesktopApp",
+      "Namespace": "Windows.System.Inventory",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IStringable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IInstalledDesktopAppStatics",
+          "Namespace": "Windows.System.Inventory"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IInstalledDesktopApp",
+        "Namespace": "Windows.System.Inventory",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

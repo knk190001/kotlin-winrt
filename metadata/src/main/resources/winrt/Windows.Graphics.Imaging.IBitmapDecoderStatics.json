@@ -1,0 +1,192 @@
+{
+  "Name": "IBitmapDecoderStatics",
+  "Namespace": "Windows.Graphics.Imaging",
+  "Guid": "438ccb26bcef4e95bad623a822e58d01",
+  "Methods": [
+    {
+      "Name": "get_BmpDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_JpegDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PngDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_TiffDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_GifDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_JpegXRDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IcoDecoderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDecoderInformationEnumerator",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "BitmapCodecInformation",
+              "Namespace": "Windows.Graphics.Imaging",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateAsync",
+      "Parameters": [
+        {
+          "Name": "stream",
+          "Type": {
+            "Name": "IRandomAccessStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "BitmapDecoder",
+              "Namespace": "Windows.Graphics.Imaging",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateAsync",
+      "Parameters": [
+        {
+          "Name": "decoderId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "stream",
+          "Type": {
+            "Name": "IRandomAccessStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "BitmapDecoder",
+              "Namespace": "Windows.Graphics.Imaging",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

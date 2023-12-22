@@ -1,0 +1,38 @@
+{
+  "Name": "DualSimTile",
+  "Namespace": "Windows.Phone.StartScreen",
+  "Interfaces": [
+    {
+      "Name": "IDualSimTile",
+      "Namespace": "Windows.Phone.StartScreen",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IDualSimTileStatics",
+          "Namespace": "Windows.Phone.StartScreen"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IDualSimTile",
+        "Namespace": "Windows.Phone.StartScreen",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

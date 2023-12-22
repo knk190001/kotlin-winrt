@@ -1,0 +1,113 @@
+{
+  "Name": "IHttpStringContentFactory",
+  "Namespace": "Windows.Web.Http",
+  "Guid": "46649d5b2e9348eb8e6119677878e57f",
+  "Methods": [
+    {
+      "Name": "CreateFromString",
+      "Parameters": [
+        {
+          "Name": "content",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "HttpStringContent",
+        "Namespace": "Windows.Web.Http",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFromStringWithEncoding",
+      "Parameters": [
+        {
+          "Name": "content",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "encoding",
+          "Type": {
+            "Name": "UnicodeEncoding",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "HttpStringContent",
+        "Namespace": "Windows.Web.Http",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFromStringWithEncodingAndMediaType",
+      "Parameters": [
+        {
+          "Name": "content",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "encoding",
+          "Type": {
+            "Name": "UnicodeEncoding",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mediaType",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "HttpStringContent",
+        "Namespace": "Windows.Web.Http",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

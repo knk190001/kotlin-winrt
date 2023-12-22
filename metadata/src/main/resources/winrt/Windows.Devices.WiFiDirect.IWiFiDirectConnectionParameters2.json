@@ -1,0 +1,68 @@
+{
+  "Name": "IWiFiDirectConnectionParameters2",
+  "Namespace": "Windows.Devices.WiFiDirect",
+  "Guid": "ab3b0fbeaa8244b488c8e3056b89801d",
+  "Methods": [
+    {
+      "Name": "get_PreferenceOrderedConfigurationMethods",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WiFiDirectConfigurationMethod",
+              "Namespace": "Windows.Devices.WiFiDirect",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PreferredPairingProcedure",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WiFiDirectPairingProcedure",
+        "Namespace": "Windows.Devices.WiFiDirect",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_PreferredPairingProcedure",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "WiFiDirectPairingProcedure",
+            "Namespace": "Windows.Devices.WiFiDirect",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,79 @@
+{
+  "Name": "IAppBroadcastPlugInManager",
+  "Namespace": "Windows.Media.Capture",
+  "Guid": "e550d97927a149a7bbf4d7a9e9d07668",
+  "Methods": [
+    {
+      "Name": "get_IsBroadcastProviderAvailable",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PlugInList",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "AppBroadcastPlugIn",
+              "Namespace": "Windows.Media.Capture",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DefaultPlugIn",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppBroadcastPlugIn",
+        "Namespace": "Windows.Media.Capture",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_DefaultPlugIn",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "AppBroadcastPlugIn",
+            "Namespace": "Windows.Media.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

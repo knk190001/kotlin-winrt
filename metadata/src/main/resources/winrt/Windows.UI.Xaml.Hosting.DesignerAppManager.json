@@ -1,0 +1,45 @@
+{
+  "Name": "DesignerAppManager",
+  "Namespace": "Windows.UI.Xaml.Hosting",
+  "Interfaces": [
+    {
+      "Name": "IDesignerAppManager",
+      "Namespace": "Windows.UI.Xaml.Hosting",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IDesignerAppManager",
+        "Namespace": "Windows.UI.Xaml.Hosting",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IDesignerAppManagerFactory",
+          "Namespace": "Windows.UI.Xaml.Hosting",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

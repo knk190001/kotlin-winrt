@@ -1,0 +1,68 @@
+{
+  "Name": "IBackgroundTaskRegistrationStatics2",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Guid": "174b671eb20d4fa9ad9ae93ad6c71e01",
+  "Methods": [
+    {
+      "Name": "get_AllTaskGroups",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IMapView`2",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "K",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "V",
+            "Position": 1,
+            "Type": {
+              "Name": "BackgroundTaskRegistrationGroup",
+              "Namespace": "Windows.ApplicationModel.Background",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetTaskGroup",
+      "Parameters": [
+        {
+          "Name": "groupId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "BackgroundTaskRegistrationGroup",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,101 @@
+{
+  "Name": "IPwmController",
+  "Namespace": "Windows.Devices.Pwm",
+  "Guid": "c45f5c85d2e842cf9bd6cf5ed029e6a7",
+  "Methods": [
+    {
+      "Name": "get_PinCount",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ActualFrequency",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetDesiredFrequency",
+      "Parameters": [
+        {
+          "Name": "desiredFrequency",
+          "Type": {
+            "Name": "Double",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MinFrequency",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxFrequency",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OpenPin",
+      "Parameters": [
+        {
+          "Name": "pinNumber",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PwmPin",
+        "Namespace": "Windows.Devices.Pwm",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

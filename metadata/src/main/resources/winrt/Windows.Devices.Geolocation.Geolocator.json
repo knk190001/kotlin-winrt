@@ -1,0 +1,56 @@
+{
+  "Name": "Geolocator",
+  "Namespace": "Windows.Devices.Geolocation",
+  "Interfaces": [
+    {
+      "Name": "IGeolocator",
+      "Namespace": "Windows.Devices.Geolocation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IGeolocatorWithScalarAccuracy",
+      "Namespace": "Windows.Devices.Geolocation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IGeolocator2",
+      "Namespace": "Windows.Devices.Geolocation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IGeolocatorStatics",
+          "Namespace": "Windows.Devices.Geolocation"
+        },
+        {
+          "Name": "IGeolocatorStatics2",
+          "Namespace": "Windows.Devices.Geolocation"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IGeolocator",
+        "Namespace": "Windows.Devices.Geolocation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,115 @@
+{
+  "Name": "IStartScreenManager",
+  "Namespace": "Windows.UI.StartScreen",
+  "Guid": "4a1dcbcb26e94eb48933859eb6ecdb29",
+  "Methods": [
+    {
+      "Name": "get_User",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "User",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SupportsAppListEntry",
+      "Parameters": [
+        {
+          "Name": "appListEntry",
+          "Type": {
+            "Name": "AppListEntry",
+            "Namespace": "Windows.ApplicationModel.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ContainsAppListEntryAsync",
+      "Parameters": [
+        {
+          "Name": "appListEntry",
+          "Type": {
+            "Name": "AppListEntry",
+            "Namespace": "Windows.ApplicationModel.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestAddAppListEntryAsync",
+      "Parameters": [
+        {
+          "Name": "appListEntry",
+          "Type": {
+            "Name": "AppListEntry",
+            "Namespace": "Windows.ApplicationModel.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

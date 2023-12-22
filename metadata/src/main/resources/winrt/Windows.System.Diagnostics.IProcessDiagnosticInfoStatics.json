@@ -1,0 +1,45 @@
+{
+  "Name": "IProcessDiagnosticInfoStatics",
+  "Namespace": "Windows.System.Diagnostics",
+  "Guid": "2f41b260b49f428caa0e84744f49ca95",
+  "Methods": [
+    {
+      "Name": "GetForProcesses",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ProcessDiagnosticInfo",
+              "Namespace": "Windows.System.Diagnostics",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetForCurrentProcess",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ProcessDiagnosticInfo",
+        "Namespace": "Windows.System.Diagnostics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

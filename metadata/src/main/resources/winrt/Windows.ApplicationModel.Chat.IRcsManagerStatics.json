@@ -1,0 +1,115 @@
+{
+  "Name": "IRcsManagerStatics",
+  "Namespace": "Windows.ApplicationModel.Chat",
+  "Guid": "7d270ac50abd4f319b99a59e71a7b731",
+  "Methods": [
+    {
+      "Name": "GetEndUserMessageManager",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "RcsEndUserMessageManager",
+        "Namespace": "Windows.ApplicationModel.Chat",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetTransportsAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "RcsTransport",
+                    "Namespace": "Windows.ApplicationModel.Chat",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetTransportAsync",
+      "Parameters": [
+        {
+          "Name": "transportId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "RcsTransport",
+              "Namespace": "Windows.ApplicationModel.Chat",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LeaveConversationAsync",
+      "Parameters": [
+        {
+          "Name": "conversation",
+          "Type": {
+            "Name": "ChatConversation",
+            "Namespace": "Windows.ApplicationModel.Chat",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

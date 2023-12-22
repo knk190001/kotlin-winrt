@@ -1,0 +1,56 @@
+{
+  "Name": "IHandMeshVertexState",
+  "Namespace": "Windows.Perception.People",
+  "Guid": "046c5fef1d8b55deab2c1cd424886d8f",
+  "Methods": [
+    {
+      "Name": "get_CoordinateSystem",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialCoordinateSystem",
+        "Namespace": "Windows.Perception.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetVertices",
+      "Parameters": [
+        {
+          "Name": "vertices",
+          "Type": {
+            "Name": "HandMeshVertex",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UpdateTimestamp",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PerceptionTimestamp",
+        "Namespace": "Windows.Perception",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

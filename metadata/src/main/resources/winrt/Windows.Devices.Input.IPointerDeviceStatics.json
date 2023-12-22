@@ -1,0 +1,57 @@
+{
+  "Name": "IPointerDeviceStatics",
+  "Namespace": "Windows.Devices.Input",
+  "Guid": "d8b89aa1d1c6416ebd8d5790914dc563",
+  "Methods": [
+    {
+      "Name": "GetPointerDevice",
+      "Parameters": [
+        {
+          "Name": "pointerId",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PointerDevice",
+        "Namespace": "Windows.Devices.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetPointerDevices",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "PointerDevice",
+              "Namespace": "Windows.Devices.Input",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

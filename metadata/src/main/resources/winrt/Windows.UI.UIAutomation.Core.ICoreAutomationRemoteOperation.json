@@ -1,0 +1,148 @@
+{
+  "Name": "ICoreAutomationRemoteOperation",
+  "Namespace": "Windows.UI.UIAutomation.Core",
+  "Guid": "3ac656f4e2bc5c6eb8e7b224fb74b060",
+  "Methods": [
+    {
+      "Name": "IsOpcodeSupported",
+      "Parameters": [
+        {
+          "Name": "opcode",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ImportElement",
+      "Parameters": [
+        {
+          "Name": "operandId",
+          "Type": {
+            "Name": "AutomationRemoteOperationOperandId",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "element",
+          "Type": {
+            "Name": "AutomationElement",
+            "Namespace": "Windows.UI.UIAutomation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ImportTextRange",
+      "Parameters": [
+        {
+          "Name": "operandId",
+          "Type": {
+            "Name": "AutomationRemoteOperationOperandId",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "textRange",
+          "Type": {
+            "Name": "AutomationTextRange",
+            "Namespace": "Windows.UI.UIAutomation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddToResults",
+      "Parameters": [
+        {
+          "Name": "operandId",
+          "Type": {
+            "Name": "AutomationRemoteOperationOperandId",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Execute",
+      "Parameters": [
+        {
+          "Name": "bytecodeBuffer",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AutomationRemoteOperationResult",
+        "Namespace": "Windows.UI.UIAutomation.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,261 @@
+{
+  "Name": "IConnectionProfile2",
+  "Namespace": "Windows.Networking.Connectivity",
+  "Guid": "e20451454c9f400c91507ec7d6e2888a",
+  "Methods": [
+    {
+      "Name": "get_IsWwanConnectionProfile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsWlanConnectionProfile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_WwanConnectionProfileDetails",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WwanConnectionProfileDetails",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_WlanConnectionProfileDetails",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WlanConnectionProfileDetails",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServiceProviderGuid",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Guid",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSignalBars",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Byte",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDomainConnectivityLevel",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DomainConnectivityLevel",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetNetworkUsageAsync",
+      "Parameters": [
+        {
+          "Name": "startTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "endTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "granularity",
+          "Type": {
+            "Name": "DataUsageGranularity",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "states",
+          "Type": {
+            "Name": "NetworkUsageStates",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "NetworkUsage",
+                    "Namespace": "Windows.Networking.Connectivity",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetConnectivityIntervalsAsync",
+      "Parameters": [
+        {
+          "Name": "startTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "endTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "states",
+          "Type": {
+            "Name": "NetworkUsageStates",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "ConnectivityInterval",
+                    "Namespace": "Windows.Networking.Connectivity",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

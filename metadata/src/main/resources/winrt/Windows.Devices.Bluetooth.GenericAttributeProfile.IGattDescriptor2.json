@@ -1,0 +1,46 @@
+{
+  "Name": "IGattDescriptor2",
+  "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+  "Guid": "8f563d39d630406cba1110cdd16b0e5e",
+  "Methods": [
+    {
+      "Name": "WriteValueWithResultAsync",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "GattWriteResult",
+              "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

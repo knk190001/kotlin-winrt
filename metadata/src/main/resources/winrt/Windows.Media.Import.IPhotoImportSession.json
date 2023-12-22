@@ -1,0 +1,234 @@
+{
+  "Name": "IPhotoImportSession",
+  "Namespace": "Windows.Media.Import",
+  "Guid": "aa63916eecdb4efe94c65f5cafe34cfb",
+  "Methods": [
+    {
+      "Name": "get_Source",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PhotoImportSource",
+        "Namespace": "Windows.Media.Import",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SessionId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_DestinationFolder",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "IStorageFolder",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DestinationFolder",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IStorageFolder",
+        "Namespace": "Windows.Storage",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_AppendSessionDateToDestinationFolder",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AppendSessionDateToDestinationFolder",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_SubfolderCreationMode",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "PhotoImportSubfolderCreationMode",
+            "Namespace": "Windows.Media.Import",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SubfolderCreationMode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PhotoImportSubfolderCreationMode",
+        "Namespace": "Windows.Media.Import",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_DestinationFileNamePrefix",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DestinationFileNamePrefix",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindItemsAsync",
+      "Parameters": [
+        {
+          "Name": "contentTypeFilter",
+          "Type": {
+            "Name": "PhotoImportContentTypeFilter",
+            "Namespace": "Windows.Media.Import",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "itemSelectionMode",
+          "Type": {
+            "Name": "PhotoImportItemSelectionMode",
+            "Namespace": "Windows.Media.Import",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PhotoImportFindItemsResult",
+              "Namespace": "Windows.Media.Import",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "UInt32",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

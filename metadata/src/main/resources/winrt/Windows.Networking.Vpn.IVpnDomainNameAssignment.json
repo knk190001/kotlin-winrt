@@ -1,0 +1,68 @@
+{
+  "Name": "IVpnDomainNameAssignment",
+  "Namespace": "Windows.Networking.Vpn",
+  "Guid": "4135b141ccdb49b59401039a8ae767e9",
+  "Methods": [
+    {
+      "Name": "get_DomainNameList",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "VpnDomainNameInfo",
+              "Namespace": "Windows.Networking.Vpn",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ProxyAutoConfigurationUri",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ProxyAutoConfigurationUri",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Uri",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

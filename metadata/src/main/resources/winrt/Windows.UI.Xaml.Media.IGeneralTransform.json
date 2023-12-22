@@ -1,0 +1,102 @@
+{
+  "Name": "IGeneralTransform",
+  "Namespace": "Windows.UI.Xaml.Media",
+  "Guid": "a06798b7a2ec415fade2eade9333f2c7",
+  "Methods": [
+    {
+      "Name": "get_Inverse",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "GeneralTransform",
+        "Namespace": "Windows.UI.Xaml.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TransformPoint",
+      "Parameters": [
+        {
+          "Name": "point",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryTransform",
+      "Parameters": [
+        {
+          "Name": "inPoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "outPoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": true
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TransformBounds",
+      "Parameters": [
+        {
+          "Name": "rect",
+          "Type": {
+            "Name": "Rect",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Rect",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

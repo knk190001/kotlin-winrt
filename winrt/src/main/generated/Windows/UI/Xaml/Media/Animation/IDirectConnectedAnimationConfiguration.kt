@@ -1,0 +1,96 @@
+package Windows.UI.Xaml.Media.Animation
+
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.Guid
+import com.github.knk190001.winrtbinding.runtime.annotations.Signature
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTInterface
+import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.castToImpl
+import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
+import com.github.knk190001.winrtbinding.runtime.getValue
+import com.github.knk190001.winrtbinding.runtime.handleToString
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.github.knk190001.winrtbinding.runtime.interop.guidOf
+import com.github.knk190001.winrtbinding.runtime.interop.makeByReferenceType
+import com.github.knk190001.winrtbinding.runtime.interop.makeOutArray
+import com.github.knk190001.winrtbinding.runtime.interop.makePrimitiveOutArray
+import com.github.knk190001.winrtbinding.runtime.interop.marshalFromNative
+import com.github.knk190001.winrtbinding.runtime.interop.marshalToNative
+import com.github.knk190001.winrtbinding.runtime.invokeHR
+import com.github.knk190001.winrtbinding.runtime.toHandle
+import com.sun.jna.Native.POINTER_SIZE
+import com.sun.jna.NativeMapped
+import com.sun.jna.Pointer
+import com.sun.jna.Pointer.NULL
+import com.sun.jna.PointerType
+import java.lang.foreign.MemoryAddress
+import java.lang.foreign.ValueLayout
+import java.lang.foreign.ValueLayout.ADDRESS
+import kotlin.Array
+import kotlin.Int
+import kotlin.Unit
+import kotlin.jvm.JvmDefaultWithoutCompatibility
+import kotlin.reflect.full.createType
+import kotlin.reflect.typeOf
+
+@ABIMarker(IDirectConnectedAnimationConfiguration.ABI::class)
+@Signature("{ee5d736f-5738-5d86-b770-151948cf365e}")
+@Guid("ee5d736f57385d86b770151948cf365e")
+@WinRTInterface("ee5d736f57385d86b770151948cf365e")
+@JvmDefaultWithoutCompatibility
+@WinRTByReference(brClass = IDirectConnectedAnimationConfiguration.ByReference::class)
+public interface IDirectConnectedAnimationConfiguration : NativeMapped, IWinRTInterface {
+  public class ByReference : com.sun.jna.ptr.ByReference(POINTER_SIZE),
+      IByReference<IDirectConnectedAnimationConfiguration> {
+    public override fun getValue() =
+        ABI.makeIDirectConnectedAnimationConfiguration(pointer.getPointer(0))
+
+    public fun setValue(value: IDirectConnectedAnimationConfiguration_Impl): Unit {
+      pointer.setPointer(0, value.pointer)
+    }
+  }
+
+  @JvmDefaultWithoutCompatibility
+  public interface WithDefault : IDirectConnectedAnimationConfiguration {
+    public val __1277040948_Ptr: Pointer?
+
+    public val _1277040948_VtblPtr: Pointer?
+      get() = __1277040948_Ptr?.getPointer(0)
+  }
+
+  public class IDirectConnectedAnimationConfiguration_Impl(
+    ptr: Pointer? = NULL
+  ) : PointerType(ptr), WithDefault, NativeMapped, IWinRTInterface {
+    public override val __1277040948_Ptr: Pointer?
+      get() = pointer
+  }
+
+  public object ABI : IABI<IDirectConnectedAnimationConfiguration, MemoryAddress> {
+    public val IID: com.sun.jna.platform.win32.Guid.IID =
+        com.sun.jna.platform.win32.Guid.IID("ee5d736f57385d86b770151948cf365e")
+
+    public override val layout: ValueLayout = ADDRESS
+
+    public fun makeIDirectConnectedAnimationConfiguration(ptr: Pointer?): WithDefault =
+        IDirectConnectedAnimationConfiguration_Impl(ptr)
+
+    public override fun fromNative(segment: MemoryAddress): IDirectConnectedAnimationConfiguration {
+      val address = segment.toRawLongValue()
+      return makeIDirectConnectedAnimationConfiguration(Pointer(address))
+    }
+
+    public override fun toNative(obj: IDirectConnectedAnimationConfiguration): MemoryAddress =
+        MemoryAddress.ofLong(Pointer.nativeValue((obj as WithDefault).__1277040948_Ptr))
+  }
+
+  public companion object {
+    public fun makeArray(vararg elements: IDirectConnectedAnimationConfiguration):
+        Array<IDirectConnectedAnimationConfiguration?> = (elements as
+        Array<IDirectConnectedAnimationConfiguration?>).castToImpl<IDirectConnectedAnimationConfiguration,IDirectConnectedAnimationConfiguration_Impl>()
+
+    public fun makeArrayOfNulls(size: Int): Array<IDirectConnectedAnimationConfiguration?> =
+        arrayOfNulls<IDirectConnectedAnimationConfiguration_Impl>(size) as
+        Array<IDirectConnectedAnimationConfiguration?>
+  }
+}

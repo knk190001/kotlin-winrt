@@ -1,0 +1,190 @@
+{
+  "Name": "IPlayReadyContentHeaderFactory",
+  "Namespace": "Windows.Media.Protection.PlayReady",
+  "Guid": "cb97c8ffb7584776bf01217a8b510b2c",
+  "Methods": [
+    {
+      "Name": "CreateInstanceFromWindowsMediaDrmHeader",
+      "Parameters": [
+        {
+          "Name": "headerBytes",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "licenseAcquisitionUrl",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "licenseAcquisitionUserInterfaceUrl",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "customAttributes",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "domainServiceId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PlayReadyContentHeader",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateInstanceFromComponents",
+      "Parameters": [
+        {
+          "Name": "contentKeyId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "contentKeyIdString",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "contentEncryptionAlgorithm",
+          "Type": {
+            "Name": "PlayReadyEncryptionAlgorithm",
+            "Namespace": "Windows.Media.Protection.PlayReady",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "licenseAcquisitionUrl",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "licenseAcquisitionUserInterfaceUrl",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "customAttributes",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "domainServiceId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PlayReadyContentHeader",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateInstanceFromPlayReadyHeader",
+      "Parameters": [
+        {
+          "Name": "headerBytes",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PlayReadyContentHeader",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

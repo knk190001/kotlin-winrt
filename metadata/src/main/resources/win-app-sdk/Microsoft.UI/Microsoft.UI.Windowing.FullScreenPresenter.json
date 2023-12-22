@@ -1,0 +1,45 @@
+{
+  "Name": "FullScreenPresenter",
+  "Namespace": "Microsoft.UI.Windowing",
+  "Interfaces": [
+    {
+      "Name": "IFullScreenPresenter",
+      "Namespace": "Microsoft.UI.Windowing",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IFullScreenPresenterStatics",
+          "Namespace": "Microsoft.UI.Windowing"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IFullScreenPresenter",
+        "Namespace": "Microsoft.UI.Windowing",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "Superclass": {
+        "Name": "AppWindowPresenter",
+        "Namespace": "Microsoft.UI.Windowing",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

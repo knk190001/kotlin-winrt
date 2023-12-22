@@ -1,0 +1,62 @@
+{
+  "Name": "WordSegmentsTokenizingHandler",
+  "Namespace": "Windows.Data.Text",
+  "Guid": "a5dd6357bf2a4c4fa31f29e71c6f8b35",
+  "Parameters": [
+    {
+      "Name": "precedingWords",
+      "Type": {
+        "Name": "IIterable`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WordSegment",
+              "Namespace": "Windows.Data.Text",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      },
+      "ParameterType": "In"
+    },
+    {
+      "Name": "words",
+      "Type": {
+        "Name": "IIterable`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WordSegment",
+              "Namespace": "Windows.Data.Text",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      },
+      "ParameterType": "In"
+    }
+  ],
+  "ReturnType": {
+    "Name": "Void",
+    "Namespace": "System",
+    "GenericParameters": null,
+    "IsArray": false,
+    "IsReference": false
+  },
+  "GenericParameters": null,
+  "Type": "Delegate"
+}

@@ -1,0 +1,79 @@
+{
+  "Name": "IContactPartnerProvisioningManagerStatics",
+  "Namespace": "Windows.Phone.PersonalInformation.Provisioning",
+  "Guid": "c0d79a2101af4fd398cdb3d656de15f4",
+  "Methods": [
+    {
+      "Name": "AssociateNetworkAccountAsync",
+      "Parameters": [
+        {
+          "Name": "store",
+          "Type": {
+            "Name": "ContactStore",
+            "Namespace": "Windows.Phone.PersonalInformation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "networkName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "networkAccountId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ImportVcardToSystemAsync",
+      "Parameters": [
+        {
+          "Name": "stream",
+          "Type": {
+            "Name": "IInputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

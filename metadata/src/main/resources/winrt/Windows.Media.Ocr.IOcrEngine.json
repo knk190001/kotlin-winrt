@@ -1,0 +1,57 @@
+{
+  "Name": "IOcrEngine",
+  "Namespace": "Windows.Media.Ocr",
+  "Guid": "5a14bc415b763140b6808825562683ac",
+  "Methods": [
+    {
+      "Name": "RecognizeAsync",
+      "Parameters": [
+        {
+          "Name": "bitmap",
+          "Type": {
+            "Name": "SoftwareBitmap",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "OcrResult",
+              "Namespace": "Windows.Media.Ocr",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RecognizerLanguage",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Language",
+        "Namespace": "Windows.Globalization",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

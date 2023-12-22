@@ -1,0 +1,40 @@
+{
+  "Name": "RevocationAndRenewalReasons",
+  "Namespace": "Windows.Media.Protection",
+  "Values": {
+    "UserModeComponentLoad": 1,
+    "KernelModeComponentLoad": 2,
+    "AppComponent": 4,
+    "GlobalRevocationListLoadFailed": 16,
+    "InvalidGlobalRevocationListSignature": 32,
+    "GlobalRevocationListAbsent": 4096,
+    "ComponentRevoked": 8192,
+    "InvalidComponentCertificateExtendedKeyUse": 16384,
+    "ComponentCertificateRevoked": 32768,
+    "InvalidComponentCertificateRoot": 65536,
+    "ComponentHighSecurityCertificateRevoked": 131072,
+    "ComponentLowSecurityCertificateRevoked": 262144,
+    "BootDriverVerificationFailed": 1048576,
+    "ComponentSignedWithTestCertificate": 16777216,
+    "EncryptionFailure": 268435456
+  },
+  "Traits": [
+    {
+      "TraitType": "ValueType"
+    },
+    {
+      "TraitType": "FlagEnum"
+    },
+    {
+      "Superclass": {
+        "Name": "Enum",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Enum"
+}

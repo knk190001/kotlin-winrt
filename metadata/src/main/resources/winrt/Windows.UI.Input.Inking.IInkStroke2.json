@@ -1,0 +1,68 @@
+{
+  "Name": "IInkStroke2",
+  "Namespace": "Windows.UI.Input.Inking",
+  "Guid": "5db9e4f4bafa4de189d3201b1ed7d89b",
+  "Methods": [
+    {
+      "Name": "get_PointTransform",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Matrix3x2",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_PointTransform",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Matrix3x2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetInkPoints",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "InkPoint",
+              "Namespace": "Windows.UI.Input.Inking",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

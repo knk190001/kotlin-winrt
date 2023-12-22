@@ -1,0 +1,175 @@
+{
+  "Name": "IResourceMap",
+  "Namespace": "Windows.ApplicationModel.Resources.Core",
+  "Guid": "72284824db8c42f8b08c53ff357dad82",
+  "Methods": [
+    {
+      "Name": "get_Uri",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Uri",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetValue",
+      "Parameters": [
+        {
+          "Name": "resource",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ResourceCandidate",
+        "Namespace": "Windows.ApplicationModel.Resources.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetValue",
+      "Parameters": [
+        {
+          "Name": "resource",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "context",
+          "Type": {
+            "Name": "ResourceContext",
+            "Namespace": "Windows.ApplicationModel.Resources.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ResourceCandidate",
+        "Namespace": "Windows.ApplicationModel.Resources.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSubtree",
+      "Parameters": [
+        {
+          "Name": "reference",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ResourceMap",
+        "Namespace": "Windows.ApplicationModel.Resources.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IMapView`2",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "K",
+          "Position": 0,
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        },
+        {
+          "Name": "V",
+          "Position": 1,
+          "Type": {
+            "Name": "NamedResource",
+            "Namespace": "Windows.ApplicationModel.Resources.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IIterable`1",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "T",
+          "Position": 0,
+          "Type": {
+            "Name": "IKeyValuePair`2",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "K",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "V",
+                "Position": 1,
+                "Type": {
+                  "Name": "NamedResource",
+                  "Namespace": "Windows.ApplicationModel.Resources.Core",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

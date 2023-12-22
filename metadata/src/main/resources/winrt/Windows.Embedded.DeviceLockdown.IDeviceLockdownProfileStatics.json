@@ -1,0 +1,91 @@
+{
+  "Name": "IDeviceLockdownProfileStatics",
+  "Namespace": "Windows.Embedded.DeviceLockdown",
+  "Guid": "622f6965f9a841a1a69188cd80c7a069",
+  "Methods": [
+    {
+      "Name": "GetSupportedLockdownProfiles",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Guid",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentLockdownProfile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ApplyLockdownProfileAsync",
+      "Parameters": [
+        {
+          "Name": "profileID",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetLockdownProfileInformation",
+      "Parameters": [
+        {
+          "Name": "profileID",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DeviceLockdownProfileInformation",
+        "Namespace": "Windows.Embedded.DeviceLockdown",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

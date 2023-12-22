@@ -1,0 +1,45 @@
+{
+  "Name": "ReverbEffectDefinition",
+  "Namespace": "Windows.Media.Audio",
+  "Interfaces": [
+    {
+      "Name": "IReverbEffectDefinition",
+      "Namespace": "Windows.Media.Audio",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IAudioEffectDefinition",
+      "Namespace": "Windows.Media.Effects",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IReverbEffectDefinition",
+        "Namespace": "Windows.Media.Audio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IReverbEffectDefinitionFactory",
+          "Namespace": "Windows.Media.Audio",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,157 @@
+{
+  "Name": "IMobileBroadbandModem",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Guid": "d0356912e9f94f67a03d43189a316bf1",
+  "Methods": [
+    {
+      "Name": "get_CurrentAccount",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MobileBroadbandAccount",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DeviceInformation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MobileBroadbandDeviceInformation",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxDeviceServiceCommandSizeInBytes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxDeviceServiceDataSizeInBytes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DeviceServices",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "MobileBroadbandDeviceServiceInformation",
+              "Namespace": "Windows.Networking.NetworkOperators",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceService",
+      "Parameters": [
+        {
+          "Name": "deviceServiceId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "MobileBroadbandDeviceService",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsResetSupported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ResetAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentConfigurationAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "MobileBroadbandModemConfiguration",
+              "Namespace": "Windows.Networking.NetworkOperators",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CurrentNetwork",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MobileBroadbandNetwork",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

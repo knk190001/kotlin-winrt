@@ -1,0 +1,89 @@
+{
+  "Name": "ICameraIntrinsicsFactory",
+  "Namespace": "Windows.Media.Devices.Core",
+  "Guid": "c0ddc48621324a34a6599bfe2a055712",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "focalLength",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "principalPoint",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "radialDistortion",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "tangentialDistortion",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "imageWidth",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "imageHeight",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CameraIntrinsics",
+        "Namespace": "Windows.Media.Devices.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

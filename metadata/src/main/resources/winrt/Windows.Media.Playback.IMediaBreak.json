@@ -1,0 +1,101 @@
+{
+  "Name": "IMediaBreak",
+  "Namespace": "Windows.Media.Playback",
+  "Guid": "714be2700def4ebca4896b34930e1558",
+  "Methods": [
+    {
+      "Name": "get_PlaybackList",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaPlaybackList",
+        "Namespace": "Windows.Media.Playback",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PresentationPosition",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "TimeSpan",
+              "Namespace": "Windows.Foundation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_InsertionMethod",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaBreakInsertionMethod",
+        "Namespace": "Windows.Media.Playback",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CustomProperties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ValueSet",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CanStart",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_CanStart",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

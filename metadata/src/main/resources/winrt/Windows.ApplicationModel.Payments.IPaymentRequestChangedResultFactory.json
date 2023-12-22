@@ -1,0 +1,68 @@
+{
+  "Name": "IPaymentRequestChangedResultFactory",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Guid": "08740f561d334431814b67ea24bf21db",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "changeAcceptedByMerchant",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentRequestChangedResult",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithPaymentDetails",
+      "Parameters": [
+        {
+          "Name": "changeAcceptedByMerchant",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "updatedPaymentDetails",
+          "Type": {
+            "Name": "PaymentDetails",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PaymentRequestChangedResult",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

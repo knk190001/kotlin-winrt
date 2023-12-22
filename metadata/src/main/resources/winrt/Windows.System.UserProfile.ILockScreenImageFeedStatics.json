@@ -1,0 +1,57 @@
+{
+  "Name": "ILockScreenImageFeedStatics",
+  "Namespace": "Windows.System.UserProfile",
+  "Guid": "2c0d73f603a941a69b01495251ff51d5",
+  "Methods": [
+    {
+      "Name": "RequestSetImageFeedAsync",
+      "Parameters": [
+        {
+          "Name": "syndicationFeedUri",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SetImageFeedResult",
+              "Namespace": "Windows.System.UserProfile",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryRemoveImageFeed",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

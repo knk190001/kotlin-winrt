@@ -1,0 +1,193 @@
+{
+  "Name": "IDragOperation",
+  "Namespace": "Microsoft.UI.Input.DragDrop",
+  "Guid": "ef122288798453d38488133dcd3de793",
+  "Methods": [
+    {
+      "Name": "get_AllowedOperations",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DataPackageOperation",
+        "Namespace": "Windows.ApplicationModel.DataTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_AllowedOperations",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "DataPackageOperation",
+            "Namespace": "Windows.ApplicationModel.DataTransfer",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Data",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DataPackage",
+        "Namespace": "Windows.ApplicationModel.DataTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DragUIContentMode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DragUIContentMode",
+        "Namespace": "Microsoft.UI.Input.DragDrop",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_DragUIContentMode",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "DragUIContentMode",
+            "Namespace": "Microsoft.UI.Input.DragDrop",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetDragUIContentFromSoftwareBitmap",
+      "Parameters": [
+        {
+          "Name": "bitmap",
+          "Type": {
+            "Name": "SoftwareBitmap",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetDragUIContentFromSoftwareBitmap",
+      "Parameters": [
+        {
+          "Name": "bitmap",
+          "Type": {
+            "Name": "SoftwareBitmap",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "anchorPoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartAsync",
+      "Parameters": [
+        {
+          "Name": "initialTarget",
+          "Type": {
+            "Name": "DragDropManager",
+            "Namespace": "Microsoft.UI.Input.DragDrop",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "initialPointerPoint",
+          "Type": {
+            "Name": "PointerPoint",
+            "Namespace": "Microsoft.UI.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "DataPackageOperation",
+              "Namespace": "Windows.ApplicationModel.DataTransfer",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

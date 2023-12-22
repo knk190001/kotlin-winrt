@@ -1,0 +1,159 @@
+{
+  "Name": "IVisualStateManagerStatics",
+  "Namespace": "Microsoft.UI.Xaml",
+  "Guid": "a4d5147d88c357edad83245df5f6b50d",
+  "Methods": [
+    {
+      "Name": "GetVisualStateGroups",
+      "Parameters": [
+        {
+          "Name": "obj",
+          "Type": {
+            "Name": "FrameworkElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "VisualStateGroup",
+              "Namespace": "Microsoft.UI.Xaml",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CustomVisualStateManagerProperty",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DependencyProperty",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCustomVisualStateManager",
+      "Parameters": [
+        {
+          "Name": "obj",
+          "Type": {
+            "Name": "FrameworkElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "VisualStateManager",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetCustomVisualStateManager",
+      "Parameters": [
+        {
+          "Name": "obj",
+          "Type": {
+            "Name": "FrameworkElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "VisualStateManager",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GoToState",
+      "Parameters": [
+        {
+          "Name": "control",
+          "Type": {
+            "Name": "Control",
+            "Namespace": "Microsoft.UI.Xaml.Controls",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "stateName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "useTransitions",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

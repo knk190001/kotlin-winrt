@@ -1,0 +1,110 @@
+{
+  "Name": "LearningModelBinding",
+  "Namespace": "Windows.AI.MachineLearning",
+  "Interfaces": [
+    {
+      "Name": "ILearningModelBinding",
+      "Namespace": "Windows.AI.MachineLearning",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IMapView`2",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "K",
+          "Position": 0,
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        },
+        {
+          "Name": "V",
+          "Position": 1,
+          "Type": {
+            "Name": "Object",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IIterable`1",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "T",
+          "Position": 0,
+          "Type": {
+            "Name": "IKeyValuePair`2",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "K",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "V",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "ILearningModelBinding",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ILearningModelBindingFactory",
+          "Namespace": "Windows.AI.MachineLearning",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

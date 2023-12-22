@@ -1,0 +1,182 @@
+{
+  "Name": "IMediaFrameSource",
+  "Namespace": "Windows.Media.Capture.Frames",
+  "Guid": "d678295390db46a88add2aa884a8d253",
+  "Methods": [
+    {
+      "Name": "get_Info",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaFrameSourceInfo",
+        "Namespace": "Windows.Media.Capture.Frames",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Controller",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaFrameSourceController",
+        "Namespace": "Windows.Media.Capture.Frames",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedFormats",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "MediaFrameFormat",
+              "Namespace": "Windows.Media.Capture.Frames",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CurrentFormat",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaFrameFormat",
+        "Namespace": "Windows.Media.Capture.Frames",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetFormatAsync",
+      "Parameters": [
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "MediaFrameFormat",
+            "Namespace": "Windows.Media.Capture.Frames",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_FormatChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "MediaFrameSource",
+                  "Namespace": "Windows.Media.Capture.Frames",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_FormatChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetCameraIntrinsics",
+      "Parameters": [
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "MediaFrameFormat",
+            "Namespace": "Windows.Media.Capture.Frames",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CameraIntrinsics",
+        "Namespace": "Windows.Media.Devices.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

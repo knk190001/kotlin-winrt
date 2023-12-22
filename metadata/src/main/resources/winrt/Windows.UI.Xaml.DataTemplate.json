@@ -1,0 +1,64 @@
+{
+  "Name": "DataTemplate",
+  "Namespace": "Windows.UI.Xaml",
+  "Interfaces": [
+    {
+      "Name": "IDataTemplate",
+      "Namespace": "Windows.UI.Xaml",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IElementFactory",
+      "Namespace": "Windows.UI.Xaml",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IDataTemplateStatics2",
+          "Namespace": "Windows.UI.Xaml"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IDataTemplate",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IDataTemplateFactory",
+          "Namespace": "Windows.UI.Xaml",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkTemplate",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

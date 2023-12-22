@@ -1,0 +1,451 @@
+{
+  "Name": "ICompositionEasingFunctionStatics",
+  "Namespace": "Windows.UI.Composition",
+  "Guid": "17a766b6293653eab5afc642f4a61083",
+  "Methods": [
+    {
+      "Name": "CreateCubicBezierEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "controlPoint1",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "controlPoint2",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CubicBezierEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateLinearEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LinearEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateStepEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "StepEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateStepEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "stepCount",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "StepEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateBackEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "amplitude",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "BackEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateBounceEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "bounces",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "bounciness",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "BounceEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateCircleEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CircleEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateElasticEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "oscillations",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "springiness",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ElasticEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateExponentialEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "exponent",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ExponentialEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreatePowerEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "power",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PowerEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSineEasingFunction",
+      "Parameters": [
+        {
+          "Name": "owner",
+          "Type": {
+            "Name": "Compositor",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CompositionEasingFunctionMode",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SineEasingFunction",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

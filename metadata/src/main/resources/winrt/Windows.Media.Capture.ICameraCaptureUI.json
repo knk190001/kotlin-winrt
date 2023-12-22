@@ -1,0 +1,68 @@
+{
+  "Name": "ICameraCaptureUI",
+  "Namespace": "Windows.Media.Capture",
+  "Guid": "485875406f934bb4b8f3e89e48948c91",
+  "Methods": [
+    {
+      "Name": "get_PhotoSettings",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CameraCaptureUIPhotoCaptureSettings",
+        "Namespace": "Windows.Media.Capture",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_VideoSettings",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CameraCaptureUIVideoCaptureSettings",
+        "Namespace": "Windows.Media.Capture",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CaptureFileAsync",
+      "Parameters": [
+        {
+          "Name": "mode",
+          "Type": {
+            "Name": "CameraCaptureUIMode",
+            "Namespace": "Windows.Media.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StorageFile",
+              "Namespace": "Windows.Storage",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

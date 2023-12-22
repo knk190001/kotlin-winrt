@@ -1,0 +1,57 @@
+{
+  "Name": "IComponentRenewalStatics",
+  "Namespace": "Windows.Media.Protection",
+  "Guid": "6ffbcd67b79548c58b7ba7c4efe202e3",
+  "Methods": [
+    {
+      "Name": "RenewSystemComponentsAsync",
+      "Parameters": [
+        {
+          "Name": "information",
+          "Type": {
+            "Name": "RevocationAndRenewalInformation",
+            "Namespace": "Windows.Media.Protection",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "RenewalStatus",
+              "Namespace": "Windows.Media.Protection",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "UInt32",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

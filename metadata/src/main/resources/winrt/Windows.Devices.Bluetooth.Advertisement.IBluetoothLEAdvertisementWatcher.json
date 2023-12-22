@@ -1,0 +1,328 @@
+{
+  "Name": "IBluetoothLEAdvertisementWatcher",
+  "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+  "Guid": "a6ac336ff3d342978d6cc81ea6623f40",
+  "Methods": [
+    {
+      "Name": "get_MinSamplingInterval",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TimeSpan",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxSamplingInterval",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TimeSpan",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MinOutOfRangeTimeout",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TimeSpan",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxOutOfRangeTimeout",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TimeSpan",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Status",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothLEAdvertisementWatcherStatus",
+        "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ScanningMode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothLEScanningMode",
+        "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ScanningMode",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "BluetoothLEScanningMode",
+            "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SignalStrengthFilter",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothSignalStrengthFilter",
+        "Namespace": "Windows.Devices.Bluetooth",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_SignalStrengthFilter",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "BluetoothSignalStrengthFilter",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AdvertisementFilter",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothLEAdvertisementFilter",
+        "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_AdvertisementFilter",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "BluetoothLEAdvertisementFilter",
+            "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Start",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Stop",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_Received",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "BluetoothLEAdvertisementWatcher",
+                  "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "BluetoothLEAdvertisementReceivedEventArgs",
+                  "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_Received",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_Stopped",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "BluetoothLEAdvertisementWatcher",
+                  "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "BluetoothLEAdvertisementWatcherStoppedEventArgs",
+                  "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_Stopped",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

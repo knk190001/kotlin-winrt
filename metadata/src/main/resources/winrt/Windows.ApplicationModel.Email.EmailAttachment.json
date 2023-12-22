@@ -1,0 +1,55 @@
+{
+  "Name": "EmailAttachment",
+  "Namespace": "Windows.ApplicationModel.Email",
+  "Interfaces": [
+    {
+      "Name": "IEmailAttachment",
+      "Namespace": "Windows.ApplicationModel.Email",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IEmailAttachment2",
+      "Namespace": "Windows.ApplicationModel.Email",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IEmailAttachment",
+        "Namespace": "Windows.ApplicationModel.Email",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IEmailAttachmentFactory2",
+          "Namespace": "Windows.ApplicationModel.Email",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        },
+        {
+          "Name": "IEmailAttachmentFactory",
+          "Namespace": "Windows.ApplicationModel.Email",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

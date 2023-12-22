@@ -1,0 +1,123 @@
+{
+  "Name": "IBackgroundTransferOperation",
+  "Namespace": "Windows.Networking.BackgroundTransfer",
+  "Guid": "ded0684690ca44fb8fb1124154c0d539",
+  "Methods": [
+    {
+      "Name": "get_Guid",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RequestedUri",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Uri",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Method",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Group",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CostPolicy",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BackgroundTransferCostPolicy",
+        "Namespace": "Windows.Networking.BackgroundTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_CostPolicy",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "BackgroundTransferCostPolicy",
+            "Namespace": "Windows.Networking.BackgroundTransfer",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetResultStreamAt",
+      "Parameters": [
+        {
+          "Name": "position",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IInputStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetResponseInformation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ResponseInformation",
+        "Namespace": "Windows.Networking.BackgroundTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

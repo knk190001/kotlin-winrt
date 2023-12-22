@@ -1,0 +1,68 @@
+{
+  "Name": "IPackageManager10",
+  "Namespace": "Windows.Management.Deployment",
+  "Guid": "a7d7d07e2e664093aed5e093ed87b3bb",
+  "Methods": [
+    {
+      "Name": "ProvisionPackageForAllUsersAsync",
+      "Parameters": [
+        {
+          "Name": "mainPackageFamilyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "PackageAllUserProvisioningOptions",
+            "Namespace": "Windows.Management.Deployment",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "DeploymentResult",
+              "Namespace": "Windows.Management.Deployment",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "DeploymentProgress",
+              "Namespace": "Windows.Management.Deployment",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

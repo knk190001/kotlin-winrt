@@ -1,0 +1,212 @@
+{
+  "Name": "IDisplayTarget",
+  "Namespace": "Windows.Devices.Display.Core",
+  "Guid": "aec57c6f47b4546b987ce73fa791fe3a",
+  "Methods": [
+    {
+      "Name": "get_Adapter",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayAdapter",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DeviceInterfacePath",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AdapterRelativeId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsConnected",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsVirtualModeEnabled",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsVirtualTopologyEnabled",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UsageKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayMonitorUsageKind",
+        "Namespace": "Windows.Devices.Display",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MonitorPersistence",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayTargetPersistence",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_StableMonitorId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetMonitor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayMonitor",
+        "Namespace": "Windows.Devices.Display",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Properties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IMapView`2",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "K",
+            "Position": 0,
+            "Type": {
+              "Name": "Guid",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "V",
+            "Position": 1,
+            "Type": {
+              "Name": "Object",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsStale",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsSame",
+      "Parameters": [
+        {
+          "Name": "otherTarget",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsEqual",
+      "Parameters": [
+        {
+          "Name": "otherTarget",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

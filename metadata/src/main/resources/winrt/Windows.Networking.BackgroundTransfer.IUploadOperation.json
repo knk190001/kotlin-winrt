@@ -1,0 +1,109 @@
+{
+  "Name": "IUploadOperation",
+  "Namespace": "Windows.Networking.BackgroundTransfer",
+  "Guid": "3e5624e07389434c8b35427fd36bbdae",
+  "Methods": [
+    {
+      "Name": "get_SourceFile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IStorageFile",
+        "Namespace": "Windows.Storage",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Progress",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BackgroundUploadProgress",
+        "Namespace": "Windows.Networking.BackgroundTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UploadOperation",
+              "Namespace": "Windows.Networking.BackgroundTransfer",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "UploadOperation",
+              "Namespace": "Windows.Networking.BackgroundTransfer",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AttachAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UploadOperation",
+              "Namespace": "Windows.Networking.BackgroundTransfer",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "UploadOperation",
+              "Namespace": "Windows.Networking.BackgroundTransfer",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IBackgroundTransferOperation",
+      "Namespace": "Windows.Networking.BackgroundTransfer",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,67 @@
+{
+  "Name": "IHashAlgorithmProvider",
+  "Namespace": "Windows.Security.Cryptography.Core",
+  "Guid": "be9b3080b2c3422bbce1ec90efb5d7b5",
+  "Methods": [
+    {
+      "Name": "get_AlgorithmName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_HashLength",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "HashData",
+      "Parameters": [
+        {
+          "Name": "data",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateHash",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CryptographicHash",
+        "Namespace": "Windows.Security.Cryptography.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,80 @@
+{
+  "Name": "IProvisioningAgent",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Guid": "217700e0820111dfadb9f4ce462d9137",
+  "Methods": [
+    {
+      "Name": "ProvisionFromXmlDocumentAsync",
+      "Parameters": [
+        {
+          "Name": "provisioningXmlDocument",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ProvisionFromXmlDocumentResults",
+              "Namespace": "Windows.Networking.NetworkOperators",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetProvisionedProfile",
+      "Parameters": [
+        {
+          "Name": "mediaType",
+          "Type": {
+            "Name": "ProfileMediaType",
+            "Namespace": "Windows.Networking.NetworkOperators",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "profileName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ProvisionedProfile",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

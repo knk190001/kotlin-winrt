@@ -1,0 +1,137 @@
+{
+  "Name": "INamedResource",
+  "Namespace": "Windows.ApplicationModel.Resources.Core",
+  "Guid": "1c98c2190b13424089a5d495dc189a00",
+  "Methods": [
+    {
+      "Name": "get_Uri",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Uri",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Candidates",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ResourceCandidate",
+              "Namespace": "Windows.ApplicationModel.Resources.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Resolve",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ResourceCandidate",
+        "Namespace": "Windows.ApplicationModel.Resources.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Resolve",
+      "Parameters": [
+        {
+          "Name": "resourceContext",
+          "Type": {
+            "Name": "ResourceContext",
+            "Namespace": "Windows.ApplicationModel.Resources.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ResourceCandidate",
+        "Namespace": "Windows.ApplicationModel.Resources.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ResolveAll",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ResourceCandidate",
+              "Namespace": "Windows.ApplicationModel.Resources.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ResolveAll",
+      "Parameters": [
+        {
+          "Name": "resourceContext",
+          "Type": {
+            "Name": "ResourceContext",
+            "Namespace": "Windows.ApplicationModel.Resources.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ResourceCandidate",
+              "Namespace": "Windows.ApplicationModel.Resources.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

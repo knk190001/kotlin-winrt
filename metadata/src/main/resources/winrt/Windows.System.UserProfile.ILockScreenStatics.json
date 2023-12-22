@@ -1,0 +1,79 @@
+{
+  "Name": "ILockScreenStatics",
+  "Namespace": "Windows.System.UserProfile",
+  "Guid": "3ee9d3adb60740aeb4267631d9821269",
+  "Methods": [
+    {
+      "Name": "get_OriginalImageFile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Uri",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetImageStream",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IRandomAccessStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetImageFileAsync",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetImageStreamAsync",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "IRandomAccessStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

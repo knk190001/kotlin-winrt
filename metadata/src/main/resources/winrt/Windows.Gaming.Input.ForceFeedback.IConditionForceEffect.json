@@ -1,0 +1,119 @@
+{
+  "Name": "IConditionForceEffect",
+  "Namespace": "Windows.Gaming.Input.ForceFeedback",
+  "Guid": "32d1ea6836954e6985c0cd1944189140",
+  "Methods": [
+    {
+      "Name": "get_Kind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ConditionForceEffectKind",
+        "Namespace": "Windows.Gaming.Input.ForceFeedback",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetParameters",
+      "Parameters": [
+        {
+          "Name": "direction",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "positiveCoefficient",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "negativeCoefficient",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "maxPositiveMagnitude",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "maxNegativeMagnitude",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "deadZone",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "bias",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IForceFeedbackEffect",
+      "Namespace": "Windows.Gaming.Input.ForceFeedback",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

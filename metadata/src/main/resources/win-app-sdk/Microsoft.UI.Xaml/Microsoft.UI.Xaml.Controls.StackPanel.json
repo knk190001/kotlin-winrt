@@ -1,0 +1,71 @@
+{
+  "Name": "StackPanel",
+  "Namespace": "Microsoft.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IStackPanel",
+      "Namespace": "Microsoft.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IScrollSnapPointsInfo",
+      "Namespace": "Microsoft.UI.Xaml.Controls.Primitives",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IInsertionPanel",
+      "Namespace": "Microsoft.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IStackPanelStatics",
+          "Namespace": "Microsoft.UI.Xaml.Controls"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IStackPanel",
+        "Namespace": "Microsoft.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IStackPanelFactory",
+          "Namespace": "Microsoft.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "Panel",
+        "Namespace": "Microsoft.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

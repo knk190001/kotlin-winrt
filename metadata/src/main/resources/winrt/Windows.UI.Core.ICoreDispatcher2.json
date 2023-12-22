@@ -1,0 +1,92 @@
+{
+  "Name": "ICoreDispatcher2",
+  "Namespace": "Windows.UI.Core",
+  "Guid": "6f5e63c7e3aa4eaeb0e0dcf321ca4b2f",
+  "Methods": [
+    {
+      "Name": "TryRunAsync",
+      "Parameters": [
+        {
+          "Name": "priority",
+          "Type": {
+            "Name": "CoreDispatcherPriority",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "agileCallback",
+          "Type": {
+            "Name": "DispatchedHandler",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryRunIdleAsync",
+      "Parameters": [
+        {
+          "Name": "agileCallback",
+          "Type": {
+            "Name": "IdleDispatchedHandler",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

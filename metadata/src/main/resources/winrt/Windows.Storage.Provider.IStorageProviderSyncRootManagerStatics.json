@@ -1,0 +1,126 @@
+{
+  "Name": "IStorageProviderSyncRootManagerStatics",
+  "Namespace": "Windows.Storage.Provider",
+  "Guid": "3e99fbbf8fe34b40abc7f6fc3d74c98e",
+  "Methods": [
+    {
+      "Name": "Register",
+      "Parameters": [
+        {
+          "Name": "syncRootInformation",
+          "Type": {
+            "Name": "StorageProviderSyncRootInfo",
+            "Namespace": "Windows.Storage.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Unregister",
+      "Parameters": [
+        {
+          "Name": "id",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSyncRootInformationForFolder",
+      "Parameters": [
+        {
+          "Name": "folder",
+          "Type": {
+            "Name": "IStorageFolder",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "StorageProviderSyncRootInfo",
+        "Namespace": "Windows.Storage.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSyncRootInformationForId",
+      "Parameters": [
+        {
+          "Name": "id",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "StorageProviderSyncRootInfo",
+        "Namespace": "Windows.Storage.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentSyncRoots",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "StorageProviderSyncRootInfo",
+              "Namespace": "Windows.Storage.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

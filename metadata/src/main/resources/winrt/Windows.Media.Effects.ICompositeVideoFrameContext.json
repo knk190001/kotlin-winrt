@@ -1,0 +1,79 @@
+{
+  "Name": "ICompositeVideoFrameContext",
+  "Namespace": "Windows.Media.Effects",
+  "Guid": "6c30024bf5144278a5f7b9188049d110",
+  "Methods": [
+    {
+      "Name": "get_SurfacesToOverlay",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "IDirect3DSurface",
+              "Namespace": "Windows.Graphics.DirectX.Direct3D11",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BackgroundFrame",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VideoFrame",
+        "Namespace": "Windows.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_OutputFrame",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VideoFrame",
+        "Namespace": "Windows.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetOverlayForSurface",
+      "Parameters": [
+        {
+          "Name": "surfaceToOverlay",
+          "Type": {
+            "Name": "IDirect3DSurface",
+            "Namespace": "Windows.Graphics.DirectX.Direct3D11",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "MediaOverlay",
+        "Namespace": "Windows.Media.Editing",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,91 @@
+{
+  "Name": "IBackgroundExecutionManagerStatics3",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Guid": "98a5d3f65a255b6c9192d77a43dfedc4",
+  "Methods": [
+    {
+      "Name": "RequestAccessKindForModernStandbyAsync",
+      "Parameters": [
+        {
+          "Name": "requestedAccess",
+          "Type": {
+            "Name": "BackgroundAccessRequestKind",
+            "Namespace": "Windows.ApplicationModel.Background",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "reason",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAccessStatusForModernStandby",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BackgroundAccessStatus",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAccessStatusForModernStandby",
+      "Parameters": [
+        {
+          "Name": "applicationId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "BackgroundAccessStatus",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

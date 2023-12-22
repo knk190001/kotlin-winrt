@@ -1,0 +1,287 @@
+{
+  "Name": "ILearningModelStatics",
+  "Namespace": "Windows.AI.MachineLearning",
+  "Guid": "e3b977e869524e478ef41f7f07897c6d",
+  "Methods": [
+    {
+      "Name": "LoadFromStorageFileAsync",
+      "Parameters": [
+        {
+          "Name": "modelFile",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModel",
+              "Namespace": "Windows.AI.MachineLearning",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromStreamAsync",
+      "Parameters": [
+        {
+          "Name": "modelStream",
+          "Type": {
+            "Name": "IRandomAccessStreamReference",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModel",
+              "Namespace": "Windows.AI.MachineLearning",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromFilePath",
+      "Parameters": [
+        {
+          "Name": "filePath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LearningModel",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromStream",
+      "Parameters": [
+        {
+          "Name": "modelStream",
+          "Type": {
+            "Name": "IRandomAccessStreamReference",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LearningModel",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromStorageFileAsync",
+      "Parameters": [
+        {
+          "Name": "modelFile",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "operatorProvider",
+          "Type": {
+            "Name": "ILearningModelOperatorProvider",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModel",
+              "Namespace": "Windows.AI.MachineLearning",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromStreamAsync",
+      "Parameters": [
+        {
+          "Name": "modelStream",
+          "Type": {
+            "Name": "IRandomAccessStreamReference",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "operatorProvider",
+          "Type": {
+            "Name": "ILearningModelOperatorProvider",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModel",
+              "Namespace": "Windows.AI.MachineLearning",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromFilePath",
+      "Parameters": [
+        {
+          "Name": "filePath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "operatorProvider",
+          "Type": {
+            "Name": "ILearningModelOperatorProvider",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LearningModel",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadFromStream",
+      "Parameters": [
+        {
+          "Name": "modelStream",
+          "Type": {
+            "Name": "IRandomAccessStreamReference",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "operatorProvider",
+          "Type": {
+            "Name": "ILearningModelOperatorProvider",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LearningModel",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

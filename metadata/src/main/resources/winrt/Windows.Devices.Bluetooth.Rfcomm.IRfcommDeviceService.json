@@ -1,0 +1,170 @@
+{
+  "Name": "IRfcommDeviceService",
+  "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+  "Guid": "ae81ff1fc5a14c408c28f3efd69062f3",
+  "Methods": [
+    {
+      "Name": "get_ConnectionHostName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HostName",
+        "Namespace": "Windows.Networking",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ConnectionServiceName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServiceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "RfcommServiceId",
+        "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ProtectionLevel",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SocketProtectionLevel",
+        "Namespace": "Windows.Networking.Sockets",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxProtectionLevel",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SocketProtectionLevel",
+        "Namespace": "Windows.Networking.Sockets",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSdpRawAttributesAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IMapView`2",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "K",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "UInt32",
+                    "Namespace": "System",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                },
+                {
+                  "Name": "V",
+                  "Position": 1,
+                  "Type": {
+                    "Name": "IBuffer",
+                    "Namespace": "Windows.Storage.Streams",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSdpRawAttributesAsync",
+      "Parameters": [
+        {
+          "Name": "cacheMode",
+          "Type": {
+            "Name": "BluetoothCacheMode",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IMapView`2",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "K",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "UInt32",
+                    "Namespace": "System",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                },
+                {
+                  "Name": "V",
+                  "Position": 1,
+                  "Type": {
+                    "Name": "IBuffer",
+                    "Namespace": "Windows.Storage.Streams",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

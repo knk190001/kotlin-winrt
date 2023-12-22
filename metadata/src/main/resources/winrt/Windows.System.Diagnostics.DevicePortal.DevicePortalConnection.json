@@ -1,0 +1,42 @@
+{
+  "Name": "DevicePortalConnection",
+  "Namespace": "Windows.System.Diagnostics.DevicePortal",
+  "Interfaces": [
+    {
+      "Name": "IDevicePortalConnection",
+      "Namespace": "Windows.System.Diagnostics.DevicePortal",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IDevicePortalWebSocketConnection",
+      "Namespace": "Windows.System.Diagnostics.DevicePortal",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IDevicePortalConnectionStatics",
+          "Namespace": "Windows.System.Diagnostics.DevicePortal"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IDevicePortalConnection",
+        "Namespace": "Windows.System.Diagnostics.DevicePortal",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

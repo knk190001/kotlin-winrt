@@ -1,0 +1,56 @@
+{
+  "Name": "IWebAccountCommandFactory",
+  "Namespace": "Windows.UI.ApplicationSettings",
+  "Guid": "bfa6cdff2f2d42f581de1d56bafc496d",
+  "Methods": [
+    {
+      "Name": "CreateWebAccountCommand",
+      "Parameters": [
+        {
+          "Name": "webAccount",
+          "Type": {
+            "Name": "WebAccount",
+            "Namespace": "Windows.Security.Credentials",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "invoked",
+          "Type": {
+            "Name": "WebAccountCommandInvokedHandler",
+            "Namespace": "Windows.UI.ApplicationSettings",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "actions",
+          "Type": {
+            "Name": "SupportedWebAccountActions",
+            "Namespace": "Windows.UI.ApplicationSettings",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WebAccountCommand",
+        "Namespace": "Windows.UI.ApplicationSettings",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,306 @@
+{
+  "Name": "ICoreWebView2CompositionController",
+  "Namespace": "Microsoft.Web.WebView2.Core",
+  "Guid": "31bbb15311b258e89beb69f5c8e14420",
+  "Methods": [
+    {
+      "Name": "get_RootVisualTarget",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Object",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_RootVisualTarget",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Object",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_CursorChanged",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "CoreWebView2CompositionController",
+                  "Namespace": "Microsoft.Web.WebView2.Core",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_CursorChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SendMouseInput",
+      "Parameters": [
+        {
+          "Name": "eventKind",
+          "Type": {
+            "Name": "CoreWebView2MouseEventKind",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "virtualKeys",
+          "Type": {
+            "Name": "CoreWebView2MouseEventVirtualKeys",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mouseData",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "point",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SendPointerInput",
+      "Parameters": [
+        {
+          "Name": "eventKind",
+          "Type": {
+            "Name": "CoreWebView2PointerEventKind",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pointerInfo",
+          "Type": {
+            "Name": "CoreWebView2PointerInfo",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Cursor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CoreCursor",
+        "Namespace": "Windows.UI.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DragEnter",
+      "Parameters": [
+        {
+          "Name": "dragInfo",
+          "Type": {
+            "Name": "CoreDragInfo",
+            "Namespace": "Windows.ApplicationModel.DataTransfer.DragDrop.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dragUIOverride",
+          "Type": {
+            "Name": "CoreDragUIOverride",
+            "Namespace": "Windows.ApplicationModel.DataTransfer.DragDrop.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DataPackageOperation",
+        "Namespace": "Windows.ApplicationModel.DataTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DragOver",
+      "Parameters": [
+        {
+          "Name": "dragInfo",
+          "Type": {
+            "Name": "CoreDragInfo",
+            "Namespace": "Windows.ApplicationModel.DataTransfer.DragDrop.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dragUIOverride",
+          "Type": {
+            "Name": "CoreDragUIOverride",
+            "Namespace": "Windows.ApplicationModel.DataTransfer.DragDrop.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DataPackageOperation",
+        "Namespace": "Windows.ApplicationModel.DataTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Drop",
+      "Parameters": [
+        {
+          "Name": "dragInfo",
+          "Type": {
+            "Name": "CoreDragInfo",
+            "Namespace": "Windows.ApplicationModel.DataTransfer.DragDrop.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DataPackageOperation",
+        "Namespace": "Windows.ApplicationModel.DataTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

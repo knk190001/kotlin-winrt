@@ -1,0 +1,57 @@
+{
+  "Name": "KeyboardAccelerator",
+  "Namespace": "Windows.UI.Xaml.Input",
+  "Interfaces": [
+    {
+      "Name": "IKeyboardAccelerator",
+      "Namespace": "Windows.UI.Xaml.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IKeyboardAcceleratorStatics",
+          "Namespace": "Windows.UI.Xaml.Input"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IKeyboardAccelerator",
+        "Namespace": "Windows.UI.Xaml.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IKeyboardAcceleratorFactory",
+          "Namespace": "Windows.UI.Xaml.Input",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "DependencyObject",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

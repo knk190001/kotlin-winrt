@@ -1,0 +1,91 @@
+{
+  "Name": "IAppWindowPresenter",
+  "Namespace": "Windows.UI.WindowManagement",
+  "Guid": "5ae9ed73e1fd5317ad785a3ed271bbde",
+  "Methods": [
+    {
+      "Name": "GetConfiguration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppWindowPresentationConfiguration",
+        "Namespace": "Windows.UI.WindowManagement",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsPresentationSupported",
+      "Parameters": [
+        {
+          "Name": "presentationKind",
+          "Type": {
+            "Name": "AppWindowPresentationKind",
+            "Namespace": "Windows.UI.WindowManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestPresentation",
+      "Parameters": [
+        {
+          "Name": "configuration",
+          "Type": {
+            "Name": "AppWindowPresentationConfiguration",
+            "Namespace": "Windows.UI.WindowManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestPresentation",
+      "Parameters": [
+        {
+          "Name": "presentationKind",
+          "Type": {
+            "Name": "AppWindowPresentationKind",
+            "Namespace": "Windows.UI.WindowManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

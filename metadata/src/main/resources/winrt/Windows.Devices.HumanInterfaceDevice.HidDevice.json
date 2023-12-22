@@ -1,0 +1,42 @@
+{
+  "Name": "HidDevice",
+  "Namespace": "Windows.Devices.HumanInterfaceDevice",
+  "Interfaces": [
+    {
+      "Name": "IHidDevice",
+      "Namespace": "Windows.Devices.HumanInterfaceDevice",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IHidDeviceStatics",
+          "Namespace": "Windows.Devices.HumanInterfaceDevice"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IHidDevice",
+        "Namespace": "Windows.Devices.HumanInterfaceDevice",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

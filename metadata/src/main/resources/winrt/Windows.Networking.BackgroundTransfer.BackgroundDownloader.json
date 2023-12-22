@@ -1,0 +1,79 @@
+{
+  "Name": "BackgroundDownloader",
+  "Namespace": "Windows.Networking.BackgroundTransfer",
+  "Interfaces": [
+    {
+      "Name": "IBackgroundDownloader",
+      "Namespace": "Windows.Networking.BackgroundTransfer",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBackgroundTransferBase",
+      "Namespace": "Windows.Networking.BackgroundTransfer",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBackgroundDownloader2",
+      "Namespace": "Windows.Networking.BackgroundTransfer",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBackgroundDownloader3",
+      "Namespace": "Windows.Networking.BackgroundTransfer",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IBackgroundDownloaderUserConsent",
+          "Namespace": "Windows.Networking.BackgroundTransfer"
+        },
+        {
+          "Name": "IBackgroundDownloaderStaticMethods",
+          "Namespace": "Windows.Networking.BackgroundTransfer"
+        },
+        {
+          "Name": "IBackgroundDownloaderStaticMethods2",
+          "Namespace": "Windows.Networking.BackgroundTransfer"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IBackgroundDownloader",
+        "Namespace": "Windows.Networking.BackgroundTransfer",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IBackgroundDownloaderFactory",
+          "Namespace": "Windows.Networking.BackgroundTransfer",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

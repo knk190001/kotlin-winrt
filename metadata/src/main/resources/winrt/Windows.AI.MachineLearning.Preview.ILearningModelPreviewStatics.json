@@ -1,0 +1,81 @@
+{
+  "Name": "ILearningModelPreviewStatics",
+  "Namespace": "Windows.AI.MachineLearning.Preview",
+  "Guid": "164bbb60846547868b932c16a89289d7",
+  "Methods": [
+    {
+      "Name": "LoadModelFromStorageFileAsync",
+      "Parameters": [
+        {
+          "Name": "modelFile",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModelPreview",
+              "Namespace": "Windows.AI.MachineLearning.Preview",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "LoadModelFromStreamAsync",
+      "Parameters": [
+        {
+          "Name": "modelStream",
+          "Type": {
+            "Name": "IRandomAccessStreamReference",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModelPreview",
+              "Namespace": "Windows.AI.MachineLearning.Preview",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,114 @@
+{
+  "Name": "IMediaPlayerSource",
+  "Namespace": "Windows.Media.Playback",
+  "Guid": "bd4f889714234c3e82c50fb1af94f715",
+  "Methods": [
+    {
+      "Name": "get_ProtectionManager",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaProtectionManager",
+        "Namespace": "Windows.Media.Protection",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ProtectionManager",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "MediaProtectionManager",
+            "Namespace": "Windows.Media.Protection",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetFileSource",
+      "Parameters": [
+        {
+          "Name": "file",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetStreamSource",
+      "Parameters": [
+        {
+          "Name": "stream",
+          "Type": {
+            "Name": "IRandomAccessStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetMediaSource",
+      "Parameters": [
+        {
+          "Name": "source",
+          "Type": {
+            "Name": "IMediaSource",
+            "Namespace": "Windows.Media.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

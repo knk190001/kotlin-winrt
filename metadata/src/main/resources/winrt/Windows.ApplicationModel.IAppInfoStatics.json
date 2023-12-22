@@ -1,0 +1,79 @@
+{
+  "Name": "IAppInfoStatics",
+  "Namespace": "Windows.ApplicationModel",
+  "Guid": "cf1f782ae48b4f0c9b0b79c3f8957dd7",
+  "Methods": [
+    {
+      "Name": "get_Current",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppInfo",
+        "Namespace": "Windows.ApplicationModel",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetFromAppUserModelId",
+      "Parameters": [
+        {
+          "Name": "appUserModelId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AppInfo",
+        "Namespace": "Windows.ApplicationModel",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetFromAppUserModelIdForUser",
+      "Parameters": [
+        {
+          "Name": "user",
+          "Type": {
+            "Name": "User",
+            "Namespace": "Windows.System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "appUserModelId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AppInfo",
+        "Namespace": "Windows.ApplicationModel",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

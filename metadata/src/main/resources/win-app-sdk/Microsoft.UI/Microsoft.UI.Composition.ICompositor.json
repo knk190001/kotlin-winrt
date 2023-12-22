@@ -1,0 +1,439 @@
+{
+  "Name": "ICompositor",
+  "Namespace": "Microsoft.UI.Composition",
+  "Guid": "95213c13c4cb57deb267d21ab901ae38",
+  "Methods": [
+    {
+      "Name": "CreateColorKeyFrameAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ColorKeyFrameAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateColorBrush",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CompositionColorBrush",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateColorBrush",
+      "Parameters": [
+        {
+          "Name": "color",
+          "Type": {
+            "Name": "Color",
+            "Namespace": "Windows.UI",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionColorBrush",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateContainerVisual",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ContainerVisual",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateCubicBezierEasingFunction",
+      "Parameters": [
+        {
+          "Name": "controlPoint1",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "controlPoint2",
+          "Type": {
+            "Name": "Vector2",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CubicBezierEasingFunction",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateEffectFactory",
+      "Parameters": [
+        {
+          "Name": "graphicsEffect",
+          "Type": {
+            "Name": "IGraphicsEffect",
+            "Namespace": "Windows.Graphics.Effects",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionEffectFactory",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateEffectFactory",
+      "Parameters": [
+        {
+          "Name": "graphicsEffect",
+          "Type": {
+            "Name": "IGraphicsEffect",
+            "Namespace": "Windows.Graphics.Effects",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "animatableProperties",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionEffectFactory",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateExpressionAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ExpressionAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateExpressionAnimation",
+      "Parameters": [
+        {
+          "Name": "expression",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ExpressionAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateInsetClip",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "InsetClip",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateInsetClip",
+      "Parameters": [
+        {
+          "Name": "leftInset",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "topInset",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "rightInset",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "bottomInset",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "InsetClip",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateLinearEasingFunction",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "LinearEasingFunction",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreatePropertySet",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CompositionPropertySet",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateQuaternionKeyFrameAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "QuaternionKeyFrameAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateScalarKeyFrameAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ScalarKeyFrameAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateScopedBatch",
+      "Parameters": [
+        {
+          "Name": "batchType",
+          "Type": {
+            "Name": "CompositionBatchTypes",
+            "Namespace": "Microsoft.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionScopedBatch",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSpriteVisual",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpriteVisual",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSurfaceBrush",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CompositionSurfaceBrush",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSurfaceBrush",
+      "Parameters": [
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "ICompositionSurface",
+            "Namespace": "Microsoft.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionSurfaceBrush",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateVector2KeyFrameAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector2KeyFrameAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateVector3KeyFrameAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector3KeyFrameAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateVector4KeyFrameAnimation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Vector4KeyFrameAnimation",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCommitBatch",
+      "Parameters": [
+        {
+          "Name": "batchType",
+          "Type": {
+            "Name": "CompositionBatchTypes",
+            "Namespace": "Microsoft.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CompositionCommitBatch",
+        "Namespace": "Microsoft.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

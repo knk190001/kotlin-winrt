@@ -1,0 +1,172 @@
+{
+  "Name": "IIsolatedWindowsEnvironmentFactory",
+  "Namespace": "Windows.Security.Isolation",
+  "Guid": "1aca93e7e804454d8466f9897c20b0f6",
+  "Methods": [
+    {
+      "Name": "CreateAsync",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "IsolatedWindowsEnvironmentOptions",
+            "Namespace": "Windows.Security.Isolation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironmentCreateResult",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironmentCreateProgress",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateAsync",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "IsolatedWindowsEnvironmentOptions",
+            "Namespace": "Windows.Security.Isolation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "telemetryParameters",
+          "Type": {
+            "Name": "IsolatedWindowsEnvironmentTelemetryParameters",
+            "Namespace": "Windows.Security.Isolation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironmentCreateResult",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironmentCreateProgress",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetById",
+      "Parameters": [
+        {
+          "Name": "environmentId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IsolatedWindowsEnvironment",
+        "Namespace": "Windows.Security.Isolation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindByOwnerId",
+      "Parameters": [
+        {
+          "Name": "environmentOwnerId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironment",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

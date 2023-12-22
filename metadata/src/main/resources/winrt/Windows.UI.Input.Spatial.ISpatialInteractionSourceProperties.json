@@ -1,0 +1,80 @@
+{
+  "Name": "ISpatialInteractionSourceProperties",
+  "Namespace": "Windows.UI.Input.Spatial",
+  "Guid": "056045423ef732229f5363c9cb7e3bc7",
+  "Methods": [
+    {
+      "Name": "TryGetSourceLossMitigationDirection",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Vector3",
+              "Namespace": "Windows.Foundation.Numerics",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SourceLossRisk",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetLocation",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpatialInteractionSourceLocation",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

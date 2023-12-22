@@ -1,0 +1,56 @@
+{
+  "Name": "SpeechSynthesizer",
+  "Namespace": "Windows.Media.SpeechSynthesis",
+  "Interfaces": [
+    {
+      "Name": "ISpeechSynthesizer",
+      "Namespace": "Windows.Media.SpeechSynthesis",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISpeechSynthesizer2",
+      "Namespace": "Windows.Media.SpeechSynthesis",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IInstalledVoicesStatic2",
+          "Namespace": "Windows.Media.SpeechSynthesis"
+        },
+        {
+          "Name": "IInstalledVoicesStatic",
+          "Namespace": "Windows.Media.SpeechSynthesis"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISpeechSynthesizer",
+        "Namespace": "Windows.Media.SpeechSynthesis",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

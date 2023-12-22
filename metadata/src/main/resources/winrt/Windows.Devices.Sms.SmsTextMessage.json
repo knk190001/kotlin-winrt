@@ -1,0 +1,45 @@
+{
+  "Name": "SmsTextMessage",
+  "Namespace": "Windows.Devices.Sms",
+  "Interfaces": [
+    {
+      "Name": "ISmsTextMessage",
+      "Namespace": "Windows.Devices.Sms",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISmsMessage",
+      "Namespace": "Windows.Devices.Sms",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "ISmsTextMessageStatics",
+          "Namespace": "Windows.Devices.Sms"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISmsTextMessage",
+        "Namespace": "Windows.Devices.Sms",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

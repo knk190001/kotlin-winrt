@@ -1,0 +1,74 @@
+{
+  "Name": "Brush",
+  "Namespace": "Windows.UI.Xaml.Media",
+  "Interfaces": [
+    {
+      "Name": "IBrush",
+      "Namespace": "Windows.UI.Xaml.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBrushOverrides2",
+      "Namespace": "Windows.UI.Xaml.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IAnimationObject",
+      "Namespace": "Windows.UI.Composition",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IBrushStatics",
+          "Namespace": "Windows.UI.Xaml.Media"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IBrush",
+        "Namespace": "Windows.UI.Xaml.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IBrushFactory",
+          "Namespace": "Windows.UI.Xaml.Media",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "DependencyObject",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

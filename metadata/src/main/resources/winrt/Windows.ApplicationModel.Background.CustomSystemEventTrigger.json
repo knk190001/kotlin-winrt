@@ -1,0 +1,45 @@
+{
+  "Name": "CustomSystemEventTrigger",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Interfaces": [
+    {
+      "Name": "ICustomSystemEventTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBackgroundTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "ICustomSystemEventTrigger",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ICustomSystemEventTriggerFactory",
+          "Namespace": "Windows.ApplicationModel.Background",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

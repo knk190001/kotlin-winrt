@@ -1,0 +1,64 @@
+{
+  "Name": "Hub",
+  "Namespace": "Windows.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IHub",
+      "Namespace": "Windows.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISemanticZoomInformation",
+      "Namespace": "Windows.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IHubStatics",
+          "Namespace": "Windows.UI.Xaml.Controls"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IHub",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IHubFactory",
+          "Namespace": "Windows.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "Control",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

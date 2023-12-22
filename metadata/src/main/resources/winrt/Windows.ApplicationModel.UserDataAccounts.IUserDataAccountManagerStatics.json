@@ -1,0 +1,127 @@
+{
+  "Name": "IUserDataAccountManagerStatics",
+  "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+  "Guid": "0d9b89ea19284a2086d53c737f7dc3b0",
+  "Methods": [
+    {
+      "Name": "RequestStoreAsync",
+      "Parameters": [
+        {
+          "Name": "storeAccessType",
+          "Type": {
+            "Name": "UserDataAccountStoreAccessType",
+            "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UserDataAccountStore",
+              "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ShowAddAccountAsync",
+      "Parameters": [
+        {
+          "Name": "contentKinds",
+          "Type": {
+            "Name": "UserDataAccountContentKinds",
+            "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ShowAccountSettingsAsync",
+      "Parameters": [
+        {
+          "Name": "id",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ShowAccountErrorResolverAsync",
+      "Parameters": [
+        {
+          "Name": "id",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

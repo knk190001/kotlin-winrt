@@ -1,0 +1,45 @@
+{
+  "Name": "LoggingSession",
+  "Namespace": "Windows.Foundation.Diagnostics",
+  "Interfaces": [
+    {
+      "Name": "ILoggingSession",
+      "Namespace": "Windows.Foundation.Diagnostics",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "ILoggingSession",
+        "Namespace": "Windows.Foundation.Diagnostics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ILoggingSessionFactory",
+          "Namespace": "Windows.Foundation.Diagnostics",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

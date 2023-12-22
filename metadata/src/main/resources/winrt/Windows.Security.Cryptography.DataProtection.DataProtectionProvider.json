@@ -1,0 +1,41 @@
+{
+  "Name": "DataProtectionProvider",
+  "Namespace": "Windows.Security.Cryptography.DataProtection",
+  "Interfaces": [
+    {
+      "Name": "IDataProtectionProvider",
+      "Namespace": "Windows.Security.Cryptography.DataProtection",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IDataProtectionProvider",
+        "Namespace": "Windows.Security.Cryptography.DataProtection",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IDataProtectionProviderFactory",
+          "Namespace": "Windows.Security.Cryptography.DataProtection",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

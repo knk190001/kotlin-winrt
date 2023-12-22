@@ -1,0 +1,81 @@
+{
+  "Name": "IPhotoImportSourceStatics",
+  "Namespace": "Windows.Media.Import",
+  "Guid": "0528e58632d8467c8cee23a1b2f43e85",
+  "Methods": [
+    {
+      "Name": "FromIdAsync",
+      "Parameters": [
+        {
+          "Name": "sourceId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PhotoImportSource",
+              "Namespace": "Windows.Media.Import",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FromFolderAsync",
+      "Parameters": [
+        {
+          "Name": "sourceRootFolder",
+          "Type": {
+            "Name": "IStorageFolder",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PhotoImportSource",
+              "Namespace": "Windows.Media.Import",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

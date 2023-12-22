@@ -1,0 +1,80 @@
+{
+  "Name": "IDataPackageView3",
+  "Namespace": "Windows.ApplicationModel.DataTransfer",
+  "Guid": "d37771a8ddad42888428d1cae394128b",
+  "Methods": [
+    {
+      "Name": "RequestAccessAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ProtectionPolicyEvaluationResult",
+              "Namespace": "Windows.Security.EnterpriseData",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestAccessAsync",
+      "Parameters": [
+        {
+          "Name": "enterpriseId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ProtectionPolicyEvaluationResult",
+              "Namespace": "Windows.Security.EnterpriseData",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnlockAndAssumeEnterpriseIdentity",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ProtectionPolicyEvaluationResult",
+        "Namespace": "Windows.Security.EnterpriseData",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

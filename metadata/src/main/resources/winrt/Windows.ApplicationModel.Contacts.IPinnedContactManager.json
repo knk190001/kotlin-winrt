@@ -1,0 +1,275 @@
+{
+  "Name": "IPinnedContactManager",
+  "Namespace": "Windows.ApplicationModel.Contacts",
+  "Guid": "fcbc740ce1d645c3b8b6a35604e167a0",
+  "Methods": [
+    {
+      "Name": "get_User",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "User",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsPinSurfaceSupported",
+      "Parameters": [
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "PinnedContactSurface",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsContactPinned",
+      "Parameters": [
+        {
+          "Name": "contact",
+          "Type": {
+            "Name": "Contact",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "PinnedContactSurface",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestPinContactAsync",
+      "Parameters": [
+        {
+          "Name": "contact",
+          "Type": {
+            "Name": "Contact",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "PinnedContactSurface",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestPinContactsAsync",
+      "Parameters": [
+        {
+          "Name": "contacts",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "Contact",
+                  "Namespace": "Windows.ApplicationModel.Contacts",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "PinnedContactSurface",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestUnpinContactAsync",
+      "Parameters": [
+        {
+          "Name": "contact",
+          "Type": {
+            "Name": "Contact",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "surface",
+          "Type": {
+            "Name": "PinnedContactSurface",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SignalContactActivity",
+      "Parameters": [
+        {
+          "Name": "contact",
+          "Type": {
+            "Name": "Contact",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetPinnedContactIdsAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PinnedContactIdsQueryResult",
+              "Namespace": "Windows.ApplicationModel.Contacts",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,67 @@
+{
+  "Name": "IVisualElementsRequest",
+  "Namespace": "Windows.UI.StartScreen",
+  "Guid": "c138333a9308407288ccd068db347c68",
+  "Methods": [
+    {
+      "Name": "get_VisualElements",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SecondaryTileVisualElements",
+        "Namespace": "Windows.UI.StartScreen",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AlternateVisualElements",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SecondaryTileVisualElements",
+              "Namespace": "Windows.UI.StartScreen",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Deadline",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DateTime",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeferral",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VisualElementsRequestDeferral",
+        "Namespace": "Windows.UI.StartScreen",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

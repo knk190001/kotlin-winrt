@@ -1,0 +1,45 @@
+{
+  "Name": "IEmailConversationBatch",
+  "Namespace": "Windows.ApplicationModel.Email",
+  "Guid": "b8c1ab8101c5432a9df1fe85d98a279a",
+  "Methods": [
+    {
+      "Name": "get_Conversations",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "EmailConversation",
+              "Namespace": "Windows.ApplicationModel.Email",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Status",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "EmailBatchStatus",
+        "Namespace": "Windows.ApplicationModel.Email",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

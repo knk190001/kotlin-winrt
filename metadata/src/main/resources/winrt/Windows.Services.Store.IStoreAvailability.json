@@ -1,0 +1,113 @@
+{
+  "Name": "IStoreAvailability",
+  "Namespace": "Windows.Services.Store",
+  "Guid": "fa0603250ffd4493ad43f1f9918f69fa",
+  "Methods": [
+    {
+      "Name": "get_StoreId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_EndDate",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DateTime",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Price",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "StorePrice",
+        "Namespace": "Windows.Services.Store",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ExtendedJsonData",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestPurchaseAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StorePurchaseResult",
+              "Namespace": "Windows.Services.Store",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestPurchaseAsync",
+      "Parameters": [
+        {
+          "Name": "storePurchaseProperties",
+          "Type": {
+            "Name": "StorePurchaseProperties",
+            "Namespace": "Windows.Services.Store",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StorePurchaseResult",
+              "Namespace": "Windows.Services.Store",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

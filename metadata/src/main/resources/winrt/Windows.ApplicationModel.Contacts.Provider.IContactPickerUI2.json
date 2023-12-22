@@ -1,0 +1,57 @@
+{
+  "Name": "IContactPickerUI2",
+  "Namespace": "Windows.ApplicationModel.Contacts.Provider",
+  "Guid": "6e449e287b2549999b0b875400a1e8c8",
+  "Methods": [
+    {
+      "Name": "AddContact",
+      "Parameters": [
+        {
+          "Name": "contact",
+          "Type": {
+            "Name": "Contact",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AddContactResult",
+        "Namespace": "Windows.ApplicationModel.Contacts.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DesiredFieldsWithContactFieldType",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ContactFieldType",
+              "Namespace": "Windows.ApplicationModel.Contacts",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

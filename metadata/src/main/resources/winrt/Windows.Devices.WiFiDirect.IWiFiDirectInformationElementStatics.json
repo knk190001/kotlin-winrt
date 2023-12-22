@@ -1,0 +1,81 @@
+{
+  "Name": "IWiFiDirectInformationElementStatics",
+  "Namespace": "Windows.Devices.WiFiDirect",
+  "Guid": "dbd02f1611a54e608caa34772148378a",
+  "Methods": [
+    {
+      "Name": "CreateFromBuffer",
+      "Parameters": [
+        {
+          "Name": "buffer",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WiFiDirectInformationElement",
+              "Namespace": "Windows.Devices.WiFiDirect",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFromDeviceInformation",
+      "Parameters": [
+        {
+          "Name": "deviceInformation",
+          "Type": {
+            "Name": "DeviceInformation",
+            "Namespace": "Windows.Devices.Enumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WiFiDirectInformationElement",
+              "Namespace": "Windows.Devices.WiFiDirect",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

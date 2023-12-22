@@ -1,0 +1,79 @@
+{
+  "Name": "ICompressorFactory",
+  "Namespace": "Windows.Storage.Compression",
+  "Guid": "5f3d96a42cfb442ca8bad7d11b039da0",
+  "Methods": [
+    {
+      "Name": "CreateCompressor",
+      "Parameters": [
+        {
+          "Name": "underlyingStream",
+          "Type": {
+            "Name": "IOutputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Compressor",
+        "Namespace": "Windows.Storage.Compression",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateCompressorEx",
+      "Parameters": [
+        {
+          "Name": "underlyingStream",
+          "Type": {
+            "Name": "IOutputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "algorithm",
+          "Type": {
+            "Name": "CompressAlgorithm",
+            "Namespace": "Windows.Storage.Compression",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "blockSize",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Compressor",
+        "Namespace": "Windows.Storage.Compression",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

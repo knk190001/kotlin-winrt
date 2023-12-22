@@ -1,0 +1,46 @@
+{
+  "Name": "IErrorDetailsStatics",
+  "Namespace": "Windows.Foundation.Diagnostics",
+  "Guid": "b77037500b1d46c8aa0e4b8178e4fce9",
+  "Methods": [
+    {
+      "Name": "CreateFromHResultAsync",
+      "Parameters": [
+        {
+          "Name": "errorCode",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ErrorDetails",
+              "Namespace": "Windows.Foundation.Diagnostics",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

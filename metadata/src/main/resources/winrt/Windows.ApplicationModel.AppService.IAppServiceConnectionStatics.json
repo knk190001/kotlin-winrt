@@ -1,0 +1,68 @@
+{
+  "Name": "IAppServiceConnectionStatics",
+  "Namespace": "Windows.ApplicationModel.AppService",
+  "Guid": "adc56ce9d40856738637827a4b274168",
+  "Methods": [
+    {
+      "Name": "SendStatelessMessageAsync",
+      "Parameters": [
+        {
+          "Name": "connection",
+          "Type": {
+            "Name": "AppServiceConnection",
+            "Namespace": "Windows.ApplicationModel.AppService",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "connectionRequest",
+          "Type": {
+            "Name": "RemoteSystemConnectionRequest",
+            "Namespace": "Windows.System.RemoteSystems",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "message",
+          "Type": {
+            "Name": "ValueSet",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StatelessAppServiceResponse",
+              "Namespace": "Windows.ApplicationModel.AppService",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

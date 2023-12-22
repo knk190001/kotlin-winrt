@@ -1,0 +1,102 @@
+{
+  "Name": "IXboxLiveDeviceAddressStatics",
+  "Namespace": "Windows.Networking.XboxLive",
+  "Guid": "5954a8194a794931827c7f503e963263",
+  "Methods": [
+    {
+      "Name": "CreateFromSnapshotBase64",
+      "Parameters": [
+        {
+          "Name": "base64",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "XboxLiveDeviceAddress",
+        "Namespace": "Windows.Networking.XboxLive",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFromSnapshotBuffer",
+      "Parameters": [
+        {
+          "Name": "buffer",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "XboxLiveDeviceAddress",
+        "Namespace": "Windows.Networking.XboxLive",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFromSnapshotBytes",
+      "Parameters": [
+        {
+          "Name": "buffer",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "XboxLiveDeviceAddress",
+        "Namespace": "Windows.Networking.XboxLive",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetLocal",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "XboxLiveDeviceAddress",
+        "Namespace": "Windows.Networking.XboxLive",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxSnapshotBytesSize",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

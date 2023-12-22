@@ -1,0 +1,80 @@
+{
+  "Name": "ICertificateChain",
+  "Namespace": "Windows.Security.Cryptography.Certificates",
+  "Guid": "20bf538536914501a62cfd97278b31ee",
+  "Methods": [
+    {
+      "Name": "Validate",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ChainValidationResult",
+        "Namespace": "Windows.Security.Cryptography.Certificates",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Validate",
+      "Parameters": [
+        {
+          "Name": "parameter",
+          "Type": {
+            "Name": "ChainValidationParameters",
+            "Namespace": "Windows.Security.Cryptography.Certificates",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ChainValidationResult",
+        "Namespace": "Windows.Security.Cryptography.Certificates",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCertificates",
+      "Parameters": [
+        {
+          "Name": "includeRoot",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Certificate",
+              "Namespace": "Windows.Security.Cryptography.Certificates",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

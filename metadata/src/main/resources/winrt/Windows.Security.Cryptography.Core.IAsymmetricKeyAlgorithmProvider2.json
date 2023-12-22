@@ -1,0 +1,57 @@
+{
+  "Name": "IAsymmetricKeyAlgorithmProvider2",
+  "Namespace": "Windows.Security.Cryptography.Core",
+  "Guid": "4e322a7e7c4d4997ac4f1b848b36306e",
+  "Methods": [
+    {
+      "Name": "CreateKeyPairWithCurveName",
+      "Parameters": [
+        {
+          "Name": "curveName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CryptographicKey",
+        "Namespace": "Windows.Security.Cryptography.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateKeyPairWithCurveParameters",
+      "Parameters": [
+        {
+          "Name": "parameters",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CryptographicKey",
+        "Namespace": "Windows.Security.Cryptography.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

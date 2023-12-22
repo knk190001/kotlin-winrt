@@ -1,0 +1,90 @@
+{
+  "Name": "IPointerPointTransform",
+  "Namespace": "Microsoft.UI.Input",
+  "Guid": "db4791bc994d54c792ef66ea1de9b43c",
+  "Methods": [
+    {
+      "Name": "get_Inverse",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IPointerPointTransform",
+        "Namespace": "Microsoft.UI.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryTransform",
+      "Parameters": [
+        {
+          "Name": "inPoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "outPoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": true
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryTransformBounds",
+      "Parameters": [
+        {
+          "Name": "inRect",
+          "Type": {
+            "Name": "Rect",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "outRect",
+          "Type": {
+            "Name": "Rect",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": true
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

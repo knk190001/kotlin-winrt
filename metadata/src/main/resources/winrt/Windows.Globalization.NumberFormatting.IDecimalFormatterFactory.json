@@ -1,0 +1,57 @@
+{
+  "Name": "IDecimalFormatterFactory",
+  "Namespace": "Windows.Globalization.NumberFormatting",
+  "Guid": "0d018c9ae39346b8b8307a69c8f89fbb",
+  "Methods": [
+    {
+      "Name": "CreateDecimalFormatter",
+      "Parameters": [
+        {
+          "Name": "languages",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "geographicRegion",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DecimalFormatter",
+        "Namespace": "Windows.Globalization.NumberFormatting",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,102 @@
+{
+  "Name": "IOcrEngineStatics",
+  "Namespace": "Windows.Media.Ocr",
+  "Guid": "5bffa85a338435409940699120d428a8",
+  "Methods": [
+    {
+      "Name": "get_MaxImageDimension",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AvailableRecognizerLanguages",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Language",
+              "Namespace": "Windows.Globalization",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsLanguageSupported",
+      "Parameters": [
+        {
+          "Name": "language",
+          "Type": {
+            "Name": "Language",
+            "Namespace": "Windows.Globalization",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryCreateFromLanguage",
+      "Parameters": [
+        {
+          "Name": "language",
+          "Type": {
+            "Name": "Language",
+            "Namespace": "Windows.Globalization",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "OcrEngine",
+        "Namespace": "Windows.Media.Ocr",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryCreateFromUserProfileLanguages",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "OcrEngine",
+        "Namespace": "Windows.Media.Ocr",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,38 @@
+{
+  "Name": "UserPicker",
+  "Namespace": "Windows.System",
+  "Interfaces": [
+    {
+      "Name": "IUserPicker",
+      "Namespace": "Windows.System",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IUserPickerStatics",
+          "Namespace": "Windows.System"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IUserPicker",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,75 @@
+{
+  "Name": "IStreamSocket2",
+  "Namespace": "Windows.Networking.Sockets",
+  "Guid": "29d0e575f3144d09adf00fbd967fbd9f",
+  "Methods": [
+    {
+      "Name": "ConnectAsync",
+      "Parameters": [
+        {
+          "Name": "remoteHostName",
+          "Type": {
+            "Name": "HostName",
+            "Namespace": "Windows.Networking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "remoteServiceName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "protectionLevel",
+          "Type": {
+            "Name": "SocketProtectionLevel",
+            "Namespace": "Windows.Networking.Sockets",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "adapter",
+          "Type": {
+            "Name": "NetworkAdapter",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

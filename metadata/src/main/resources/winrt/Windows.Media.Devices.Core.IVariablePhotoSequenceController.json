@@ -1,0 +1,135 @@
+{
+  "Name": "IVariablePhotoSequenceController",
+  "Namespace": "Windows.Media.Devices.Core",
+  "Guid": "7fbff880ed8c43fda7c3b35809e4229a",
+  "Methods": [
+    {
+      "Name": "get_Supported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxPhotosPerSecond",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PhotosPerSecondLimit",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_PhotosPerSecondLimit",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetHighestConcurrentFrameRate",
+      "Parameters": [
+        {
+          "Name": "captureProperties",
+          "Type": {
+            "Name": "IMediaEncodingProperties",
+            "Namespace": "Windows.Media.MediaProperties",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "MediaRatio",
+        "Namespace": "Windows.Media.MediaProperties",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentFrameRate",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaRatio",
+        "Namespace": "Windows.Media.MediaProperties",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_FrameCapabilities",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "FrameControlCapabilities",
+        "Namespace": "Windows.Media.Devices.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DesiredFrameControllers",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "FrameController",
+              "Namespace": "Windows.Media.Devices.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

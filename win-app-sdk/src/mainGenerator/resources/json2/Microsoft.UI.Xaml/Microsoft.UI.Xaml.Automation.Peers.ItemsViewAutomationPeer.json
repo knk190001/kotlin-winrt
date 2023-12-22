@@ -1,0 +1,55 @@
+{
+  "Name": "ItemsViewAutomationPeer",
+  "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "IItemsViewAutomationPeer",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISelectionProvider",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IItemsViewAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IItemsViewAutomationPeerFactory",
+          "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkElementAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

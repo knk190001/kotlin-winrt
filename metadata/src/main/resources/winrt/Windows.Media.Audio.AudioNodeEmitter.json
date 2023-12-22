@@ -1,0 +1,48 @@
+{
+  "Name": "AudioNodeEmitter",
+  "Namespace": "Windows.Media.Audio",
+  "Interfaces": [
+    {
+      "Name": "IAudioNodeEmitter",
+      "Namespace": "Windows.Media.Audio",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IAudioNodeEmitter2",
+      "Namespace": "Windows.Media.Audio",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAudioNodeEmitter",
+        "Namespace": "Windows.Media.Audio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IAudioNodeEmitterFactory",
+          "Namespace": "Windows.Media.Audio",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

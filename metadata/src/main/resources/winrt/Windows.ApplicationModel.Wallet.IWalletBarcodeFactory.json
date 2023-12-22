@@ -1,0 +1,68 @@
+{
+  "Name": "IWalletBarcodeFactory",
+  "Namespace": "Windows.ApplicationModel.Wallet",
+  "Guid": "30117161ed9c469ebbfd306c95ea7108",
+  "Methods": [
+    {
+      "Name": "CreateWalletBarcode",
+      "Parameters": [
+        {
+          "Name": "symbology",
+          "Type": {
+            "Name": "WalletBarcodeSymbology",
+            "Namespace": "Windows.ApplicationModel.Wallet",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WalletBarcode",
+        "Namespace": "Windows.ApplicationModel.Wallet",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateCustomWalletBarcode",
+      "Parameters": [
+        {
+          "Name": "streamToBarcodeImage",
+          "Type": {
+            "Name": "IRandomAccessStreamReference",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WalletBarcode",
+        "Namespace": "Windows.ApplicationModel.Wallet",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,86 @@
+{
+  "Name": "ISpatialInteractionSource2",
+  "Namespace": "Windows.UI.Input.Spatial",
+  "Guid": "e4c5b70c0470402888c0a0eb44d34efe",
+  "Methods": [
+    {
+      "Name": "get_IsPointingSupported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsMenuSupported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsGraspSupported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Controller",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialInteractionController",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetStateAtTimestamp",
+      "Parameters": [
+        {
+          "Name": "timestamp",
+          "Type": {
+            "Name": "PerceptionTimestamp",
+            "Namespace": "Windows.Perception",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpatialInteractionSourceState",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "ISpatialInteractionSource",
+      "Namespace": "Windows.UI.Input.Spatial",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

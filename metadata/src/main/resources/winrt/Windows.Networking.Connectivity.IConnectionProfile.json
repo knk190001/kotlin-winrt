@@ -1,0 +1,179 @@
+{
+  "Name": "IConnectionProfile",
+  "Namespace": "Windows.Networking.Connectivity",
+  "Guid": "71ba143c598e49d084eb8febaedcc195",
+  "Methods": [
+    {
+      "Name": "get_ProfileName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetNetworkConnectivityLevel",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "NetworkConnectivityLevel",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetNetworkNames",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetConnectionCost",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ConnectionCost",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDataPlanStatus",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DataPlanStatus",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_NetworkAdapter",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "NetworkAdapter",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetLocalUsage",
+      "Parameters": [
+        {
+          "Name": "StartTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "EndTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DataUsage",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetLocalUsage",
+      "Parameters": [
+        {
+          "Name": "StartTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "EndTime",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "States",
+          "Type": {
+            "Name": "RoamingStates",
+            "Namespace": "Windows.Networking.Connectivity",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DataUsage",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_NetworkSecuritySettings",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "NetworkSecuritySettings",
+        "Namespace": "Windows.Networking.Connectivity",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

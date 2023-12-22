@@ -1,0 +1,42 @@
+{
+  "Name": "SpiDevice",
+  "Namespace": "Windows.Devices.Spi",
+  "Interfaces": [
+    {
+      "Name": "ISpiDevice",
+      "Namespace": "Windows.Devices.Spi",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ISpiDeviceStatics",
+          "Namespace": "Windows.Devices.Spi"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISpiDevice",
+        "Namespace": "Windows.Devices.Spi",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

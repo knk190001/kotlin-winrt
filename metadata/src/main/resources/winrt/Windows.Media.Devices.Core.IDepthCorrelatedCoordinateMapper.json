@@ -1,0 +1,199 @@
+{
+  "Name": "IDepthCorrelatedCoordinateMapper",
+  "Namespace": "Windows.Media.Devices.Core",
+  "Guid": "f95d89fb8af04cb0926d696866e5046a",
+  "Methods": [
+    {
+      "Name": "UnprojectPoint",
+      "Parameters": [
+        {
+          "Name": "sourcePoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetCoordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Vector3",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnprojectPoints",
+      "Parameters": [
+        {
+          "Name": "sourcePoints",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetCoordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "MapPoint",
+      "Parameters": [
+        {
+          "Name": "sourcePoint",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetCoordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetCameraIntrinsics",
+          "Type": {
+            "Name": "CameraIntrinsics",
+            "Namespace": "Windows.Media.Devices.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "MapPoints",
+      "Parameters": [
+        {
+          "Name": "sourcePoints",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetCoordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetCameraIntrinsics",
+          "Type": {
+            "Name": "CameraIntrinsics",
+            "Namespace": "Windows.Media.Devices.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

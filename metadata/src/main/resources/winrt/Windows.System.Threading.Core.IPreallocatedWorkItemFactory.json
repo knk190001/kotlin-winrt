@@ -1,0 +1,113 @@
+{
+  "Name": "IPreallocatedWorkItemFactory",
+  "Namespace": "Windows.System.Threading.Core",
+  "Guid": "e3d32b45dfea469b82c5f6e3cefdeafb",
+  "Methods": [
+    {
+      "Name": "CreateWorkItem",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "WorkItemHandler",
+            "Namespace": "Windows.System.Threading",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PreallocatedWorkItem",
+        "Namespace": "Windows.System.Threading.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWorkItemWithPriority",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "WorkItemHandler",
+            "Namespace": "Windows.System.Threading",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "priority",
+          "Type": {
+            "Name": "WorkItemPriority",
+            "Namespace": "Windows.System.Threading",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PreallocatedWorkItem",
+        "Namespace": "Windows.System.Threading.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWorkItemWithPriorityAndOptions",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "WorkItemHandler",
+            "Namespace": "Windows.System.Threading",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "priority",
+          "Type": {
+            "Name": "WorkItemPriority",
+            "Namespace": "Windows.System.Threading",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "WorkItemOptions",
+            "Namespace": "Windows.System.Threading",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PreallocatedWorkItem",
+        "Namespace": "Windows.System.Threading.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

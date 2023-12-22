@@ -1,0 +1,90 @@
+{
+  "Name": "IRfcommServiceProvider",
+  "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+  "Guid": "eadbfdc4b1f644ff9f7ce7a82ab86821",
+  "Methods": [
+    {
+      "Name": "get_ServiceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "RfcommServiceId",
+        "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SdpRawAttributes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IMap`2",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "K",
+            "Position": 0,
+            "Type": {
+              "Name": "UInt32",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "V",
+            "Position": 1,
+            "Type": {
+              "Name": "IBuffer",
+              "Namespace": "Windows.Storage.Streams",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartAdvertising",
+      "Parameters": [
+        {
+          "Name": "listener",
+          "Type": {
+            "Name": "StreamSocketListener",
+            "Namespace": "Windows.Networking.Sockets",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StopAdvertising",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

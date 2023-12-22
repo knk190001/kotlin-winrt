@@ -1,0 +1,125 @@
+{
+  "Name": "IWiFiAdapter2",
+  "Namespace": "Windows.Devices.WiFi",
+  "Guid": "5bc4501d81e4453d94301fcafbadd6b6",
+  "Methods": [
+    {
+      "Name": "GetWpsConfigurationAsync",
+      "Parameters": [
+        {
+          "Name": "availableNetwork",
+          "Type": {
+            "Name": "WiFiAvailableNetwork",
+            "Namespace": "Windows.Devices.WiFi",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "WiFiWpsConfigurationResult",
+              "Namespace": "Windows.Devices.WiFi",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ConnectAsync",
+      "Parameters": [
+        {
+          "Name": "availableNetwork",
+          "Type": {
+            "Name": "WiFiAvailableNetwork",
+            "Namespace": "Windows.Devices.WiFi",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "reconnectionKind",
+          "Type": {
+            "Name": "WiFiReconnectionKind",
+            "Namespace": "Windows.Devices.WiFi",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "passwordCredential",
+          "Type": {
+            "Name": "PasswordCredential",
+            "Namespace": "Windows.Security.Credentials",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "ssid",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "connectionMethod",
+          "Type": {
+            "Name": "WiFiConnectionMethod",
+            "Namespace": "Windows.Devices.WiFi",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "WiFiConnectionResult",
+              "Namespace": "Windows.Devices.WiFi",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

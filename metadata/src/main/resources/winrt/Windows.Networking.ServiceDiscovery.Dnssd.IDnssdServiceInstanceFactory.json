@@ -1,0 +1,56 @@
+{
+  "Name": "IDnssdServiceInstanceFactory",
+  "Namespace": "Windows.Networking.ServiceDiscovery.Dnssd",
+  "Guid": "6cb061a1c478433196844af2186c0a2b",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "dnssdServiceInstanceName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "hostName",
+          "Type": {
+            "Name": "HostName",
+            "Namespace": "Windows.Networking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "port",
+          "Type": {
+            "Name": "UInt16",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DnssdServiceInstance",
+        "Namespace": "Windows.Networking.ServiceDiscovery.Dnssd",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

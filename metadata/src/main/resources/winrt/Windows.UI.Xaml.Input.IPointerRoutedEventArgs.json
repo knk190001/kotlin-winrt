@@ -1,0 +1,125 @@
+{
+  "Name": "IPointerRoutedEventArgs",
+  "Namespace": "Windows.UI.Xaml.Input",
+  "Guid": "da628f0a975249e2bde249eccab9194d",
+  "Methods": [
+    {
+      "Name": "get_Pointer",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Pointer",
+        "Namespace": "Windows.UI.Xaml.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_KeyModifiers",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VirtualKeyModifiers",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Handled",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Handled",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentPoint",
+      "Parameters": [
+        {
+          "Name": "relativeTo",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Windows.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PointerPoint",
+        "Namespace": "Windows.UI.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetIntermediatePoints",
+      "Parameters": [
+        {
+          "Name": "relativeTo",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Windows.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "PointerPoint",
+              "Namespace": "Windows.UI.Input",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

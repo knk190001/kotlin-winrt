@@ -1,0 +1,110 @@
+{
+  "Name": "ICoreDispatcher",
+  "Namespace": "Windows.UI.Core",
+  "Guid": "60db2fa8b7054fdea7d6ebbb1891d39e",
+  "Methods": [
+    {
+      "Name": "get_HasThreadAccess",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProcessEvents",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "CoreProcessEventsOption",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RunAsync",
+      "Parameters": [
+        {
+          "Name": "priority",
+          "Type": {
+            "Name": "CoreDispatcherPriority",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "agileCallback",
+          "Type": {
+            "Name": "DispatchedHandler",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RunIdleAsync",
+      "Parameters": [
+        {
+          "Name": "agileCallback",
+          "Type": {
+            "Name": "IdleDispatchedHandler",
+            "Namespace": "Windows.UI.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "ICoreAcceleratorKeys",
+      "Namespace": "Windows.UI.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,125 @@
+{
+  "Name": "IMiracastReceiverStreamControl",
+  "Namespace": "Windows.Media.Miracast",
+  "Guid": "38ea2d8b27695ad78a8a254b9df7ba82",
+  "Methods": [
+    {
+      "Name": "GetVideoStreamSettings",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MiracastReceiverVideoStreamSettings",
+        "Namespace": "Windows.Media.Miracast",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetVideoStreamSettingsAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "MiracastReceiverVideoStreamSettings",
+              "Namespace": "Windows.Media.Miracast",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SuggestVideoStreamSettings",
+      "Parameters": [
+        {
+          "Name": "settings",
+          "Type": {
+            "Name": "MiracastReceiverVideoStreamSettings",
+            "Namespace": "Windows.Media.Miracast",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SuggestVideoStreamSettingsAsync",
+      "Parameters": [
+        {
+          "Name": "settings",
+          "Type": {
+            "Name": "MiracastReceiverVideoStreamSettings",
+            "Namespace": "Windows.Media.Miracast",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MuteAudio",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_MuteAudio",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

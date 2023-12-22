@@ -1,0 +1,92 @@
+{
+  "Name": "IMidiSynthesizerStatics",
+  "Namespace": "Windows.Devices.Midi",
+  "Guid": "4224eaa866294d6baa8fd4521a5a31ce",
+  "Methods": [
+    {
+      "Name": "CreateAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "MidiSynthesizer",
+              "Namespace": "Windows.Devices.Midi",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateAsync",
+      "Parameters": [
+        {
+          "Name": "audioDevice",
+          "Type": {
+            "Name": "DeviceInformation",
+            "Namespace": "Windows.Devices.Enumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "MidiSynthesizer",
+              "Namespace": "Windows.Devices.Midi",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsSynthesizer",
+      "Parameters": [
+        {
+          "Name": "midiDevice",
+          "Type": {
+            "Name": "DeviceInformation",
+            "Namespace": "Windows.Devices.Enumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

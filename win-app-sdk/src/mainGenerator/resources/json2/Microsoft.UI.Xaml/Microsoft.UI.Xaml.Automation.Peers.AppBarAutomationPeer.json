@@ -1,0 +1,69 @@
+{
+  "Name": "AppBarAutomationPeer",
+  "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "IAppBarAutomationPeer",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IExpandCollapseProvider",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IToggleProvider",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IWindowProvider",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IAppBarAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IAppBarAutomationPeerFactory",
+          "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkElementAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

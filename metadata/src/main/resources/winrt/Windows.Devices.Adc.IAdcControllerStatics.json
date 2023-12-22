@@ -1,0 +1,58 @@
+{
+  "Name": "IAdcControllerStatics",
+  "Namespace": "Windows.Devices.Adc",
+  "Guid": "cce98e0c01f84891bc3bbe53ef279ca4",
+  "Methods": [
+    {
+      "Name": "GetControllersAsync",
+      "Parameters": [
+        {
+          "Name": "provider",
+          "Type": {
+            "Name": "IAdcProvider",
+            "Namespace": "Windows.Devices.Adc.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "AdcController",
+                    "Namespace": "Windows.Devices.Adc",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,68 @@
+{
+  "Name": "IDisplayTask",
+  "Namespace": "Windows.Devices.Display.Core",
+  "Guid": "5e087448135b5bb0bf63637f84227c7a",
+  "Methods": [
+    {
+      "Name": "SetScanout",
+      "Parameters": [
+        {
+          "Name": "scanout",
+          "Type": {
+            "Name": "DisplayScanout",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetWait",
+      "Parameters": [
+        {
+          "Name": "readyFence",
+          "Type": {
+            "Name": "DisplayFence",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "readyFenceValue",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

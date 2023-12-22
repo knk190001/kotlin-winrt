@@ -1,0 +1,113 @@
+{
+  "Name": "IWebTokenResponseFactory",
+  "Namespace": "Windows.Security.Authentication.Web.Core",
+  "Guid": "ab6bf7f854504ef697f7052b0431c0f0",
+  "Methods": [
+    {
+      "Name": "CreateWithToken",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WebTokenResponse",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithTokenAndAccount",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "webAccount",
+          "Type": {
+            "Name": "WebAccount",
+            "Namespace": "Windows.Security.Credentials",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WebTokenResponse",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithTokenAccountAndError",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "webAccount",
+          "Type": {
+            "Name": "WebAccount",
+            "Namespace": "Windows.Security.Credentials",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "error",
+          "Type": {
+            "Name": "WebProviderError",
+            "Namespace": "Windows.Security.Authentication.Web.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WebTokenResponse",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

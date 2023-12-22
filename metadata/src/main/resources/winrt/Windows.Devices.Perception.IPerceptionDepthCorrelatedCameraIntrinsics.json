@@ -1,0 +1,169 @@
+{
+  "Name": "IPerceptionDepthCorrelatedCameraIntrinsics",
+  "Namespace": "Windows.Devices.Perception",
+  "Guid": "6548ca0186de5be16582807fcf4c95cf",
+  "Methods": [
+    {
+      "Name": "UnprojectPixelAtCorrelatedDepth",
+      "Parameters": [
+        {
+          "Name": "pixelCoordinate",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "depthFrame",
+          "Type": {
+            "Name": "PerceptionDepthFrame",
+            "Namespace": "Windows.Devices.Perception",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Vector3",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnprojectPixelsAtCorrelatedDepth",
+      "Parameters": [
+        {
+          "Name": "sourceCoordinates",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "depthFrame",
+          "Type": {
+            "Name": "PerceptionDepthFrame",
+            "Namespace": "Windows.Devices.Perception",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnprojectRegionPixelsAtCorrelatedDepthAsync",
+      "Parameters": [
+        {
+          "Name": "region",
+          "Type": {
+            "Name": "Rect",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "depthFrame",
+          "Type": {
+            "Name": "PerceptionDepthFrame",
+            "Namespace": "Windows.Devices.Perception",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnprojectAllPixelsAtCorrelatedDepthAsync",
+      "Parameters": [
+        {
+          "Name": "depthFrame",
+          "Type": {
+            "Name": "PerceptionDepthFrame",
+            "Namespace": "Windows.Devices.Perception",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "results",
+          "Type": {
+            "Name": "Vector3",
+            "Namespace": "Windows.Foundation.Numerics",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

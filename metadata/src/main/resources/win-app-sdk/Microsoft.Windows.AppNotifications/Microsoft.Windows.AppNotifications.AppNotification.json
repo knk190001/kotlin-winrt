@@ -1,0 +1,38 @@
+{
+  "Name": "AppNotification",
+  "Namespace": "Microsoft.Windows.AppNotifications",
+  "Interfaces": [
+    {
+      "Name": "IAppNotification",
+      "Namespace": "Microsoft.Windows.AppNotifications",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IAppNotification",
+        "Namespace": "Microsoft.Windows.AppNotifications",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IAppNotificationFactory",
+          "Namespace": "Microsoft.Windows.AppNotifications",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

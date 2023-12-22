@@ -1,0 +1,46 @@
+{
+  "Name": "IStorageProviderItemPropertySource",
+  "Namespace": "Windows.Storage.Provider",
+  "Guid": "8f6f9c3ef6324a9b8d99d2d7a11df56a",
+  "Methods": [
+    {
+      "Name": "GetItemProperties",
+      "Parameters": [
+        {
+          "Name": "itemPath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IIterable`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "StorageProviderItemProperty",
+              "Namespace": "Windows.Storage.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

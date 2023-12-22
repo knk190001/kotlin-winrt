@@ -1,0 +1,102 @@
+{
+  "Name": "IResourceManager",
+  "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+  "Guid": "ac2291ef81be5c99a0aebcee0180b8a8",
+  "Methods": [
+    {
+      "Name": "get_MainResourceMap",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ResourceMap",
+        "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateResourceContext",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ResourceContext",
+        "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_ResourceNotFound",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "ResourceManager",
+                  "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "ResourceNotFoundEventArgs",
+                  "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_ResourceNotFound",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

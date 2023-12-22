@@ -1,0 +1,80 @@
+{
+  "Name": "IQueryOptionsFactory",
+  "Namespace": "Windows.Storage.Search",
+  "Guid": "032e1f8ca9c14e7180110dee9d4811a3",
+  "Methods": [
+    {
+      "Name": "CreateCommonFileQuery",
+      "Parameters": [
+        {
+          "Name": "query",
+          "Type": {
+            "Name": "CommonFileQuery",
+            "Namespace": "Windows.Storage.Search",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "fileTypeFilter",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "QueryOptions",
+        "Namespace": "Windows.Storage.Search",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateCommonFolderQuery",
+      "Parameters": [
+        {
+          "Name": "query",
+          "Type": {
+            "Name": "CommonFolderQuery",
+            "Namespace": "Windows.Storage.Search",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "QueryOptions",
+        "Namespace": "Windows.Storage.Search",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

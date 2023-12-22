@@ -1,0 +1,36 @@
+{
+  "Name": "ApplicationTrigger",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Interfaces": [
+    {
+      "Name": "IApplicationTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBackgroundTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IApplicationTrigger",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

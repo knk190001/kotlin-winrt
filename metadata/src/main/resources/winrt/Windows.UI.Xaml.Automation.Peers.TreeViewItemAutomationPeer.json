@@ -1,0 +1,55 @@
+{
+  "Name": "TreeViewItemAutomationPeer",
+  "Namespace": "Windows.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "ITreeViewItemAutomationPeer",
+      "Namespace": "Windows.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IExpandCollapseProvider",
+      "Namespace": "Windows.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "ITreeViewItemAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "ITreeViewItemAutomationPeerFactory",
+          "Namespace": "Windows.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "ListViewItemAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

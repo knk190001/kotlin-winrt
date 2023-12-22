@@ -1,0 +1,78 @@
+{
+  "Name": "ILowLevelDevicesAggregateProviderFactory",
+  "Namespace": "Windows.Devices",
+  "Guid": "9ac4aaf63473465e96d536281a2c57af",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "adc",
+          "Type": {
+            "Name": "IAdcControllerProvider",
+            "Namespace": "Windows.Devices.Adc.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pwm",
+          "Type": {
+            "Name": "IPwmControllerProvider",
+            "Namespace": "Windows.Devices.Pwm.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "gpio",
+          "Type": {
+            "Name": "IGpioControllerProvider",
+            "Namespace": "Windows.Devices.Gpio.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "i2c",
+          "Type": {
+            "Name": "II2cControllerProvider",
+            "Namespace": "Windows.Devices.I2c.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "spi",
+          "Type": {
+            "Name": "ISpiControllerProvider",
+            "Namespace": "Windows.Devices.Spi.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LowLevelDevicesAggregateProvider",
+        "Namespace": "Windows.Devices",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

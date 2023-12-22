@@ -1,0 +1,57 @@
+{
+  "Name": "IDiagnosticInvoker2",
+  "Namespace": "Windows.System.Diagnostics",
+  "Guid": "e3bf945c155a4b52a8ec070c44f95000",
+  "Methods": [
+    {
+      "Name": "RunDiagnosticActionFromStringAsync",
+      "Parameters": [
+        {
+          "Name": "context",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "DiagnosticActionResult",
+              "Namespace": "Windows.System.Diagnostics",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "DiagnosticActionState",
+              "Namespace": "Windows.System.Diagnostics",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

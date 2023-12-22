@@ -1,0 +1,112 @@
+{
+  "Name": "IGuidanceRoute",
+  "Namespace": "Windows.Services.Maps.Guidance",
+  "Guid": "3a14545d801a40bda286afb2010cce6c",
+  "Methods": [
+    {
+      "Name": "get_Duration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TimeSpan",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Distance",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Maneuvers",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "GuidanceManeuver",
+              "Namespace": "Windows.Services.Maps.Guidance",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BoundingBox",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "GeoboundingBox",
+        "Namespace": "Windows.Devices.Geolocation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Path",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Geopath",
+        "Namespace": "Windows.Devices.Geolocation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RoadSegments",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "GuidanceRoadSegment",
+              "Namespace": "Windows.Services.Maps.Guidance",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ConvertToMapRoute",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MapRoute",
+        "Namespace": "Windows.Services.Maps",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

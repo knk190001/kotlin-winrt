@@ -1,0 +1,150 @@
+{
+  "Name": "IStorageItemExtraProperties",
+  "Namespace": "Windows.Storage.FileProperties",
+  "Guid": "c54361b254cd432bbdbc4b19c4b470d7",
+  "Methods": [
+    {
+      "Name": "RetrievePropertiesAsync",
+      "Parameters": [
+        {
+          "Name": "propertiesToRetrieve",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IMap`2",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "K",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "String",
+                    "Namespace": "System",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                },
+                {
+                  "Name": "V",
+                  "Position": 1,
+                  "Type": {
+                    "Name": "Object",
+                    "Namespace": "System",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SavePropertiesAsync",
+      "Parameters": [
+        {
+          "Name": "propertiesToSave",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "IKeyValuePair`2",
+                  "Namespace": "Windows.Foundation.Collections",
+                  "GenericParameters": [
+                    {
+                      "Name": "K",
+                      "Position": 0,
+                      "Type": {
+                        "Name": "String",
+                        "Namespace": "System",
+                        "GenericParameters": null,
+                        "IsArray": false,
+                        "IsReference": false
+                      }
+                    },
+                    {
+                      "Name": "V",
+                      "Position": 1,
+                      "Type": {
+                        "Name": "Object",
+                        "Namespace": "System",
+                        "GenericParameters": null,
+                        "IsArray": false,
+                        "IsReference": false
+                      }
+                    }
+                  ],
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SavePropertiesAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

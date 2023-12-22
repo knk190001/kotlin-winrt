@@ -1,0 +1,46 @@
+{
+  "Name": "IPaymentTransactionStatics",
+  "Namespace": "Windows.ApplicationModel.Payments.Provider",
+  "Guid": "8d639750ee0a4df59b1e1c0f9ec59881",
+  "Methods": [
+    {
+      "Name": "FromIdAsync",
+      "Parameters": [
+        {
+          "Name": "id",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PaymentTransaction",
+              "Namespace": "Windows.ApplicationModel.Payments.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

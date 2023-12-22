@@ -1,0 +1,56 @@
+{
+  "Name": "IFindAllAccountsResult",
+  "Namespace": "Windows.Security.Authentication.Web.Core",
+  "Guid": "a5812b5db72e420c86abaac0d7b7261f",
+  "Methods": [
+    {
+      "Name": "get_Accounts",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WebAccount",
+              "Namespace": "Windows.Security.Credentials",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Status",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "FindAllWebAccountsStatus",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ProviderError",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebProviderError",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

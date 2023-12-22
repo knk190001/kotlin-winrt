@@ -1,0 +1,104 @@
+{
+  "Name": "ICoreWebView2_16",
+  "Namespace": "Microsoft.Web.WebView2.Core",
+  "Guid": "61d0a57c6c4f50ffa137314b0099a2b8",
+  "Methods": [
+    {
+      "Name": "PrintAsync",
+      "Parameters": [
+        {
+          "Name": "printSettings",
+          "Type": {
+            "Name": "CoreWebView2PrintSettings",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "CoreWebView2PrintStatus",
+              "Namespace": "Microsoft.Web.WebView2.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ShowPrintUI",
+      "Parameters": [
+        {
+          "Name": "printDialogKind",
+          "Type": {
+            "Name": "CoreWebView2PrintDialogKind",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "PrintToPdfStreamAsync",
+      "Parameters": [
+        {
+          "Name": "printSettings",
+          "Type": {
+            "Name": "CoreWebView2PrintSettings",
+            "Namespace": "Microsoft.Web.WebView2.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IRandomAccessStream",
+              "Namespace": "Windows.Storage.Streams",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

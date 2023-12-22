@@ -1,0 +1,102 @@
+{
+  "Name": "IWidgetManager",
+  "Namespace": "Microsoft.Windows.Widgets.Providers",
+  "Guid": "71cb10c0671e48e3b995207940397123",
+  "Methods": [
+    {
+      "Name": "UpdateWidget",
+      "Parameters": [
+        {
+          "Name": "widgetUpdateRequestOptions",
+          "Type": {
+            "Name": "WidgetUpdateRequestOptions",
+            "Namespace": "Microsoft.Windows.Widgets.Providers",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetWidgetIds",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetWidgetInfo",
+      "Parameters": [
+        {
+          "Name": "widgetId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WidgetInfo",
+        "Namespace": "Microsoft.Windows.Widgets.Providers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetWidgetInfos",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WidgetInfo",
+        "Namespace": "Microsoft.Windows.Widgets.Providers",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteWidget",
+      "Parameters": [
+        {
+          "Name": "widgetId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

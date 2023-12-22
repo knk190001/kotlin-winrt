@@ -1,0 +1,55 @@
+{
+  "Name": "ScrollViewerAutomationPeer",
+  "Namespace": "Windows.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "IScrollViewerAutomationPeer",
+      "Namespace": "Windows.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IScrollProvider",
+      "Namespace": "Windows.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IScrollViewerAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IScrollViewerAutomationPeerFactory",
+          "Namespace": "Windows.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkElementAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

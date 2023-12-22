@@ -1,0 +1,219 @@
+{
+  "Name": "IAudioGraph2",
+  "Namespace": "Windows.Media.Audio",
+  "Guid": "4e4c3bd54fc145f6a9473cd38f4fd839",
+  "Methods": [
+    {
+      "Name": "CreateFrameInputNode",
+      "Parameters": [
+        {
+          "Name": "encodingProperties",
+          "Type": {
+            "Name": "AudioEncodingProperties",
+            "Namespace": "Windows.Media.MediaProperties",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "emitter",
+          "Type": {
+            "Name": "AudioNodeEmitter",
+            "Namespace": "Windows.Media.Audio",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AudioFrameInputNode",
+        "Namespace": "Windows.Media.Audio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateDeviceInputNodeAsync",
+      "Parameters": [
+        {
+          "Name": "category",
+          "Type": {
+            "Name": "MediaCategory",
+            "Namespace": "Windows.Media.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "encodingProperties",
+          "Type": {
+            "Name": "AudioEncodingProperties",
+            "Namespace": "Windows.Media.MediaProperties",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "device",
+          "Type": {
+            "Name": "DeviceInformation",
+            "Namespace": "Windows.Devices.Enumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "emitter",
+          "Type": {
+            "Name": "AudioNodeEmitter",
+            "Namespace": "Windows.Media.Audio",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "CreateAudioDeviceInputNodeResult",
+              "Namespace": "Windows.Media.Audio",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFileInputNodeAsync",
+      "Parameters": [
+        {
+          "Name": "file",
+          "Type": {
+            "Name": "IStorageFile",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "emitter",
+          "Type": {
+            "Name": "AudioNodeEmitter",
+            "Namespace": "Windows.Media.Audio",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "CreateAudioFileInputNodeResult",
+              "Namespace": "Windows.Media.Audio",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSubmixNode",
+      "Parameters": [
+        {
+          "Name": "encodingProperties",
+          "Type": {
+            "Name": "AudioEncodingProperties",
+            "Namespace": "Windows.Media.MediaProperties",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "emitter",
+          "Type": {
+            "Name": "AudioNodeEmitter",
+            "Namespace": "Windows.Media.Audio",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AudioSubmixNode",
+        "Namespace": "Windows.Media.Audio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateBatchUpdater",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AudioGraphBatchUpdater",
+        "Namespace": "Windows.Media.Audio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IAudioGraph",
+      "Namespace": "Windows.Media.Audio",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

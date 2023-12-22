@@ -1,0 +1,55 @@
+{
+  "Name": "HubSectionAutomationPeer",
+  "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "IHubSectionAutomationPeer",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IScrollItemProvider",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IHubSectionAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IHubSectionAutomationPeerFactory",
+          "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkElementAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

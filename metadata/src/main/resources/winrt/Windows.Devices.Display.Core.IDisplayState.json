@@ -1,0 +1,330 @@
+{
+  "Name": "IDisplayState",
+  "Namespace": "Windows.Devices.Display.Core",
+  "Guid": "0812932111b55cb299f8e90b479a8a1d",
+  "Methods": [
+    {
+      "Name": "get_IsReadOnly",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsStale",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Targets",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "DisplayTarget",
+              "Namespace": "Windows.Devices.Display.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Views",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "DisplayView",
+              "Namespace": "Windows.Devices.Display.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Properties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IMap`2",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "K",
+            "Position": 0,
+            "Type": {
+              "Name": "Guid",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "V",
+            "Position": 1,
+            "Type": {
+              "Name": "Object",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ConnectTarget",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayPath",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ConnectTarget",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "view",
+          "Type": {
+            "Name": "DisplayView",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayPath",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CanConnectTargetToView",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "view",
+          "Type": {
+            "Name": "DisplayView",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetViewForTarget",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayView",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetPathForTarget",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayPath",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DisconnectTarget",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryFunctionalize",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "DisplayStateFunctionalizeOptions",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayStateOperationResult",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryApply",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "DisplayStateApplyOptions",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayStateOperationResult",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Clone",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayState",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

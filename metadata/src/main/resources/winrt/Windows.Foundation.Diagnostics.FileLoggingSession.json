@@ -1,0 +1,45 @@
+{
+  "Name": "FileLoggingSession",
+  "Namespace": "Windows.Foundation.Diagnostics",
+  "Interfaces": [
+    {
+      "Name": "IFileLoggingSession",
+      "Namespace": "Windows.Foundation.Diagnostics",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IFileLoggingSession",
+        "Namespace": "Windows.Foundation.Diagnostics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IFileLoggingSessionFactory",
+          "Namespace": "Windows.Foundation.Diagnostics",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

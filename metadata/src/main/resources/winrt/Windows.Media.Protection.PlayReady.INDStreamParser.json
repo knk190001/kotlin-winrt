@@ -1,0 +1,101 @@
+{
+  "Name": "INDStreamParser",
+  "Namespace": "Windows.Media.Protection.PlayReady",
+  "Guid": "e0baa198979641c9869559437e67e66a",
+  "Methods": [
+    {
+      "Name": "ParseData",
+      "Parameters": [
+        {
+          "Name": "dataBytes",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetStreamInformation",
+      "Parameters": [
+        {
+          "Name": "descriptor",
+          "Type": {
+            "Name": "IMediaStreamDescriptor",
+            "Namespace": "Windows.Media.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "streamType",
+          "Type": {
+            "Name": "NDMediaStreamType",
+            "Namespace": "Windows.Media.Protection.PlayReady",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": true
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "BeginOfStream",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "EndOfStream",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Notifier",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "NDStreamParserNotifier",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

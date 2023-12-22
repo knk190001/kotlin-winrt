@@ -1,0 +1,57 @@
+{
+  "Name": "IPermilleFormatterFactory",
+  "Namespace": "Windows.Globalization.NumberFormatting",
+  "Guid": "2b37b4ace6384ed5a99862f6b06a49ae",
+  "Methods": [
+    {
+      "Name": "CreatePermilleFormatter",
+      "Parameters": [
+        {
+          "Name": "languages",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "geographicRegion",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PermilleFormatter",
+        "Namespace": "Windows.Globalization.NumberFormatting",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,79 @@
+{
+  "Name": "IPushNotificationReceivedEventArgs",
+  "Namespace": "Microsoft.Windows.PushNotifications",
+  "Guid": "fbd4ec53bb8354958777d3cf13e4299c",
+  "Methods": [
+    {
+      "Name": "get_Payload",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Byte",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeferral",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BackgroundTaskDeferral",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_Canceled",
+      "Parameters": [
+        {
+          "Name": "handler",
+          "Type": {
+            "Name": "BackgroundTaskCanceledEventHandler",
+            "Namespace": "Windows.ApplicationModel.Background",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_Canceled",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

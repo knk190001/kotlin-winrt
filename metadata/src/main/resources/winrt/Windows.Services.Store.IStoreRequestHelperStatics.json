@@ -1,0 +1,68 @@
+{
+  "Name": "IStoreRequestHelperStatics",
+  "Namespace": "Windows.Services.Store",
+  "Guid": "6ce5e5f9a0c94b2c96a6a171c630038d",
+  "Methods": [
+    {
+      "Name": "SendRequestAsync",
+      "Parameters": [
+        {
+          "Name": "context",
+          "Type": {
+            "Name": "StoreContext",
+            "Namespace": "Windows.Services.Store",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "requestKind",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "parametersAsJson",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StoreSendRequestResult",
+              "Namespace": "Windows.Services.Store",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,67 @@
+{
+  "Name": "IWebTokenRequestResult",
+  "Namespace": "Windows.Security.Authentication.Web.Core",
+  "Guid": "c12a8305d1f844838d5438fe292784ff",
+  "Methods": [
+    {
+      "Name": "get_ResponseData",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WebTokenResponse",
+              "Namespace": "Windows.Security.Authentication.Web.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ResponseStatus",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebTokenRequestStatus",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ResponseError",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebProviderError",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "InvalidateCacheAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

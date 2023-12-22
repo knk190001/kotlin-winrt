@@ -1,0 +1,46 @@
+{
+  "Name": "IStorageLibraryStatics",
+  "Namespace": "Windows.Storage",
+  "Guid": "4208a6db684a49c69e5990121ee050d6",
+  "Methods": [
+    {
+      "Name": "GetLibraryAsync",
+      "Parameters": [
+        {
+          "Name": "libraryId",
+          "Type": {
+            "Name": "KnownLibraryId",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StorageLibrary",
+              "Namespace": "Windows.Storage",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

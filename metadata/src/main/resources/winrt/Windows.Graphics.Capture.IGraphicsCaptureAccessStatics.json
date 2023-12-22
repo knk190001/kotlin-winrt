@@ -1,0 +1,46 @@
+{
+  "Name": "IGraphicsCaptureAccessStatics",
+  "Namespace": "Windows.Graphics.Capture",
+  "Guid": "743ed37006ec5040a58a901f0f757095",
+  "Methods": [
+    {
+      "Name": "RequestAccessAsync",
+      "Parameters": [
+        {
+          "Name": "request",
+          "Type": {
+            "Name": "GraphicsCaptureAccessKind",
+            "Namespace": "Windows.Graphics.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "AppCapabilityAccessStatus",
+              "Namespace": "Windows.Security.Authorization.AppCapabilityAccess",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

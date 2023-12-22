@@ -1,0 +1,52 @@
+{
+  "Name": "Decompressor",
+  "Namespace": "Windows.Storage.Compression",
+  "Interfaces": [
+    {
+      "Name": "IDecompressor",
+      "Namespace": "Windows.Storage.Compression",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IInputStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IDecompressor",
+        "Namespace": "Windows.Storage.Compression",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IDecompressorFactory",
+          "Namespace": "Windows.Storage.Compression",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

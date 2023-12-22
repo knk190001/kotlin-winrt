@@ -1,0 +1,90 @@
+{
+  "Name": "IMediaStreamSourceSampleRequest",
+  "Namespace": "Windows.Media.Core",
+  "Guid": "4db341a935014d9b83f98f235c822532",
+  "Methods": [
+    {
+      "Name": "get_StreamDescriptor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IMediaStreamDescriptor",
+        "Namespace": "Windows.Media.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeferral",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaStreamSourceSampleRequestDeferral",
+        "Namespace": "Windows.Media.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Sample",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "MediaStreamSample",
+            "Namespace": "Windows.Media.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Sample",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaStreamSample",
+        "Namespace": "Windows.Media.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportSampleProgress",
+      "Parameters": [
+        {
+          "Name": "progress",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

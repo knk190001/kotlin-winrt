@@ -1,0 +1,143 @@
+{
+  "Name": "IRfcommConnectionTrigger",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Guid": "e8c4cae20b5344649394fd875654de64",
+  "Methods": [
+    {
+      "Name": "get_InboundConnection",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "RfcommInboundConnectionInformation",
+        "Namespace": "Windows.Devices.Bluetooth.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_OutboundConnection",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "RfcommOutboundConnectionInformation",
+        "Namespace": "Windows.Devices.Bluetooth.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AllowMultipleConnections",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_AllowMultipleConnections",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ProtectionLevel",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SocketProtectionLevel",
+        "Namespace": "Windows.Networking.Sockets",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ProtectionLevel",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "SocketProtectionLevel",
+            "Namespace": "Windows.Networking.Sockets",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RemoteHostName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HostName",
+        "Namespace": "Windows.Networking",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_RemoteHostName",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "HostName",
+            "Namespace": "Windows.Networking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IBackgroundTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

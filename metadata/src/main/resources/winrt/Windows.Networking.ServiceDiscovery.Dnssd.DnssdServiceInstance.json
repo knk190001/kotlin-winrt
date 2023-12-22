@@ -1,0 +1,45 @@
+{
+  "Name": "DnssdServiceInstance",
+  "Namespace": "Windows.Networking.ServiceDiscovery.Dnssd",
+  "Interfaces": [
+    {
+      "Name": "IDnssdServiceInstance",
+      "Namespace": "Windows.Networking.ServiceDiscovery.Dnssd",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IStringable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IDnssdServiceInstance",
+        "Namespace": "Windows.Networking.ServiceDiscovery.Dnssd",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IDnssdServiceInstanceFactory",
+          "Namespace": "Windows.Networking.ServiceDiscovery.Dnssd",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

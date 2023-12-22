@@ -1,0 +1,158 @@
+{
+  "Name": "IHolographicFrame",
+  "Namespace": "Windows.Graphics.Holographic",
+  "Guid": "c6988eb6a8b93054a6ebd624b6536375",
+  "Methods": [
+    {
+      "Name": "get_AddedCameras",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "HolographicCamera",
+              "Namespace": "Windows.Graphics.Holographic",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RemovedCameras",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "HolographicCamera",
+              "Namespace": "Windows.Graphics.Holographic",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRenderingParameters",
+      "Parameters": [
+        {
+          "Name": "cameraPose",
+          "Type": {
+            "Name": "HolographicCameraPose",
+            "Namespace": "Windows.Graphics.Holographic",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "HolographicCameraRenderingParameters",
+        "Namespace": "Windows.Graphics.Holographic",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Duration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TimeSpan",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CurrentPrediction",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HolographicFramePrediction",
+        "Namespace": "Windows.Graphics.Holographic",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UpdateCurrentPrediction",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "PresentUsingCurrentPrediction",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HolographicFramePresentResult",
+        "Namespace": "Windows.Graphics.Holographic",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "PresentUsingCurrentPrediction",
+      "Parameters": [
+        {
+          "Name": "waitBehavior",
+          "Type": {
+            "Name": "HolographicFramePresentWaitBehavior",
+            "Namespace": "Windows.Graphics.Holographic",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "HolographicFramePresentResult",
+        "Namespace": "Windows.Graphics.Holographic",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "WaitForFrameToFinish",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

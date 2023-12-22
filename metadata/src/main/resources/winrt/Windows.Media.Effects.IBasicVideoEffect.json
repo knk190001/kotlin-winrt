@@ -1,0 +1,166 @@
+{
+  "Name": "IBasicVideoEffect",
+  "Namespace": "Windows.Media.Effects",
+  "Guid": "8262c7efb36040be949b2ff42ff35693",
+  "Methods": [
+    {
+      "Name": "get_IsReadOnly",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedMemoryTypes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaMemoryTypes",
+        "Namespace": "Windows.Media.Effects",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_TimeIndependent",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedEncodingProperties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "VideoEncodingProperties",
+              "Namespace": "Windows.Media.MediaProperties",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetEncodingProperties",
+      "Parameters": [
+        {
+          "Name": "encodingProperties",
+          "Type": {
+            "Name": "VideoEncodingProperties",
+            "Namespace": "Windows.Media.MediaProperties",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "device",
+          "Type": {
+            "Name": "IDirect3DDevice",
+            "Namespace": "Windows.Graphics.DirectX.Direct3D11",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProcessFrame",
+      "Parameters": [
+        {
+          "Name": "context",
+          "Type": {
+            "Name": "ProcessVideoFrameContext",
+            "Namespace": "Windows.Media.Effects",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Close",
+      "Parameters": [
+        {
+          "Name": "reason",
+          "Type": {
+            "Name": "MediaEffectClosedReason",
+            "Namespace": "Windows.Media.Effects",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DiscardQueuedFrames",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IMediaExtension",
+      "Namespace": "Windows.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

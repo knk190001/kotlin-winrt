@@ -1,0 +1,126 @@
+{
+  "Name": "IFaceTracker",
+  "Namespace": "Windows.Media.FaceAnalysis",
+  "Guid": "6ba67d8ca841442093e62420a1884fcf",
+  "Methods": [
+    {
+      "Name": "ProcessNextFrameAsync",
+      "Parameters": [
+        {
+          "Name": "videoFrame",
+          "Type": {
+            "Name": "VideoFrame",
+            "Namespace": "Windows.Media",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVector`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "DetectedFace",
+                    "Namespace": "Windows.Media.FaceAnalysis",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MinDetectableFaceSize",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BitmapSize",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_MinDetectableFaceSize",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "BitmapSize",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxDetectableFaceSize",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BitmapSize",
+        "Namespace": "Windows.Graphics.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_MaxDetectableFaceSize",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "BitmapSize",
+            "Namespace": "Windows.Graphics.Imaging",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

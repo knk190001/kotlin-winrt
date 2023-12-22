@@ -1,0 +1,67 @@
+{
+  "Name": "IEmailMailboxDeleteFolderRequest",
+  "Namespace": "Windows.ApplicationModel.Email.DataProvider",
+  "Guid": "9469e88aa9314779923d09a3ea292e29",
+  "Methods": [
+    {
+      "Name": "get_EmailMailboxId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_EmailFolderId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportCompletedAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportFailedAsync",
+      "Parameters": [
+        {
+          "Name": "status",
+          "Type": {
+            "Name": "EmailMailboxDeleteFolderStatus",
+            "Namespace": "Windows.ApplicationModel.Email",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

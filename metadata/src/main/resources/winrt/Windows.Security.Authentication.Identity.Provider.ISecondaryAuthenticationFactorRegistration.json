@@ -1,0 +1,57 @@
+{
+  "Name": "ISecondaryAuthenticationFactorRegistration",
+  "Namespace": "Windows.Security.Authentication.Identity.Provider",
+  "Guid": "9f4cbbb48cba48b0840ddbb22a54c678",
+  "Methods": [
+    {
+      "Name": "FinishRegisteringDeviceAsync",
+      "Parameters": [
+        {
+          "Name": "deviceConfigurationData",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AbortRegisteringDeviceAsync",
+      "Parameters": [
+        {
+          "Name": "errorLogMessage",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

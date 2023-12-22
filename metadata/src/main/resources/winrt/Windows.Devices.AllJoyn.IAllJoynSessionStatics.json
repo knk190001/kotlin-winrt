@@ -1,0 +1,92 @@
+{
+  "Name": "IAllJoynSessionStatics",
+  "Namespace": "Windows.Devices.AllJoyn",
+  "Guid": "9e05d604a06c46d4b46c0b0b54105b44",
+  "Methods": [
+    {
+      "Name": "GetFromServiceInfoAsync",
+      "Parameters": [
+        {
+          "Name": "serviceInfo",
+          "Type": {
+            "Name": "AllJoynServiceInfo",
+            "Namespace": "Windows.Devices.AllJoyn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "AllJoynSession",
+              "Namespace": "Windows.Devices.AllJoyn",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetFromServiceInfoAsync",
+      "Parameters": [
+        {
+          "Name": "serviceInfo",
+          "Type": {
+            "Name": "AllJoynServiceInfo",
+            "Namespace": "Windows.Devices.AllJoyn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "busAttachment",
+          "Type": {
+            "Name": "AllJoynBusAttachment",
+            "Namespace": "Windows.Devices.AllJoyn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "AllJoynSession",
+              "Namespace": "Windows.Devices.AllJoyn",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

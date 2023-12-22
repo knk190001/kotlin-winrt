@@ -1,0 +1,90 @@
+{
+  "Name": "ICryptographicKey",
+  "Namespace": "Windows.Security.Cryptography.Core",
+  "Guid": "ed2a3b708e7b40098401ffd1a62eeb27",
+  "Methods": [
+    {
+      "Name": "get_KeySize",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Export",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Export",
+      "Parameters": [
+        {
+          "Name": "BlobType",
+          "Type": {
+            "Name": "CryptographicPrivateKeyBlobType",
+            "Namespace": "Windows.Security.Cryptography.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ExportPublicKey",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ExportPublicKey",
+      "Parameters": [
+        {
+          "Name": "BlobType",
+          "Type": {
+            "Name": "CryptographicPublicKeyBlobType",
+            "Namespace": "Windows.Security.Cryptography.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

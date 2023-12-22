@@ -1,0 +1,68 @@
+{
+  "Name": "ILearningModelSessionFactory",
+  "Namespace": "Windows.AI.MachineLearning",
+  "Guid": "0f6b881d1c9b47b6bfe0f1cf62a67579",
+  "Methods": [
+    {
+      "Name": "CreateFromModel",
+      "Parameters": [
+        {
+          "Name": "model",
+          "Type": {
+            "Name": "LearningModel",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LearningModelSession",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateFromModelOnDevice",
+      "Parameters": [
+        {
+          "Name": "model",
+          "Type": {
+            "Name": "LearningModel",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "deviceToRunOn",
+          "Type": {
+            "Name": "LearningModelDevice",
+            "Namespace": "Windows.AI.MachineLearning",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "LearningModelSession",
+        "Namespace": "Windows.AI.MachineLearning",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

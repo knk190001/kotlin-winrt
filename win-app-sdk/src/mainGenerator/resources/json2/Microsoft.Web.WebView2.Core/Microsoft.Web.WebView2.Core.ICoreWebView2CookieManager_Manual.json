@@ -1,0 +1,58 @@
+{
+  "Name": "ICoreWebView2CookieManager_Manual",
+  "Namespace": "Microsoft.Web.WebView2.Core",
+  "Guid": "9bcca0ea7225577abb23c7c98023154e",
+  "Methods": [
+    {
+      "Name": "GetCookiesAsync",
+      "Parameters": [
+        {
+          "Name": "uri",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "CoreWebView2Cookie",
+                    "Namespace": "Microsoft.Web.WebView2.Core",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

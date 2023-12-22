@@ -1,0 +1,316 @@
+{
+  "Name": "IUserDataTaskList",
+  "Namespace": "Windows.ApplicationModel.UserDataTasks",
+  "Guid": "49412e397c1d4df1bed3314b7cbf5e4e",
+  "Methods": [
+    {
+      "Name": "get_Id",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UserDataAccountId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_DisplayName",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SourceDisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_OtherAppReadAccess",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UserDataTaskListOtherAppReadAccess",
+        "Namespace": "Windows.ApplicationModel.UserDataTasks",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_OtherAppReadAccess",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UserDataTaskListOtherAppReadAccess",
+            "Namespace": "Windows.ApplicationModel.UserDataTasks",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_OtherAppWriteAccess",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UserDataTaskListOtherAppWriteAccess",
+        "Namespace": "Windows.ApplicationModel.UserDataTasks",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_OtherAppWriteAccess",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "UserDataTaskListOtherAppWriteAccess",
+            "Namespace": "Windows.ApplicationModel.UserDataTasks",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_LimitedWriteOperations",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UserDataTaskListLimitedWriteOperations",
+        "Namespace": "Windows.ApplicationModel.UserDataTasks",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SyncManager",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UserDataTaskListSyncManager",
+        "Namespace": "Windows.ApplicationModel.UserDataTasks",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RegisterSyncManagerAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetTaskReader",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UserDataTaskReader",
+        "Namespace": "Windows.ApplicationModel.UserDataTasks",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetTaskReader",
+      "Parameters": [
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "UserDataTaskQueryOptions",
+            "Namespace": "Windows.ApplicationModel.UserDataTasks",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "UserDataTaskReader",
+        "Namespace": "Windows.ApplicationModel.UserDataTasks",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetTaskAsync",
+      "Parameters": [
+        {
+          "Name": "userDataTask",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UserDataTask",
+              "Namespace": "Windows.ApplicationModel.UserDataTasks",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SaveTaskAsync",
+      "Parameters": [
+        {
+          "Name": "userDataTask",
+          "Type": {
+            "Name": "UserDataTask",
+            "Namespace": "Windows.ApplicationModel.UserDataTasks",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteTaskAsync",
+      "Parameters": [
+        {
+          "Name": "userDataTaskId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SaveAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

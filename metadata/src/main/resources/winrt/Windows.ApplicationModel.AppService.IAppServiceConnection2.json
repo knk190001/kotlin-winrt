@@ -1,0 +1,80 @@
+{
+  "Name": "IAppServiceConnection2",
+  "Namespace": "Windows.ApplicationModel.AppService",
+  "Guid": "8bdfcd5f23024fbd806152511c2f8bf9",
+  "Methods": [
+    {
+      "Name": "OpenRemoteAsync",
+      "Parameters": [
+        {
+          "Name": "remoteSystemConnectionRequest",
+          "Type": {
+            "Name": "RemoteSystemConnectionRequest",
+            "Namespace": "Windows.System.RemoteSystems",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "AppServiceConnectionStatus",
+              "Namespace": "Windows.ApplicationModel.AppService",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_User",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "User",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_User",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "User",
+            "Namespace": "Windows.System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

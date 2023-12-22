@@ -1,0 +1,68 @@
+{
+  "Name": "IGpioChangeReaderFactory",
+  "Namespace": "Windows.Devices.Gpio",
+  "Guid": "a9598ef3390e441a9d1ce8de0b2df0df",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "pin",
+          "Type": {
+            "Name": "GpioPin",
+            "Namespace": "Windows.Devices.Gpio",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "GpioChangeReader",
+        "Namespace": "Windows.Devices.Gpio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithCapacity",
+      "Parameters": [
+        {
+          "Name": "pin",
+          "Type": {
+            "Name": "GpioPin",
+            "Namespace": "Windows.Devices.Gpio",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "minCapacity",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "GpioChangeReader",
+        "Namespace": "Windows.Devices.Gpio",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

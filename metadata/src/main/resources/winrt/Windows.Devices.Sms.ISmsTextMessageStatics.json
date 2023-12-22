@@ -1,0 +1,68 @@
+{
+  "Name": "ISmsTextMessageStatics",
+  "Namespace": "Windows.Devices.Sms",
+  "Guid": "7f68c5ed3ccc47a38c55380d3b010892",
+  "Methods": [
+    {
+      "Name": "FromBinaryMessage",
+      "Parameters": [
+        {
+          "Name": "binaryMessage",
+          "Type": {
+            "Name": "SmsBinaryMessage",
+            "Namespace": "Windows.Devices.Sms",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SmsTextMessage",
+        "Namespace": "Windows.Devices.Sms",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FromBinaryData",
+      "Parameters": [
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "SmsDataFormat",
+            "Namespace": "Windows.Devices.Sms",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SmsTextMessage",
+        "Namespace": "Windows.Devices.Sms",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

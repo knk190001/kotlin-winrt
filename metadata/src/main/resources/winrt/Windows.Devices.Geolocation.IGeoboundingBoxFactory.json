@@ -1,0 +1,146 @@
+{
+  "Name": "IGeoboundingBoxFactory",
+  "Namespace": "Windows.Devices.Geolocation",
+  "Guid": "4dfba58904114abcb3b55bbccb57d98c",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "northwestCorner",
+          "Type": {
+            "Name": "BasicGeoposition",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "southeastCorner",
+          "Type": {
+            "Name": "BasicGeoposition",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "GeoboundingBox",
+        "Namespace": "Windows.Devices.Geolocation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithAltitudeReference",
+      "Parameters": [
+        {
+          "Name": "northwestCorner",
+          "Type": {
+            "Name": "BasicGeoposition",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "southeastCorner",
+          "Type": {
+            "Name": "BasicGeoposition",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "altitudeReferenceSystem",
+          "Type": {
+            "Name": "AltitudeReferenceSystem",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "GeoboundingBox",
+        "Namespace": "Windows.Devices.Geolocation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithAltitudeReferenceAndSpatialReference",
+      "Parameters": [
+        {
+          "Name": "northwestCorner",
+          "Type": {
+            "Name": "BasicGeoposition",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "southeastCorner",
+          "Type": {
+            "Name": "BasicGeoposition",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "altitudeReferenceSystem",
+          "Type": {
+            "Name": "AltitudeReferenceSystem",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "spatialReferenceId",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "GeoboundingBox",
+        "Namespace": "Windows.Devices.Geolocation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

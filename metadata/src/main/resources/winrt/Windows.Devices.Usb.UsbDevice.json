@@ -1,0 +1,42 @@
+{
+  "Name": "UsbDevice",
+  "Namespace": "Windows.Devices.Usb",
+  "Interfaces": [
+    {
+      "Name": "IUsbDevice",
+      "Namespace": "Windows.Devices.Usb",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IUsbDeviceStatics",
+          "Namespace": "Windows.Devices.Usb"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IUsbDevice",
+        "Namespace": "Windows.Devices.Usb",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

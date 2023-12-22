@@ -1,0 +1,90 @@
+{
+  "Name": "IAppInstanceStatics",
+  "Namespace": "Windows.ApplicationModel",
+  "Guid": "9d11e77f9ea647afa6ec46784c5ba254",
+  "Methods": [
+    {
+      "Name": "get_RecommendedInstance",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppInstance",
+        "Namespace": "Windows.ApplicationModel",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetActivatedEventArgs",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IActivatedEventArgs",
+        "Namespace": "Windows.ApplicationModel.Activation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindOrRegisterInstanceForKey",
+      "Parameters": [
+        {
+          "Name": "key",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AppInstance",
+        "Namespace": "Windows.ApplicationModel",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Unregister",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetInstances",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "AppInstance",
+              "Namespace": "Windows.ApplicationModel",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

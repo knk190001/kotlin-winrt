@@ -1,0 +1,57 @@
+{
+  "Name": "IMobileBroadbandPinManager",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Guid": "83567edd6e1f4b9ba4132b1f50cc36df",
+  "Methods": [
+    {
+      "Name": "get_SupportedPins",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "MobileBroadbandPinType",
+              "Namespace": "Windows.Networking.NetworkOperators",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetPin",
+      "Parameters": [
+        {
+          "Name": "pinType",
+          "Type": {
+            "Name": "MobileBroadbandPinType",
+            "Namespace": "Windows.Networking.NetworkOperators",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "MobileBroadbandPin",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

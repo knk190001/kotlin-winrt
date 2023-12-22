@@ -1,0 +1,64 @@
+{
+  "Name": "IFlightStick",
+  "Namespace": "Windows.Gaming.Input",
+  "Guid": "b4a2c01cb83b4459a1a997b03c33da7c",
+  "Methods": [
+    {
+      "Name": "get_HatSwitchKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "GameControllerSwitchKind",
+        "Namespace": "Windows.Gaming.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetButtonLabel",
+      "Parameters": [
+        {
+          "Name": "button",
+          "Type": {
+            "Name": "FlightStickButtons",
+            "Namespace": "Windows.Gaming.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "GameControllerButtonLabel",
+        "Namespace": "Windows.Gaming.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentReading",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "FlightStickReading",
+        "Namespace": "Windows.Gaming.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IGameController",
+      "Namespace": "Windows.Gaming.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

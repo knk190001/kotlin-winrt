@@ -1,0 +1,60 @@
+{
+  "Name": "Panel",
+  "Namespace": "Microsoft.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IPanel",
+      "Namespace": "Microsoft.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IPanelStatics",
+          "Namespace": "Microsoft.UI.Xaml.Controls"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPanel",
+        "Namespace": "Microsoft.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IPanelFactory",
+          "Namespace": "Microsoft.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "FrameworkElement",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

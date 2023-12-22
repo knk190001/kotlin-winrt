@@ -1,0 +1,45 @@
+{
+  "Name": "DesktopWindowXamlSource",
+  "Namespace": "Windows.UI.Xaml.Hosting",
+  "Interfaces": [
+    {
+      "Name": "IDesktopWindowXamlSource",
+      "Namespace": "Windows.UI.Xaml.Hosting",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IDesktopWindowXamlSource",
+        "Namespace": "Windows.UI.Xaml.Hosting",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IDesktopWindowXamlSourceFactory",
+          "Namespace": "Windows.UI.Xaml.Hosting",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    }
+  ],
+  "Type": "Class"
+}

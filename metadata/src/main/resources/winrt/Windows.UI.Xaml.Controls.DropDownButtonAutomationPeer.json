@@ -1,0 +1,55 @@
+{
+  "Name": "DropDownButtonAutomationPeer",
+  "Namespace": "Windows.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IDropDownButtonAutomationPeer",
+      "Namespace": "Windows.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IExpandCollapseProvider",
+      "Namespace": "Windows.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IDropDownButtonAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IDropDownButtonAutomationPeerFactory",
+          "Namespace": "Windows.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "ButtonAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

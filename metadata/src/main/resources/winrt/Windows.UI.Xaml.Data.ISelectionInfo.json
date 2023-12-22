@@ -1,0 +1,103 @@
+{
+  "Name": "ISelectionInfo",
+  "Namespace": "Windows.UI.Xaml.Data",
+  "Guid": "2e12ca86e1ed4245be49207e42aec524",
+  "Methods": [
+    {
+      "Name": "SelectRange",
+      "Parameters": [
+        {
+          "Name": "itemIndexRange",
+          "Type": {
+            "Name": "ItemIndexRange",
+            "Namespace": "Windows.UI.Xaml.Data",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeselectRange",
+      "Parameters": [
+        {
+          "Name": "itemIndexRange",
+          "Type": {
+            "Name": "ItemIndexRange",
+            "Namespace": "Windows.UI.Xaml.Data",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsSelected",
+      "Parameters": [
+        {
+          "Name": "index",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSelectedRanges",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ItemIndexRange",
+              "Namespace": "Windows.UI.Xaml.Data",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

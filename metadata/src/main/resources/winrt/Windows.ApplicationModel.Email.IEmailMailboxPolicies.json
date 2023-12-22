@@ -1,0 +1,79 @@
+{
+  "Name": "IEmailMailboxPolicies",
+  "Namespace": "Windows.ApplicationModel.Email",
+  "Guid": "1f3345c51c3b4dc7b4106373783e545d",
+  "Methods": [
+    {
+      "Name": "get_AllowedSmimeEncryptionAlgorithmNegotiation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation",
+        "Namespace": "Windows.ApplicationModel.Email",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AllowSmimeSoftCertificates",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RequiredSmimeEncryptionAlgorithm",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "EmailMailboxSmimeEncryptionAlgorithm",
+              "Namespace": "Windows.ApplicationModel.Email",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RequiredSmimeSigningAlgorithm",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "EmailMailboxSmimeSigningAlgorithm",
+              "Namespace": "Windows.ApplicationModel.Email",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

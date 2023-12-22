@@ -1,0 +1,41 @@
+{
+  "Name": "UserActivityAttribution",
+  "Namespace": "Windows.ApplicationModel.UserActivities",
+  "Interfaces": [
+    {
+      "Name": "IUserActivityAttribution",
+      "Namespace": "Windows.ApplicationModel.UserActivities",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IUserActivityAttribution",
+        "Namespace": "Windows.ApplicationModel.UserActivities",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IUserActivityAttributionFactory",
+          "Namespace": "Windows.ApplicationModel.UserActivities",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

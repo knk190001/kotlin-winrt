@@ -1,0 +1,67 @@
+{
+  "Name": "IContactListCreateOrUpdateContactRequest",
+  "Namespace": "Windows.ApplicationModel.Contacts.DataProvider",
+  "Guid": "b4af411fc84947d0b11991cf605b2f2a",
+  "Methods": [
+    {
+      "Name": "get_ContactListId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Contact",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Contact",
+        "Namespace": "Windows.ApplicationModel.Contacts",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportCompletedAsync",
+      "Parameters": [
+        {
+          "Name": "createdOrUpdatedContact",
+          "Type": {
+            "Name": "Contact",
+            "Namespace": "Windows.ApplicationModel.Contacts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportFailedAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

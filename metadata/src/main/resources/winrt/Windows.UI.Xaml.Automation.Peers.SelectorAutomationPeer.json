@@ -1,0 +1,58 @@
+{
+  "Name": "SelectorAutomationPeer",
+  "Namespace": "Windows.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "ISelectorAutomationPeer",
+      "Namespace": "Windows.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISelectionProvider",
+      "Namespace": "Windows.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "ISelectorAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "ISelectorAutomationPeerFactory",
+          "Namespace": "Windows.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "ItemsControlAutomationPeer",
+        "Namespace": "Windows.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

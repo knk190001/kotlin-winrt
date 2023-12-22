@@ -1,0 +1,103 @@
+{
+  "Name": "IMediaDeviceController",
+  "Namespace": "Windows.Media.Devices",
+  "Guid": "f6f8f5ce209a48fb86fcd44578f317e6",
+  "Methods": [
+    {
+      "Name": "GetAvailableMediaStreamProperties",
+      "Parameters": [
+        {
+          "Name": "mediaStreamType",
+          "Type": {
+            "Name": "MediaStreamType",
+            "Namespace": "Windows.Media.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "IMediaEncodingProperties",
+              "Namespace": "Windows.Media.MediaProperties",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetMediaStreamProperties",
+      "Parameters": [
+        {
+          "Name": "mediaStreamType",
+          "Type": {
+            "Name": "MediaStreamType",
+            "Namespace": "Windows.Media.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IMediaEncodingProperties",
+        "Namespace": "Windows.Media.MediaProperties",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetMediaStreamPropertiesAsync",
+      "Parameters": [
+        {
+          "Name": "mediaStreamType",
+          "Type": {
+            "Name": "MediaStreamType",
+            "Namespace": "Windows.Media.Capture",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "mediaEncodingProperties",
+          "Type": {
+            "Name": "IMediaEncodingProperties",
+            "Namespace": "Windows.Media.MediaProperties",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

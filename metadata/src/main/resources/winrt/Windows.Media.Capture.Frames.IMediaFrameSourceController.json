@@ -1,0 +1,103 @@
+{
+  "Name": "IMediaFrameSourceController",
+  "Namespace": "Windows.Media.Capture.Frames",
+  "Guid": "6d076635316d4b8fb7b6eeb04a8c6525",
+  "Methods": [
+    {
+      "Name": "GetPropertyAsync",
+      "Parameters": [
+        {
+          "Name": "propertyId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "MediaFrameSourceGetPropertyResult",
+              "Namespace": "Windows.Media.Capture.Frames",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetPropertyAsync",
+      "Parameters": [
+        {
+          "Name": "propertyId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "propertyValue",
+          "Type": {
+            "Name": "Object",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "MediaFrameSourceSetPropertyStatus",
+              "Namespace": "Windows.Media.Capture.Frames",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_VideoDeviceController",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VideoDeviceController",
+        "Namespace": "Windows.Media.Devices",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

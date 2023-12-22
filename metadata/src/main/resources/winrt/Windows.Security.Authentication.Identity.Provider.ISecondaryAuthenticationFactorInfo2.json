@@ -1,0 +1,64 @@
+{
+  "Name": "ISecondaryAuthenticationFactorInfo2",
+  "Namespace": "Windows.Security.Authentication.Identity.Provider",
+  "Guid": "14d981a3fc264ff7abc348e82a512a0a",
+  "Methods": [
+    {
+      "Name": "get_PresenceMonitoringMode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SecondaryAuthenticationFactorDevicePresenceMonitoringMode",
+        "Namespace": "Windows.Security.Authentication.Identity.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UpdateDevicePresenceAsync",
+      "Parameters": [
+        {
+          "Name": "presenceState",
+          "Type": {
+            "Name": "SecondaryAuthenticationFactorDevicePresence",
+            "Namespace": "Windows.Security.Authentication.Identity.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsAuthenticationSupported",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "ISecondaryAuthenticationFactorInfo",
+      "Namespace": "Windows.Security.Authentication.Identity.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

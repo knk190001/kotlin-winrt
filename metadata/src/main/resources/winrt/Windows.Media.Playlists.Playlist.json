@@ -1,0 +1,38 @@
+{
+  "Name": "Playlist",
+  "Namespace": "Windows.Media.Playlists",
+  "Interfaces": [
+    {
+      "Name": "IPlaylist",
+      "Namespace": "Windows.Media.Playlists",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IPlaylistStatics",
+          "Namespace": "Windows.Media.Playlists"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPlaylist",
+        "Namespace": "Windows.Media.Playlists",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

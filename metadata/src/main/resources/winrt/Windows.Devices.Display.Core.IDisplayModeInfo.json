@@ -1,0 +1,157 @@
+{
+  "Name": "IDisplayModeInfo",
+  "Namespace": "Windows.Devices.Display.Core",
+  "Guid": "48d513a0f79b5a74a05eda821f470868",
+  "Methods": [
+    {
+      "Name": "get_SourceResolution",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SizeInt32",
+        "Namespace": "Windows.Graphics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsStereo",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SourcePixelFormat",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DirectXPixelFormat",
+        "Namespace": "Windows.Graphics.DirectX",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_TargetResolution",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SizeInt32",
+        "Namespace": "Windows.Graphics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PresentationRate",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayPresentationRate",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsInterlaced",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetWireFormatSupportedBitsPerChannel",
+      "Parameters": [
+        {
+          "Name": "encoding",
+          "Type": {
+            "Name": "DisplayWireFormatPixelEncoding",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayBitsPerChannel",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsWireFormatSupported",
+      "Parameters": [
+        {
+          "Name": "wireFormat",
+          "Type": {
+            "Name": "DisplayWireFormat",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Properties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IMapView`2",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "K",
+            "Position": 0,
+            "Type": {
+              "Name": "Guid",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "V",
+            "Position": 1,
+            "Type": {
+              "Name": "Object",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

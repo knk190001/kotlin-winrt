@@ -1,0 +1,255 @@
+{
+  "Name": "IDisplayMonitor",
+  "Namespace": "Windows.Devices.Display",
+  "Guid": "1f6b15d41d014c5187e26f954a772b59",
+  "Methods": [
+    {
+      "Name": "get_DeviceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ConnectionKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayMonitorConnectionKind",
+        "Namespace": "Windows.Devices.Display",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PhysicalConnector",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayMonitorPhysicalConnectorKind",
+        "Namespace": "Windows.Devices.Display",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayAdapterDeviceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayAdapterId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayAdapterId",
+        "Namespace": "Windows.Graphics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DisplayAdapterTargetId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UsageKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayMonitorUsageKind",
+        "Namespace": "Windows.Devices.Display",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_NativeResolutionInRawPixels",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SizeInt32",
+        "Namespace": "Windows.Graphics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PhysicalSizeInInches",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Size",
+              "Namespace": "Windows.Foundation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RawDpiX",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RawDpiY",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_RedPrimary",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_GreenPrimary",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BluePrimary",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_WhitePoint",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Point",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxLuminanceInNits",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MinLuminanceInNits",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MaxAverageFullFrameLuminanceInNits",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Single",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDescriptor",
+      "Parameters": [
+        {
+          "Name": "descriptorKind",
+          "Type": {
+            "Name": "DisplayMonitorDescriptorKind",
+            "Namespace": "Windows.Devices.Display",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Byte",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

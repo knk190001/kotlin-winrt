@@ -1,0 +1,206 @@
+{
+  "Name": "IBluetoothLEDeviceStatics2",
+  "Namespace": "Windows.Devices.Bluetooth",
+  "Guid": "5f12c06b3bac43e8ad16563271bd41c2",
+  "Methods": [
+    {
+      "Name": "GetDeviceSelectorFromPairingState",
+      "Parameters": [
+        {
+          "Name": "pairingState",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelectorFromConnectionStatus",
+      "Parameters": [
+        {
+          "Name": "connectionStatus",
+          "Type": {
+            "Name": "BluetoothConnectionStatus",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelectorFromDeviceName",
+      "Parameters": [
+        {
+          "Name": "deviceName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelectorFromBluetoothAddress",
+      "Parameters": [
+        {
+          "Name": "bluetoothAddress",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelectorFromBluetoothAddress",
+      "Parameters": [
+        {
+          "Name": "bluetoothAddress",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "bluetoothAddressType",
+          "Type": {
+            "Name": "BluetoothAddressType",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeviceSelectorFromAppearance",
+      "Parameters": [
+        {
+          "Name": "appearance",
+          "Type": {
+            "Name": "BluetoothLEAppearance",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FromBluetoothAddressAsync",
+      "Parameters": [
+        {
+          "Name": "bluetoothAddress",
+          "Type": {
+            "Name": "UInt64",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "bluetoothAddressType",
+          "Type": {
+            "Name": "BluetoothAddressType",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "BluetoothLEDevice",
+              "Namespace": "Windows.Devices.Bluetooth",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,199 @@
+{
+  "Name": "IInkManager",
+  "Namespace": "Windows.UI.Input.Inking",
+  "Guid": "4744737d671b41639c954e8d7a035fe1",
+  "Methods": [
+    {
+      "Name": "get_Mode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "InkManipulationMode",
+        "Namespace": "Windows.UI.Input.Inking",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Mode",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "InkManipulationMode",
+            "Namespace": "Windows.UI.Input.Inking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProcessPointerDown",
+      "Parameters": [
+        {
+          "Name": "pointerPoint",
+          "Type": {
+            "Name": "PointerPoint",
+            "Namespace": "Windows.UI.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProcessPointerUpdate",
+      "Parameters": [
+        {
+          "Name": "pointerPoint",
+          "Type": {
+            "Name": "PointerPoint",
+            "Namespace": "Windows.UI.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Object",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ProcessPointerUp",
+      "Parameters": [
+        {
+          "Name": "pointerPoint",
+          "Type": {
+            "Name": "PointerPoint",
+            "Namespace": "Windows.UI.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Rect",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetDefaultDrawingAttributes",
+      "Parameters": [
+        {
+          "Name": "drawingAttributes",
+          "Type": {
+            "Name": "InkDrawingAttributes",
+            "Namespace": "Windows.UI.Input.Inking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RecognizeAsync",
+      "Parameters": [
+        {
+          "Name": "recognitionTarget",
+          "Type": {
+            "Name": "InkRecognitionTarget",
+            "Namespace": "Windows.UI.Input.Inking",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "InkRecognitionResult",
+                    "Namespace": "Windows.UI.Input.Inking",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IInkStrokeContainer",
+      "Namespace": "Windows.UI.Input.Inking",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IInkRecognizerContainer",
+      "Namespace": "Windows.UI.Input.Inking",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

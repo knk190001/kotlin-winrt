@@ -1,0 +1,103 @@
+{
+  "Name": "ISelectionInfo",
+  "Namespace": "Microsoft.UI.Xaml.Data",
+  "Guid": "1b84c26b95325803935ba03bf7e875dc",
+  "Methods": [
+    {
+      "Name": "SelectRange",
+      "Parameters": [
+        {
+          "Name": "itemIndexRange",
+          "Type": {
+            "Name": "ItemIndexRange",
+            "Namespace": "Microsoft.UI.Xaml.Data",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeselectRange",
+      "Parameters": [
+        {
+          "Name": "itemIndexRange",
+          "Type": {
+            "Name": "ItemIndexRange",
+            "Namespace": "Microsoft.UI.Xaml.Data",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsSelected",
+      "Parameters": [
+        {
+          "Name": "index",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSelectedRanges",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ItemIndexRange",
+              "Namespace": "Microsoft.UI.Xaml.Data",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

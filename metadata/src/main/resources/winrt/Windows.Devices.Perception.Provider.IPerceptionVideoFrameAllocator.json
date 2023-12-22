@@ -1,0 +1,53 @@
+{
+  "Name": "IPerceptionVideoFrameAllocator",
+  "Namespace": "Windows.Devices.Perception.Provider",
+  "Guid": "4c38a7dafdd84ed4a0392a6f9b235038",
+  "Methods": [
+    {
+      "Name": "AllocateFrame",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PerceptionFrame",
+        "Namespace": "Windows.Devices.Perception.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CopyFromVideoFrame",
+      "Parameters": [
+        {
+          "Name": "frame",
+          "Type": {
+            "Name": "VideoFrame",
+            "Namespace": "Windows.Media",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PerceptionFrame",
+        "Namespace": "Windows.Devices.Perception.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

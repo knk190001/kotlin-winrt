@@ -1,0 +1,71 @@
+{
+  "Name": "XamlLight",
+  "Namespace": "Windows.UI.Xaml.Media",
+  "Interfaces": [
+    {
+      "Name": "IXamlLight",
+      "Namespace": "Windows.UI.Xaml.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IXamlLightProtected",
+      "Namespace": "Windows.UI.Xaml.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IXamlLightOverrides",
+      "Namespace": "Windows.UI.Xaml.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IXamlLightStatics",
+          "Namespace": "Windows.UI.Xaml.Media"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IXamlLight",
+        "Namespace": "Windows.UI.Xaml.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IXamlLightFactory",
+          "Namespace": "Windows.UI.Xaml.Media",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "DependencyObject",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

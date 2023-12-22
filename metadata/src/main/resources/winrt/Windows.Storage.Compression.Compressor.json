@@ -1,0 +1,52 @@
+{
+  "Name": "Compressor",
+  "Namespace": "Windows.Storage.Compression",
+  "Interfaces": [
+    {
+      "Name": "ICompressor",
+      "Namespace": "Windows.Storage.Compression",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IOutputStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "ICompressor",
+        "Namespace": "Windows.Storage.Compression",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ICompressorFactory",
+          "Namespace": "Windows.Storage.Compression",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

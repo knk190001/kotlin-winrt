@@ -1,0 +1,116 @@
+{
+  "Name": "IOfflineMapPackageStatics",
+  "Namespace": "Windows.Services.Maps.OfflineMaps",
+  "Guid": "185e7922a8314ab0941f6998fa929285",
+  "Methods": [
+    {
+      "Name": "FindPackagesAsync",
+      "Parameters": [
+        {
+          "Name": "queryPoint",
+          "Type": {
+            "Name": "Geopoint",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "OfflineMapPackageQueryResult",
+              "Namespace": "Windows.Services.Maps.OfflineMaps",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindPackagesInBoundingBoxAsync",
+      "Parameters": [
+        {
+          "Name": "queryBoundingBox",
+          "Type": {
+            "Name": "GeoboundingBox",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "OfflineMapPackageQueryResult",
+              "Namespace": "Windows.Services.Maps.OfflineMaps",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindPackagesInGeocircleAsync",
+      "Parameters": [
+        {
+          "Name": "queryCircle",
+          "Type": {
+            "Name": "Geocircle",
+            "Namespace": "Windows.Devices.Geolocation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "OfflineMapPackageQueryResult",
+              "Namespace": "Windows.Services.Maps.OfflineMaps",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

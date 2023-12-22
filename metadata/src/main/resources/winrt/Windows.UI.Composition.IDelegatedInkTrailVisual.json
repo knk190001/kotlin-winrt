@@ -1,0 +1,114 @@
+{
+  "Name": "IDelegatedInkTrailVisual",
+  "Namespace": "Windows.UI.Composition",
+  "Guid": "856e60b1e1ab5b238e3dd513f221c998",
+  "Methods": [
+    {
+      "Name": "AddTrailPoints",
+      "Parameters": [
+        {
+          "Name": "inkPoints",
+          "Type": {
+            "Name": "InkTrailPoint",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddTrailPointsWithPrediction",
+      "Parameters": [
+        {
+          "Name": "inkPoints",
+          "Type": {
+            "Name": "InkTrailPoint",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "predictedInkPoints",
+          "Type": {
+            "Name": "InkTrailPoint",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveTrailPoints",
+      "Parameters": [
+        {
+          "Name": "generationId",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartNewTrail",
+      "Parameters": [
+        {
+          "Name": "color",
+          "Type": {
+            "Name": "Color",
+            "Namespace": "Windows.UI",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

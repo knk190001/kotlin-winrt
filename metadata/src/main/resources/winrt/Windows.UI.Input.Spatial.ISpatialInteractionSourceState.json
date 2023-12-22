@@ -1,0 +1,78 @@
+{
+  "Name": "ISpatialInteractionSourceState",
+  "Namespace": "Windows.UI.Input.Spatial",
+  "Guid": "d5c475ef4b6337ec98b99fc652b9d2f2",
+  "Methods": [
+    {
+      "Name": "get_Source",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialInteractionSource",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Properties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialInteractionSourceProperties",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_IsPressed",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Timestamp",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PerceptionTimestamp",
+        "Namespace": "Windows.Perception",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetPointerPose",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpatialPointerPose",
+        "Namespace": "Windows.UI.Input.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

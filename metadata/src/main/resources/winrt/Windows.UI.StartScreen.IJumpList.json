@@ -1,0 +1,79 @@
+{
+  "Name": "IJumpList",
+  "Namespace": "Windows.UI.StartScreen",
+  "Guid": "b0234c3ecd6f4cb6a61161fd505f3ed1",
+  "Methods": [
+    {
+      "Name": "get_Items",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "JumpListItem",
+              "Namespace": "Windows.UI.StartScreen",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SystemGroupKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "JumpListSystemGroupKind",
+        "Namespace": "Windows.UI.StartScreen",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_SystemGroupKind",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "JumpListSystemGroupKind",
+            "Namespace": "Windows.UI.StartScreen",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SaveAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

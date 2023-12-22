@@ -1,0 +1,99 @@
+{
+  "Name": "IVpnPacketBufferList2",
+  "Namespace": "Windows.Networking.Vpn",
+  "Guid": "3e7acfe5ea1e482a8d98c065f57d89ea",
+  "Methods": [
+    {
+      "Name": "AddLeadingPacket",
+      "Parameters": [
+        {
+          "Name": "nextVpnPacketBuffer",
+          "Type": {
+            "Name": "VpnPacketBuffer",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveLeadingPacket",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VpnPacketBuffer",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddTrailingPacket",
+      "Parameters": [
+        {
+          "Name": "nextVpnPacketBuffer",
+          "Type": {
+            "Name": "VpnPacketBuffer",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveTrailingPacket",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VpnPacketBuffer",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IIterable`1",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "T",
+          "Position": 0,
+          "Type": {
+            "Name": "VpnPacketBuffer",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

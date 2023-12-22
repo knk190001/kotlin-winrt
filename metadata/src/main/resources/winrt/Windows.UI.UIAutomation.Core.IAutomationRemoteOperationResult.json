@@ -1,0 +1,90 @@
+{
+  "Name": "IAutomationRemoteOperationResult",
+  "Namespace": "Windows.UI.UIAutomation.Core",
+  "Guid": "e0f80c424a675534bf5a09e8a99b36b1",
+  "Methods": [
+    {
+      "Name": "get_Status",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AutomationRemoteOperationStatus",
+        "Namespace": "Windows.UI.UIAutomation.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ExtendedError",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HResult",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ErrorLocation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "HasOperand",
+      "Parameters": [
+        {
+          "Name": "operandId",
+          "Type": {
+            "Name": "AutomationRemoteOperationOperandId",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetOperand",
+      "Parameters": [
+        {
+          "Name": "operandId",
+          "Type": {
+            "Name": "AutomationRemoteOperationOperandId",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Object",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

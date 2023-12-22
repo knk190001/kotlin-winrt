@@ -1,0 +1,68 @@
+{
+  "Name": "ISceneModeControl",
+  "Namespace": "Windows.Media.Devices",
+  "Guid": "d48e5af78d5948548c6212c70ba89b7c",
+  "Methods": [
+    {
+      "Name": "get_SupportedModes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "CaptureSceneMode",
+              "Namespace": "Windows.Media.Devices",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Value",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CaptureSceneMode",
+        "Namespace": "Windows.Media.Devices",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetValueAsync",
+      "Parameters": [
+        {
+          "Name": "sceneMode",
+          "Type": {
+            "Name": "CaptureSceneMode",
+            "Namespace": "Windows.Media.Devices",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

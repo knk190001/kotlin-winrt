@@ -1,0 +1,80 @@
+{
+  "Name": "IVpnNamespaceInfoFactory",
+  "Namespace": "Windows.Networking.Vpn",
+  "Guid": "cb3e951ab0ce442bacbb5f99b202c31c",
+  "Methods": [
+    {
+      "Name": "CreateVpnNamespaceInfo",
+      "Parameters": [
+        {
+          "Name": "name",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dnsServerList",
+          "Type": {
+            "Name": "IVector`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "HostName",
+                  "Namespace": "Windows.Networking",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "proxyServerList",
+          "Type": {
+            "Name": "IVector`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "HostName",
+                  "Namespace": "Windows.Networking",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "VpnNamespaceInfo",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

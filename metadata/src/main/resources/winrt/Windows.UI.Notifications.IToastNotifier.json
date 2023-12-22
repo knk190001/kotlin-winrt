@@ -1,0 +1,137 @@
+{
+  "Name": "IToastNotifier",
+  "Namespace": "Windows.UI.Notifications",
+  "Guid": "75927b9303f341ec91d36e5bac1b38e7",
+  "Methods": [
+    {
+      "Name": "Show",
+      "Parameters": [
+        {
+          "Name": "notification",
+          "Type": {
+            "Name": "ToastNotification",
+            "Namespace": "Windows.UI.Notifications",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Hide",
+      "Parameters": [
+        {
+          "Name": "notification",
+          "Type": {
+            "Name": "ToastNotification",
+            "Namespace": "Windows.UI.Notifications",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Setting",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "NotificationSetting",
+        "Namespace": "Windows.UI.Notifications",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddToSchedule",
+      "Parameters": [
+        {
+          "Name": "scheduledToast",
+          "Type": {
+            "Name": "ScheduledToastNotification",
+            "Namespace": "Windows.UI.Notifications",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveFromSchedule",
+      "Parameters": [
+        {
+          "Name": "scheduledToast",
+          "Type": {
+            "Name": "ScheduledToastNotification",
+            "Namespace": "Windows.UI.Notifications",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetScheduledToastNotifications",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ScheduledToastNotification",
+              "Namespace": "Windows.UI.Notifications",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

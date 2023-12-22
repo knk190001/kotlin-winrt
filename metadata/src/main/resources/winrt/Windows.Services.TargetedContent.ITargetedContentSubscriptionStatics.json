@@ -1,0 +1,69 @@
+{
+  "Name": "ITargetedContentSubscriptionStatics",
+  "Namespace": "Windows.Services.TargetedContent",
+  "Guid": "faddfe80360d4916b53c7ea27090d02a",
+  "Methods": [
+    {
+      "Name": "GetAsync",
+      "Parameters": [
+        {
+          "Name": "subscriptionId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "TargetedContentSubscription",
+              "Namespace": "Windows.Services.TargetedContent",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetOptions",
+      "Parameters": [
+        {
+          "Name": "subscriptionId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "TargetedContentSubscriptionOptions",
+        "Namespace": "Windows.Services.TargetedContent",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

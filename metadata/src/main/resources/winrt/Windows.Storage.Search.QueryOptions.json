@@ -1,0 +1,48 @@
+{
+  "Name": "QueryOptions",
+  "Namespace": "Windows.Storage.Search",
+  "Interfaces": [
+    {
+      "Name": "IQueryOptions",
+      "Namespace": "Windows.Storage.Search",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IQueryOptionsWithProviderFilter",
+      "Namespace": "Windows.Storage.Search",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IQueryOptions",
+        "Namespace": "Windows.Storage.Search",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IQueryOptionsFactory",
+          "Namespace": "Windows.Storage.Search",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

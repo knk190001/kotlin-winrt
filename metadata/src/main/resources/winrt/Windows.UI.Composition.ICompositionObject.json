@@ -1,0 +1,101 @@
+{
+  "Name": "ICompositionObject",
+  "Namespace": "Windows.UI.Composition",
+  "Guid": "bcb4ad4576094550934f16002a68fded",
+  "Methods": [
+    {
+      "Name": "get_Compositor",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Compositor",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Dispatcher",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CoreDispatcher",
+        "Namespace": "Windows.UI.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Properties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "CompositionPropertySet",
+        "Namespace": "Windows.UI.Composition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartAnimation",
+      "Parameters": [
+        {
+          "Name": "propertyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "animation",
+          "Type": {
+            "Name": "CompositionAnimation",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StopAnimation",
+      "Parameters": [
+        {
+          "Name": "propertyName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

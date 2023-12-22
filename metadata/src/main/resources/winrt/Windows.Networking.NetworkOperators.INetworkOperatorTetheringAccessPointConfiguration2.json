@@ -1,0 +1,103 @@
+{
+  "Name": "INetworkOperatorTetheringAccessPointConfiguration2",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Guid": "b1809142723859a0928b74ab46fd64b6",
+  "Methods": [
+    {
+      "Name": "IsBandSupported",
+      "Parameters": [
+        {
+          "Name": "band",
+          "Type": {
+            "Name": "TetheringWiFiBand",
+            "Namespace": "Windows.Networking.NetworkOperators",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsBandSupportedAsync",
+      "Parameters": [
+        {
+          "Name": "band",
+          "Type": {
+            "Name": "TetheringWiFiBand",
+            "Namespace": "Windows.Networking.NetworkOperators",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Band",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "TetheringWiFiBand",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Band",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "TetheringWiFiBand",
+            "Namespace": "Windows.Networking.NetworkOperators",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,113 @@
+{
+  "Name": "IChatSyncManager",
+  "Namespace": "Windows.ApplicationModel.Chat",
+  "Guid": "7ba52c632650486fb4b46bd9d3d63c84",
+  "Methods": [
+    {
+      "Name": "get_Configuration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ChatSyncConfiguration",
+        "Namespace": "Windows.ApplicationModel.Chat",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AssociateAccountAsync",
+      "Parameters": [
+        {
+          "Name": "webAccount",
+          "Type": {
+            "Name": "WebAccount",
+            "Namespace": "Windows.Security.Credentials",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnassociateAccountAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsAccountAssociated",
+      "Parameters": [
+        {
+          "Name": "webAccount",
+          "Type": {
+            "Name": "WebAccount",
+            "Namespace": "Windows.Security.Credentials",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "StartSync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetConfigurationAsync",
+      "Parameters": [
+        {
+          "Name": "configuration",
+          "Type": {
+            "Name": "ChatSyncConfiguration",
+            "Namespace": "Windows.ApplicationModel.Chat",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

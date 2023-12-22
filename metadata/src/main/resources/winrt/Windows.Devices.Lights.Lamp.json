@@ -1,0 +1,42 @@
+{
+  "Name": "Lamp",
+  "Namespace": "Windows.Devices.Lights",
+  "Interfaces": [
+    {
+      "Name": "ILamp",
+      "Namespace": "Windows.Devices.Lights",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ILampStatics",
+          "Namespace": "Windows.Devices.Lights"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ILamp",
+        "Namespace": "Windows.Devices.Lights",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

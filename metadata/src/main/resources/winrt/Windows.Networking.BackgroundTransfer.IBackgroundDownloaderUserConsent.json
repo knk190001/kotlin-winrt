@@ -1,0 +1,58 @@
+{
+  "Name": "IBackgroundDownloaderUserConsent",
+  "Namespace": "Windows.Networking.BackgroundTransfer",
+  "Guid": "5d14e90692664808bd715925f2a3130a",
+  "Methods": [
+    {
+      "Name": "RequestUnconstrainedDownloadsAsync",
+      "Parameters": [
+        {
+          "Name": "operations",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "DownloadOperation",
+                  "Namespace": "Windows.Networking.BackgroundTransfer",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UnconstrainedTransferRequestResult",
+              "Namespace": "Windows.Networking.BackgroundTransfer",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

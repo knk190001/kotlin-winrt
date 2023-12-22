@@ -1,0 +1,173 @@
+{
+  "Name": "IConversationalAgentSession2",
+  "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+  "Guid": "a7a9fbf9ac7857ff9596acc7a1c9a607",
+  "Methods": [
+    {
+      "Name": "RequestActivationAsync",
+      "Parameters": [
+        {
+          "Name": "activationKind",
+          "Type": {
+            "Name": "ConversationalAgentActivationKind",
+            "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ConversationalAgentActivationResult",
+              "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestActivation",
+      "Parameters": [
+        {
+          "Name": "activationKind",
+          "Type": {
+            "Name": "ConversationalAgentActivationKind",
+            "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ConversationalAgentActivationResult",
+        "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetSupportLockScreenActivationAsync",
+      "Parameters": [
+        {
+          "Name": "lockScreenActivationSupported",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetSupportLockScreenActivation",
+      "Parameters": [
+        {
+          "Name": "lockScreenActivationSupported",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetMissingPrerequisites",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ConversationalAgentVoiceActivationPrerequisiteKind",
+              "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetMissingPrerequisitesAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IVectorView`1",
+              "Namespace": "Windows.Foundation.Collections",
+              "GenericParameters": [
+                {
+                  "Name": "T",
+                  "Position": 0,
+                  "Type": {
+                    "Name": "ConversationalAgentVoiceActivationPrerequisiteKind",
+                    "Namespace": "Windows.ApplicationModel.ConversationalAgent",
+                    "GenericParameters": null,
+                    "IsArray": false,
+                    "IsReference": false
+                  }
+                }
+              ],
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

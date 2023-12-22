@@ -1,0 +1,171 @@
+{
+  "Name": "IHolographicCameraPose",
+  "Namespace": "Windows.Graphics.Holographic",
+  "Guid": "0d7d7e3012de45bd912bc7f6561599d1",
+  "Methods": [
+    {
+      "Name": "get_HolographicCamera",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HolographicCamera",
+        "Namespace": "Windows.Graphics.Holographic",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Viewport",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Rect",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetViewTransform",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "HolographicStereoTransform",
+              "Namespace": "Windows.Graphics.Holographic",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ProjectionTransform",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HolographicStereoTransform",
+        "Namespace": "Windows.Graphics.Holographic",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetCullingFrustum",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SpatialBoundingFrustum",
+              "Namespace": "Windows.Perception.Spatial",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetVisibleFrustum",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SpatialBoundingFrustum",
+              "Namespace": "Windows.Perception.Spatial",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_NearPlaneDistance",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_FarPlaneDistance",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Double",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

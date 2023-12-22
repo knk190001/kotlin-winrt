@@ -1,0 +1,102 @@
+{
+  "Name": "IDeviceInformationPairing2",
+  "Namespace": "Windows.Devices.Enumeration",
+  "Guid": "f68612fd0aee432885cc1c742bb1790d",
+  "Methods": [
+    {
+      "Name": "get_ProtectionLevel",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DevicePairingProtectionLevel",
+        "Namespace": "Windows.Devices.Enumeration",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Custom",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DeviceInformationCustomPairing",
+        "Namespace": "Windows.Devices.Enumeration",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "PairAsync",
+      "Parameters": [
+        {
+          "Name": "minProtectionLevel",
+          "Type": {
+            "Name": "DevicePairingProtectionLevel",
+            "Namespace": "Windows.Devices.Enumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "devicePairingSettings",
+          "Type": {
+            "Name": "IDevicePairingSettings",
+            "Namespace": "Windows.Devices.Enumeration",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "DevicePairingResult",
+              "Namespace": "Windows.Devices.Enumeration",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnpairAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "DeviceUnpairingResult",
+              "Namespace": "Windows.Devices.Enumeration",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

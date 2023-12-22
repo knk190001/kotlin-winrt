@@ -1,0 +1,46 @@
+{
+  "Name": "IPedometerStatics2",
+  "Namespace": "Windows.Devices.Sensors",
+  "Guid": "79f5c6bbce0e4133b47e8627ea72f677",
+  "Methods": [
+    {
+      "Name": "GetReadingsFromTriggerDetails",
+      "Parameters": [
+        {
+          "Name": "triggerDetails",
+          "Type": {
+            "Name": "SensorDataThresholdTriggerDetails",
+            "Namespace": "Windows.Devices.Sensors",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "PedometerReading",
+              "Namespace": "Windows.Devices.Sensors",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

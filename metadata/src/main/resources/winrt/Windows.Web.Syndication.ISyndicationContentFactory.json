@@ -1,0 +1,68 @@
+{
+  "Name": "ISyndicationContentFactory",
+  "Namespace": "Windows.Web.Syndication",
+  "Guid": "3d2fbb939520417393887e2df324a8a0",
+  "Methods": [
+    {
+      "Name": "CreateSyndicationContent",
+      "Parameters": [
+        {
+          "Name": "text",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "type",
+          "Type": {
+            "Name": "SyndicationTextType",
+            "Namespace": "Windows.Web.Syndication",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SyndicationContent",
+        "Namespace": "Windows.Web.Syndication",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSyndicationContentWithSourceUri",
+      "Parameters": [
+        {
+          "Name": "sourceUri",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SyndicationContent",
+        "Namespace": "Windows.Web.Syndication",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

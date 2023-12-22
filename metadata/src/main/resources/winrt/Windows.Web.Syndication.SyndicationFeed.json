@@ -1,0 +1,48 @@
+{
+  "Name": "SyndicationFeed",
+  "Namespace": "Windows.Web.Syndication",
+  "Interfaces": [
+    {
+      "Name": "ISyndicationFeed",
+      "Namespace": "Windows.Web.Syndication",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISyndicationNode",
+      "Namespace": "Windows.Web.Syndication",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISyndicationFeed",
+        "Namespace": "Windows.Web.Syndication",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ISyndicationFeedFactory",
+          "Namespace": "Windows.Web.Syndication",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

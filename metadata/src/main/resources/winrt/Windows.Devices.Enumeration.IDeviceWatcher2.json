@@ -1,0 +1,46 @@
+{
+  "Name": "IDeviceWatcher2",
+  "Namespace": "Windows.Devices.Enumeration",
+  "Guid": "ff08456eed1449e99a698117c54ae971",
+  "Methods": [
+    {
+      "Name": "GetBackgroundTrigger",
+      "Parameters": [
+        {
+          "Name": "requestedEventKinds",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "DeviceWatcherEventKind",
+                  "Namespace": "Windows.Devices.Enumeration",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DeviceWatcherTrigger",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

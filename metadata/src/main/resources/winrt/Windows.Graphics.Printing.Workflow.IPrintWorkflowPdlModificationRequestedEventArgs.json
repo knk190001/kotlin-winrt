@@ -1,0 +1,215 @@
+{
+  "Name": "IPrintWorkflowPdlModificationRequestedEventArgs",
+  "Namespace": "Windows.Graphics.Printing.Workflow",
+  "Guid": "1a339a612e135edda707ceec61d7333b",
+  "Methods": [
+    {
+      "Name": "get_Configuration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintWorkflowConfiguration",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PrinterJob",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintWorkflowPrinterJob",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SourceContent",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintWorkflowPdlSourceContent",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UILauncher",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintWorkflowUILauncher",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateJobOnPrinter",
+      "Parameters": [
+        {
+          "Name": "targetContentType",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PrintWorkflowPdlTargetStream",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateJobOnPrinterWithAttributes",
+      "Parameters": [
+        {
+          "Name": "jobAttributes",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "IKeyValuePair`2",
+                  "Namespace": "Windows.Foundation.Collections",
+                  "GenericParameters": [
+                    {
+                      "Name": "K",
+                      "Position": 0,
+                      "Type": {
+                        "Name": "String",
+                        "Namespace": "System",
+                        "GenericParameters": null,
+                        "IsArray": false,
+                        "IsReference": false
+                      }
+                    },
+                    {
+                      "Name": "V",
+                      "Position": 1,
+                      "Type": {
+                        "Name": "IppAttributeValue",
+                        "Namespace": "Windows.Devices.Printers",
+                        "GenericParameters": null,
+                        "IsArray": false,
+                        "IsReference": false
+                      }
+                    }
+                  ],
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetContentType",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PrintWorkflowPdlTargetStream",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateJobOnPrinterWithAttributesBuffer",
+      "Parameters": [
+        {
+          "Name": "jobAttributesBuffer",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetContentType",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PrintWorkflowPdlTargetStream",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetPdlConverter",
+      "Parameters": [
+        {
+          "Name": "conversionType",
+          "Type": {
+            "Name": "PrintWorkflowPdlConversionType",
+            "Namespace": "Windows.Graphics.Printing.Workflow",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PrintWorkflowPdlConverter",
+        "Namespace": "Windows.Graphics.Printing.Workflow",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeferral",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Deferral",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

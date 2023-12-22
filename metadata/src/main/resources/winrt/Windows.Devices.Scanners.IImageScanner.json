@@ -1,0 +1,215 @@
+{
+  "Name": "IImageScanner",
+  "Namespace": "Windows.Devices.Scanners",
+  "Guid": "53a88f78529848a08da38087519665e0",
+  "Methods": [
+    {
+      "Name": "get_DeviceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DefaultScanSource",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ImageScannerScanSource",
+        "Namespace": "Windows.Devices.Scanners",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsScanSourceSupported",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "ImageScannerScanSource",
+            "Namespace": "Windows.Devices.Scanners",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_FlatbedConfiguration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ImageScannerFlatbedConfiguration",
+        "Namespace": "Windows.Devices.Scanners",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_FeederConfiguration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ImageScannerFeederConfiguration",
+        "Namespace": "Windows.Devices.Scanners",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AutoConfiguration",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ImageScannerAutoConfiguration",
+        "Namespace": "Windows.Devices.Scanners",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsPreviewSupported",
+      "Parameters": [
+        {
+          "Name": "scanSource",
+          "Type": {
+            "Name": "ImageScannerScanSource",
+            "Namespace": "Windows.Devices.Scanners",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ScanPreviewToStreamAsync",
+      "Parameters": [
+        {
+          "Name": "scanSource",
+          "Type": {
+            "Name": "ImageScannerScanSource",
+            "Namespace": "Windows.Devices.Scanners",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetStream",
+          "Type": {
+            "Name": "IRandomAccessStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ImageScannerPreviewResult",
+              "Namespace": "Windows.Devices.Scanners",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ScanFilesToFolderAsync",
+      "Parameters": [
+        {
+          "Name": "scanSource",
+          "Type": {
+            "Name": "ImageScannerScanSource",
+            "Namespace": "Windows.Devices.Scanners",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "storageFolder",
+          "Type": {
+            "Name": "StorageFolder",
+            "Namespace": "Windows.Storage",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperationWithProgress`2",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ImageScannerScanResult",
+              "Namespace": "Windows.Devices.Scanners",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          },
+          {
+            "Name": "TProgress",
+            "Position": 1,
+            "Type": {
+              "Name": "UInt32",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

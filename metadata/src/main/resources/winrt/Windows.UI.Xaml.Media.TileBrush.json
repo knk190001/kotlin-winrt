@@ -1,0 +1,60 @@
+{
+  "Name": "TileBrush",
+  "Namespace": "Windows.UI.Xaml.Media",
+  "Interfaces": [
+    {
+      "Name": "ITileBrush",
+      "Namespace": "Windows.UI.Xaml.Media",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ITileBrushStatics",
+          "Namespace": "Windows.UI.Xaml.Media"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ITileBrush",
+        "Namespace": "Windows.UI.Xaml.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "ITileBrushFactory",
+          "Namespace": "Windows.UI.Xaml.Media",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "Brush",
+        "Namespace": "Windows.UI.Xaml.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

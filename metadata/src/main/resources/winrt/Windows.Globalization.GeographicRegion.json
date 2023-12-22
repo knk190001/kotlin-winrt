@@ -1,0 +1,50 @@
+{
+  "Name": "GeographicRegion",
+  "Namespace": "Windows.Globalization",
+  "Interfaces": [
+    {
+      "Name": "IGeographicRegion",
+      "Namespace": "Windows.Globalization",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IGeographicRegionStatics",
+          "Namespace": "Windows.Globalization"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IGeographicRegion",
+        "Namespace": "Windows.Globalization",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IGeographicRegionFactory",
+          "Namespace": "Windows.Globalization",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

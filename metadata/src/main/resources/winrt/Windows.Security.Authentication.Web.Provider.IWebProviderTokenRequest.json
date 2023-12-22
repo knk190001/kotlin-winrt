@@ -1,0 +1,113 @@
+{
+  "Name": "IWebProviderTokenRequest",
+  "Namespace": "Windows.Security.Authentication.Web.Provider",
+  "Guid": "1e18778b8805454b9f11468d2af1095a",
+  "Methods": [
+    {
+      "Name": "get_ClientRequest",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebTokenRequest",
+        "Namespace": "Windows.Security.Authentication.Web.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_WebAccounts",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WebAccount",
+              "Namespace": "Windows.Security.Credentials",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_WebAccountSelectionOptions",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebAccountSelectionOptions",
+        "Namespace": "Windows.Security.Authentication.Web.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ApplicationCallbackUri",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Uri",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetApplicationTokenBindingKeyAsync",
+      "Parameters": [
+        {
+          "Name": "keyType",
+          "Type": {
+            "Name": "TokenBindingKeyType",
+            "Namespace": "Windows.Security.Authentication.Web",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "Uri",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "CryptographicKey",
+              "Namespace": "Windows.Security.Cryptography.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

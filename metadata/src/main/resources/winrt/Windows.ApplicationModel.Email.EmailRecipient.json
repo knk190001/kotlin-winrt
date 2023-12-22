@@ -1,0 +1,41 @@
+{
+  "Name": "EmailRecipient",
+  "Namespace": "Windows.ApplicationModel.Email",
+  "Interfaces": [
+    {
+      "Name": "IEmailRecipient",
+      "Namespace": "Windows.ApplicationModel.Email",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IEmailRecipient",
+        "Namespace": "Windows.ApplicationModel.Email",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IEmailRecipientFactory",
+          "Namespace": "Windows.ApplicationModel.Email",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

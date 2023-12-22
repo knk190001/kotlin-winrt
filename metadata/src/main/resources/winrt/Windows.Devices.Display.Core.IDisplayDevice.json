@@ -1,0 +1,215 @@
+{
+  "Name": "IDisplayDevice",
+  "Namespace": "Windows.Devices.Display.Core",
+  "Guid": "a4c9b62c335f57318cb4c1ccd4731070",
+  "Methods": [
+    {
+      "Name": "CreateScanoutSource",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplaySource",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreatePrimary",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "desc",
+          "Type": {
+            "Name": "DisplayPrimaryDescription",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplaySurface",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateTaskPool",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayTaskPool",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreatePeriodicFence",
+      "Parameters": [
+        {
+          "Name": "target",
+          "Type": {
+            "Name": "DisplayTarget",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "offsetFromVBlank",
+          "Type": {
+            "Name": "TimeSpan",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayFence",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "WaitForVBlank",
+      "Parameters": [
+        {
+          "Name": "source",
+          "Type": {
+            "Name": "DisplaySource",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateSimpleScanout",
+      "Parameters": [
+        {
+          "Name": "pSource",
+          "Type": {
+            "Name": "DisplaySource",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pSurface",
+          "Type": {
+            "Name": "DisplaySurface",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "SubResourceIndex",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "SyncInterval",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DisplayScanout",
+        "Namespace": "Windows.Devices.Display.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsCapabilitySupported",
+      "Parameters": [
+        {
+          "Name": "capability",
+          "Type": {
+            "Name": "DisplayDeviceCapability",
+            "Namespace": "Windows.Devices.Display.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

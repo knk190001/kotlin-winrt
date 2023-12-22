@@ -1,0 +1,125 @@
+{
+  "Name": "IAudioRoutingManager",
+  "Namespace": "Windows.Phone.Media.Devices",
+  "Guid": "79340d2071cc45269f29fc8d2486418b",
+  "Methods": [
+    {
+      "Name": "GetAudioEndpoint",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AudioRoutingEndpoint",
+        "Namespace": "Windows.Phone.Media.Devices",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetAudioEndpoint",
+      "Parameters": [
+        {
+          "Name": "endpoint",
+          "Type": {
+            "Name": "AudioRoutingEndpoint",
+            "Namespace": "Windows.Phone.Media.Devices",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "add_AudioEndpointChanged",
+      "Parameters": [
+        {
+          "Name": "endpointChangeHandler",
+          "Type": {
+            "Name": "TypedEventHandler`2",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": [
+              {
+                "Name": "TSender",
+                "Position": 0,
+                "Type": {
+                  "Name": "AudioRoutingManager",
+                  "Namespace": "Windows.Phone.Media.Devices",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "TResult",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "EventRegistrationToken",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "remove_AudioEndpointChanged",
+      "Parameters": [
+        {
+          "Name": "token",
+          "Type": {
+            "Name": "EventRegistrationToken",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AvailableAudioEndpoints",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AvailableAudioRoutingEndpoints",
+        "Namespace": "Windows.Phone.Media.Devices",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

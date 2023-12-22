@@ -1,0 +1,57 @@
+{
+  "Name": "AdaptiveTrigger",
+  "Namespace": "Microsoft.UI.Xaml",
+  "Interfaces": [
+    {
+      "Name": "IAdaptiveTrigger",
+      "Namespace": "Microsoft.UI.Xaml",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IAdaptiveTriggerStatics",
+          "Namespace": "Microsoft.UI.Xaml"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAdaptiveTrigger",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IAdaptiveTriggerFactory",
+          "Namespace": "Microsoft.UI.Xaml",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "StateTriggerBase",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

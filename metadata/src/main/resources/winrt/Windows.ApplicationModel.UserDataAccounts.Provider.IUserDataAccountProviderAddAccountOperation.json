@@ -1,0 +1,76 @@
+{
+  "Name": "IUserDataAccountProviderAddAccountOperation",
+  "Namespace": "Windows.ApplicationModel.UserDataAccounts.Provider",
+  "Guid": "b9c725303f844b5d8eaa45e97aa842ed",
+  "Methods": [
+    {
+      "Name": "get_ContentKinds",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UserDataAccountContentKinds",
+        "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PartnerAccountInfos",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "UserDataAccountPartnerAccountInfo",
+              "Namespace": "Windows.ApplicationModel.UserDataAccounts.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportCompleted",
+      "Parameters": [
+        {
+          "Name": "userDataAccountId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IUserDataAccountProviderOperation",
+      "Namespace": "Windows.ApplicationModel.UserDataAccounts.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

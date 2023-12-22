@@ -1,0 +1,56 @@
+{
+  "Name": "IDisplaySource",
+  "Namespace": "Windows.Devices.Display.Core",
+  "Guid": "ecd15fc1eadc51bc971d3bc628db2dd4",
+  "Methods": [
+    {
+      "Name": "get_AdapterId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DisplayAdapterId",
+        "Namespace": "Windows.Graphics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SourceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetMetadata",
+      "Parameters": [
+        {
+          "Name": "Key",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

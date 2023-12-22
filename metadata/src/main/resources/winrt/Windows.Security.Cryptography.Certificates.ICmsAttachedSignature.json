@@ -1,0 +1,79 @@
+{
+  "Name": "ICmsAttachedSignature",
+  "Namespace": "Windows.Security.Cryptography.Certificates",
+  "Guid": "61899d9d37574ecbbddc0ca357d7a936",
+  "Methods": [
+    {
+      "Name": "get_Certificates",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Certificate",
+              "Namespace": "Windows.Security.Cryptography.Certificates",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Content",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Byte",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Signers",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "CmsSignerInfo",
+              "Namespace": "Windows.Security.Cryptography.Certificates",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "VerifySignature",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SignatureValidationResult",
+        "Namespace": "Windows.Security.Cryptography.Certificates",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

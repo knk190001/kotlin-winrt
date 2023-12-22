@@ -1,0 +1,87 @@
+{
+  "Name": "IWebAccountProviderTokenOperation",
+  "Namespace": "Windows.Security.Authentication.Web.Provider",
+  "Guid": "95c613be20344c389434d26c14b2b4b2",
+  "Methods": [
+    {
+      "Name": "get_ProviderRequest",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WebProviderTokenRequest",
+        "Namespace": "Windows.Security.Authentication.Web.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ProviderResponses",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVector`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "WebProviderTokenResponse",
+              "Namespace": "Windows.Security.Authentication.Web.Provider",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_CacheExpirationTime",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "DateTime",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CacheExpirationTime",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DateTime",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IWebAccountProviderOperation",
+      "Namespace": "Windows.Security.Authentication.Web.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

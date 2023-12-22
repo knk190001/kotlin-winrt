@@ -1,0 +1,80 @@
+{
+  "Name": "IRadialControllerConfiguration",
+  "Namespace": "Windows.UI.Input",
+  "Guid": "a6b79ecb6a524430910c56370a9d6b42",
+  "Methods": [
+    {
+      "Name": "SetDefaultMenuItems",
+      "Parameters": [
+        {
+          "Name": "buttons",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "RadialControllerSystemMenuItemKind",
+                  "Namespace": "Windows.UI.Input",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ResetToDefaultMenuItems",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TrySelectDefaultMenuItem",
+      "Parameters": [
+        {
+          "Name": "type",
+          "Type": {
+            "Name": "RadialControllerSystemMenuItemKind",
+            "Namespace": "Windows.UI.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

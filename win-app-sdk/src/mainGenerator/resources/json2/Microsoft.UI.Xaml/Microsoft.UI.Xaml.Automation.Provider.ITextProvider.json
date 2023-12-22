@@ -1,0 +1,101 @@
+{
+  "Name": "ITextProvider",
+  "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+  "Guid": "37e7dce6fe7a56a7a47a9462872c67ef",
+  "Methods": [
+    {
+      "Name": "get_DocumentRange",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedTextSelection",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SupportedTextSelection",
+        "Namespace": "Microsoft.UI.Xaml.Automation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSelection",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetVisibleRanges",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RangeFromChild",
+      "Parameters": [
+        {
+          "Name": "childElement",
+          "Type": {
+            "Name": "IRawElementProviderSimple",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RangeFromPoint",
+      "Parameters": [
+        {
+          "Name": "screenLocation",
+          "Type": {
+            "Name": "Point",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

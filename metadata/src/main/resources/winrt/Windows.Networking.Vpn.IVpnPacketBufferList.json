@@ -1,0 +1,155 @@
+{
+  "Name": "IVpnPacketBufferList",
+  "Namespace": "Windows.Networking.Vpn",
+  "Guid": "c2f891fc4d5c4a63b70d4e307eacce77",
+  "Methods": [
+    {
+      "Name": "Append",
+      "Parameters": [
+        {
+          "Name": "nextVpnPacketBuffer",
+          "Type": {
+            "Name": "VpnPacketBuffer",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddAtBegin",
+      "Parameters": [
+        {
+          "Name": "nextVpnPacketBuffer",
+          "Type": {
+            "Name": "VpnPacketBuffer",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveAtEnd",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VpnPacketBuffer",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveAtBegin",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VpnPacketBuffer",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Clear",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Status",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "VpnPacketBufferStatus",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Status",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VpnPacketBufferStatus",
+        "Namespace": "Windows.Networking.Vpn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Size",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IIterable`1",
+      "Namespace": "Windows.Foundation.Collections",
+      "GenericParameters": [
+        {
+          "Name": "T",
+          "Position": 0,
+          "Type": {
+            "Name": "VpnPacketBuffer",
+            "Namespace": "Windows.Networking.Vpn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          }
+        }
+      ],
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

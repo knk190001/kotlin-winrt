@@ -1,0 +1,48 @@
+{
+  "Name": "AtomPubClient",
+  "Namespace": "Windows.Web.AtomPub",
+  "Interfaces": [
+    {
+      "Name": "IAtomPubClient",
+      "Namespace": "Windows.Web.AtomPub",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISyndicationClient",
+      "Namespace": "Windows.Web.Syndication",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAtomPubClient",
+        "Namespace": "Windows.Web.AtomPub",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IAtomPubClientFactory",
+          "Namespace": "Windows.Web.AtomPub",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

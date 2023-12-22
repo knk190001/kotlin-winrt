@@ -1,0 +1,45 @@
+{
+  "Name": "PhoneTrigger",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Interfaces": [
+    {
+      "Name": "IPhoneTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IBackgroundTrigger",
+      "Namespace": "Windows.ApplicationModel.Background",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IPhoneTrigger",
+        "Namespace": "Windows.ApplicationModel.Background",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IPhoneTriggerFactory",
+          "Namespace": "Windows.ApplicationModel.Background",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

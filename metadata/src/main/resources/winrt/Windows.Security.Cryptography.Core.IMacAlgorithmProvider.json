@@ -1,0 +1,56 @@
+{
+  "Name": "IMacAlgorithmProvider",
+  "Namespace": "Windows.Security.Cryptography.Core",
+  "Guid": "4a3fc5c31cbd41cea092aa0bc5d2d2f5",
+  "Methods": [
+    {
+      "Name": "get_AlgorithmName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MacLength",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateKey",
+      "Parameters": [
+        {
+          "Name": "keyMaterial",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CryptographicKey",
+        "Namespace": "Windows.Security.Cryptography.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,38 @@
+{
+  "Name": "ProvisioningAgent",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Interfaces": [
+    {
+      "Name": "IProvisioningAgent",
+      "Namespace": "Windows.Networking.NetworkOperators",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IProvisioningAgentStaticMethods",
+          "Namespace": "Windows.Networking.NetworkOperators"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IProvisioningAgent",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

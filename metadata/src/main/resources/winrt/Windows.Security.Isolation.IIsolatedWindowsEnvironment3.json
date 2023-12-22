@@ -1,0 +1,125 @@
+{
+  "Name": "IIsolatedWindowsEnvironment3",
+  "Namespace": "Windows.Security.Isolation",
+  "Guid": "cb7fc7d2d06e4c268adadacdaaad03f5",
+  "Methods": [
+    {
+      "Name": "GetUserInfo",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IsolatedWindowsEnvironmentUserInfo",
+        "Namespace": "Windows.Security.Isolation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ShareFileAsync",
+      "Parameters": [
+        {
+          "Name": "filePath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "IsolatedWindowsEnvironmentShareFileRequestOptions",
+            "Namespace": "Windows.Security.Isolation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironmentShareFileResult",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ShareFileAsync",
+      "Parameters": [
+        {
+          "Name": "filePath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "IsolatedWindowsEnvironmentShareFileRequestOptions",
+            "Namespace": "Windows.Security.Isolation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "telemetryParameters",
+          "Type": {
+            "Name": "IsolatedWindowsEnvironmentTelemetryParameters",
+            "Namespace": "Windows.Security.Isolation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "IsolatedWindowsEnvironmentShareFileResult",
+              "Namespace": "Windows.Security.Isolation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

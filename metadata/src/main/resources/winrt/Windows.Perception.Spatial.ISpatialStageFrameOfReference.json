@@ -1,0 +1,90 @@
+{
+  "Name": "ISpatialStageFrameOfReference",
+  "Namespace": "Windows.Perception.Spatial",
+  "Guid": "7a8a3464ad0d4590ab8633062b674926",
+  "Methods": [
+    {
+      "Name": "get_CoordinateSystem",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialCoordinateSystem",
+        "Namespace": "Windows.Perception.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_MovementRange",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialMovementRange",
+        "Namespace": "Windows.Perception.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_LookDirectionRange",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SpatialLookDirectionRange",
+        "Namespace": "Windows.Perception.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCoordinateSystemAtCurrentLocation",
+      "Parameters": [
+        {
+          "Name": "locator",
+          "Type": {
+            "Name": "SpatialLocator",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "SpatialCoordinateSystem",
+        "Namespace": "Windows.Perception.Spatial",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetMovementBounds",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Vector3",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

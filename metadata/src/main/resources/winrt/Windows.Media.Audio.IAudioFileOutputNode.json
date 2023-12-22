@@ -1,0 +1,71 @@
+{
+  "Name": "IAudioFileOutputNode",
+  "Namespace": "Windows.Media.Audio",
+  "Guid": "50e019805166409380f8ada00089e9cf",
+  "Methods": [
+    {
+      "Name": "get_File",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IStorageFile",
+        "Namespace": "Windows.Storage",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_FileEncodingProfile",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaEncodingProfile",
+        "Namespace": "Windows.Media.MediaProperties",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FinalizeAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "TranscodeFailureReason",
+              "Namespace": "Windows.Media.Transcoding",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IAudioNode",
+      "Namespace": "Windows.Media.Audio",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

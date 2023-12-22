@@ -1,0 +1,147 @@
+{
+  "Name": "IOnlineIdAuthenticator",
+  "Namespace": "Windows.Security.Authentication.OnlineId",
+  "Guid": "a003f58a29ab4817b884d7516dad18b9",
+  "Methods": [
+    {
+      "Name": "AuthenticateUserAsync",
+      "Parameters": [
+        {
+          "Name": "request",
+          "Type": {
+            "Name": "OnlineIdServiceTicketRequest",
+            "Namespace": "Windows.Security.Authentication.OnlineId",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "UserAuthenticationOperation",
+        "Namespace": "Windows.Security.Authentication.OnlineId",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AuthenticateUserAsync",
+      "Parameters": [
+        {
+          "Name": "requests",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "OnlineIdServiceTicketRequest",
+                  "Namespace": "Windows.Security.Authentication.OnlineId",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "credentialPromptType",
+          "Type": {
+            "Name": "CredentialPromptType",
+            "Namespace": "Windows.Security.Authentication.OnlineId",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "UserAuthenticationOperation",
+        "Namespace": "Windows.Security.Authentication.OnlineId",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SignOutUserAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SignOutUserOperation",
+        "Namespace": "Windows.Security.Authentication.OnlineId",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_ApplicationId",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ApplicationId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_CanSignOut",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AuthenticatedSafeCustomerId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

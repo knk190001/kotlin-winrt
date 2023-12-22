@@ -1,0 +1,46 @@
+{
+  "Name": "IPaymentMediator2",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Guid": "ceef98f1e40741288e73d93d5f822786",
+  "Methods": [
+    {
+      "Name": "CanMakePaymentAsync",
+      "Parameters": [
+        {
+          "Name": "paymentRequest",
+          "Type": {
+            "Name": "PaymentRequest",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "PaymentCanMakePaymentResult",
+              "Namespace": "Windows.ApplicationModel.Payments",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,55 @@
+{
+  "Name": "ListBoxItemDataAutomationPeer",
+  "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+  "Interfaces": [
+    {
+      "Name": "IListBoxItemDataAutomationPeer",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IScrollItemProvider",
+      "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IListBoxItemDataAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IListBoxItemDataAutomationPeerFactory",
+          "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "SelectorItemAutomationPeer",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Peers",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

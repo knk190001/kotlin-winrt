@@ -1,0 +1,46 @@
+{
+  "Name": "ITargetedContentContainerStatics",
+  "Namespace": "Windows.Services.TargetedContent",
+  "Guid": "5b47e7fb21404c1fa736c59583f227d8",
+  "Methods": [
+    {
+      "Name": "GetAsync",
+      "Parameters": [
+        {
+          "Name": "contentId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "TargetedContentContainer",
+              "Namespace": "Windows.Services.TargetedContent",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

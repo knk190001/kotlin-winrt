@@ -1,0 +1,171 @@
+{
+  "Name": "ILearningModelPreview",
+  "Namespace": "Windows.AI.MachineLearning.Preview",
+  "Guid": "049c266a93b4478caeb870157bf0ff94",
+  "Methods": [
+    {
+      "Name": "EvaluateAsync",
+      "Parameters": [
+        {
+          "Name": "binding",
+          "Type": {
+            "Name": "LearningModelBindingPreview",
+            "Namespace": "Windows.AI.MachineLearning.Preview",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "correlationId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModelEvaluationResultPreview",
+              "Namespace": "Windows.AI.MachineLearning.Preview",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "EvaluateFeaturesAsync",
+      "Parameters": [
+        {
+          "Name": "features",
+          "Type": {
+            "Name": "IMap`2",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "K",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              },
+              {
+                "Name": "V",
+                "Position": 1,
+                "Type": {
+                  "Name": "Object",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "correlationId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "LearningModelEvaluationResultPreview",
+              "Namespace": "Windows.AI.MachineLearning.Preview",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Description",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "LearningModelDescriptionPreview",
+        "Namespace": "Windows.AI.MachineLearning.Preview",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_InferencingOptions",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "InferencingOptionsPreview",
+        "Namespace": "Windows.AI.MachineLearning.Preview",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_InferencingOptions",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "InferencingOptionsPreview",
+            "Namespace": "Windows.AI.MachineLearning.Preview",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

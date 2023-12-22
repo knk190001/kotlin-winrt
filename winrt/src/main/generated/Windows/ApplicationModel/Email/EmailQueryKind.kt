@@ -1,0 +1,68 @@
+package Windows.ApplicationModel.Email
+
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.Signature
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
+import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.sun.jna.FromNativeContext
+import com.sun.jna.NativeMapped
+import java.lang.Class
+import java.lang.IllegalArgumentException
+import java.lang.Integer
+import java.lang.foreign.ValueLayout
+import java.lang.foreign.ValueLayout.JAVA_INT
+import kotlin.Any
+import kotlin.Int
+import kotlin.Unit
+
+@ABIMarker(EmailQueryKind.ABI::class)
+@Signature("enum(Windows.ApplicationModel.Email.EmailQueryKind;i4)")
+@WinRTByReference(brClass = EmailQueryKind.ByReference::class)
+public enum class EmailQueryKind(
+  public val value: Int
+) : NativeMapped {
+  All(0),
+  Important(1),
+  Flagged(2),
+  Unread(3),
+  Read(4),
+  Unseen(5),
+  ;
+
+  public override fun fromNative(nativeValue: kotlin.Any?, context: FromNativeContext?):
+      EmailQueryKind {
+    if (nativeValue !is Int) throw IllegalArgumentException()
+    return when(nativeValue)  {
+      0 -> All
+      1 -> Important
+      2 -> Flagged
+      3 -> Unread
+      4 -> Read
+      5 -> Unseen
+      else -> throw IllegalArgumentException()
+    }
+  }
+
+  public override fun toNative(): Int = this.value
+
+  public override fun nativeType(): java.lang.Class<*> = Integer::class.java
+
+  public class ByReference : com.sun.jna.ptr.ByReference(4), IByReference<EmailQueryKind> {
+    public fun setValue(newValue: EmailQueryKind): Unit {
+      pointer.setInt(0, newValue.value)
+    }
+
+    public override fun getValue(): EmailQueryKind =
+        EmailQueryKind.values()[0].fromNative(this.pointer.getInt(0), null)
+  }
+
+  public object ABI : IABI<EmailQueryKind, Int> {
+    public override val layout: ValueLayout = JAVA_INT
+
+    public override fun fromNative(value: Int): EmailQueryKind =
+        EmailQueryKind.values()[0].fromNative(value, null)
+
+    public override fun toNative(obj: EmailQueryKind): Int = obj.value
+  }
+}

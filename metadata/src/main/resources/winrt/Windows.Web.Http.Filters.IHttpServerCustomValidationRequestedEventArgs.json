@@ -1,0 +1,112 @@
+{
+  "Name": "IHttpServerCustomValidationRequestedEventArgs",
+  "Namespace": "Windows.Web.Http.Filters",
+  "Guid": "3165fe32e7dd48b7a361939c750e63cc",
+  "Methods": [
+    {
+      "Name": "get_RequestMessage",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "HttpRequestMessage",
+        "Namespace": "Windows.Web.Http",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServerCertificate",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Certificate",
+        "Namespace": "Windows.Security.Cryptography.Certificates",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServerCertificateErrorSeverity",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SocketSslErrorSeverity",
+        "Namespace": "Windows.Networking.Sockets",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServerCertificateErrors",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ChainValidationResult",
+              "Namespace": "Windows.Security.Cryptography.Certificates",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServerIntermediateCertificates",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "Certificate",
+              "Namespace": "Windows.Security.Cryptography.Certificates",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Reject",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeferral",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Deferral",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

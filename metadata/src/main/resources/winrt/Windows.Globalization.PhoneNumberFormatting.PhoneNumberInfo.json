@@ -1,0 +1,54 @@
+{
+  "Name": "PhoneNumberInfo",
+  "Namespace": "Windows.Globalization.PhoneNumberFormatting",
+  "Interfaces": [
+    {
+      "Name": "IPhoneNumberInfo",
+      "Namespace": "Windows.Globalization.PhoneNumberFormatting",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IStringable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IPhoneNumberInfoStatics",
+          "Namespace": "Windows.Globalization.PhoneNumberFormatting"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPhoneNumberInfo",
+        "Namespace": "Windows.Globalization.PhoneNumberFormatting",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IPhoneNumberInfoFactory",
+          "Namespace": "Windows.Globalization.PhoneNumberFormatting",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

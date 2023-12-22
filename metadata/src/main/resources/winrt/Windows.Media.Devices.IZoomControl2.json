@@ -1,0 +1,68 @@
+{
+  "Name": "IZoomControl2",
+  "Namespace": "Windows.Media.Devices",
+  "Guid": "69843db02e9946418529184f319d1671",
+  "Methods": [
+    {
+      "Name": "get_SupportedModes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "ZoomTransitionMode",
+              "Namespace": "Windows.Media.Devices",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Mode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ZoomTransitionMode",
+        "Namespace": "Windows.Media.Devices",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Configure",
+      "Parameters": [
+        {
+          "Name": "settings",
+          "Type": {
+            "Name": "ZoomSettings",
+            "Namespace": "Windows.Media.Devices",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

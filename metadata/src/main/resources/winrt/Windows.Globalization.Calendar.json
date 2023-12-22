@@ -1,0 +1,55 @@
+{
+  "Name": "Calendar",
+  "Namespace": "Windows.Globalization",
+  "Interfaces": [
+    {
+      "Name": "ICalendar",
+      "Namespace": "Windows.Globalization",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ITimeZoneOnCalendar",
+      "Namespace": "Windows.Globalization",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ICalendar",
+        "Namespace": "Windows.Globalization",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ICalendarFactory",
+          "Namespace": "Windows.Globalization",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        },
+        {
+          "Name": "ICalendarFactory2",
+          "Namespace": "Windows.Globalization",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,57 @@
+{
+  "Name": "AllJoynBusAttachment",
+  "Namespace": "Windows.Devices.AllJoyn",
+  "Interfaces": [
+    {
+      "Name": "IAllJoynBusAttachment",
+      "Namespace": "Windows.Devices.AllJoyn",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IAllJoynBusAttachment2",
+      "Namespace": "Windows.Devices.AllJoyn",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IAllJoynBusAttachmentStatics",
+          "Namespace": "Windows.Devices.AllJoyn"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAllJoynBusAttachment",
+        "Namespace": "Windows.Devices.AllJoyn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IAllJoynBusAttachmentFactory",
+          "Namespace": "Windows.Devices.AllJoyn",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

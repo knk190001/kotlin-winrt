@@ -1,0 +1,160 @@
+{
+  "Name": "IWidgetProvider",
+  "Namespace": "Microsoft.Windows.Widgets.Providers",
+  "Guid": "5c5774cc72a0452db9ed075c0dd25eed",
+  "Methods": [
+    {
+      "Name": "CreateWidget",
+      "Parameters": [
+        {
+          "Name": "widgetContext",
+          "Type": {
+            "Name": "WidgetContext",
+            "Namespace": "Microsoft.Windows.Widgets.Providers",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "DeleteWidget",
+      "Parameters": [
+        {
+          "Name": "widgetId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "customState",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OnActionInvoked",
+      "Parameters": [
+        {
+          "Name": "actionInvokedArgs",
+          "Type": {
+            "Name": "WidgetActionInvokedArgs",
+            "Namespace": "Microsoft.Windows.Widgets.Providers",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OnWidgetContextChanged",
+      "Parameters": [
+        {
+          "Name": "contextChangedArgs",
+          "Type": {
+            "Name": "WidgetContextChangedArgs",
+            "Namespace": "Microsoft.Windows.Widgets.Providers",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Activate",
+      "Parameters": [
+        {
+          "Name": "widgetContext",
+          "Type": {
+            "Name": "WidgetContext",
+            "Namespace": "Microsoft.Windows.Widgets.Providers",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Deactivate",
+      "Parameters": [
+        {
+          "Name": "widgetId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

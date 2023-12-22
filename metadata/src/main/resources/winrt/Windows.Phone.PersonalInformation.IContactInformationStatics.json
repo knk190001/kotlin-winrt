@@ -1,0 +1,46 @@
+{
+  "Name": "IContactInformationStatics",
+  "Namespace": "Windows.Phone.PersonalInformation",
+  "Guid": "0f67bb2903d04be6b2a5fb13859f1202",
+  "Methods": [
+    {
+      "Name": "ParseVcardAsync",
+      "Parameters": [
+        {
+          "Name": "vcard",
+          "Type": {
+            "Name": "IInputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ContactInformation",
+              "Namespace": "Windows.Phone.PersonalInformation",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

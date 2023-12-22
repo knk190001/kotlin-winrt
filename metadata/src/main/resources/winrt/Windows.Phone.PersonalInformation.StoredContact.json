@@ -1,0 +1,52 @@
+{
+  "Name": "StoredContact",
+  "Namespace": "Windows.Phone.PersonalInformation",
+  "Interfaces": [
+    {
+      "Name": "IStoredContact",
+      "Namespace": "Windows.Phone.PersonalInformation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IContactInformation",
+      "Namespace": "Windows.Phone.PersonalInformation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IContactInformation2",
+      "Namespace": "Windows.Phone.PersonalInformation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IStoredContact",
+        "Namespace": "Windows.Phone.PersonalInformation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IStoredContactFactory",
+          "Namespace": "Windows.Phone.PersonalInformation",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

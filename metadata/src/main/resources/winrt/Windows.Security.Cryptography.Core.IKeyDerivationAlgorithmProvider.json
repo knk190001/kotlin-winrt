@@ -1,0 +1,45 @@
+{
+  "Name": "IKeyDerivationAlgorithmProvider",
+  "Namespace": "Windows.Security.Cryptography.Core",
+  "Guid": "e1fba83b467143b79158763aaa98b6bf",
+  "Methods": [
+    {
+      "Name": "get_AlgorithmName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateKey",
+      "Parameters": [
+        {
+          "Name": "keyMaterial",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "CryptographicKey",
+        "Namespace": "Windows.Security.Cryptography.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

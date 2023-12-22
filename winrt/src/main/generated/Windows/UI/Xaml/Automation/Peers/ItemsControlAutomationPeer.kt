@@ -1,0 +1,165 @@
+package Windows.UI.Xaml.Automation.Peers
+
+import Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeerFactory.ABI.IID
+import Windows.UI.Xaml.Automation.Provider.IItemContainerProvider
+import Windows.UI.Xaml.Controls.ItemsControl
+import com.github.knk190001.winrtbinding.runtime.JNAApiInterface.Companion.INSTANCE
+import com.github.knk190001.winrtbinding.runtime.JNAPointer
+import com.github.knk190001.winrtbinding.runtime.JNAPointer.NULL
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.Signature
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
+import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.checkHR
+import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
+import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
+import com.github.knk190001.winrtbinding.runtime.com.IWinRTObject
+import com.github.knk190001.winrtbinding.runtime.getValue
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.github.knk190001.winrtbinding.runtime.interop.guidOf
+import com.github.knk190001.winrtbinding.runtime.toHandle
+import com.sun.jna.Native.POINTER_SIZE
+import com.sun.jna.Pointer
+import com.sun.jna.platform.win32.Guid
+import com.sun.jna.ptr.PointerByReference
+import java.lang.foreign.MemoryAddress
+import java.lang.foreign.MemoryLayout
+import java.lang.foreign.ValueLayout
+import kotlin.Array
+import kotlin.Unit
+import kotlin.reflect.typeOf
+
+@ABIMarker(ItemsControlAutomationPeer.ABI::class)
+@Signature("rc(Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer;{96e76bf1-37f7-4088-925d-65268e83e34d})")
+@WinRTByReference(brClass = ItemsControlAutomationPeer.ByReference::class)
+public open class ItemsControlAutomationPeer(
+  ptr: JNAPointer? = NULL
+) : FrameworkElementAutomationPeer(ptr), IItemsControlAutomationPeer.WithDefault,
+    IItemsControlAutomationPeer2.WithDefault, IItemsControlAutomationPeerOverrides2.WithDefault,
+    IItemContainerProvider.WithDefault, IWinRTObject {
+  private val __416846510_Interface: IItemsControlAutomationPeer.WithDefault by lazy {
+    as_416846510()
+  }
+
+
+  private val __37339972_Interface: IItemsControlAutomationPeer2.WithDefault by lazy {
+    as_37339972()
+  }
+
+
+  private val __1723018183_Interface: IItemsControlAutomationPeerOverrides2.WithDefault by lazy {
+    as_1723018183()
+  }
+
+
+  private val __1270245209_Interface: IItemContainerProvider.WithDefault by lazy {
+    as_1270245209()
+  }
+
+
+  public override val __416846510_Ptr: JNAPointer? by lazy {
+    __416846510_Interface.__416846510_Ptr
+  }
+
+
+  public override val __37339972_Ptr: JNAPointer? by lazy {
+    __37339972_Interface.__37339972_Ptr
+  }
+
+
+  public override val __1723018183_Ptr: JNAPointer? by lazy {
+    __1723018183_Interface.__1723018183_Ptr
+  }
+
+
+  public override val __1270245209_Ptr: JNAPointer? by lazy {
+    __1270245209_Interface.__1270245209_Ptr
+  }
+
+
+  public override val interfaces: Array<IWinRTInterface>
+    get() = arrayOf(__416846510_Interface, __37339972_Interface, __1723018183_Interface,
+        __1270245209_Interface)
+
+  public constructor(owner: ItemsControl) : this(ABI.activate(owner))
+
+  private fun as_416846510(): IItemsControlAutomationPeer.WithDefault {
+    if(pointer == NULL) {
+      return(IItemsControlAutomationPeer.ABI.makeIItemsControlAutomationPeer(NULL))
+    }
+    val refiid = Guid.REFIID(guidOf<IItemsControlAutomationPeer>())
+    val ref = PointerByReference()
+    IUnknownVtbl(pointer.getPointer(0)).queryInterface(pointer, refiid, ref)
+    return(IItemsControlAutomationPeer.ABI.makeIItemsControlAutomationPeer(ref.value))
+  }
+
+  private fun as_37339972(): IItemsControlAutomationPeer2.WithDefault {
+    if(pointer == NULL) {
+      return(IItemsControlAutomationPeer2.ABI.makeIItemsControlAutomationPeer2(NULL))
+    }
+    val refiid = Guid.REFIID(guidOf<IItemsControlAutomationPeer2>())
+    val ref = PointerByReference()
+    IUnknownVtbl(pointer.getPointer(0)).queryInterface(pointer, refiid, ref)
+    return(IItemsControlAutomationPeer2.ABI.makeIItemsControlAutomationPeer2(ref.value))
+  }
+
+  private fun as_1723018183(): IItemsControlAutomationPeerOverrides2.WithDefault {
+    if(pointer == NULL) {
+      return(IItemsControlAutomationPeerOverrides2.ABI.makeIItemsControlAutomationPeerOverrides2(NULL))
+    }
+    val refiid = Guid.REFIID(guidOf<IItemsControlAutomationPeerOverrides2>())
+    val ref = PointerByReference()
+    IUnknownVtbl(pointer.getPointer(0)).queryInterface(pointer, refiid, ref)
+    return(IItemsControlAutomationPeerOverrides2.ABI.makeIItemsControlAutomationPeerOverrides2(ref.value))
+  }
+
+  private fun as_1270245209(): IItemContainerProvider.WithDefault {
+    if(pointer == NULL) {
+      return(IItemContainerProvider.ABI.makeIItemContainerProvider(NULL))
+    }
+    val refiid = Guid.REFIID(guidOf<IItemContainerProvider>())
+    val ref = PointerByReference()
+    IUnknownVtbl(pointer.getPointer(0)).queryInterface(pointer, refiid, ref)
+    return(IItemContainerProvider.ABI.makeIItemContainerProvider(ref.value))
+  }
+
+  public class ByReference : com.sun.jna.ptr.ByReference(POINTER_SIZE),
+      IByReference<ItemsControlAutomationPeer> {
+    public override fun getValue() = ItemsControlAutomationPeer(pointer.getPointer(0))
+
+    public fun setValue(value: ItemsControlAutomationPeer): Unit {
+      pointer.setPointer(0, value.pointer)
+    }
+  }
+
+  public object ABI : IABI<ItemsControlAutomationPeer, MemoryAddress> {
+    public val IItemsControlAutomationPeerFactory_Instance: IItemsControlAutomationPeerFactory by
+        lazy {
+      createIItemsControlAutomationPeerFactory()
+    }
+
+
+    public override val layout: MemoryLayout = ValueLayout.ADDRESS
+
+    public fun createIItemsControlAutomationPeerFactory(): IItemsControlAutomationPeerFactory {
+      val refiid = Guid.REFIID(IID)
+      val factoryActivatorPtr = PointerByReference()
+      val hr =
+          INSTANCE.RoGetActivationFactory("Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer".toHandle(),refiid,factoryActivatorPtr)
+      checkHR(hr)
+      return(IItemsControlAutomationPeerFactory.ABI.makeIItemsControlAutomationPeerFactory(factoryActivatorPtr.value))
+    }
+
+    public fun activate(owner: ItemsControl): JNAPointer? =
+        IItemsControlAutomationPeerFactory_Instance.CreateInstanceWithOwner(owner, null,
+        null)?.pointer
+
+    public override fun fromNative(segment: MemoryAddress): ItemsControlAutomationPeer {
+      val address = segment.toRawLongValue()
+      return ItemsControlAutomationPeer(Pointer(address))
+    }
+
+    public override fun toNative(obj: ItemsControlAutomationPeer): MemoryAddress =
+        MemoryAddress.ofLong(Pointer.nativeValue(obj.pointer))
+  }
+}

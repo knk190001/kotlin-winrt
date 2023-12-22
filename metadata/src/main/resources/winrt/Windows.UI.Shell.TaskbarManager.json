@@ -1,0 +1,42 @@
+{
+  "Name": "TaskbarManager",
+  "Namespace": "Windows.UI.Shell",
+  "Interfaces": [
+    {
+      "Name": "ITaskbarManager",
+      "Namespace": "Windows.UI.Shell",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ITaskbarManager2",
+      "Namespace": "Windows.UI.Shell",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ITaskbarManagerStatics",
+          "Namespace": "Windows.UI.Shell"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ITaskbarManager",
+        "Namespace": "Windows.UI.Shell",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

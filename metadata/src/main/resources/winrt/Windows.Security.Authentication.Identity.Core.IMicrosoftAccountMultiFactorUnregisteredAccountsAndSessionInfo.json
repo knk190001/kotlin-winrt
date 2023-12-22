@@ -1,0 +1,68 @@
+{
+  "Name": "IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo",
+  "Namespace": "Windows.Security.Authentication.Identity.Core",
+  "Guid": "aa7ec5fbda3f4088a20d5618afadb2e5",
+  "Methods": [
+    {
+      "Name": "get_Sessions",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "MicrosoftAccountMultiFactorSessionInfo",
+              "Namespace": "Windows.Security.Authentication.Identity.Core",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UnregisteredAccounts",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "String",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ServiceResponse",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MicrosoftAccountMultiFactorServiceResponse",
+        "Namespace": "Windows.Security.Authentication.Identity.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

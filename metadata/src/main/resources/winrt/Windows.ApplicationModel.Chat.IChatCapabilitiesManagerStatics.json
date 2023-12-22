@@ -1,0 +1,81 @@
+{
+  "Name": "IChatCapabilitiesManagerStatics",
+  "Namespace": "Windows.ApplicationModel.Chat",
+  "Guid": "b57a2f307041458eb0cf7c0d9fea333a",
+  "Methods": [
+    {
+      "Name": "GetCachedCapabilitiesAsync",
+      "Parameters": [
+        {
+          "Name": "address",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ChatCapabilities",
+              "Namespace": "Windows.ApplicationModel.Chat",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCapabilitiesFromNetworkAsync",
+      "Parameters": [
+        {
+          "Name": "address",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ChatCapabilities",
+              "Namespace": "Windows.ApplicationModel.Chat",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

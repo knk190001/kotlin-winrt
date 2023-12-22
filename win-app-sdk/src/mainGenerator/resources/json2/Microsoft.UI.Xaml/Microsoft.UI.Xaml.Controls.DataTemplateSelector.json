@@ -1,0 +1,52 @@
+{
+  "Name": "DataTemplateSelector",
+  "Namespace": "Microsoft.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IDataTemplateSelector",
+      "Namespace": "Microsoft.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IDataTemplateSelectorOverrides",
+      "Namespace": "Microsoft.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IElementFactory",
+      "Namespace": "Microsoft.UI.Xaml",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IDataTemplateSelector",
+        "Namespace": "Microsoft.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IDataTemplateSelectorFactory",
+          "Namespace": "Microsoft.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    }
+  ],
+  "Type": "Class"
+}

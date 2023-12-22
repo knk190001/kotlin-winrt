@@ -1,0 +1,80 @@
+{
+  "Name": "ICustomGameControllerFactory",
+  "Namespace": "Windows.Gaming.Input.Custom",
+  "Guid": "69a0ae5e758e4cbeace662155fe9126f",
+  "Methods": [
+    {
+      "Name": "CreateGameController",
+      "Parameters": [
+        {
+          "Name": "provider",
+          "Type": {
+            "Name": "IGameControllerProvider",
+            "Namespace": "Windows.Gaming.Input.Custom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Object",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OnGameControllerAdded",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "IGameController",
+            "Namespace": "Windows.Gaming.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OnGameControllerRemoved",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "IGameController",
+            "Namespace": "Windows.Gaming.Input",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

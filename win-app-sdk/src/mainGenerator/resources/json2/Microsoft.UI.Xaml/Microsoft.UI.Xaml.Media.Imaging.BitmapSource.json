@@ -1,0 +1,60 @@
+{
+  "Name": "BitmapSource",
+  "Namespace": "Microsoft.UI.Xaml.Media.Imaging",
+  "Interfaces": [
+    {
+      "Name": "IBitmapSource",
+      "Namespace": "Microsoft.UI.Xaml.Media.Imaging",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IBitmapSourceStatics",
+          "Namespace": "Microsoft.UI.Xaml.Media.Imaging"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IBitmapSource",
+        "Namespace": "Microsoft.UI.Xaml.Media.Imaging",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IBitmapSourceFactory",
+          "Namespace": "Microsoft.UI.Xaml.Media.Imaging",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "ImageSource",
+        "Namespace": "Microsoft.UI.Xaml.Media",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,149 @@
+{
+  "Name": "IApplicationView4",
+  "Namespace": "Windows.UI.ViewManagement",
+  "Guid": "15e5cbec9e0f46b5bc3f9bf653e74b5e",
+  "Methods": [
+    {
+      "Name": "get_ViewMode",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ApplicationViewMode",
+        "Namespace": "Windows.UI.ViewManagement",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsViewModeSupported",
+      "Parameters": [
+        {
+          "Name": "viewMode",
+          "Type": {
+            "Name": "ApplicationViewMode",
+            "Namespace": "Windows.UI.ViewManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryEnterViewModeAsync",
+      "Parameters": [
+        {
+          "Name": "viewMode",
+          "Type": {
+            "Name": "ApplicationViewMode",
+            "Namespace": "Windows.UI.ViewManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryEnterViewModeAsync",
+      "Parameters": [
+        {
+          "Name": "viewMode",
+          "Type": {
+            "Name": "ApplicationViewMode",
+            "Namespace": "Windows.UI.ViewManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "viewModePreferences",
+          "Type": {
+            "Name": "ViewModePreferences",
+            "Namespace": "Windows.UI.ViewManagement",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryConsolidateAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

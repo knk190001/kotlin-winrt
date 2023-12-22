@@ -1,0 +1,67 @@
+{
+  "Name": "IMobileBroadbandDeviceService",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Guid": "22be1a52bd8040ac8e1f2e07836a3dbd",
+  "Methods": [
+    {
+      "Name": "get_DeviceServiceId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Guid",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SupportedCommands",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "UInt32",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OpenDataSession",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MobileBroadbandDeviceServiceDataSession",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OpenCommandSession",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MobileBroadbandDeviceServiceCommandSession",
+        "Namespace": "Windows.Networking.NetworkOperators",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

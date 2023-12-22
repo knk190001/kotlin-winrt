@@ -1,0 +1,46 @@
+{
+  "Name": "JsonValue",
+  "Namespace": "Windows.Data.Json",
+  "Interfaces": [
+    {
+      "Name": "IJsonValue",
+      "Namespace": "Windows.Data.Json",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IStringable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IJsonValueStatics",
+          "Namespace": "Windows.Data.Json"
+        },
+        {
+          "Name": "IJsonValueStatics2",
+          "Namespace": "Windows.Data.Json"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IJsonValue",
+        "Namespace": "Windows.Data.Json",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

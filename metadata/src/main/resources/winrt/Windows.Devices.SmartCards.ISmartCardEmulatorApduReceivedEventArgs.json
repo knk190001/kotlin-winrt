@@ -1,0 +1,79 @@
+{
+  "Name": "ISmartCardEmulatorApduReceivedEventArgs",
+  "Namespace": "Windows.Devices.SmartCards",
+  "Guid": "d55d157669d253335b5ff8c0d6e9f09f",
+  "Methods": [
+    {
+      "Name": "get_CommandApdu",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IBuffer",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ConnectionProperties",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SmartCardEmulatorConnectionProperties",
+        "Namespace": "Windows.Devices.SmartCards",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryRespondAsync",
+      "Parameters": [
+        {
+          "Name": "responseApdu",
+          "Type": {
+            "Name": "IBuffer",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "Boolean",
+              "Namespace": "System",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AutomaticResponseStatus",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SmartCardAutomaticResponseStatus",
+        "Namespace": "Windows.Devices.SmartCards",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

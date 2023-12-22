@@ -1,0 +1,65 @@
+{
+  "Name": "IInkAnalysisRoot",
+  "Namespace": "Windows.UI.Input.Inking.Analysis",
+  "Guid": "3fb6a3c42fde40618502a90f32545b84",
+  "Methods": [
+    {
+      "Name": "get_RecognizedText",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindNodes",
+      "Parameters": [
+        {
+          "Name": "nodeKind",
+          "Type": {
+            "Name": "InkAnalysisNodeKind",
+            "Namespace": "Windows.UI.Input.Inking.Analysis",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "IInkAnalysisNode",
+              "Namespace": "Windows.UI.Input.Inking.Analysis",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IInkAnalysisNode",
+      "Namespace": "Windows.UI.Input.Inking.Analysis",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

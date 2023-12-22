@@ -1,0 +1,90 @@
+{
+  "Name": "ICoreIncrementalInkStroke",
+  "Namespace": "Windows.UI.Input.Inking.Core",
+  "Guid": "fda015d39d664f7da57fcc70b9cfaa76",
+  "Methods": [
+    {
+      "Name": "AppendInkPoints",
+      "Parameters": [
+        {
+          "Name": "inkPoints",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "InkPoint",
+                  "Namespace": "Windows.UI.Input.Inking",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Rect",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateInkStroke",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "InkStroke",
+        "Namespace": "Windows.UI.Input.Inking",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DrawingAttributes",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "InkDrawingAttributes",
+        "Namespace": "Windows.UI.Input.Inking",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PointTransform",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Matrix3x2",
+        "Namespace": "Windows.Foundation.Numerics",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_BoundingRect",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Rect",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

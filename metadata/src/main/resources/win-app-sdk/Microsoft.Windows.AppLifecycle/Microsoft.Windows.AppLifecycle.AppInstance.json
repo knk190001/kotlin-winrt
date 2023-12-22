@@ -1,0 +1,39 @@
+{
+  "Name": "AppInstance",
+  "Namespace": "Microsoft.Windows.AppLifecycle",
+  "Interfaces": [
+    {
+      "Name": "IAppInstance",
+      "Namespace": "Microsoft.Windows.AppLifecycle",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IAppInstanceStatics",
+          "Namespace": "Microsoft.Windows.AppLifecycle"
+        },
+        {
+          "Name": "IAppInstanceStatics2",
+          "Namespace": "Microsoft.Windows.AppLifecycle"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAppInstance",
+        "Namespace": "Microsoft.Windows.AppLifecycle",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,46 @@
+{
+  "Name": "IFileOpenPickerWithOperationId",
+  "Namespace": "Windows.Storage.Pickers",
+  "Guid": "3f57b56925224ca5aa73a15509f1fcbf",
+  "Methods": [
+    {
+      "Name": "PickSingleFileAsync",
+      "Parameters": [
+        {
+          "Name": "pickerOperationId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "StorageFile",
+              "Namespace": "Windows.Storage",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

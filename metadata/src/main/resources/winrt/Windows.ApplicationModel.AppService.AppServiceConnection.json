@@ -1,0 +1,52 @@
+{
+  "Name": "AppServiceConnection",
+  "Namespace": "Windows.ApplicationModel.AppService",
+  "Interfaces": [
+    {
+      "Name": "IAppServiceConnection",
+      "Namespace": "Windows.ApplicationModel.AppService",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IAppServiceConnection2",
+      "Namespace": "Windows.ApplicationModel.AppService",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IAppServiceConnectionStatics",
+          "Namespace": "Windows.ApplicationModel.AppService"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IAppServiceConnection",
+        "Namespace": "Windows.ApplicationModel.AppService",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

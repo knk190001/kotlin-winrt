@@ -1,0 +1,56 @@
+{
+  "Name": "IEyesPose",
+  "Namespace": "Windows.Perception.People",
+  "Guid": "682a9b238a1e5b86a060906ffacb62a4",
+  "Methods": [
+    {
+      "Name": "get_IsCalibrationValid",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Gaze",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IReference`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "SpatialRay",
+              "Namespace": "Windows.Perception.Spatial",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_UpdateTimestamp",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PerceptionTimestamp",
+        "Namespace": "Windows.Perception",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

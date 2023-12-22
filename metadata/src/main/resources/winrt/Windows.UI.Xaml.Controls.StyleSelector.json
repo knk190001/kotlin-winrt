@@ -1,0 +1,45 @@
+{
+  "Name": "StyleSelector",
+  "Namespace": "Windows.UI.Xaml.Controls",
+  "Interfaces": [
+    {
+      "Name": "IStyleSelector",
+      "Namespace": "Windows.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IStyleSelectorOverrides",
+      "Namespace": "Windows.UI.Xaml.Controls",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IStyleSelector",
+        "Namespace": "Windows.UI.Xaml.Controls",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IStyleSelectorFactory",
+          "Namespace": "Windows.UI.Xaml.Controls",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    }
+  ],
+  "Type": "Class"
+}

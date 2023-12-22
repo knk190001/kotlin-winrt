@@ -1,0 +1,56 @@
+{
+  "Name": "INDLicenseFetchDescriptorFactory",
+  "Namespace": "Windows.Media.Protection.PlayReady",
+  "Guid": "d0031202cfac4f00ae6a97af80b848f2",
+  "Methods": [
+    {
+      "Name": "CreateInstance",
+      "Parameters": [
+        {
+          "Name": "contentIDType",
+          "Type": {
+            "Name": "NDContentIDType",
+            "Namespace": "Windows.Media.Protection.PlayReady",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "contentIDBytes",
+          "Type": {
+            "Name": "Byte",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "licenseFetchChallengeCustomData",
+          "Type": {
+            "Name": "INDCustomData",
+            "Namespace": "Windows.Media.Protection.PlayReady",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "NDLicenseFetchDescriptor",
+        "Namespace": "Windows.Media.Protection.PlayReady",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

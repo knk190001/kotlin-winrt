@@ -1,0 +1,68 @@
+{
+  "Name": "IMediaBreakFactory",
+  "Namespace": "Windows.Media.Playback",
+  "Guid": "4516e00218e040798b5fd33495c15d2e",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "insertionMethod",
+          "Type": {
+            "Name": "MediaBreakInsertionMethod",
+            "Namespace": "Windows.Media.Playback",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "MediaBreak",
+        "Namespace": "Windows.Media.Playback",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithPresentationPosition",
+      "Parameters": [
+        {
+          "Name": "insertionMethod",
+          "Type": {
+            "Name": "MediaBreakInsertionMethod",
+            "Namespace": "Windows.Media.Playback",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "presentationPosition",
+          "Type": {
+            "Name": "TimeSpan",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "MediaBreak",
+        "Namespace": "Windows.Media.Playback",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,67 @@
+{
+  "Name": "XamlUICommand",
+  "Namespace": "Microsoft.UI.Xaml.Input",
+  "Interfaces": [
+    {
+      "Name": "IXamlUICommand",
+      "Namespace": "Microsoft.UI.Xaml.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ICommand",
+      "Namespace": "Microsoft.UI.Xaml.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IXamlUICommandStatics",
+          "Namespace": "Microsoft.UI.Xaml.Input"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IXamlUICommand",
+        "Namespace": "Microsoft.UI.Xaml.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IXamlUICommandFactory",
+          "Namespace": "Microsoft.UI.Xaml.Input",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "DependencyObject",
+        "Namespace": "Microsoft.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    },
+    {
+      "TraitType": "Subclass"
+    }
+  ],
+  "Type": "Class"
+}

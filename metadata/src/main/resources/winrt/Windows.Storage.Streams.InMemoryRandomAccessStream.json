@@ -1,0 +1,50 @@
+{
+  "Name": "InMemoryRandomAccessStream",
+  "Namespace": "Windows.Storage.Streams",
+  "Interfaces": [
+    {
+      "Name": "IRandomAccessStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IOutputStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IInputStream",
+      "Namespace": "Windows.Storage.Streams",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IRandomAccessStream",
+        "Namespace": "Windows.Storage.Streams",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

@@ -1,0 +1,57 @@
+{
+  "Name": "PrintDocument",
+  "Namespace": "Windows.UI.Xaml.Printing",
+  "Interfaces": [
+    {
+      "Name": "IPrintDocument",
+      "Namespace": "Windows.UI.Xaml.Printing",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IPrintDocumentStatics",
+          "Namespace": "Windows.UI.Xaml.Printing"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPrintDocument",
+        "Namespace": "Windows.UI.Xaml.Printing",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IPrintDocumentFactory",
+          "Namespace": "Windows.UI.Xaml.Printing",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "DependencyObject",
+        "Namespace": "Windows.UI.Xaml",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

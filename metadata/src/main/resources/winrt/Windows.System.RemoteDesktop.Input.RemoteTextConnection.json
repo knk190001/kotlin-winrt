@@ -1,0 +1,45 @@
+{
+  "Name": "RemoteTextConnection",
+  "Namespace": "Windows.System.RemoteDesktop.Input",
+  "Interfaces": [
+    {
+      "Name": "IRemoteTextConnection",
+      "Namespace": "Windows.System.RemoteDesktop.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "DefaultInterface": {
+        "Name": "IRemoteTextConnection",
+        "Namespace": "Windows.System.RemoteDesktop.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IRemoteTextConnectionFactory",
+          "Namespace": "Windows.System.RemoteDesktop.Input",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

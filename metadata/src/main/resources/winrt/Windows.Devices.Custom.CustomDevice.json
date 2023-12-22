@@ -1,0 +1,35 @@
+{
+  "Name": "CustomDevice",
+  "Namespace": "Windows.Devices.Custom",
+  "Interfaces": [
+    {
+      "Name": "ICustomDevice",
+      "Namespace": "Windows.Devices.Custom",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "ICustomDeviceStatics",
+          "Namespace": "Windows.Devices.Custom"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ICustomDevice",
+        "Namespace": "Windows.Devices.Custom",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

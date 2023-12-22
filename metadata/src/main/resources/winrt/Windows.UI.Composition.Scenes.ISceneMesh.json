@@ -1,0 +1,101 @@
+{
+  "Name": "ISceneMesh",
+  "Namespace": "Windows.UI.Composition.Scenes",
+  "Guid": "ee9a153011554c0c92bd40020cf78347",
+  "Methods": [
+    {
+      "Name": "get_Bounds",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SceneBoundingBox",
+        "Namespace": "Windows.UI.Composition.Scenes",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PrimitiveTopology",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DirectXPrimitiveTopology",
+        "Namespace": "Windows.Graphics.DirectX",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_PrimitiveTopology",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "DirectXPrimitiveTopology",
+            "Namespace": "Windows.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FillMeshAttribute",
+      "Parameters": [
+        {
+          "Name": "semantic",
+          "Type": {
+            "Name": "SceneAttributeSemantic",
+            "Namespace": "Windows.UI.Composition.Scenes",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "format",
+          "Type": {
+            "Name": "DirectXPixelFormat",
+            "Namespace": "Windows.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "memory",
+          "Type": {
+            "Name": "MemoryBuffer",
+            "Namespace": "Windows.Foundation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

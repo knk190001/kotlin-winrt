@@ -1,0 +1,67 @@
+{
+  "Name": "IPaymentRequestChangedArgs",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Guid": "c6145e44cd8b4be4b55527c99194c0c5",
+  "Methods": [
+    {
+      "Name": "get_ChangeKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PaymentRequestChangeKind",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ShippingAddress",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PaymentAddress",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SelectedShippingOption",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PaymentShippingOption",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Acknowledge",
+      "Parameters": [
+        {
+          "Name": "changeResult",
+          "Type": {
+            "Name": "PaymentRequestChangedResult",
+            "Namespace": "Windows.ApplicationModel.Payments",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,101 @@
+{
+  "Name": "IProtectionPolicyAuditInfoFactory",
+  "Namespace": "Windows.Security.EnterpriseData",
+  "Guid": "7ed4180b92e842d583d425440b423549",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "action",
+          "Type": {
+            "Name": "ProtectionPolicyAuditAction",
+            "Namespace": "Windows.Security.EnterpriseData",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dataDescription",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "sourceDescription",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetDescription",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ProtectionPolicyAuditInfo",
+        "Namespace": "Windows.Security.EnterpriseData",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithActionAndDataDescription",
+      "Parameters": [
+        {
+          "Name": "action",
+          "Type": {
+            "Name": "ProtectionPolicyAuditAction",
+            "Namespace": "Windows.Security.EnterpriseData",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "dataDescription",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ProtectionPolicyAuditInfo",
+        "Namespace": "Windows.Security.EnterpriseData",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

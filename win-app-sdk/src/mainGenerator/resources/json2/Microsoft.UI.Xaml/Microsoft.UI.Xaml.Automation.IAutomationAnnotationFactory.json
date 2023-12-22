@@ -1,0 +1,68 @@
+{
+  "Name": "IAutomationAnnotationFactory",
+  "Namespace": "Microsoft.UI.Xaml.Automation",
+  "Guid": "95f82773eac5572e87de24d9514b9a89",
+  "Methods": [
+    {
+      "Name": "CreateInstance",
+      "Parameters": [
+        {
+          "Name": "type",
+          "Type": {
+            "Name": "AnnotationType",
+            "Namespace": "Microsoft.UI.Xaml.Automation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AutomationAnnotation",
+        "Namespace": "Microsoft.UI.Xaml.Automation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithElementParameter",
+      "Parameters": [
+        {
+          "Name": "type",
+          "Type": {
+            "Name": "AnnotationType",
+            "Namespace": "Microsoft.UI.Xaml.Automation",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "element",
+          "Type": {
+            "Name": "UIElement",
+            "Namespace": "Microsoft.UI.Xaml",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AutomationAnnotation",
+        "Namespace": "Microsoft.UI.Xaml.Automation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,79 @@
+{
+  "Name": "ICoreAutomationRemoteOperationExtensionProvider",
+  "Namespace": "Windows.UI.UIAutomation.Core",
+  "Guid": "88f53e67dc69553ba0aa70477e724da8",
+  "Methods": [
+    {
+      "Name": "CallExtension",
+      "Parameters": [
+        {
+          "Name": "extensionId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "context",
+          "Type": {
+            "Name": "CoreAutomationRemoteOperationContext",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "operandIds",
+          "Type": {
+            "Name": "AutomationRemoteOperationOperandId",
+            "Namespace": "Windows.UI.UIAutomation.Core",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "IsExtensionSupported",
+      "Parameters": [
+        {
+          "Name": "extensionId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

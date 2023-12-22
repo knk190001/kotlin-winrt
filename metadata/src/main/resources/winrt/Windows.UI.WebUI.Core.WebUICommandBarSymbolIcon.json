@@ -1,0 +1,48 @@
+{
+  "Name": "WebUICommandBarSymbolIcon",
+  "Namespace": "Windows.UI.WebUI.Core",
+  "Interfaces": [
+    {
+      "Name": "IWebUICommandBarSymbolIcon",
+      "Namespace": "Windows.UI.WebUI.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IWebUICommandBarIcon",
+      "Namespace": "Windows.UI.WebUI.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IWebUICommandBarSymbolIcon",
+        "Namespace": "Windows.UI.WebUI.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IWebUICommandBarSymbolIconFactory",
+          "Namespace": "Windows.UI.WebUI.Core",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

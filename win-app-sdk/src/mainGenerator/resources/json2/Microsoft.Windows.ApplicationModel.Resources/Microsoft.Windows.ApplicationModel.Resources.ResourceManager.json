@@ -1,0 +1,48 @@
+{
+  "Name": "ResourceManager",
+  "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+  "Interfaces": [
+    {
+      "Name": "IResourceManager2",
+      "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IResourceManager",
+      "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IResourceManager2",
+        "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IResourceManagerFactory",
+          "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

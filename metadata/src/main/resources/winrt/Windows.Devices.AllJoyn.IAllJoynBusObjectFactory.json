@@ -1,0 +1,68 @@
+{
+  "Name": "IAllJoynBusObjectFactory",
+  "Namespace": "Windows.Devices.AllJoyn",
+  "Guid": "2c2f9f0b8e024f9cac27ea6dad5d3b50",
+  "Methods": [
+    {
+      "Name": "Create",
+      "Parameters": [
+        {
+          "Name": "objectPath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AllJoynBusObject",
+        "Namespace": "Windows.Devices.AllJoyn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CreateWithBusAttachment",
+      "Parameters": [
+        {
+          "Name": "objectPath",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "busAttachment",
+          "Type": {
+            "Name": "AllJoynBusAttachment",
+            "Namespace": "Windows.Devices.AllJoyn",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "AllJoynBusObject",
+        "Namespace": "Windows.Devices.AllJoyn",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

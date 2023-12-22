@@ -1,0 +1,57 @@
+{
+  "Name": "IAppServiceRequest",
+  "Namespace": "Windows.ApplicationModel.AppService",
+  "Guid": "20e58d9d18de4b0180ba90a76204e3c8",
+  "Methods": [
+    {
+      "Name": "get_Message",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ValueSet",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SendResponseAsync",
+      "Parameters": [
+        {
+          "Name": "message",
+          "Type": {
+            "Name": "ValueSet",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "AppServiceResponseStatus",
+              "Namespace": "Windows.ApplicationModel.AppService",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

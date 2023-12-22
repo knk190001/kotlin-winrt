@@ -1,0 +1,41 @@
+{
+  "Name": "UsbSetupPacket",
+  "Namespace": "Windows.Devices.Usb",
+  "Interfaces": [
+    {
+      "Name": "IUsbSetupPacket",
+      "Namespace": "Windows.Devices.Usb",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IUsbSetupPacket",
+        "Namespace": "Windows.Devices.Usb",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IUsbSetupPacketFactory",
+          "Namespace": "Windows.Devices.Usb",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

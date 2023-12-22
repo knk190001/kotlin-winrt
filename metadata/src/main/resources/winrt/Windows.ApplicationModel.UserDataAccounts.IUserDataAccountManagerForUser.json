@@ -1,0 +1,57 @@
+{
+  "Name": "IUserDataAccountManagerForUser",
+  "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+  "Guid": "56a6e8dbdb8f41aba65f8c5971aac982",
+  "Methods": [
+    {
+      "Name": "RequestStoreAsync",
+      "Parameters": [
+        {
+          "Name": "storeAccessType",
+          "Type": {
+            "Name": "UserDataAccountStoreAccessType",
+            "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UserDataAccountStore",
+              "Namespace": "Windows.ApplicationModel.UserDataAccounts",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_User",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "User",
+        "Namespace": "Windows.System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

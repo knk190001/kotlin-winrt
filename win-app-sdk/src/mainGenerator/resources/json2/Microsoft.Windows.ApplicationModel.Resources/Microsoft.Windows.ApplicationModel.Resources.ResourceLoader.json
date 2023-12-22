@@ -1,0 +1,50 @@
+{
+  "Name": "ResourceLoader",
+  "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+  "Interfaces": [
+    {
+      "Name": "IResourceLoader",
+      "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "IResourceLoaderStatics",
+          "Namespace": "Microsoft.Windows.ApplicationModel.Resources"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IResourceLoader",
+        "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IResourceLoaderFactory",
+          "Namespace": "Microsoft.Windows.ApplicationModel.Resources",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

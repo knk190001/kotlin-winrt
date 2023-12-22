@@ -1,0 +1,184 @@
+{
+  "Name": "IBluetoothDevice3",
+  "Namespace": "Windows.Devices.Bluetooth",
+  "Guid": "57fff78b651a4454b90feb21ef0b0d71",
+  "Methods": [
+    {
+      "Name": "get_DeviceAccessInformation",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DeviceAccessInformation",
+        "Namespace": "Windows.Devices.Enumeration",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestAccessAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "DeviceAccessStatus",
+              "Namespace": "Windows.Devices.Enumeration",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRfcommServicesAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "RfcommDeviceServicesResult",
+              "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRfcommServicesAsync",
+      "Parameters": [
+        {
+          "Name": "cacheMode",
+          "Type": {
+            "Name": "BluetoothCacheMode",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "RfcommDeviceServicesResult",
+              "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRfcommServicesForIdAsync",
+      "Parameters": [
+        {
+          "Name": "serviceId",
+          "Type": {
+            "Name": "RfcommServiceId",
+            "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "RfcommDeviceServicesResult",
+              "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRfcommServicesForIdAsync",
+      "Parameters": [
+        {
+          "Name": "serviceId",
+          "Type": {
+            "Name": "RfcommServiceId",
+            "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "cacheMode",
+          "Type": {
+            "Name": "BluetoothCacheMode",
+            "Namespace": "Windows.Devices.Bluetooth",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "RfcommDeviceServicesResult",
+              "Namespace": "Windows.Devices.Bluetooth.Rfcomm",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

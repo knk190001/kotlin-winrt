@@ -1,0 +1,64 @@
+{
+  "Name": "StandardUICommand",
+  "Namespace": "Windows.UI.Xaml.Input",
+  "Interfaces": [
+    {
+      "Name": "IStandardUICommand",
+      "Namespace": "Windows.UI.Xaml.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IStandardUICommand2",
+      "Namespace": "Windows.UI.Xaml.Input",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IStandardUICommandStatics",
+          "Namespace": "Windows.UI.Xaml.Input"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IStandardUICommand",
+        "Namespace": "Windows.UI.Xaml.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "CompositionFactoryTypes": [
+        {
+          "Name": "IStandardUICommandFactory",
+          "Namespace": "Windows.UI.Xaml.Input",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "CompositionActivation"
+    },
+    {
+      "Superclass": {
+        "Name": "XamlUICommand",
+        "Namespace": "Windows.UI.Xaml.Input",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "Superclass"
+    }
+  ],
+  "Type": "Class"
+}

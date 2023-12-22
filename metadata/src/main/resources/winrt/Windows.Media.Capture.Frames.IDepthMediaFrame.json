@@ -1,0 +1,78 @@
+{
+  "Name": "IDepthMediaFrame",
+  "Namespace": "Windows.Media.Capture.Frames",
+  "Guid": "47135e4f854945c0925b80d35efdb10a",
+  "Methods": [
+    {
+      "Name": "get_FrameReference",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "MediaFrameReference",
+        "Namespace": "Windows.Media.Capture.Frames",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_VideoMediaFrame",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VideoMediaFrame",
+        "Namespace": "Windows.Media.Capture.Frames",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DepthFormat",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "DepthMediaFrameFormat",
+        "Namespace": "Windows.Media.Capture.Frames",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryCreateCoordinateMapper",
+      "Parameters": [
+        {
+          "Name": "cameraIntrinsics",
+          "Type": {
+            "Name": "CameraIntrinsics",
+            "Namespace": "Windows.Media.Devices.Core",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "DepthCorrelatedCoordinateMapper",
+        "Namespace": "Windows.Media.Devices.Core",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

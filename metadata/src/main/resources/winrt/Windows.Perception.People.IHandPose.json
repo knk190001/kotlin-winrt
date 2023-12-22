@@ -1,0 +1,180 @@
+{
+  "Name": "IHandPose",
+  "Namespace": "Windows.Perception.People",
+  "Guid": "4d98e79abb085d0991dedf0dd3fae46c",
+  "Methods": [
+    {
+      "Name": "TryGetJoint",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "joint",
+          "Type": {
+            "Name": "HandJointKind",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "jointPose",
+          "Type": {
+            "Name": "JointPose",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": true
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "TryGetJoints",
+      "Parameters": [
+        {
+          "Name": "coordinateSystem",
+          "Type": {
+            "Name": "SpatialCoordinateSystem",
+            "Namespace": "Windows.Perception.Spatial",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "joints",
+          "Type": {
+            "Name": "HandJointKind",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "jointPoses",
+          "Type": {
+            "Name": "JointPose",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRelativeJoint",
+      "Parameters": [
+        {
+          "Name": "joint",
+          "Type": {
+            "Name": "HandJointKind",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "referenceJoint",
+          "Type": {
+            "Name": "HandJointKind",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "JointPose",
+        "Namespace": "Windows.Perception.People",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRelativeJoints",
+      "Parameters": [
+        {
+          "Name": "joints",
+          "Type": {
+            "Name": "HandJointKind",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "referenceJoints",
+          "Type": {
+            "Name": "HandJointKind",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "jointPoses",
+          "Type": {
+            "Name": "JointPose",
+            "Namespace": "Windows.Perception.People",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

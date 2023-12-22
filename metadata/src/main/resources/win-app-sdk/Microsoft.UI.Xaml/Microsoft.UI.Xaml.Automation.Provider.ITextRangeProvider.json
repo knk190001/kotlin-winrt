@@ -1,0 +1,474 @@
+{
+  "Name": "ITextRangeProvider",
+  "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+  "Guid": "842103616ce25084bf3b28afa6e9851f",
+  "Methods": [
+    {
+      "Name": "Clone",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Compare",
+      "Parameters": [
+        {
+          "Name": "textRangeProvider",
+          "Type": {
+            "Name": "ITextRangeProvider",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Boolean",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CompareEndpoints",
+      "Parameters": [
+        {
+          "Name": "endpoint",
+          "Type": {
+            "Name": "TextPatternRangeEndpoint",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "textRangeProvider",
+          "Type": {
+            "Name": "ITextRangeProvider",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetEndpoint",
+          "Type": {
+            "Name": "TextPatternRangeEndpoint",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ExpandToEnclosingUnit",
+      "Parameters": [
+        {
+          "Name": "unit",
+          "Type": {
+            "Name": "TextUnit",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindAttribute",
+      "Parameters": [
+        {
+          "Name": "attributeId",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "Object",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "backward",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "FindText",
+      "Parameters": [
+        {
+          "Name": "text",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "backward",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "ignoreCase",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "ITextRangeProvider",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetAttributeValue",
+      "Parameters": [
+        {
+          "Name": "attributeId",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Object",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetBoundingRectangles",
+      "Parameters": [
+        {
+          "Name": "returnValue",
+          "Type": {
+            "Name": "Double",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": true
+          },
+          "ParameterType": "Out"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetEnclosingElement",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IRawElementProviderSimple",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetText",
+      "Parameters": [
+        {
+          "Name": "maxLength",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Move",
+      "Parameters": [
+        {
+          "Name": "unit",
+          "Type": {
+            "Name": "TextUnit",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "count",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "MoveEndpointByUnit",
+      "Parameters": [
+        {
+          "Name": "endpoint",
+          "Type": {
+            "Name": "TextPatternRangeEndpoint",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "unit",
+          "Type": {
+            "Name": "TextUnit",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "count",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "MoveEndpointByRange",
+      "Parameters": [
+        {
+          "Name": "endpoint",
+          "Type": {
+            "Name": "TextPatternRangeEndpoint",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "textRangeProvider",
+          "Type": {
+            "Name": "ITextRangeProvider",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "targetEndpoint",
+          "Type": {
+            "Name": "TextPatternRangeEndpoint",
+            "Namespace": "Microsoft.UI.Xaml.Automation.Text",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Select",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddToSelection",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemoveFromSelection",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ScrollIntoView",
+      "Parameters": [
+        {
+          "Name": "alignToTop",
+          "Type": {
+            "Name": "Boolean",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetChildren",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IRawElementProviderSimple",
+        "Namespace": "Microsoft.UI.Xaml.Automation.Provider",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,78 @@
+{
+  "Name": "IPrintSupportSettingsUISession",
+  "Namespace": "Windows.Graphics.Printing.PrintSupport",
+  "Guid": "c6da225183c355e4a0f85de8b062adbf",
+  "Methods": [
+    {
+      "Name": "get_SessionPrintTicket",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WorkflowPrintTicket",
+        "Namespace": "Windows.Graphics.Printing.PrintTicket",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_DocumentTitle",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_LaunchKind",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "SettingsLaunchKind",
+        "Namespace": "Windows.Graphics.Printing.PrintSupport",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UpdatePrintTicket",
+      "Parameters": [
+        {
+          "Name": "printTicket",
+          "Type": {
+            "Name": "WorkflowPrintTicket",
+            "Namespace": "Windows.Graphics.Printing.PrintTicket",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SessionInfo",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "PrintSupportSessionInfo",
+        "Namespace": "Windows.Graphics.Printing.PrintSupport",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

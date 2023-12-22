@@ -1,0 +1,54 @@
+{
+  "Name": "IChatMessageStore3",
+  "Namespace": "Windows.ApplicationModel.Chat",
+  "Guid": "9adbbb0943454ec18b74b7338243719c",
+  "Methods": [
+    {
+      "Name": "GetMessageBySyncIdAsync",
+      "Parameters": [
+        {
+          "Name": "syncId",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ChatMessage",
+              "Namespace": "Windows.ApplicationModel.Chat",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [
+    {
+      "Name": "IChatMessageStore",
+      "Namespace": "Windows.ApplicationModel.Chat",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

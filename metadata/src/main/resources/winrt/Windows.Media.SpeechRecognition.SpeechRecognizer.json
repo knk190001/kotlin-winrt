@@ -1,0 +1,68 @@
+{
+  "Name": "SpeechRecognizer",
+  "Namespace": "Windows.Media.SpeechRecognition",
+  "Interfaces": [
+    {
+      "Name": "ISpeechRecognizer",
+      "Namespace": "Windows.Media.SpeechRecognition",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "IClosable",
+      "Namespace": "Windows.Foundation",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
+      "Name": "ISpeechRecognizer2",
+      "Namespace": "Windows.Media.SpeechRecognition",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "Interfaces": [
+        {
+          "Name": "ISpeechRecognizerStatics",
+          "Namespace": "Windows.Media.SpeechRecognition"
+        },
+        {
+          "Name": "ISpeechRecognizerStatics2",
+          "Namespace": "Windows.Media.SpeechRecognition"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "ISpeechRecognizer",
+        "Namespace": "Windows.Media.SpeechRecognition",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ISpeechRecognizerFactory",
+          "Namespace": "Windows.Media.SpeechRecognition",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

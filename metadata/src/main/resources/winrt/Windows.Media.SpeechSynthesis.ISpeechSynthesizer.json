@@ -1,0 +1,115 @@
+{
+  "Name": "ISpeechSynthesizer",
+  "Namespace": "Windows.Media.SpeechSynthesis",
+  "Guid": "ce9f7c7697f44cedad68d51c458e45c6",
+  "Methods": [
+    {
+      "Name": "SynthesizeTextToStreamAsync",
+      "Parameters": [
+        {
+          "Name": "text",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SpeechSynthesisStream",
+              "Namespace": "Windows.Media.SpeechSynthesis",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SynthesizeSsmlToStreamAsync",
+      "Parameters": [
+        {
+          "Name": "Ssml",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "SpeechSynthesisStream",
+              "Namespace": "Windows.Media.SpeechSynthesis",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_Voice",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "VoiceInformation",
+            "Namespace": "Windows.Media.SpeechSynthesis",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Voice",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "VoiceInformation",
+        "Namespace": "Windows.Media.SpeechSynthesis",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

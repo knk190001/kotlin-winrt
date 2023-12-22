@@ -1,0 +1,101 @@
+{
+  "Name": "ISecurityDescriptorHelpersStatics",
+  "Namespace": "Microsoft.Windows.Security.AccessControl",
+  "Guid": "14fa9e8d59f05017852f3ae24fd5ebb1",
+  "Methods": [
+    {
+      "Name": "GetSddlForAppContainerNames",
+      "Parameters": [
+        {
+          "Name": "accessRequests",
+          "Type": {
+            "Name": "AppContainerNameAndAccess",
+            "Namespace": "Microsoft.Windows.Security.AccessControl",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "principalStringSid",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "principalAccessMask",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetSecurityDescriptorBytesFromAppContainerNames",
+      "Parameters": [
+        {
+          "Name": "accessRequests",
+          "Type": {
+            "Name": "AppContainerNameAndAccess",
+            "Namespace": "Microsoft.Windows.Security.AccessControl",
+            "GenericParameters": null,
+            "IsArray": true,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "principalStringSid",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "principalAccessMask",
+          "Type": {
+            "Name": "UInt32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Byte",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": true,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

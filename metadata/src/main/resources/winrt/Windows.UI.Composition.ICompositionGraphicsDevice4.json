@@ -1,0 +1,90 @@
+{
+  "Name": "ICompositionGraphicsDevice4",
+  "Namespace": "Windows.UI.Composition",
+  "Guid": "5a73bff9a97f4cf5ba4698ef358e71b1",
+  "Methods": [
+    {
+      "Name": "CaptureAsync",
+      "Parameters": [
+        {
+          "Name": "captureVisual",
+          "Type": {
+            "Name": "Visual",
+            "Namespace": "Windows.UI.Composition",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "size",
+          "Type": {
+            "Name": "SizeInt32",
+            "Namespace": "Windows.Graphics",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "pixelFormat",
+          "Type": {
+            "Name": "DirectXPixelFormat",
+            "Namespace": "Windows.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "alphaMode",
+          "Type": {
+            "Name": "DirectXAlphaMode",
+            "Namespace": "Windows.Graphics.DirectX",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "sdrBoost",
+          "Type": {
+            "Name": "Single",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "ICompositionSurface",
+              "Namespace": "Windows.UI.Composition",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

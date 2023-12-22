@@ -1,0 +1,67 @@
+{
+  "Name": "IGattServiceProviderTrigger",
+  "Namespace": "Windows.ApplicationModel.Background",
+  "Guid": "ddc6a3e915574bd88542468aa0c696f6",
+  "Methods": [
+    {
+      "Name": "get_TriggerId",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Service",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "GattLocalService",
+        "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_AdvertisingParameters",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "GattServiceProviderAdvertisingParameters",
+            "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AdvertisingParameters",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "GattServiceProviderAdvertisingParameters",
+        "Namespace": "Windows.Devices.Bluetooth.GenericAttributeProfile",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

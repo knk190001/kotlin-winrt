@@ -1,0 +1,41 @@
+{
+  "Name": "PaymentDetails",
+  "Namespace": "Windows.ApplicationModel.Payments",
+  "Interfaces": [
+    {
+      "Name": "IPaymentDetails",
+      "Namespace": "Windows.ApplicationModel.Payments",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "TraitType": "DirectActivation"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPaymentDetails",
+        "Namespace": "Windows.ApplicationModel.Payments",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "IPaymentDetailsFactory",
+          "Namespace": "Windows.ApplicationModel.Payments",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
+    }
+  ],
+  "Type": "Class"
+}

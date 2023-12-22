@@ -1,0 +1,135 @@
+{
+  "Name": "IGameControllerFactoryManagerStatics",
+  "Namespace": "Windows.Gaming.Input.Custom",
+  "Guid": "36cb66e3d0a14986a24c40b137deba9e",
+  "Methods": [
+    {
+      "Name": "RegisterCustomFactoryForGipInterface",
+      "Parameters": [
+        {
+          "Name": "factory",
+          "Type": {
+            "Name": "ICustomGameControllerFactory",
+            "Namespace": "Windows.Gaming.Input.Custom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "interfaceId",
+          "Type": {
+            "Name": "Guid",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RegisterCustomFactoryForHardwareId",
+      "Parameters": [
+        {
+          "Name": "factory",
+          "Type": {
+            "Name": "ICustomGameControllerFactory",
+            "Namespace": "Windows.Gaming.Input.Custom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "hardwareVendorId",
+          "Type": {
+            "Name": "UInt16",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "hardwareProductId",
+          "Type": {
+            "Name": "UInt16",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RegisterCustomFactoryForXusbType",
+      "Parameters": [
+        {
+          "Name": "factory",
+          "Type": {
+            "Name": "ICustomGameControllerFactory",
+            "Namespace": "Windows.Gaming.Input.Custom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "xusbType",
+          "Type": {
+            "Name": "XusbDeviceType",
+            "Namespace": "Windows.Gaming.Input.Custom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "xusbSubtype",
+          "Type": {
+            "Name": "XusbDeviceSubtype",
+            "Namespace": "Windows.Gaming.Input.Custom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

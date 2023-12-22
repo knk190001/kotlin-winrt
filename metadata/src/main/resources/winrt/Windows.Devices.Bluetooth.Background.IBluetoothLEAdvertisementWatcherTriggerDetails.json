@@ -1,0 +1,56 @@
+{
+  "Name": "IBluetoothLEAdvertisementWatcherTriggerDetails",
+  "Namespace": "Windows.Devices.Bluetooth.Background",
+  "Guid": "a7db5ad722574e699784fee645c1dce0",
+  "Methods": [
+    {
+      "Name": "get_Error",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothError",
+        "Namespace": "Windows.Devices.Bluetooth",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_Advertisements",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IVectorView`1",
+        "Namespace": "Windows.Foundation.Collections",
+        "GenericParameters": [
+          {
+            "Name": "T",
+            "Position": 0,
+            "Type": {
+              "Name": "BluetoothLEAdvertisementReceivedEventArgs",
+              "Namespace": "Windows.Devices.Bluetooth.Advertisement",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_SignalStrengthFilter",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "BluetoothSignalStrengthFilter",
+        "Namespace": "Windows.Devices.Bluetooth",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,57 @@
+{
+  "Name": "IUssdSession",
+  "Namespace": "Windows.Networking.NetworkOperators",
+  "Guid": "2f9acf8220024d5dbf812aba1b4be4a8",
+  "Methods": [
+    {
+      "Name": "SendMessageAndGetReplyAsync",
+      "Parameters": [
+        {
+          "Name": "message",
+          "Type": {
+            "Name": "UssdMessage",
+            "Namespace": "Windows.Networking.NetworkOperators",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "UssdReply",
+              "Namespace": "Windows.Networking.NetworkOperators",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Close",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

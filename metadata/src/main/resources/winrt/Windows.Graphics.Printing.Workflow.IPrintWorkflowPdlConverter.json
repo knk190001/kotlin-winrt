@@ -1,0 +1,56 @@
+{
+  "Name": "IPrintWorkflowPdlConverter",
+  "Namespace": "Windows.Graphics.Printing.Workflow",
+  "Guid": "40604b620ae451f1818f731dc0b005ab",
+  "Methods": [
+    {
+      "Name": "ConvertPdlAsync",
+      "Parameters": [
+        {
+          "Name": "printTicket",
+          "Type": {
+            "Name": "WorkflowPrintTicket",
+            "Namespace": "Windows.Graphics.Printing.PrintTicket",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "inputStream",
+          "Type": {
+            "Name": "IInputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "outputStream",
+          "Type": {
+            "Name": "IOutputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}

@@ -1,0 +1,56 @@
+{
+  "Name": "IGpioControllerProvider",
+  "Namespace": "Windows.Devices.Gpio.Provider",
+  "Guid": "ad11cec719ea4b21874fb91aed4a25db",
+  "Methods": [
+    {
+      "Name": "get_PinCount",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Int32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "OpenPinProvider",
+      "Parameters": [
+        {
+          "Name": "pin",
+          "Type": {
+            "Name": "Int32",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "sharingMode",
+          "Type": {
+            "Name": "ProviderGpioSharingMode",
+            "Namespace": "Windows.Devices.Gpio.Provider",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IGpioPinProvider",
+        "Namespace": "Windows.Devices.Gpio.Provider",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "GenericParameters": null,
+  "Type": "Interface"
+}
