@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.21 "
+    kotlin("jvm") version "1.8.21"
 }
 
 group = "com.github.knk190001"
@@ -15,8 +15,4 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(8)
 }

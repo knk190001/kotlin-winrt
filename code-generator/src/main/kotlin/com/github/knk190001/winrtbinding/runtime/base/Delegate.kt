@@ -38,9 +38,9 @@ open class Delegate(ptr: Pointer? = Memory(12)) : PointerType(ptr) {
         pointer.setInt(Native.POINTER_SIZE.toLong(), 1)
         vtbl.fn = fn
         val unknown = vtbl.iUnknownVtbl
-        println("Function pointer: 0x${Pointer.nativeValue(fn).toString(16)}")
+//        println("Function pointer: 0x${Pointer.nativeValue(fn).toString(16)}")
         unknown!!.queryInterface = IUnknownVtbl.QueryInterface { thisPtr, iid, returnValue ->
-            println("QueryInterface: ${iid.value}")
+//            println("QueryInterface: ${iid.value}")
             returnValue.value = Pointer.NULL
             if (thisPtr == Pointer.NULL) {
                 return@QueryInterface HRESULT(UINT(0x80070057).toInt())
@@ -50,21 +50,21 @@ open class Delegate(ptr: Pointer? = Memory(12)) : PointerType(ptr) {
                 returnValue.value = pointer
                 return@QueryInterface HRESULT(0)
             }
-            println("End QueryInterface")
+//            println("End QueryInterface")
             return@QueryInterface HRESULT(-2147467262)
         }
         unknown.addRef = IUnknownVtbl.AddRef {
-            println("AddRef")
+//            println("AddRef")
             val refCount = pointer.getInt(Native.POINTER_SIZE.toLong())
             pointer.setInt(Native.POINTER_SIZE.toLong(), refCount + 1)
-            println("End AddRef")
+//            println("End AddRef")
             return@AddRef WinDef.ULONG(refCount+1L)
         }
         unknown.release = IUnknownVtbl.Release {
-            println("Release")
+//            println("Release")
             val refCount = pointer.getInt(Native.POINTER_SIZE.toLong())
             pointer.setInt(Native.POINTER_SIZE.toLong(), refCount - 1)
-            println("End Release")
+//            println("End Release")
             return@Release WinDef.ULONG(refCount-1L)
         }
         vtbl.iUnknownVtbl!!.write()

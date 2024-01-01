@@ -4,8 +4,6 @@ import com.squareup.kotlinpoet.FileSpec
 import io.heartpattern.gcg.api.Generator
 import io.heartpattern.gcg.api.kotlin.KotlinCodeGenerator
 
-
-
 @Generator
 class WinRTGenerator: KotlinCodeGenerator {
     override fun generateKotlin(): Collection<FileSpec> {
