@@ -60,17 +60,25 @@ fun SparseTypeReference.asClassName(structByValue: Boolean = true, nullable: Boo
     }
     if (isArray) {
         val baseClass = if (isReference) {
-            OutArray::class.asClassName()
-        } else {
+            if(this.copy(isArray = false).isPrimitiveSystemType()) {
+                PrimitiveOutArray::class.asClassName()
+            }else {
+                OutArray::class.asClassName()
+            }
+        }else {
             Array::class.asClassName()
         }
-        val nonArrayCopy = copy(isArray = false, isReference = false)
+
+        val componentType = copy(isArray = false, isReference = false)
 
         return baseClass
-            .parameterizedBy(nonArrayCopy.asClassName(nullable = !nonArrayCopy.isPrimitiveSystemType()))
+            .parameterizedBy(componentType.asClassName(nullable = !componentType.isPrimitiveSystemType()))
     }
     if (nullable) {
         return asClassName(isReference).copy(true)
+    }
+    if (isReference) {
+        return byReferenceClassName().copy(nullable = nullable)
     }
     if (namespace == "System") {
         return when (name) {
@@ -178,7 +186,7 @@ fun SparseTypeReference.valueLayout(): CodeBlock {
             "Int32" ->  ValueLayout::class.member("JAVA_INT")
             "Int64" ->  ValueLayout::class.member("JAVA_LONG")
             "String" -> ValueLayout::class.member("ADDRESS")
-            "UInt32&" ->ValueLayout::class.member("ADDRESS")
+            "UInt32&" -> ValueLayout::class.member("ADDRESS")
             "UInt16" -> ValueLayout::class.member("JAVA_SHORT")
             "Object" -> ValueLayout::class.member("ADDRESS")
             "Single" -> ValueLayout::class.member("JAVA_BYTE")
@@ -244,6 +252,11 @@ fun SparseTypeReference.foreignType(): KClass<*> {
     if (isArray) {
         return MemorySegment::class
     }
+
+    if (isReference) {
+        return MemoryAddress::class
+    }
+
     if (namespace == "System") {
         return when (name) {
             "UInt16" -> Short::class
@@ -270,6 +283,10 @@ fun SparseTypeReference.foreignType(): KClass<*> {
 
     if (lookUpTypeReference(this) is SparseEnum) {
         return Int::class
+    }
+
+    if (lookUpTypeReference(this) is SparseStruct) {
+        return MemorySegment::class
     }
 
     return MemoryAddress::class

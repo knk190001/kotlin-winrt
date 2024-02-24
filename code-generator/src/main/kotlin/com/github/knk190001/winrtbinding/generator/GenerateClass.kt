@@ -6,12 +6,13 @@ import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.runtime.JNAApiInterface
+import com.github.knk190001.winrtbinding.runtime.base.CompositionPointerType
 import com.github.knk190001.winrtbinding.runtime.base.IABI
-import com.github.knk190001.winrtbinding.runtime.com.IActivationFactory
-import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
-import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
-import com.github.knk190001.winrtbinding.runtime.com.IWinRTObject
+import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
+import com.github.knk190001.winrtbinding.runtime.com.*
+import com.github.knk190001.winrtbinding.runtime.interop.IUnknownByReference
 import com.github.knk190001.winrtbinding.runtime.interop.OutArray
+import com.github.knk190001.winrtbinding.runtime.interop.PrimitiveOutArray
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -44,6 +45,8 @@ fun generateClass(
 
         if (sparseClass.hasSuperclass) {
             superclass(sparseClass.superclass.asClassName())
+        } else if(sparseClass.hasCompositionActivator){
+            superclass(CompositionPointerType::class)
         } else {
             superclass(PointerType::class)
         }
@@ -55,7 +58,7 @@ fun generateClass(
             }
         }
 
-
+        addSuperinterface(IUnknown::class)
         addSuperinterface(IWinRTObject::class)
 
         generateClassTypeSpec(sparseClass)
@@ -97,13 +100,35 @@ private fun generateStaticMethod(
 ) = FunSpec.builder(method.name).apply {
     method.parameters.forEach {
         when (it.arrayType()) {
-            ArrayType.None -> addParameter(it.name, it.type.asGenericTypeParameter(false))
+            ArrayType.None -> {
+                if (it.type.genericParameters != null) {
+                    addParameter(
+                        it.name,
+                        it.type.asGenericTypeParameter(true)
+                            .copy(!it.type.isArray)
+                    )
+                } else {
+                    addParameter(it.name, it.type.asClassName(true, nullable = !it.type.isPrimitiveSystemType()))
+                }
+            }
+
             ArrayType.PassArray -> addParameter(it.name, it.type.asGenericTypeParameter(false))
             ArrayType.FillArray -> addParameter(it.name, it.type.asGenericTypeParameter(false))
-            ArrayType.ReceiveArray -> addParameter(
-                it.name,
-                OutArray::class.asClassName().parameterizedBy(it.type.copy(isArray = false).asGenericTypeParameter())
-            )
+            ArrayType.ReceiveArray -> {
+                val isPrimitive = it.type.copy(isArray = false).isPrimitiveSystemType()
+                val arrayType = if (isPrimitive) {
+                    PrimitiveOutArray::class
+                } else {
+                    OutArray::class
+                }
+                addParameter(
+                    it.name,
+                    arrayType.asClassName().parameterizedBy(
+                        it.type.copy(isArray = false, isReference = false)
+                            .asGenericTypeParameter().copy()
+                    )
+                )
+            }
         }
 
     }
@@ -209,7 +234,7 @@ fun TypeSpec.Builder.generateFactoryActivationFunction(
 ) {
     val activationFn = FunSpec.builder("activate").apply {
         method.parameters.forEach {
-            addParameter(it.name, it.type.asGenericTypeParameter(false))
+            addParameter(it.name, it.type.asGenericTypeParameter(true))
         }
         returns(jnaPointer.copy(true))
         val cb = CodeBlock.builder().apply {
@@ -228,14 +253,26 @@ fun TypeSpec.Builder.generateCompositionFactoryActivationFunction(
 ) {
     val activationFn = FunSpec.builder("activate").apply {
         val userParams = method.parameters.dropLast(2)
+
         userParams.forEach {
-            addParameter(it.name, it.type.asGenericTypeParameter(false))
+            addParameter(it.name, it.type.asGenericTypeParameter(true))
         }
+
+        addParameter(ParameterSpec.builder("aggregatingClass", IKotlinWinRTAggregate::class.asClassName().copy(true)).apply {
+            defaultValue(CodeBlock.of("null"))
+        }.build())
+
         returns(jnaPointer.copy(true))
         val cb = CodeBlock.builder().apply {
-            add("return ${factoryInterface.name}_Instance.${method.name}(")
-            add((userParams.map { it.name } + listOf("null", "null")).joinToString())
-            add(")?.pointer")
+            addStatement("val inner = %T()", IUnknownByReference::class)
+            add("val obj = ${factoryInterface.name}_Instance.${method.name}(")
+            add((userParams.map { it.name } +
+                    listOf("%T.ABI.makeIUnknown(aggregatingClass?.initAggregate())", "inner")).joinToString(),
+                IUnknown::class)
+            add(")?.pointer\n")
+            addStatement("aggregatingClass?.inner = inner.getValue()")
+            addStatement("return obj")
+//            addStatement("return if(aggregatingClass == null) obj else inner.getValue().iUnknown_Ptr")
         }.build()
         addCode(cb)
     }.build()
@@ -571,7 +608,7 @@ private fun generateQueryInterfaceMethod(typeReference: SparseTypeReference) =
             addStatement(iidStatement, REFIID::class, typeReference.asGenericTypeParameter())
             addStatement("val ref = %T()", PointerByReference::class)
             val iUnkownVtblClass = IUnknownVtbl::class
-            addStatement("%T(pointer.getPointer(0)).queryInterface(pointer, refiid, ref)", iUnkownVtblClass)
+            addStatement("%T(pointer!!.getPointer(0)).queryInterface(pointer, refiid, ref)", iUnkownVtblClass)
             addStatement(
                 "return(%T.ABI.make${typeReference.cleanName()}$infix(ref.value))",
                 typeReference.asClassName(),
@@ -590,13 +627,16 @@ private fun generateQueryInterfaceMethod(typeReference: SparseTypeReference) =
 
 private fun TypeSpec.Builder.generateConstructor(sparseClass: SparseClass) {
     val constructorSpec = FunSpec.constructorBuilder().apply {
-        val ptrParameterSpec = ParameterSpec.builder("ptr", jnaPointer.copy(true))
-            .defaultValue("%M", ptrNull)
-            .build()
-        addParameter(ptrParameterSpec)
+        addParameter("ptr", jnaPointer.copy(true))
     }.build()
     primaryConstructor(constructorSpec)
     addSuperclassConstructorParameter("ptr")
+
+    val jnaConstructor = FunSpec.constructorBuilder().apply {
+        callThisConstructor("null")
+        addModifiers(KModifier.INTERNAL)
+    }.build()
+    addFunction(jnaConstructor)
 
     if (sparseClass.isDirectlyActivatable) {
         generateDirectActivationConstructor()
@@ -612,7 +652,6 @@ private fun TypeSpec.Builder.generateConstructor(sparseClass: SparseClass) {
 }
 
 private fun TypeSpec.Builder.generateFactoryConstructors(sparseClass: SparseClass) {
-
     sparseClass.factoryActivatorTypes.map {
         lookUpTypeReference(it) as SparseInterface
     }.flatMap {
@@ -632,9 +671,30 @@ private fun TypeSpec.Builder.generateCompositionFactoryConstructor(sparseMethod:
     val constructorSpec = FunSpec.constructorBuilder().apply {
         val userParams = sparseMethod.parameters.dropLast(2)
         userParams.forEach {
-            addParameter(it.name, it.type.asGenericTypeParameter())
+            addParameter(it.name, it.type.asGenericTypeParameter(true))
         }
-        callThisConstructor("ABI.activate(${userParams.joinToString { it.name }})")
+        if (userParams.isEmpty()) {
+            val markerParam = ParameterSpec.builder("activationMarker", UNIT).apply {
+                defaultValue(CodeBlock.of("%T", UNIT))
+            }.build()
+            addParameter(markerParam)
+        }
+        callThisConstructor("null")
+
+
+
+        val parameterNames = (userParams
+            .map { it.name } + "this as %T")
+
+        val cb = buildCodeBlock {
+            beginControlFlow("pointer = if (this is %T)", IKotlinWinRTAggregate::class)
+            addStatement("ABI.activate(${parameterNames.joinToString()})!!", IKotlinWinRTAggregate::class)
+            nextControlFlow("else")
+            addStatement("ABI.activate(${parameterNames.dropLast(1).joinToString()})!!")
+            endControlFlow()
+        }
+        addCode(cb)
+
     }.build()
     addFunction(constructorSpec)
 }
@@ -642,7 +702,7 @@ private fun TypeSpec.Builder.generateCompositionFactoryConstructor(sparseMethod:
 private fun TypeSpec.Builder.generateFactoryConstructor(sparseMethod: SparseMethod) {
     val constructorSpec = FunSpec.constructorBuilder().apply {
         sparseMethod.parameters.forEach {
-            addParameter(it.name, it.type.asGenericTypeParameter())
+            addParameter(it.name, it.type.asGenericTypeParameter(true))
         }
         callThisConstructor("ABI.activate(${sparseMethod.parameters.joinToString { it.name }})")
     }.build()
@@ -651,6 +711,10 @@ private fun TypeSpec.Builder.generateFactoryConstructor(sparseMethod: SparseMeth
 
 private fun TypeSpec.Builder.generateDirectActivationConstructor() {
     val constructorSpec = FunSpec.constructorBuilder().apply {
+        val activationMarkerParam = ParameterSpec.builder("activationMarker", UNIT).apply {
+            defaultValue(CodeBlock.of("%T", UNIT))
+        }.build()
+        addParameter(activationMarkerParam)
         callThisConstructor("ABI.activate()")
     }.build()
     addFunction(constructorSpec)

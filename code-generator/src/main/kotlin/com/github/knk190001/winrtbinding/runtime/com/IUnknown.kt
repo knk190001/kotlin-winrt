@@ -16,7 +16,10 @@ import java.lang.foreign.ValueLayout
 
 interface IUnknown : NativeMapped, IWinRTInterface {
     val iUnknown_Vtbl: Pointer
+        get() = iUnknown_Ptr.getPointer(0)
+
     val iUnknown_Ptr: Pointer
+        get() = toNative() as Pointer
 
     fun QueryInterface(iid: Guid.REFIID): Pointer {
         val fnPtr = iUnknown_Vtbl.getPointer(0)

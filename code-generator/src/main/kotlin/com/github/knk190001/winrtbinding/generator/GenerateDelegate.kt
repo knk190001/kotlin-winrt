@@ -122,7 +122,7 @@ private fun TypeSpec.Builder.generateInvokeFunction(sd: SparseDelegate) {
             val marshalledNames = marshalledParameters.map {
                 it.first
             }
-            addStatement("val function = %T.getFunction(delegateStruct.fn!!)", Function::class)
+            addStatement("val function = %T.getFunction(vtbl.fn!!)", Function::class)
             add("val hr = function.invokeHR(arrayOf(this.pointer,")
             add(marshalledNames.mapIndexed { idx, name ->
                 if (sd.parameters[idx].type.namespace != "System" &&

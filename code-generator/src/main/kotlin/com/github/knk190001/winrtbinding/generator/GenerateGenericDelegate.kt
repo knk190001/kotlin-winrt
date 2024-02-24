@@ -270,7 +270,7 @@ private fun TypeSpec.Builder.addNativeFn(sparseDelegate: SparseDelegate) {
     addFunction(nativeFn)
 }
 
-fun CodeBlock.Builder.addToManagedStatementForParameter(
+private fun CodeBlock.Builder.addToManagedStatementForParameter(
     param: SparseParameter,
     typeParameterIndexMap: Map<String, Int>
 ): String {
@@ -427,7 +427,7 @@ private fun CodeBlock.Builder.addResultVariable(sparseDelegate: SparseDelegate) 
     add(")\n")
 }
 
-private fun kTypeStringFor(
+fun kTypeStringFor(
     typeReference: SparseTypeReference,
     typeParameterIndexMap: Map<String, Int>,
     projection: Boolean = false

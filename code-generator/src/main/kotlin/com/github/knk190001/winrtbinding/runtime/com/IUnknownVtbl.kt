@@ -29,25 +29,25 @@ class IUnknownVtbl(ptr: Pointer? = Pointer.NULL) : Structure(ptr) {
     var release: Release? = null
 
     fun interface QueryInterface : StdCallCallback {
-        operator fun invoke(thisPtr: Pointer, iid: Guid.REFIID, returnValue: PointerByReference): HRESULT
+        operator fun invoke(thisPtr: Pointer?, iid: Guid.REFIID, returnValue: PointerByReference): HRESULT
     }
 
     fun interface AddRef : StdCallCallback {
-        operator fun invoke(thisPtr: Pointer): ULONG
+        operator fun invoke(thisPtr: Pointer?): ULONG
     }
 
     fun interface Release : StdCallCallback {
-        operator fun invoke(thisPtr: Pointer): ULONG
+        operator fun invoke(thisPtr: Pointer?): ULONG
     }
 
-    fun queryInterface(thisPtr: Pointer, iid: Guid.REFIID, returnValue: PointerByReference):HRESULT {
+    fun queryInterface(thisPtr: Pointer?, iid: Guid.REFIID, returnValue: PointerByReference):HRESULT {
         return queryInterface!!(thisPtr,iid, returnValue)
     }
 
-    fun addRef(thisPtr: Pointer): ULONG {
+    fun addRef(thisPtr: Pointer?): ULONG {
         return addRef!!(thisPtr)
     }
-    fun release(thisPtr: Pointer): ULONG {
+    fun release(thisPtr: Pointer?): ULONG {
         return release!!(thisPtr)
     }
 

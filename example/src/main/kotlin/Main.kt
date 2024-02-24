@@ -1,5 +1,4 @@
-import Microsoft.UI.Xaml.Application
-import Microsoft.UI.Xaml.ApplicationInitializationCallback
+import Microsoft.UI.Xaml.*
 import Windows.AI.MachineLearning.*
 import Windows.Data.Json.*
 import Windows.Data.Text.SelectableWordSegment
@@ -13,26 +12,26 @@ import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
 import com.github.knk190001.winrtbinding.runtime.WinRT
-import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.sun.jna.platform.win32.WinDef
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
+import java.lang.ref.Reference
 import java.nio.file.Path
 import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 
 
 fun main() = runBlocking {
+    val pid = ProcessHandle.current().pid()
+//    println("Pid: $pid")
     WinRT.RoInitialize(1)
-
-    Application.Start(ApplicationInitializationCallback {
-        println("Hello world")
-    })
-
-    //xamlTest()
-    jsonTest()
-    //mlTest()
-    //delay(10000)
+    val initializationCallback = ApplicationInitializationCallback {
+        println("Start")
+        MyApplication()
+    }
+    Application.Start(initializationCallback)
+    Reference.reachabilityFence(initializationCallback.vtbl)
+    println("Finish")
 }
 
 suspend fun IAsyncAction.await() {
@@ -49,39 +48,6 @@ suspend fun IAsyncAction.await() {
         }
         yield()
     }
-}
-
-private fun xamlTest() {
-    /*val cwd = System.getProperty("user.dir")
-    val tmpdir = System.getProperty("java.io.tmpdir")
-    println("Temp file path: $tmpdir")
-    println("Current working directory: $cwd")
-
-    //Native.setProtected(true)
-    //println(Package.get_Current()!!.get_Id()!!.get_Name())
-//    val mapLayer = MapLayer()
-//    println(mapLayer.get_Visible())
-//    Windows.ApplicationModel.Core.ICoreApplication
-    val applicationStatics = Application.ABI.IApplicationStatics_Instance as IApplicationStatics.WithDefault
-    val fnPtr = applicationStatics._145191385_VtblPtr!!.getPointer(7L * POINTER_SIZE)
-    println("PID: ${ProcessHandle.current().pid()}")
-    println("FnPtr: 0x${Pointer.nativeValue(fnPtr).toString(16)}")
-    val callback = ApplicationInitializationCallback {
-        println("Delegate called")
-        while (true) {
-        }
-        println("Delegate finished")
-    }
-
-    val addPtr = CallbackReference.getFunctionPointer(callback.delegateStruct.iUnknownVtbl!!.addRef)
-    println("AddRef: 0x${Pointer.nativeValue(addPtr).toString(16)}")
-    val queryInterfacePtr = CallbackReference.getFunctionPointer(callback.delegateStruct.iUnknownVtbl!!.queryInterface)
-    println("QueryInterface: 0x${Pointer.nativeValue(queryInterfacePtr).toString(16)}")
-    println("VTBL Ptr: 0x${Pointer.nativeValue(callback.delegateStruct.pointer).toString(16)}")
-    val delegatePtr = callback.delegateStruct.fn
-    println("Delegate Fn Ptr: 0x${Pointer.nativeValue(delegatePtr).toString(16)}")
-    Application.Start(callback)
-    Reference.reachabilityFence(callback)*/
 }
 
 private fun jsonTest() {
@@ -183,14 +149,14 @@ suspend fun bindModel(model: LearningModel, imageFrame: VideoFrame): Pair<Learni
     val session = LearningModelSession(model, device)
     val binding = LearningModelBinding(session)
     val imageFeatureValue = ImageFeatureValue.CreateFromVideoFrame(imageFrame)!!
-    binding.Bind("data_0", IUnknown.ABI.makeIUnknown(imageFeatureValue.pointer))
+    binding.Bind("data_0", imageFeatureValue)
     val shape =
         TensorFloat.CreateFromShapeArrayAndDataArray(
             arrayOf(1L, 1000L, 1L, 1L),
             Array(1000) { 0f }
         )!!
 
-    binding.Bind("softmaxout_1", IUnknown.ABI.makeIUnknown(shape.pointer))
+    binding.Bind("softmaxout_1", shape)
     return session to binding
 }
 
@@ -223,6 +189,3 @@ suspend inline fun <reified T> IAsyncOperation<T>.await(): T {
 fun loadModel(modelPath: Path): LearningModel {
     return LearningModel.LoadFromFilePath(modelPath.pathString)!!
 }
-
-
-//

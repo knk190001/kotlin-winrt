@@ -14,6 +14,12 @@ abstract class AbstractOutArray<T>(val clazz: Class<*>) :PointerByReference(){
 }
 
 class OutArray<T> (clazz: Class<T>) : AbstractOutArray<T?>(clazz) {
+    companion object {
+        inline fun <reified T> create(): OutArray<T> {
+            return OutArray(T::class.java)
+        }
+    }
+
     override val arrayPtr: Pointer
         get() = value
 
@@ -30,6 +36,12 @@ class OutArray<T> (clazz: Class<T>) : AbstractOutArray<T?>(clazz) {
 
 }
 class PrimitiveOutArray<T> (clazz: Class<T>) : AbstractOutArray<T>(clazz) {
+    companion object {
+        inline fun <reified T> create(): PrimitiveOutArray<T> {
+            return PrimitiveOutArray(T::class.java)
+        }
+    }
+
     override val arrayPtr: Pointer
         get() = value
     override val size
@@ -51,6 +63,8 @@ inline fun <reified T> AbstractOutArray<T>.initialize(length: UINT) {
     arrayPtr.getValue(0, array)
     initialized = true
 }
+
+
 
 inline fun <reified T> makeOutArray(): AbstractOutArray<T?> {
     return OutArray(T::class.java)

@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import de.undercouch.gradle.tasks.download.Download
+import org.jetbrains.kotlin.cli.common.arguments.preprocessCommandLineArguments
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.lang.Thread.sleep
 
@@ -62,7 +63,6 @@ application {
 
 sourceSets.main.configure {
     this.resources.srcDir("src/main/packageResources")
-    this.resources.srcDir("src/main/packageDebugResources")
 }
 
 val shadowJarTask: ShadowJar = tasks.withType<ShadowJar>().named("shadowJar").get()
@@ -106,22 +106,9 @@ val copyPackageResources by tasks.registering(Copy::class) {
     into(packageDir)
 }
 
-val copyDebugPackageResources by tasks.registering(Copy::class) {
-    appxGroup()
-    from("src/main/packageDebugResources")
-    into(packageDir)
-}
 
 val makeAppx by tasks.registering(Exec::class) {
     appxGroup()
-    dependsOnOrdered(copyShadowJar, unzipJRE, copyPackageResources)
-    workingDir = appxDir
-    commandLine = listOf("makeappx", "pack","/d", ".\\package", "/p" ,"./${project.name}.appx", "/o")
-}
-
-val makeDebugAppx by tasks.registering(Exec::class) {
-    appxGroup()
-    dependsOnOrdered(copyShadowJar, unzipJRE, copyPackageResources, copyDebugPackageResources)
     workingDir = appxDir
     commandLine = listOf("makeappx", "pack","/d", ".\\package", "/p" ,"./${project.name}.appx", "/o")
 }
@@ -149,15 +136,23 @@ val installPackage by tasks.registering(Exec::class){
 
 val runPackaged by tasks.registering(Exec::class) {
     appxGroup()
+
     commandLine = listOf(
         "Powershell.exe",
         "-Command",
-        "& {param(\$pname) Get-AppxPackage -Name \"\$pname\" | % { &explorer.exe \$(\$(\"\"\"Shell:AppsFolder\\\\\"\"\") + \$_.PackageFamilyName + \"\"\"!\"\"\" + \$((Get-AppxPackageManifest \$_.PackageFullName).Package.Applications.Application.id)) }}",
+        "& {param(\$pname) Get-AppxPackage -Name \"\$pname\" | % { &start -FilePath \$(\$(\"\"\"Shell:AppsFolder\\\\\"\"\") + \$_.PackageFamilyName + \"\"\"!\"\"\" + \$((Get-AppxPackageManifest \$_.PackageFullName).Package.Applications.Application.id)) }}",
         "\"$packageIdentity\""
     )
-    doLast {
-        sleep(500)
-    }
+}
+
+val runPackagedDebug by tasks.registering(Exec::class) {
+    appxGroup()
+    commandLine = listOf(
+        "Powershell.exe",
+        "-Command",
+        "& {param(\$pname) Get-AppxPackage -Name \"\$pname\" | % { &start -FilePath \$(\$(\"\"\"Shell:AppsFolder\\\\\"\"\") + \$_.PackageFamilyName + \"\"\"!\"\"\" + \$((Get-AppxPackageManifest \$_.PackageFullName).Package.Applications.Application.id)) -ArgumentList \"--debug\" }}",
+        "\"$packageIdentity\""
+    )
 }
 
 
@@ -170,27 +165,11 @@ val preparePackage by tasks.registering {
         copyPackageResources
     )
 }
-val prepareDebugPackage by tasks.registering {
-    appxGroup()
-    dependsOnOrdered(
-        preparePackage,
-        copyDebugPackageResources
-    )
-}
 
 val buildPackage by tasks.registering {
     appxGroup()
     dependsOnOrdered(
         preparePackage,
-        makeAppx,
-        signAppx
-    )
-}
-
-val buildDebugPackage by tasks.registering {
-    appxGroup()
-    dependsOnOrdered(
-        prepareDebugPackage,
         makeAppx,
         signAppx
     )
@@ -203,15 +182,6 @@ val buildAndInstall by tasks.registering {
         buildPackage,
         removeExistingPackage,
         installPackage,
-    )
-}
-
-val buildAndInstallDebug by tasks.registering {
-    appxGroup()
-    dependsOnOrdered(
-        buildDebugPackage,
-        removeExistingPackage,
-        installPackage
     )
 }
 

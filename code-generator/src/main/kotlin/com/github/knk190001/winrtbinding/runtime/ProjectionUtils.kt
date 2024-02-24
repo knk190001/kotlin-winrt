@@ -2,8 +2,10 @@ package com.github.knk190001.winrtbinding.runtime
 
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTInterface
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
+import com.github.knk190001.winrtbinding.runtime.base.INativeHandleProvider
 import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
 import com.github.knk190001.winrtbinding.runtime.com.IWinRTObject
@@ -13,6 +15,7 @@ import com.sun.jna.Function.ALT_CONVENTION
 import com.sun.jna.platform.win32.COM.IUnknown
 import com.sun.jna.platform.win32.COM.Unknown
 import com.sun.jna.platform.win32.Guid
+import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.Win32Exception
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
@@ -24,14 +27,18 @@ import com.sun.jna.win32.StdCallLibrary
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
+import java.lang.invoke.MethodHandles.Lookup
 import java.lang.invoke.MethodType
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
 import kotlin.Any
 import kotlin.Int
 import kotlin.String
 import kotlin.reflect.*
 import kotlin.reflect.full.*
-import kotlin.reflect.jvm.internal.impl.load.java.structure.JavaArrayType
 import kotlin.reflect.jvm.isAccessible
+import kotlin.reflect.jvm.javaMethod
+import kotlin.reflect.jvm.reflect
 import com.sun.jna.Function as JnaFunction
 
 val WinRT = JNAApiInterface.INSTANCE
@@ -172,6 +179,7 @@ private val winRTOptions = mapOf<String, Any?>(
 )
 
 fun JnaFunction.invokeHR(params: Array<Any?>): HRESULT {
+    println("Invoke HR: $this")
     return this.invoke(HRESULT::class.java, params, winRTOptions) as HRESULT
 }
 
@@ -258,6 +266,7 @@ inline fun <reified T : Any> layoutOf(): MemoryLayout {
 
 fun <T : Any> layoutOf(kClass: KClass<T>): MemoryLayout {
     if (kClass == MemoryAddress::class) return ValueLayout.ADDRESS
+    if (kClass == String::class) return ValueLayout.ADDRESS
     val abi = abiOf(kClass)
     return abi.layout
 }
@@ -280,7 +289,7 @@ fun <T> arrayFromNative(type: KType, size: Int, segment: MemorySegment): Array<T
                 (abi as IABI<Any, Any>).fromNative(resizedSegment.asSlice(layout.byteSize() * it))
             }
 
-            is IParameterizedABI<*,*> -> {
+            is IParameterizedABI<*, *> -> {
                 (abi as IParameterizedABI<Any, Any>).fromNative(type, resizedSegment.asSlice(layout.byteSize() * it))
             }
         } as T
@@ -328,16 +337,20 @@ fun KType.javaForeignType(): Class<*> {
     return MemoryAddress::class.java
 }
 
-fun MethodType.toFunctionDescriptor(): FunctionDescriptor {
+fun MethodType.toFunctionDescriptor(promoteReturnToParameter:Boolean = false, addThisObjParam:Boolean = true): FunctionDescriptor {
     val parameters = parameterList()
     val returnType = returnType()
-
-    val foreignParameterTypes = parameters.drop(1).map {
+    val isVoid = returnType == Void.TYPE
+    val returnParam = if(promoteReturnToParameter && !isVoid) listOf(ValueLayout.ADDRESS) else emptyList()
+    val thisParam = if(addThisObjParam) listOf(ValueLayout.ADDRESS) else emptyList()
+    val foreignParameterTypes = (parameters.drop(1).map {
         layoutOf(it.kotlin)
-    }.toTypedArray()
+    }.let {
+         thisParam + it + returnParam
+    }).toTypedArray()
 
-    val foreignReturnType = layoutOf(returnType.kotlin)
-    return FunctionDescriptor.of(foreignReturnType, ValueLayout.ADDRESS, *foreignParameterTypes)
+    val foreignReturnType = if(promoteReturnToParameter) ValueLayout.JAVA_INT else layoutOf(returnType.kotlin)
+    return FunctionDescriptor.of(foreignReturnType,  *foreignParameterTypes)
 }
 
 val getValueFn = Pointer::class.functions.single {
@@ -348,7 +361,7 @@ val getValueFn = Pointer::class.functions.single {
 
 inline fun <reified T> Pointer.getValue(offset: Long, currentValue: T): T? {
     //    Object getValue(long offset, Class<?> type, Object currentValue) {
-    return getValueFn.call(offset, T::class.java, currentValue) as T?
+    return getValueFn.call(this, offset, T::class.java, currentValue) as T?
 }
 
 val ptr: JNAPointer? = Pointer.NULL
@@ -386,4 +399,13 @@ fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescr
         handle.bindTo(ktype),
         MethodType.methodType(Int::class.javaPrimitiveType, handleTypes)
     ) to FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, *descriptorTypes)
+}
+
+fun MemoryAddress.toPointer(): Pointer {
+    return Pointer(this.toRawLongValue())
+}
+
+
+fun Callback.toFunctionPointer(): Pointer {
+    return CallbackReference.getFunctionPointer(this)
 }

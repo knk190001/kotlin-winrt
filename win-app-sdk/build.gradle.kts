@@ -62,3 +62,9 @@ java {
         languageVersion.set(JavaLanguageVersion.of(19))
     }
 }
+
+val codeGeneratorBuild = rootProject.project(":code-generator").tasks.named("build")
+
+tasks.named("generateMain") {
+    dependsOn(codeGeneratorBuild)
+}

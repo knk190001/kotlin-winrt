@@ -11,6 +11,7 @@ import com.squareup.kotlinpoet.jvm.jvmField
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
 import com.sun.jna.Structure.FieldOrder
+import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
@@ -28,17 +29,20 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
         }
 
         val fieldOrderAnnotation = AnnotationSpec.builder(FieldOrder::class).apply {
-            addMember("%S", fields.joinToString { it.name })
+            addMember(fields.joinToString { "\"${it.name}\"" })
         }.build()
         addAnnotation(fieldOrderAnnotation)
 
 
         fields.map {
-            PropertySpec.builder(it.name, it.type.asGenericTypeParameter().copy(true))
-                .jvmField()
-                .initializer("null")
-                .mutable()
-                .build()
+            val type = if(it.type.isSystemType() && it.type.name == "String") HANDLE::class.asClassName().copy(true )
+            else  it.type.asGenericTypeParameter().copy(true)
+
+            PropertySpec.builder(it.name, type).apply {
+                jvmField()
+                initializer("null")
+                mutable()
+            }.build()
         }.forEach(::addProperty)
 
         superclass(Structure::class)
@@ -55,9 +59,14 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
         addAnnotation(brAnnotationSpec)
 
         val byReference = TypeSpec.classBuilder("ByReference").apply {
-            superclass(ClassName(sparseStruct.namespace,sparseStruct.name))
+            superclass(sparseStruct.asTypeReference().asClassName(false))
             addSuperinterface(Structure.ByReference::class)
             addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("",sparseStruct.name)))
+            val constructorSpec = FunSpec.constructorBuilder().apply {
+                addParameter(ptrParameterSpec)
+            }.build()
+            primaryConstructor(constructorSpec)
+            addSuperclassConstructorParameter("ptr")
 
 
             val getValueFn = FunSpec.builder("getValue").apply {
@@ -141,16 +150,9 @@ private fun TypeSpec.Builder.addFromNative(sparseStruct: SparseStruct) {
         val className = sparseStruct.asTypeReference().asClassName()
         returns(className)
         addStatement("val address = segment.address().toRawLongValue()")
-        addStatement("return %T(%T(address))".fixSpaces(), className, Pointer::class)
+        addStatement("val struct = %T(%T(address))".fixSpaces(), className, Pointer::class)
+        addStatement("struct.read()")
+        addStatement("return struct ")
     }.build()
     addFunction(fromNative)
-
-    val fromNativeProperty = PropertySpec.builder("fromNativeHandle", MethodHandle::class).apply {
-        val initializerCb = CodeBlock.builder().apply {
-            addStatement("%T.lookup().findStatic(%T::class.java, %S, %T.methodType(%T::class.java, %T::class.java))",
-                MethodHandles::class, ClassName("",sparseStruct.name), "fromNative", MethodType::class, sparseStruct.asTypeReference().asClassName() ,MemorySegment::class)
-        }.build()
-        initializer(initializerCb)
-    }.build()
-    addProperty(fromNativeProperty)
 }
