@@ -5,23 +5,18 @@ import Microsoft.UI.Xaml.Controls.StackPanel
 import Microsoft.UI.Xaml.Controls.TextBlock
 import Microsoft.UI.Xaml.Controls.XamlControlsResources
 import Microsoft.UI.Xaml.Markup.IXamlMetadataProvider
-import Microsoft.UI.Xaml.Markup.IXamlType
-import Microsoft.UI.Xaml.Markup.XmlnsDefinition
 import Microsoft.UI.Xaml.Media.MicaBackdrop
 import Microsoft.UI.Xaml.XamlTypeInfo.XamlControlsXamlMetaDataProvider
-import Windows.UI.Xaml.Interop.TypeName
-
 import com.github.knk190001.winrtbinding.runtime.annotations.AggregateImplements
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
-import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import java.math.BigInteger
 
-@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 @AggregateImplements([IApplicationOverrides::class, IXamlMetadataProvider::class])
 class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregate,
     IXamlMetadataProvider by XamlControlsXamlMetaDataProvider(){
     override fun OnLaunched(args: LaunchActivatedEventArgs?) {
         println("Launch")
-        this.get_Resources()!!.get_MergedDictionaries()!!.Append(XamlControlsResources())
+        this.get_Resources()!!.get_MergedDictionaries()!! += XamlControlsResources()
         initContents()
     }
 
@@ -31,14 +26,14 @@ class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregat
         }
 
         val labelText = TextBlock().apply {
-            put_Text("Count : 0")
+            put_Text("Count : 2")
         }
 
-        var count = 0
+        var count:BigInteger = 2.toBigInteger()
         val button = Button().apply {
             put_Content(buttonText)
             add_Click(RoutedEventHandler { _, _ ->
-                count++
+                count *= count
                 labelText.put_Text("Count : $count")
             })
         }
@@ -47,10 +42,10 @@ class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregat
             put_HorizontalAlignment(HorizontalAlignment.Center)
             put_VerticalAlignment(VerticalAlignment.Center)
             val children = get_Children()!!
-            children.Append(button)
-            children.Append(labelText)
-        }
+            children += button
+            children += labelText
 
+        }
 
         val w = Window().apply {
             put_Content(stackPanel)

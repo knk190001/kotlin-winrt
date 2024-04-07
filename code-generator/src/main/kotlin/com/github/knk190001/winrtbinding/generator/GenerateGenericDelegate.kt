@@ -33,6 +33,7 @@ import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 
 fun generateGenericDelegate(sparseDelegate: SparseDelegate): FileSpec {
+    println(sparseDelegate.fullName())
     return FileSpec.builder(sparseDelegate.namespace, sparseDelegate.name).apply {
         addImports()
         addDelegateFunInterface(sparseDelegate)
@@ -99,17 +100,27 @@ private fun TypeSpec.Builder.addABI(sparseDelegate: SparseDelegate) {
         val starParameters = sparseDelegate.genericParameters!!.map {
             STAR
         }.toTypedArray()
+        val withStarParams = ClassName("", sparseDelegate.name).parameterizedBy(*starParameters)
         addSuperinterface(
             IParameterizedABI::class.asClassName().parameterizedBy(
-                ClassName("", sparseDelegate.name).parameterizedBy(*starParameters),
-                MemoryAddress::class.asClassName()
+                withStarParams, MemoryAddress::class.asClassName()
             )
         )
         addParameterizedFromNative(sparseDelegate)
         addPtrToNative(sparseDelegate)
+        addGetType(withStarParams)
         addLayout()
     }.build()
     addType(abiTypeSpec)
+}
+
+private fun TypeSpec.Builder.addGetType(typeName: TypeName) {
+    val getTypeSpec = FunSpec.builder("getType").apply {
+        addModifiers(KModifier.OVERRIDE)
+        addParameter("obj", typeName)
+        addCode("return obj.type!!")
+    }.build()
+    addFunction(getTypeSpec)
 }
 
 private fun TypeSpec.Builder.addLayout() {
@@ -221,8 +232,8 @@ private fun TypeSpec.Builder.addNativeFn(sparseDelegate: SparseDelegate) {
     assert(sparseDelegate.returnType.name == "Void")
     val nativeFn = FunSpec.builder("nativeFn").apply {
         jvmStatic()
-
         addTypeParameters(sparseDelegate)
+
         addParameter("type", KType::class)
         addParameter("fn", getBodyClassName(sparseDelegate))
         addParameter("thisPtr", MemoryAddress::class)
@@ -231,7 +242,7 @@ private fun TypeSpec.Builder.addNativeFn(sparseDelegate: SparseDelegate) {
                 ArrayType.None -> listOf(it.name to it.type.foreignType())
                 ArrayType.FillArray -> listOf(
                     "${it.name}_size" to Int::class,
-                    it.name to  MemorySegment::class
+                    it.name to MemorySegment::class
                 )
 
                 ArrayType.PassArray -> listOf(
@@ -430,24 +441,29 @@ private fun CodeBlock.Builder.addResultVariable(sparseDelegate: SparseDelegate) 
 fun kTypeStringFor(
     typeReference: SparseTypeReference,
     typeParameterIndexMap: Map<String, Int>,
-    projection: Boolean = false
+    projection: Boolean = false,
+    typeVarName: String = "type"
 ): String {
     val builder = CodeBlock.builder()
     return with(builder) {
-        kTypeStatementFor(typeReference, typeParameterIndexMap, projection, true)
+        kTypeStatementFor(typeReference, typeParameterIndexMap, projection, true, typeVarName)
         builder.build().toString()
     }
 }
 
-private fun CodeBlock.Builder.kTypeStatementFor(
+fun CodeBlock.Builder.kTypeStatementFor(
     typeReference: SparseTypeReference,
     typeParameterIndexMap: Map<String, Int>,
     projection: Boolean = false,
-    root: Boolean = false
+    root: Boolean = false,
+    typeVarName: String = "type"
 ) {
-
+    if (!typeReference.hasTypeParameter()) {
+        add("typeOf<%T>()", typeReference.asGenericTypeParameter())
+        return
+    }
     if (typeReference.isTypeParameter()) {
-        add("type!!.arguments[${typeParameterIndexMap[typeReference.name]}]")
+        add("${typeVarName}!!.arguments[${typeParameterIndexMap[typeReference.name]}]")
         if (root) {
             add(".type!!")
         }
@@ -470,9 +486,9 @@ private fun CodeBlock.Builder.kTypeStatementFor(
     indent()
     typeReference.genericParameters!!.forEach {
         if (it.type == null) {
-            kTypeStatementFor(SparseTypeReference(it.name, ""), typeParameterIndexMap, projection)
+            kTypeStatementFor(SparseTypeReference(it.name, ""), typeParameterIndexMap, projection, typeVarName = typeVarName)
         } else {
-            kTypeStatementFor(it.type, typeParameterIndexMap, true)
+            kTypeStatementFor(it.type, typeParameterIndexMap, true, typeVarName = typeVarName)
         }
         add(",\n")
     }
@@ -502,10 +518,17 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
             addStatement("val handleDescriptorPair = transformParameterizedHandle(typeOf<%T>())", delegateType)
             addStatement("val methodHandle = handleDescriptorPair.first.bindTo(fn)")
             addStatement("val functionDescriptor = handleDescriptorPair.second")
-            addStatement("val stub = %T.nativeLinker().upcallStub(methodHandle, functionDescriptor, session)", Linker::class)
+            addStatement(
+                "val stub = %T.nativeLinker().upcallStub(methodHandle, functionDescriptor, session)",
+                Linker::class
+            )
             addStatement("val newDelegate = %T(typeOf<%T>(), fn, %T(12))", delegateClass, delegateType, Memory::class)
             addStatement("val guid = guidOf<%T>()", delegateType)
-            addStatement("newDelegate.init(listOf(%T.IID, guid), %T(stub.address().toRawLongValue()))", IUnknown.ABI::class, Pointer::class)
+            addStatement(
+                "newDelegate.init(listOf(%T.IID, guid), %T(stub.address().toRawLongValue()))",
+                IUnknown.ABI::class,
+                Pointer::class
+            )
             addStatement("return newDelegate")
         }.build()
         addCode(cb)
@@ -599,13 +622,6 @@ private fun TypeSpec.Builder.addTypeParameters(sparseDelegate: SparseDelegate) {
         .forEach(::addTypeVariable)
 }
 
-private fun FunSpec.Builder.addTypeParameters(sparseDelegate: SparseDelegate) {
-    sparseDelegate.genericParameters!!
-        .map(SparseGenericParameter::name)
-        .map(TypeVariableName::invoke)
-        .forEach(::addTypeVariable)
-}
-
 private fun FunSpec.Builder.addMethodTypeParameters(sparseDelegate: SparseDelegate, reified: Boolean = true) {
     sparseDelegate.genericParameters!!
         .map(SparseGenericParameter::name)
@@ -618,7 +634,6 @@ private fun FunSpec.Builder.addMethodTypeParameters(sparseDelegate: SparseDelega
 
 private fun TypeSpec.Builder.addDelegateAnnotations(sparseDelegate: SparseDelegate) {
     addAnnotation(GenericType::class)
-    addAnnotation(DynamicSignature::class)
     addGuidAnnotation(sparseDelegate.guid)
     addByReferenceAnnotation(sparseDelegate)
 }

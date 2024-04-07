@@ -369,3 +369,129 @@ fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity, pointerName: String = 
     }.build()
     addFunction(toNative)
 }
+
+fun ClassName.parameterizedBy(genericParameters: List<SparseGenericParameter>): TypeName {
+    return this.parameterizedBy(
+        genericParameters
+            .map(SparseGenericParameter::name)
+            .map(TypeVariableName::invoke)
+    )
+}
+
+fun FunSpec.Builder.addTypeParameters(projectable: IDirectProjectable<*>) {
+    projectable.genericParameters!!
+        .map(SparseGenericParameter::name)
+        .map(TypeVariableName::invoke)
+        .forEach(::addTypeVariable)
+}
+
+enum class ClassNameUsage {
+    ApiSurface, ParentInterface, Other
+}
+
+fun SparseTypeReference.asGenericTypeParameter(
+    structByValue: Boolean = false,
+    emptyTypeParameters: Boolean = false,
+    nestedClass: String? = null,
+    usage: ClassNameUsage = ClassNameUsage.Other
+): TypeName {
+    if (this.isTypeParameter()) {
+        return TypeVariableName(this.name)
+    }
+    if (this.name.contains("`")) {
+        return this.copy(
+            name = name.replaceAfter('`', "").dropLast(1)
+        ).asGenericTypeParameter(structByValue, emptyTypeParameters, nestedClass, usage)
+    }
+    if (this.isArray) {
+        val nonArray = this.copy(isArray = false)
+        return Array::class
+            .asClassName()
+            .parameterizedBy(
+                nonArray.asGenericTypeParameter(structByValue, emptyTypeParameters, nestedClass, usage)
+                    .copy(!nonArray.isPrimitiveSystemType())
+            )
+    }
+
+    if (usage != ClassNameUsage.Other) {
+        val result =  when (usage) {
+            ClassNameUsage.ParentInterface -> parentInterfaceTypeName(this)
+            ClassNameUsage.ApiSurface -> apiSurfaceTypeName(this)
+            else -> throw IllegalArgumentException()
+        }
+        if(result != null) return result
+    }
+    if (this.genericParameters == null && !isArray) {
+        return this.asClassName(structByValue, nestedClass = nestedClass)
+    }
+
+    if (nestedClass != null) {
+        val className = this.asClassName(nestedClass = nestedClass) as ClassName
+        val parameterized = this.asGenericTypeParameter(structByValue, emptyTypeParameters) as ParameterizedTypeName
+        return className.parameterizedBy(parameterized.typeArguments)
+    }
+    val typeParameters = genericParameters!!.map {
+        if (emptyTypeParameters) {
+            STAR
+        } else if (it.type == null) {
+            TypeVariableName(it.name)
+        } else if (it.type.namespace == "") {
+            TypeVariableName(it.type.name)
+        } else {
+            it.type.asGenericTypeParameter(structByValue).copy(!it.type.isPrimitiveSystemType())
+        }
+    }.toList()
+
+    if (this.isReference) {
+        return ClassName(namespace, name)
+            .nestedClass("ByReference")
+            .parameterizedBy(typeParameters)
+    }
+    return ClassName(namespace, name).parameterizedBy(typeParameters)
+
+}
+
+fun apiSurfaceTypeName(typeReference: SparseTypeReference): ParameterizedTypeName? {
+    val typeArguments = (typeReference.asGenericTypeParameter() as? ParameterizedTypeName)
+        ?.typeArguments
+        ?.toTypedArray()
+    if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IVector") {
+        return ClassName("kotlin.collections", "MutableList")
+            .parameterizedBy(*typeArguments!!)
+    } else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IMap") {
+        return ClassName("kotlin.collections", "MutableMap")
+            .parameterizedBy(*typeArguments!!)
+    }else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterable") {
+        return ClassName("kotlin.collections", "Iterable")
+            .parameterizedBy(*typeArguments!!)
+    }else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterator") {
+        return ClassName("kotlin.collections", "Iterator")
+            .parameterizedBy(*typeArguments!!)
+    }
+    return null
+}
+
+fun parentInterfaceTypeName(typeReference: SparseTypeReference): TypeName? {
+    val typeArguments = (typeReference.asGenericTypeParameter() as? ParameterizedTypeName)
+        ?.typeArguments
+        ?.toTypedArray()
+
+
+    if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IVector") {
+        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector").parameterizedBy(*typeArguments!!)
+    } else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IMap") {
+        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap").parameterizedBy(*typeArguments!!)
+    } else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterable") {
+        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable").parameterizedBy(*typeArguments!!)
+    }else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterator") {
+        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator").parameterizedBy(*typeArguments!!)
+    }
+    return null
+}
+
+data class ClassSubstitution(
+    val fullName:String,
+    val apiClassName: ClassName,
+    val parentInterface: ClassName
+)
+

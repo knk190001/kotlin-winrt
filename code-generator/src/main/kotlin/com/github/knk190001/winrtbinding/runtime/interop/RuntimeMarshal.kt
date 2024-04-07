@@ -1,11 +1,17 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
-import com.github.knk190001.winrtbinding.runtime.handleToString
-import com.github.knk190001.winrtbinding.runtime.toHandle
+import com.github.knk190001.winrtbinding.runtime.*
+import com.github.knk190001.winrtbinding.runtime.base.IStructABI
 import com.sun.jna.Pointer
+import com.sun.jna.Structure
 import com.sun.jna.platform.win32.WinNT.HANDLE
+import java.lang.foreign.MemoryAddress
+import kotlin.reflect.KClass
 import kotlin.reflect.KType
+import kotlin.reflect.full.isSubtypeOf
+import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.full.withNullability
+import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
 
 
@@ -52,8 +58,22 @@ fun <T> marshalFromNative(t: Any?, type: KType): T? {
 }
 
 fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
+    if (t is MemoryAddress) {
+        return t.toPointer()
+    }
+    if (t is Array<*>) {
+        return arrayToNative(type, t).toPointer()
+    }
+    if (t is Structure) {
+        val abi = abiOf(type.jvmErasure) as IStructABI<T>
+        return abi.byValue(t)
+    }
     if (type.isMarkedNullable) {
         return marshalToNative(t, type.withNullability(false))
+    }
+
+    if (t is List<*>) {
+        Class.forName("VectorBacked")
     }
 
     val marshal: Marshal<T, *> = marshals.singleOrNull {
@@ -65,6 +85,24 @@ fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
     }
 
     return marshal.toNative(t)
+}
+
+class ListMarshal : Marshal<List<*>, Pointer> {
+    override val fromType: KType = typeOf<List<*>>()
+    override val toType: KType = typeOf<Pointer>()
+    override val nativeNullValue: Pointer?
+        get() = Pointer.NULL
+    override val managedNullValue: List<*>?
+        get() = null
+
+    override fun fromNative(t: Pointer): List<*> {
+        TODO("Not yet implemented")
+    }
+
+    override fun toNative(t: List<*>): Pointer {
+        TODO("Not yet implemented")
+    }
+
 }
 
 class BooleanMarshal : Marshal<Boolean, Byte> {

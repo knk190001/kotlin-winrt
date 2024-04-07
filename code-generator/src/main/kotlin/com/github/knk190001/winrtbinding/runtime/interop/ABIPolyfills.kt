@@ -2,14 +2,19 @@ package com.github.knk190001.winrtbinding.runtime.interop
 
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
+import com.github.knk190001.winrtbinding.runtime.handleToString
+import com.github.knk190001.winrtbinding.runtime.toHandle
+import com.github.knk190001.winrtbinding.runtime.toPointer
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinDef.USHORT
+import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.*
 import kotlin.reflect.KClass
 
 val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
+    String::class to StringABI,
     USHORT::class to UShortABI,
     WinDef.UINT::class to UIntABI,
     WinDef.ULONG::class to ULongABI,
@@ -23,6 +28,20 @@ val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     GUID::class to GUIDABI,
     Char::class to CharABI,
 )
+
+object StringABI: IABI<String, MemoryAddress> {
+    override fun fromNative(obj: MemoryAddress): String {
+        return HANDLE(obj.toPointer()).handleToString()
+    }
+
+    override val layout: MemoryLayout
+        get() = ValueLayout.ADDRESS
+
+    override fun toNative(obj: String): MemoryAddress {
+        return MemoryAddress.ofLong(Pointer.nativeValue(obj.toHandle().pointer))
+    }
+
+}
 
 object UShortABI : IABI<USHORT, Short> {
     override fun fromNative(obj: Short): USHORT {

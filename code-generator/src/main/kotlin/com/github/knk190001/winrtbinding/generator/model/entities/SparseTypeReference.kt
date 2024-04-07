@@ -98,4 +98,8 @@ data class SparseTypeReference(
     fun isTypeParameter(): Boolean {
         return namespace.isEmpty()
     }
+
+    fun hasTypeParameter(): Boolean {
+        return isTypeParameter() || (genericParameters?.any { it.type?.hasTypeParameter() == true } == true)
+    }
 }

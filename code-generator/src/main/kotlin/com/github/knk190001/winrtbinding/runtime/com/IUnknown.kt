@@ -61,8 +61,8 @@ interface IUnknown : NativeMapped, IWinRTInterface {
     open class ByReference : com.sun.jna.ptr.ByReference(Native.POINTER_SIZE) {
         fun getValue() = ABI.makeIUnknown(pointer.getPointer(0))
 
-        fun setValue(value: IUnknown_Impl): Unit {
-            pointer.setPointer(0, value.pointer)
+        fun setValue(value: IUnknown): Unit {
+            pointer.setPointer(0, value.toNative() as Pointer?)
         }
     }
     class IUnknown_Impl(ptr: Pointer? = Pointer.NULL) : PointerType(ptr), IUnknown {

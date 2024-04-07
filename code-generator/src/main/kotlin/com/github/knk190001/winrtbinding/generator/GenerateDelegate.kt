@@ -81,7 +81,6 @@ fun generateNonGenericDelegate(
 private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
     addImport("com.github.knk190001.winrtbinding.runtime", "toHandle")
-    addImport("com.github.knk190001.winrtbinding.runtime", "castToImpl")
     addImport("com.github.knk190001.winrtbinding.runtime", "handleToString")
     addImport("com.github.knk190001.winrtbinding.runtime", "setValue")
     addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
@@ -195,9 +194,9 @@ private fun TypeSpec.Builder.generateNativeHandleProperty(sd: SparseDelegate) {
             sd.parameters.flatMap {
                 when (it.arrayType()) {
                     ArrayType.None -> listOf(it.type.foreignType())
-                    ArrayType.PassArray -> listOf(Int::class, MemorySegment::class)
-                    ArrayType.FillArray -> listOf(Int::class, MemorySegment::class)
-                    ArrayType.ReceiveArray -> listOf(MemorySegment::class, MemorySegment::class)
+                    ArrayType.PassArray -> listOf(Int::class, MemoryAddress::class)
+                    ArrayType.FillArray -> listOf(Int::class, MemoryAddress::class)
+                    ArrayType.ReceiveArray -> listOf(MemoryAddress::class, MemoryAddress::class)
                 }
             }.forEach { add("%T::class.java, ", it) }
             addStatement(")")
@@ -221,21 +220,21 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                 ArrayType.FillArray -> {
                     listOf(
                         "${it.name}_size" to Int::class,
-                        it.name to MemorySegment::class
+                        it.name to MemoryAddress::class
                     )
                 }
 
                 ArrayType.PassArray -> {
                     listOf(
                         "${it.name}_size" to Int::class,
-                        it.name to MemorySegment::class
+                        it.name to MemoryAddress::class
                     )
                 }
 
                 ArrayType.ReceiveArray -> {
                     listOf(
-                        "${it.name}_size" to MemorySegment::class,
-                        it.name to MemorySegment::class
+                        "${it.name}_size" to MemoryAddress::class,
+                        it.name to MemoryAddress::class
                     )
                 }
             }
@@ -298,7 +297,7 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                 addStatement("val returnByValue = %T()", sd.returnType.byReferenceClassName())
                 addStatement("returnByValue.setPointer(returnAddress)")
                 if (sd.returnType.isSystemTypeOrObject() && sd.returnType.name == "Object") {
-                    addStatement("returnByValue.setValue($returnVarName.castToImpl())")
+                    addStatement("returnByValue.setValue($returnVarName)")
                 } else {
                     addStatement("returnByValue.setValue($returnVarName)")
                 }

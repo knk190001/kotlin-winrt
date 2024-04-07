@@ -6,32 +6,38 @@ import Windows.Data.Text.SelectableWordSegmentsTokenizingHandler
 import Windows.Data.Text.SelectableWordsSegmenter
 import Windows.Foundation.*
 import Windows.Foundation.Collections.IIterable
+import Windows.Foundation.Collections.IVector
 import Windows.Foundation.Collections.IVectorView
 import Windows.Graphics.Imaging.BitmapDecoder
 import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
+import com.github.knk190001.winrtbinding.foundation.collections.JVMVector
 import com.github.knk190001.winrtbinding.runtime.WinRT
 import com.sun.jna.platform.win32.WinDef
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
-import java.lang.ref.Reference
 import java.nio.file.Path
 import kotlin.io.path.pathString
 import kotlin.io.path.readLines
+import kotlin.reflect.typeOf
 
 
-fun main() = runBlocking {
+fun main(): Unit = runBlocking {
     val pid = ProcessHandle.current().pid()
-//    println("Pid: $pid")
+    println("Pid: $pid")
     WinRT.RoInitialize(1)
     val initializationCallback = ApplicationInitializationCallback {
         println("Start")
         MyApplication()
     }
     Application.Start(initializationCallback)
-    Reference.reachabilityFence(initializationCallback.vtbl)
-    println("Finish")
+
+    val array = JsonArray.Parse("[\"Hello\", \"World\"]")
+    array!!.map { it!! }
+        .map { it.Stringify() }
+        .forEach(::println)
+
 }
 
 suspend fun IAsyncAction.await() {
@@ -73,17 +79,24 @@ private fun segmentTest() {
     val segmenter = SelectableWordsSegmenter("en-US")
     val handler = SelectableWordSegmentsTokenizingHandler { precedingWords: IIterable<SelectableWordSegment?>?,
                                                             words: IIterable<SelectableWordSegment?>? ->
-        val precedingWordsIttr = precedingWords!!.First()!!
-        while (precedingWordsIttr.get_HasCurrent()) {
+        /*while (precedingWordsIttr.get_HasCurrent()) {
             println("Preceding: " + precedingWordsIttr.get_Current()!!.get_Text())
             precedingWordsIttr.MoveNext()
+        }*/
+        val precedingWordsIttr = precedingWords!!.First()!!
+        for (selectableWordSegment in precedingWordsIttr) {
+            println("Preceding: " + selectableWordSegment!!.get_Text())
         }
 
         val wordsItr = words!!.First()!!
+        for (selectableWordSegment in wordsItr) {
+            println("Word: " + selectableWordSegment!!.get_Text())
+        }
+        /*val wordsItr = words!!.First()!!
         while (wordsItr.get_HasCurrent()) {
             println("Word: " + wordsItr.get_Current()!!.get_Text())
             wordsItr.MoveNext()
-        }
+        }*/
     }
     segmenter.Tokenize("Hello World!", WinDef.UINT(0), handler)
 }
@@ -137,7 +150,7 @@ fun evaluateModel(session: LearningModelSession, binding: LearningModelBinding):
     val results = session.Evaluate(binding, "RunId")!!
     val outputs = results.get_Outputs()!!
     println("Outputs: " + outputs.get_Size())
-    val kvp = outputs.First()!!.get_Current()!!
+    val kvp = outputs.First()!!.next()!!
     println("Key: ${kvp.get_Key()}")
     val o = outputs.Lookup("softmaxout_1")!!
     val resultTensor = TensorFloat(o.iUnknown_Ptr)
@@ -150,13 +163,15 @@ suspend fun bindModel(model: LearningModel, imageFrame: VideoFrame): Pair<Learni
     val binding = LearningModelBinding(session)
     val imageFeatureValue = ImageFeatureValue.CreateFromVideoFrame(imageFrame)!!
     binding.Bind("data_0", imageFeatureValue)
-    val shape =
-        TensorFloat.CreateFromShapeArrayAndDataArray(
-            arrayOf(1L, 1000L, 1L, 1L),
-            Array(1000) { 0f }
-        )!!
+    val shape = JVMVector(typeOf<IVector<Long>>(), mutableListOf(1L, 1000L, 1L, 1L))
+    val contents = JVMVector(typeOf<IVector<Float>>(), mutableListOf<Float>().also { arr ->
+        repeat(1000) { arr.add(0f) }
+    })
 
-    binding.Bind("softmaxout_1", shape)
+    val tensor = TensorFloat.CreateFromIterable(shape, contents)
+
+
+    binding.Bind("softmaxout_1", tensor)
     return session to binding
 }
 
@@ -189,3 +204,5 @@ suspend inline fun <reified T> IAsyncOperation<T>.await(): T {
 fun loadModel(modelPath: Path): LearningModel {
     return LearningModel.LoadFromFilePath(modelPath.pathString)!!
 }
+
+

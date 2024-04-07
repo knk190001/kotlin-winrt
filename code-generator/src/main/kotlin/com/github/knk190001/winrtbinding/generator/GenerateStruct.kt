@@ -5,6 +5,7 @@ import com.github.knk190001.winrtbinding.generator.model.entities.SparseStruct
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.base.IStructABI
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmField
@@ -100,11 +101,11 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
 private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
     val abi = TypeSpec.objectBuilder("ABI").apply {
         addSuperinterface(
-            IABI::class.asClassName().parameterizedBy(
-                sparseStruct.asTypeReference().asClassName(),
-                MemorySegment::class.asClassName()
+            IStructABI::class.asClassName().parameterizedBy(
+                sparseStruct.asTypeReference().asClassName(false)
             )
         )
+        addByValue(sparseStruct)
         addFromNative(sparseStruct)
         addToNative(sparseStruct)
         addLayout(sparseStruct)
@@ -112,10 +113,23 @@ private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
     addType(abi)
 }
 
+private fun TypeSpec.Builder.addByValue(sparseStruct: SparseStruct) {
+    val byValue = FunSpec.builder("byValue").apply {
+        addModifiers(KModifier.OVERRIDE)
+        val type = sparseStruct.asTypeReference().asClassName(structByValue = false)
+        addParameter("struct", type)
+        addCode(buildCodeBlock {
+            addStatement("return ByValue(struct.pointer)")
+        })
+        returns(type)
+    }.build()
+    addFunction(byValue)
+}
+
 private fun TypeSpec.Builder.addToNative(sparseStruct: SparseStruct) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", sparseStruct.asTypeReference().asClassName())
+        addParameter("obj", sparseStruct.asTypeReference().asClassName(structByValue = false))
         returns(MemorySegment::class)
         addStatement("obj.write()")
         addStatement("val address  = %T.ofLong(Pointer.nativeValue(obj.pointer))", MemoryAddress::class)
@@ -147,7 +161,7 @@ private fun TypeSpec.Builder.addFromNative(sparseStruct: SparseStruct) {
     val fromNative = FunSpec.builder("fromNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("segment", MemorySegment::class)
-        val className = sparseStruct.asTypeReference().asClassName()
+        val className = sparseStruct.asTypeReference().asClassName(structByValue = false)
         returns(className)
         addStatement("val address = segment.address().toRawLongValue()")
         addStatement("val struct = %T(%T(address))".fixSpaces(), className, Pointer::class)

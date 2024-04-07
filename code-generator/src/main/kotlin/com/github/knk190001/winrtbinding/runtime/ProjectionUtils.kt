@@ -1,21 +1,19 @@
 package com.github.knk190001.winrtbinding.runtime
 
+import com.github.knk190001.winrtbinding.generator.mapFirst
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
-import com.github.knk190001.winrtbinding.runtime.annotations.WinRTInterface
+import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
-import com.github.knk190001.winrtbinding.runtime.base.INativeHandleProvider
 import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
-import com.github.knk190001.winrtbinding.runtime.com.IWinRTObject
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.sun.jna.*
 import com.sun.jna.Function.ALT_CONVENTION
 import com.sun.jna.platform.win32.COM.IUnknown
 import com.sun.jna.platform.win32.COM.Unknown
 import com.sun.jna.platform.win32.Guid
-import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.Win32Exception
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
@@ -27,18 +25,17 @@ import com.sun.jna.win32.StdCallLibrary
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
-import java.lang.invoke.MethodHandles.Lookup
 import java.lang.invoke.MethodType
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 import kotlin.Any
 import kotlin.Int
 import kotlin.String
 import kotlin.reflect.*
 import kotlin.reflect.full.*
+import kotlin.reflect.jvm.internal.ReflectProperties.Val
+import kotlin.reflect.jvm.internal.impl.resolve.constants.KClassValue.Value
 import kotlin.reflect.jvm.isAccessible
-import kotlin.reflect.jvm.javaMethod
-import kotlin.reflect.jvm.reflect
+import kotlin.reflect.jvm.jvmErasure
+import kotlin.streams.toList
 import com.sun.jna.Function as JnaFunction
 
 val WinRT = JNAApiInterface.INSTANCE
@@ -193,27 +190,6 @@ inline fun <A : IWinRTInterface, reified T : A> Array<A>.interfaceOfType(): T {
     throw IllegalArgumentException("No interface of type ${T::class.java.name} found in the array")
 }
 
-inline fun <reified T : IWinRTInterface, reified R : T> Array<T?>.castToImpl(): Array<T?> {
-    @Suppress("UNCHECKED_CAST")
-    return this.map {
-        if (it is IWinRTObject) {
-            it.interfaces.interfaceOfType() as R
-        } else {
-            it as R
-        }
-    }.toTypedArray() as Array<T?>
-}
-
-inline fun <reified T : IWinRTInterface, reified R : T> T.castToImpl(): R {
-    return if (this is IWinRTObject) {
-        this.interfaces.first {
-            it is R
-        } as R
-    } else {
-        this as R
-    }
-}
-
 fun Guid.GUID.ByReference.getValue(): Guid.GUID {
     return this
 }
@@ -230,13 +206,9 @@ interface FromNativePolyfill<T> {
     fun fromNative(segment: MemoryAddress): T
 }
 
-val String.Companion.ABI: FromNativePolyfill<String>
-    get() = object : FromNativePolyfill<String> {
-        override fun fromNative(segment: MemoryAddress): String {
-            val handle = HANDLE(Pointer(segment.toRawLongValue()))
-            return handle.handleToString()
-        }
-    }
+@Suppress("UNCHECKED_CAST")
+val String.Companion.ABI: IABI<String, MemoryAddress>
+    get() = StringABI
 
 fun guidFromNative(segment: MemorySegment): Guid.GUID {
     val address = segment.get(ValueLayout.ADDRESS, 0)
@@ -266,37 +238,78 @@ inline fun <reified T : Any> layoutOf(): MemoryLayout {
 
 fun <T : Any> layoutOf(kClass: KClass<T>): MemoryLayout {
     if (kClass == MemoryAddress::class) return ValueLayout.ADDRESS
+    if (kClass == MemorySegment::class) return ValueLayout.ADDRESS
     if (kClass == String::class) return ValueLayout.ADDRESS
     val abi = abiOf(kClass)
     return abi.layout
 }
 
 
-inline fun <reified T> arrayFromNative(size: Int, segment: MemorySegment): Array<T> {
-    return arrayFromNative(typeOf<T>(), size, segment)
+inline fun <reified T> arrayFromNative(size: Int, address: MemoryAddress): Array<T> {
+    return arrayFromNative(typeOf<T>(), size, address)
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T> arrayFromNative(type: KType, size: Int, segment: MemorySegment): Array<T> {
-    val kClass = type.classifier as KClass<*>
+fun <T> arrayFromNative(type: KType, size: Int, address: MemoryAddress): Array<T> {
+    val kClass = type.jvmErasure
+    val array = java.lang.reflect.Array.newInstance(kClass.java, size) as Array<T>
+    readArrayFromPtr(type, address, array)
+    return array
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T> readArrayFromPtr(type: KType, address: MemoryAddress, into: Array<T>) {
+    if (address.toRawLongValue() == 0L) {
+        return
+    }
+    val kClass = type.jvmErasure
     val abi = abiOf(kClass)
     val layout = abi.layout
-    val resizedSegment = MemorySegment.ofAddress(segment.address(), layout.byteSize() * size, MemorySession.global())
-    val array = java.lang.reflect.Array.newInstance(kClass.java, size) as Array<T>
-    (0 until size).map {
-        when (abi) {
-            is IABI<*, *> -> {
-                (abi as IABI<Any, Any>).fromNative(resizedSegment.asSlice(layout.byteSize() * it))
-            }
+    val resizedSegment = MemorySegment.ofAddress(address, layout.byteSize() * into.size, MemorySession.global())
+    into.indices
+        .map { resizedSegment.asSlice(layout.byteSize() * it) }
+        .map {
+            when (abi) {
+                is IABI -> (abi as IABI<Any, Any>).fromNative(readLayout(layout, it))
+                is IParameterizedABI -> (abi as IParameterizedABI<Any, Any>).fromNative(type, readLayout(layout, it))
+            } as T
+        }.forEachIndexed { index, value ->
+            into[index] = value
+        }
+}
 
-            is IParameterizedABI<*, *> -> {
-                (abi as IParameterizedABI<Any, Any>).fromNative(type, resizedSegment.asSlice(layout.byteSize() * it))
-            }
-        } as T
-    }.forEachIndexed { index, value ->
-        array[index] = value
+fun readLayout(layout: MemoryLayout, segment: MemorySegment): Any {
+    return when (layout) {
+        is GroupLayout -> segment
+        is ValueLayout.OfAddress -> segment[ValueLayout.ADDRESS, 0]
+        is ValueLayout.OfBoolean -> segment[ValueLayout.JAVA_BYTE, 0]
+        is ValueLayout.OfByte -> segment[ValueLayout.JAVA_BYTE, 0]
+        is ValueLayout.OfChar -> segment[ValueLayout.JAVA_CHAR, 0]
+        is ValueLayout.OfDouble -> segment[ValueLayout.JAVA_DOUBLE, 0]
+        is ValueLayout.OfFloat -> segment[ValueLayout.JAVA_FLOAT, 0]
+        is ValueLayout.OfInt -> segment[ValueLayout.JAVA_INT, 0]
+        is ValueLayout.OfLong -> segment[ValueLayout.JAVA_LONG, 0]
+        is ValueLayout.OfShort -> segment[ValueLayout.JAVA_SHORT, 0]
+        else -> IllegalArgumentException("Unrecognized layout type: $layout")
     }
-    return array
+}
+
+@Suppress("UNCHECKED_CAST")
+fun arrayToNative(type: KType, array: Array<*>): MemoryAddress {
+    val abi = abiOf(type.jvmErasure) as IBaseABI<Any?, Any?>
+    val nativeArray = MemorySession.global().allocateArray(abi.layout, array.size.toLong())
+
+    val nativeValues = array.map {
+        if (abi.layout == ValueLayout.ADDRESS && it == null) Pointer.NULL else marshalToNative(it, type)
+    }
+
+    array.indices
+        .filter { array[it] != null }
+        .associateWith { it * abi.layout.byteSize() }
+        .mapValues { nativeArray.address().addOffset(it.value) }
+        .mapKeys { nativeValues[it.key] }
+        .forEach(abi::copyTo)
+    return nativeArray.address()
 }
 
 fun booleanFromNative(segment: MemorySegment): Boolean {
@@ -307,8 +320,7 @@ fun booleanFromNative(segment: MemorySegment): Boolean {
 fun KType.javaForeignType(): Class<*> {
     val kClass = this.classifier as KClass<*>
     val abiAnnotation = kClass.findAnnotation<ABIMarker>()
-    if (abiAnnotation == null) {
-        return when (kClass) {
+        ?: return when (kClass) {
             WinDef.USHORT::class -> Short::class.javaPrimitiveType!!
             WinDef.UINT::class -> Int::class.javaPrimitiveType!!
             WinDef.ULONG::class -> Long::class.javaPrimitiveType!!
@@ -324,9 +336,11 @@ fun KType.javaForeignType(): Class<*> {
             Byte::class -> Byte::class.javaPrimitiveType!!
             Guid.GUID::class -> MemorySegment::class.java
             Char::class -> Char::class.javaPrimitiveType!!
+            MemorySegment::class -> MemorySegment::class.java
+            MemoryAddress::class -> MemoryAddress::class.java
+            UIntByReference::class -> MemoryAddress::class.java
             else -> throw NotImplementedError("Type: $kClass is not handled")
         }
-    }
     if (kClass.java.isEnum) {
         return Int::class.javaPrimitiveType!!
     }
@@ -337,20 +351,43 @@ fun KType.javaForeignType(): Class<*> {
     return MemoryAddress::class.java
 }
 
-fun MethodType.toFunctionDescriptor(promoteReturnToParameter:Boolean = false, addThisObjParam:Boolean = true): FunctionDescriptor {
+fun MethodType.toFunctionDescriptor(
+    promoteReturnToParameter: Boolean = false,
+    addThisObjParam: Boolean = true
+): FunctionDescriptor {
+
     val parameters = parameterList()
     val returnType = returnType()
     val isVoid = returnType == Void.TYPE
-    val returnParam = if(promoteReturnToParameter && !isVoid) listOf(ValueLayout.ADDRESS) else emptyList()
-    val thisParam = if(addThisObjParam) listOf(ValueLayout.ADDRESS) else emptyList()
+    val returnParam = if (promoteReturnToParameter && !isVoid) listOf(ValueLayout.ADDRESS) else emptyList()
+    val thisParam = if (addThisObjParam) listOf(ValueLayout.ADDRESS) else emptyList()
     val foreignParameterTypes = (parameters.drop(1).map {
         layoutOf(it.kotlin)
     }.let {
-         thisParam + it + returnParam
+        thisParam + it + returnParam
     }).toTypedArray()
 
-    val foreignReturnType = if(promoteReturnToParameter) ValueLayout.JAVA_INT else layoutOf(returnType.kotlin)
-    return FunctionDescriptor.of(foreignReturnType,  *foreignParameterTypes)
+    val foreignReturnType = if (promoteReturnToParameter) ValueLayout.JAVA_INT else layoutOf(returnType.kotlin)
+    return FunctionDescriptor.of(foreignReturnType, *foreignParameterTypes)
+}
+
+fun KFunction<*>.toFunctionDescriptor(): FunctionDescriptor {
+    val returnSizeParam = if(hasAnnotation<ReceiveArray>()) listOf(ValueLayout.ADDRESS) else emptyList()
+    val returnParam =
+        if(returnType.jvmErasure == Unit::class) emptyList()
+        else returnSizeParam + listOf(ValueLayout.ADDRESS)
+    val thisParam = listOf(ValueLayout.ADDRESS)
+    val foreignParameterTypes = (parameters.drop(1).flatMap {
+        if (it.type.isSubtypeOf(typeOf<Array<*>>())) {
+            listOf(ValueLayout.JAVA_INT,ValueLayout.ADDRESS)
+        }else if(it.hasAnnotation<ReceiveArray>()){
+            listOf(ValueLayout.ADDRESS, ValueLayout.ADDRESS)
+        } else { listOf(layoutOf(it.type.jvmErasure)) }
+    }.let {
+        thisParam + it + returnParam
+    }).toTypedArray()
+
+    return FunctionDescriptor.of(ValueLayout.JAVA_INT, *foreignParameterTypes)
 }
 
 val getValueFn = Pointer::class.functions.single {
@@ -405,7 +442,36 @@ fun MemoryAddress.toPointer(): Pointer {
     return Pointer(this.toRawLongValue())
 }
 
+fun Pointer.toMemoryAddress(): MemoryAddress {
+    return MemoryAddress.ofLong(Pointer.nativeValue(this))
+}
 
 fun Callback.toFunctionPointer(): Pointer {
     return CallbackReference.getFunctionPointer(this)
+}
+
+fun <T> readReceiveArrayIntoList(type: KType, size: IntByReference, ptr: PointerByReference, list: MutableList<T>) {
+    val abi = abiOf(type.jvmErasure)
+    val bufferSize = abi.layout.byteSize() * size.value
+    val segment = MemorySegment.ofAddress(ptr.value.toMemoryAddress(), bufferSize, MemorySession.global())
+    segment.elements(abi.layout).toList()
+        .map {
+            @Suppress("UNCHECKED_CAST")
+            it as T
+        }
+        .forEach(list::add)
+
+}
+
+fun <T> writeListIntoBuffer(type: KType, size:MemoryAddress, buffer:MemoryAddress, list: MutableList<T>) {
+    val abi = abiOf(type.jvmErasure) as IBaseABI<T, Any?>
+    val array = MemorySegment.allocateNative(abi.layout.byteSize() * list.size, MemorySession.global())
+
+    size[ValueLayout.JAVA_INT, 0] = list.size
+    buffer[ValueLayout.ADDRESS, 0] = array
+
+    list.mapIndexed { idx, it -> idx to it}
+        .mapFirst { it * abi.layout.byteSize() }
+        .mapFirst { buffer.address().toRawLongValue() + it }
+        .forEach { (index, it) -> abi.copyTo(it, MemoryAddress.ofLong(index)) }
 }

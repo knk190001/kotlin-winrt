@@ -1,20 +1,10 @@
 package com.github.knk190001.winrtbinding.generator
 
-import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
-import com.beust.klaxon.Parser
+import com.github.knk190001.winrtbinding.generator.TestUnsigned.Companion.test
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.squareup.kotlinpoet.FileSpec
-import kotlinx.coroutines.*
-import kotlin.synchronized
 import java.io.InvalidObjectException
-import java.nio.file.Path
-import java.util.stream.Collectors
-import kotlin.io.path.Path
-import kotlin.io.path.forEachDirectoryEntry
-import kotlin.io.path.inputStream
-import kotlin.io.path.isDirectory
-import kotlin.streams.toList
 
 typealias LookUp = (SparseTypeReference) -> SparseEntity
 
@@ -22,19 +12,8 @@ lateinit var lookUpTypeReference: LookUp
 
 
 fun generateProjection(serializedMetadata: List<String>, serializedReferenceMetadata: List<List<String>>): Collection<FileSpec> {
-    val entities = serializedMetadata.parallelStream().map {
-        val result = Klaxon().parse<SparseEntity>(it)
-        println("Parsed: " + result!!.name)
-        result
-    }.toList()
-
-    val referenceEntities = serializedReferenceMetadata.parallelStream().flatMap {
-        it.parallelStream().map { json ->
-            val result = Klaxon().parse<SparseEntity>(json)
-            println("Parsed: " + result!!.name)
-            result
-        }
-    }.toList()
+    val entities = parseMetadata(listOf(serializedMetadata))
+    val referenceEntities = parseMetadata(serializedReferenceMetadata)
 
     val entityMap = entities.associateBy { it.fullName() }
     val referenceEntityMap = referenceEntities.associateBy { it.fullName() }
@@ -51,10 +30,9 @@ fun generateProjection(serializedMetadata: List<String>, serializedReferenceMeta
     lookUpTypeReference = lookUp
 
     return entities .map {
-        println("Generating: " + it.fullName())
         when (it) {
             is SparseClass -> generateClass(it, lookUp)
-            is SparseInterface -> generateInterface(it, lookUp)
+            is SparseInterface -> generateInterface(it)
             is SparseEnum -> generateEnum(it)
             is SparseStruct -> generateStruct(it)
             is SparseDelegate -> generateDelegate(it)
@@ -63,6 +41,26 @@ fun generateProjection(serializedMetadata: List<String>, serializedReferenceMeta
     }.toList()
 }
 
+private fun parseMetadata(serializedReferenceMetadata: List<List<String>>): MutableList<SparseEntity> =
+    serializedReferenceMetadata.parallelStream().flatMap {
+        it.parallelStream().map { json ->
+            val result = Klaxon().parse<SparseEntity>(json)
+//            println("Parsed: " + result!!.name)
+            result!!
+        }
+    }.toList()
+
 fun String.fixSpaces(): String {
+    test(1u, 1u)
     return this.replace(" ", nbsp)
+}
+
+
+class TestUnsigned {
+    companion object {
+        @JvmStatic
+        fun test(uInt: UInt, uLong: ULong): ULong {
+            return uInt + uLong
+        }
+    }
 }
