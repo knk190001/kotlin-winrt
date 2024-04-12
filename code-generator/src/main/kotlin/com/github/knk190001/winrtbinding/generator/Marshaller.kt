@@ -169,7 +169,7 @@ object InterfaceMarshalGenerator : IPtrMarshalGenerator {
         if (type == null) return varName to CodeBlock.of("")
         val newVariableName = "${varName}_Managed"
         val cb = CodeBlock.builder().apply {
-            addStatement("val $newVariableName = %T.ABI.make%T($varName)", type.asClassName(),type.asGenericTypeParameter())
+            addStatement("val $newVariableName = %T.ABI.make%T($varName)", type.asClassName(),type.asTypeName())
         }.build()
 
         return newVariableName to cb
@@ -227,7 +227,7 @@ object GenericDelegateMarshalGenerator : IPtrMarshalGenerator {
         if (type == null) return varName to CodeBlock.of("")
         val newVariableName = "${varName}_Managed"
         val cb = CodeBlock.builder().apply {
-            addStatement("val $newVariableName = %T(typeOf<%T>(),$varName)", type.asClassName(), type.asGenericTypeParameter())
+            addStatement("val $newVariableName = %T(typeOf<%T>(),$varName)", type.asClassName(), type.asTypeName())
         }.build()
         return newVariableName to cb
     }

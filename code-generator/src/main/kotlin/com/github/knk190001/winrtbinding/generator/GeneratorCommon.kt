@@ -241,7 +241,7 @@ fun SparseTypeReference.byReferenceClassName(): TypeName {
     }
     if (genericParameters != null) {
         val name = dropGenericParameterCount().name
-        val typeParameters = genericParameters.map { it.type!!.asGenericTypeParameter().copy(!it.type.isPrimitiveSystemType()) }
+        val typeParameters = genericParameters.map { it.type!!.asTypeName(nullable = !it.type.isPrimitiveSystemType()) }
         return ClassName("${this.namespace}.$name", "ByReference").parameterizedBy(typeParameters)
     }
 
@@ -358,7 +358,7 @@ fun TypeSpec.Builder.addABIAnnotation(abiClassName: TypeName) {
 fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity, pointerName: String = "pointer") {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", entity.asTypeReference().asGenericTypeParameter(emptyTypeParameters = true))
+        addParameter("obj", entity.asTypeReference().asTypeName(emptyTypeParameters = true))
         returns(MemoryAddress::class)
         val objPointerExpression = if (entity is SparseInterface && entity.genericParameters.isNullOrEmpty()) {
             "(obj as WithDefault).$pointerName"
@@ -389,26 +389,29 @@ enum class ClassNameUsage {
     ApiSurface, ParentInterface, Other
 }
 
-fun SparseTypeReference.asGenericTypeParameter(
-    structByValue: Boolean = false,
+fun SparseTypeReference.asTypeName(
     emptyTypeParameters: Boolean = false,
     nestedClass: String? = null,
-    usage: ClassNameUsage = ClassNameUsage.Other
+    usage: ClassNameUsage = ClassNameUsage.Other,
+    nullable: Boolean = false
 ): TypeName {
+    if (nullable) {
+        return asTypeName(emptyTypeParameters, nestedClass, usage, false)
+    }
     if (this.isTypeParameter()) {
         return TypeVariableName(this.name)
     }
     if (this.name.contains("`")) {
         return this.copy(
             name = name.replaceAfter('`', "").dropLast(1)
-        ).asGenericTypeParameter(structByValue, emptyTypeParameters, nestedClass, usage)
+        ).asTypeName(emptyTypeParameters, nestedClass, usage)
     }
     if (this.isArray) {
         val nonArray = this.copy(isArray = false)
         return Array::class
             .asClassName()
             .parameterizedBy(
-                nonArray.asGenericTypeParameter(structByValue, emptyTypeParameters, nestedClass, usage)
+                nonArray.asTypeName(emptyTypeParameters, nestedClass, usage)
                     .copy(!nonArray.isPrimitiveSystemType())
             )
     }
@@ -422,12 +425,12 @@ fun SparseTypeReference.asGenericTypeParameter(
         if(result != null) return result
     }
     if (this.genericParameters == null && !isArray) {
-        return this.asClassName(structByValue, nestedClass = nestedClass)
+        return this.asClassName(false, nestedClass = nestedClass)
     }
 
     if (nestedClass != null) {
         val className = this.asClassName(nestedClass = nestedClass) as ClassName
-        val parameterized = this.asGenericTypeParameter(structByValue, emptyTypeParameters) as ParameterizedTypeName
+        val parameterized = this.asTypeName(emptyTypeParameters) as ParameterizedTypeName
         return className.parameterizedBy(parameterized.typeArguments)
     }
     val typeParameters = genericParameters!!.map {
@@ -438,7 +441,7 @@ fun SparseTypeReference.asGenericTypeParameter(
         } else if (it.type.namespace == "") {
             TypeVariableName(it.type.name)
         } else {
-            it.type.asGenericTypeParameter(structByValue).copy(!it.type.isPrimitiveSystemType())
+            it.type.asTypeName(nullable = !it.type.isPrimitiveSystemType())
         }
     }.toList()
 
@@ -452,7 +455,7 @@ fun SparseTypeReference.asGenericTypeParameter(
 }
 
 fun apiSurfaceTypeName(typeReference: SparseTypeReference): ParameterizedTypeName? {
-    val typeArguments = (typeReference.asGenericTypeParameter() as? ParameterizedTypeName)
+    val typeArguments = (typeReference.asTypeName() as? ParameterizedTypeName)
         ?.typeArguments
         ?.toTypedArray()
     if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IVector") {
@@ -472,7 +475,7 @@ fun apiSurfaceTypeName(typeReference: SparseTypeReference): ParameterizedTypeNam
 }
 
 fun parentInterfaceTypeName(typeReference: SparseTypeReference): TypeName? {
-    val typeArguments = (typeReference.asGenericTypeParameter() as? ParameterizedTypeName)
+    val typeArguments = (typeReference.asTypeName() as? ParameterizedTypeName)
         ?.typeArguments
         ?.toTypedArray()
 
@@ -488,6 +491,10 @@ fun parentInterfaceTypeName(typeReference: SparseTypeReference): TypeName? {
     }
     return null
 }
+
+val ptrNull = Pointer::class.asClassName().member("NULL")
+val jnaPointer = ClassName("com.github.knk190001.winrtbinding.runtime", "JNAPointer")
+val nullablePtr = jnaPointer.copy(nullable = true)
 
 data class ClassSubstitution(
     val fullName:String,

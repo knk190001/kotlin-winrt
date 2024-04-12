@@ -4,7 +4,6 @@ import com.github.knk190001.winrtbinding.generator.model.entities.SparseField
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseStruct
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IStructABI
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -14,9 +13,6 @@ import com.sun.jna.Structure
 import com.sun.jna.Structure.FieldOrder
 import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.*
-import java.lang.invoke.MethodHandle
-import java.lang.invoke.MethodHandles
-import java.lang.invoke.MethodType
 
 fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.namespace, sparseStruct.name).apply {
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
@@ -37,8 +33,7 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
 
         fields.map {
             val type = if(it.type.isSystemType() && it.type.name == "String") HANDLE::class.asClassName().copy(true )
-            else  it.type.asGenericTypeParameter().copy(true)
-
+            else  it.type.asTypeName(nullable = true)
             PropertySpec.builder(it.name, type).apply {
                 jvmField()
                 initializer("null")
@@ -47,7 +42,7 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
         }.forEach(::addProperty)
 
         superclass(Structure::class)
-        val ptrParameterSpec = ParameterSpec.builder("ptr", Pointer::class.asClassName().copy(true))
+        val ptrParameterSpec = ParameterSpec.builder("ptr", nullablePtr)
             .defaultValue("%T.NULL", Pointer::class)
             .build()
         val constructor = FunSpec.constructorBuilder()

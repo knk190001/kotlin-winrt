@@ -44,7 +44,7 @@ fun generateNonGenericDelegate(
     val delegateParameters = sd.parameters.map {
         ParameterSpec.builder(
             it.name,
-            it.type.asGenericTypeParameter(false).copy(!it.type.isPrimitiveSystemType() && !it.type.isArray)
+            it.type.asTypeName(nullable = !it.type.isPrimitiveSystemType() && !it.type.isArray)
         ).build()
     }
 
@@ -52,7 +52,7 @@ fun generateNonGenericDelegate(
         val invokeFn = FunSpec.builder("invoke").apply {
             addModifiers(KModifier.ABSTRACT, KModifier.OPERATOR)
             delegateParameters.forEach(::addParameter)
-            returns(sd.returnType.asGenericTypeParameter())
+            returns(sd.returnType.asTypeName())
         }.build()
         addFunction(invokeFn)
     }.build()
@@ -65,7 +65,7 @@ fun generateNonGenericDelegate(
         if (sd.genericParameters != null) {
             addAnnotation(GenericType::class)
             addSuperinterface(
-                sd.asTypeReference().normalize().dropGenericParameterCount().asGenericTypeParameter(false)
+                sd.asTypeReference().normalize().dropGenericParameterCount().asTypeName()
             )
         }
         generateConstructor()
@@ -101,14 +101,14 @@ private fun TypeSpec.Builder.generateInvokeFunction(sd: SparseDelegate) {
         }
         sd.parameters.forEach {
             addParameter(
-                it.name, it.type.asGenericTypeParameter(false)
+                it.name, it.type.asTypeName()
                     .copy(!it.type.isPrimitiveSystemType() && !it.type.isArray)
             )
         }
         val cb = CodeBlock.builder().apply {
             if (sd.returnType.name != "Void") {
                 addStatement("val result = %T()", sd.returnType.byReferenceClassName())
-                returns(sd.returnType.asGenericTypeParameter())
+                returns(sd.returnType.asTypeName())
             }
             val marshalledParameters = sd.parameters.map {
                 Marshaller.marshals.getOrDefault(it.type.asKClass(), Marshaller.default)
@@ -155,7 +155,7 @@ private fun TypeSpec.Builder.generateInvokeFunction(sd: SparseDelegate) {
 
 private fun TypeSpec.Builder.generateConstructor() {
     val ctor = FunSpec.constructorBuilder().apply {
-        val ptrParameter = ParameterSpec.builder("ptr", Pointer::class.asClassName().copy(true))
+        val ptrParameter = ParameterSpec.builder("ptr", nullablePtr)
             .defaultValue("%T.NULL", Pointer::class)
             .build()
         addParameter(ptrParameter)
@@ -257,13 +257,13 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                 val typeParameters = mutableListOf<TypeName>()
                 val managedName = "${param.name}_Managed"
                 val typeOfString = if (!param.type.genericParameters.isNullOrEmpty()) {
-                    typeParameters.add(param.type.asGenericTypeParameter())
+                    typeParameters.add(param.type.asTypeName())
                     "typeOf<%T>(), "
                 } else {
                     ""
                 }
                 val fromNativeString = if (param.type.isArray) {
-                    typeParameters.add(0, param.type.copy(isArray = false).asGenericTypeParameter())
+                    typeParameters.add(0, param.type.copy(isArray = false).asTypeName())
                     "arrayFromNative<%T>(${param.name}_size, ${param.name})"
                 } else if (param.type.namespace == "System" && param.type.name == "Guid") {
                     "guidFromNative(${param.name})"
@@ -271,7 +271,7 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                     "${param.name} != 0.toByte()"
                 } else {
                     typeParameters.add(0, param.type.asClassName())
-                    typeParameters.add(param.type.asGenericTypeParameter())
+                    typeParameters.add(param.type.asTypeName())
                     "%T.ABI.fromNative($typeOfString${param.name}) as %T"
                 }
 

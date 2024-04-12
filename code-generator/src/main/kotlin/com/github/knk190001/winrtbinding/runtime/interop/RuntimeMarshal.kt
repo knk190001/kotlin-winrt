@@ -87,24 +87,6 @@ fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
     return marshal.toNative(t)
 }
 
-class ListMarshal : Marshal<List<*>, Pointer> {
-    override val fromType: KType = typeOf<List<*>>()
-    override val toType: KType = typeOf<Pointer>()
-    override val nativeNullValue: Pointer?
-        get() = Pointer.NULL
-    override val managedNullValue: List<*>?
-        get() = null
-
-    override fun fromNative(t: Pointer): List<*> {
-        TODO("Not yet implemented")
-    }
-
-    override fun toNative(t: List<*>): Pointer {
-        TODO("Not yet implemented")
-    }
-
-}
-
 class BooleanMarshal : Marshal<Boolean, Byte> {
     override val fromType = typeOf<Boolean>()
     override val toType = typeOf<Byte>()
