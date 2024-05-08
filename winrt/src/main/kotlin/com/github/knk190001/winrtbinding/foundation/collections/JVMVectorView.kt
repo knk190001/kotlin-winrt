@@ -8,7 +8,7 @@ import com.sun.jna.platform.win32.WinDef
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
-class JVMVectorView<T>(type:KType, private val backingList: List<T>): KotlinWinRTObject(), IVectorView<T> {
+class JVMVectorView<T>(type:KType, private val backingList: List<T>): KotlinWinRTObject(), IVectorView<T>, List<T> by backingList {
     override val __970637876_Type: KType = type
     init {
         initObj()

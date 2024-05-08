@@ -297,12 +297,12 @@ private fun CodeBlock.Builder.addArrayToManagedStatement(
     val componentType = param.type.copy(isArray = false)
     add("val ${param.name}_Type = ")
     add(buildCodeBlock {
-        kTypeStatementFor(param.type, typeParameterIndexMap, root = true, typeVarName = "_type")
+        kTypeStatementFor(componentType, typeParameterIndexMap, root = true, typeVarName = "_type")
         addStatement("")
     })
     addStatement(
         "val $managedName = arrayFromNative<%T>(${param.name}_Type, ${param.name}_size, ${paramName})",
-        componentType.asTypeName(componentType.isNullable())
+        componentType.asTypeName(nullable = componentType.isNullable())
     )
     return managedName
 }
@@ -1157,7 +1157,7 @@ private fun TypeSpec.Builder.generateByReference(sparseInterface: SparseInterfac
                 sparseInterface.asTypeReference().asTypeName(),
                 typeExpression
             )
-            returns(sparseInterface.asTypeReference().asTypeName())
+            returns(sparseInterface.asTypeReference().asTypeName(nestedClass = "WithDefault"))
         }.build()
         addFunction(getValueFn)
 

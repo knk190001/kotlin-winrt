@@ -35,6 +35,7 @@ val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "19"
     freeCompilerArgs += "-Xjvm-default=all"
+    freeCompilerArgs += "-Xlambdas=indy"
     suppressWarnings = true
 }
 

@@ -62,8 +62,8 @@ private fun jsonTest() {
 
     (1..10)
         .map(Int::toDouble)
-        .map(JsonValue::CreateNumberValue)
-        .forEach(jsonArray::Append)
+        .mapNotNull(JsonValue::CreateNumberValue)
+        .forEach(jsonArray::add)
 
     jsonObject.SetNamedValue("array", jsonArray)
     jsonObject.SetNamedValue("string", JsonValue.CreateStringValue("Hello world!"))
@@ -79,10 +79,6 @@ private fun segmentTest() {
     val segmenter = SelectableWordsSegmenter("en-US")
     val handler = SelectableWordSegmentsTokenizingHandler { precedingWords: IIterable<SelectableWordSegment?>?,
                                                             words: IIterable<SelectableWordSegment?>? ->
-        /*while (precedingWordsIttr.get_HasCurrent()) {
-            println("Preceding: " + precedingWordsIttr.get_Current()!!.get_Text())
-            precedingWordsIttr.MoveNext()
-        }*/
         val precedingWordsIttr = precedingWords!!.First()!!
         for (selectableWordSegment in precedingWordsIttr) {
             println("Preceding: " + selectableWordSegment!!.get_Text())
@@ -92,11 +88,6 @@ private fun segmentTest() {
         for (selectableWordSegment in wordsItr) {
             println("Word: " + selectableWordSegment!!.get_Text())
         }
-        /*val wordsItr = words!!.First()!!
-        while (wordsItr.get_HasCurrent()) {
-            println("Word: " + wordsItr.get_Current()!!.get_Text())
-            wordsItr.MoveNext()
-        }*/
     }
     segmenter.Tokenize("Hello World!", WinDef.UINT(0), handler)
 }
@@ -121,8 +112,8 @@ suspend fun mlTest() {
     printResults(results, labels)
 }
 
-fun printResults(results: IVectorView<Float>, labels: Map<Int, List<String>>) {
-    results.toArray().zip(labels.entries)
+fun printResults(results: List<Float>, labels: Map<Int, List<String>>) {
+    results.zip(labels.entries)
         .map { it.first to it.second.value }
         .sortedBy(Pair<Float?, List<String>>::first)
         .reversed()
@@ -146,13 +137,13 @@ fun loadLabels(labelsPath: Path): Map<Int, List<String>> {
         .associate { it[0].toInt() to it.drop(1) }
 }
 
-fun evaluateModel(session: LearningModelSession, binding: LearningModelBinding): IVectorView<Float> {
+fun evaluateModel(session: LearningModelSession, binding: LearningModelBinding): List<Float> {
     val results = session.Evaluate(binding, "RunId")!!
     val outputs = results.get_Outputs()!!
-    println("Outputs: " + outputs.get_Size())
-    val kvp = outputs.First()!!.next()!!
-    println("Key: ${kvp.get_Key()}")
-    val o = outputs.Lookup("softmaxout_1")!!
+    println("Outputs: " + outputs.size)
+    val kvp = outputs.entries.first()
+    println("Key: ${kvp.key}")
+    val o = outputs["softmaxout_1"]!!
     val resultTensor = TensorFloat(o.iUnknown_Ptr)
     return resultTensor.GetAsVectorView()!!
 }
@@ -177,9 +168,9 @@ suspend fun bindModel(model: LearningModel, imageFrame: VideoFrame): Pair<Learni
 
 suspend fun loadImageFile(imageFile: Path): VideoFrame {
     val file = StorageFile.GetFileFromPathAsync(imageFile.pathString)!!.await()
-    val stream = file!!.OpenAsync(FileAccessMode.Read)!!.await()!!
-    val decoder = BitmapDecoder.CreateAsync(stream)!!.await()!!
-    val softwareBitmap = decoder.GetSoftwareBitmapAsync()!!.await()!!
+    val stream = file!!.OpenAsync(FileAccessMode.Read)!!.await()
+    val decoder = BitmapDecoder.CreateAsync(stream)!!.await()
+    val softwareBitmap = decoder!!.GetSoftwareBitmapAsync()!!.await()
     return VideoFrame.CreateWithSoftwareBitmap(softwareBitmap)!!
 }
 

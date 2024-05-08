@@ -27,7 +27,7 @@ class JVMVector<T>(type:KType, private val backingList: MutableList<T>): KotlinW
         return WinDef.UINT(backingList.size.toLong())
     }
 
-    override fun GetView(): IVectorView<T> {
+    override fun GetView(): List<T> {
         return JVMVectorView(IVectorView::class.createType(listOf(__1070388601_Type.arguments[0])), backingList)
     }
 

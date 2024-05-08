@@ -78,7 +78,7 @@ fun SparseTypeReference.asClassName(structByValue: Boolean = true, nullable: Boo
         return asClassName(isReference).copy(true)
     }
     if (isReference) {
-        return byReferenceClassName().copy(nullable = nullable)
+        return byReferenceClassName().copy()
     }
     if (namespace == "System") {
         return when (name) {
@@ -396,7 +396,7 @@ fun SparseTypeReference.asTypeName(
     nullable: Boolean = false
 ): TypeName {
     if (nullable) {
-        return asTypeName(emptyTypeParameters, nestedClass, usage, false)
+        return asTypeName(emptyTypeParameters, nestedClass, usage, false).copy(nullable = true)
     }
     if (this.isTypeParameter()) {
         return TypeVariableName(this.name)
@@ -454,24 +454,17 @@ fun SparseTypeReference.asTypeName(
 
 }
 
-fun apiSurfaceTypeName(typeReference: SparseTypeReference): ParameterizedTypeName? {
+fun apiSurfaceTypeName(typeReference: SparseTypeReference): TypeName? {
+    if (typeReference.isReference) return null
     val typeArguments = (typeReference.asTypeName() as? ParameterizedTypeName)
         ?.typeArguments
         ?.toTypedArray()
-    if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IVector") {
-        return ClassName("kotlin.collections", "MutableList")
-            .parameterizedBy(*typeArguments!!)
-    } else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IMap") {
-        return ClassName("kotlin.collections", "MutableMap")
-            .parameterizedBy(*typeArguments!!)
-    }else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterable") {
-        return ClassName("kotlin.collections", "Iterable")
-            .parameterizedBy(*typeArguments!!)
-    }else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterator") {
-        return ClassName("kotlin.collections", "Iterator")
-            .parameterizedBy(*typeArguments!!)
+
+    substitutions[typeReference.fullCleanName()].let {
+        if(it == null) return null
+        if (typeArguments == null) return it.apiTypeName
+        return it.apiTypeName.parameterizedBy(*typeArguments)
     }
-    return null
 }
 
 fun parentInterfaceTypeName(typeReference: SparseTypeReference): TypeName? {
@@ -479,26 +472,47 @@ fun parentInterfaceTypeName(typeReference: SparseTypeReference): TypeName? {
         ?.typeArguments
         ?.toTypedArray()
 
-
-    if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IVector") {
-        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector").parameterizedBy(*typeArguments!!)
-    } else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IMap") {
-        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap").parameterizedBy(*typeArguments!!)
-    } else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterable") {
-        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable").parameterizedBy(*typeArguments!!)
-    }else if (typeReference.namespace == "Windows.Foundation.Collections" && typeReference.cleanName() == "IIterator") {
-        return ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator").parameterizedBy(*typeArguments!!)
+    substitutions[typeReference.fullCleanName()].let {
+        if(it == null) return null
+        if (typeArguments == null) return it.parentInterface
+        return it.parentInterface.parameterizedBy(*typeArguments)
     }
-    return null
 }
+
+fun SparseTypeReference.fullCleanName() = "$namespace.${cleanName()}"
 
 val ptrNull = Pointer::class.asClassName().member("NULL")
 val jnaPointer = ClassName("com.github.knk190001.winrtbinding.runtime", "JNAPointer")
 val nullablePtr = jnaPointer.copy(nullable = true)
 
 data class ClassSubstitution(
-    val fullName:String,
-    val apiClassName: ClassName,
+    val apiTypeName: ClassName,
     val parentInterface: ClassName
 )
 
+val substitutions = mapOf(
+    "Windows.Foundation.Collections.IVector" to ClassSubstitution(
+        ClassName("kotlin.collections", "MutableList"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector")
+    ),
+    "Windows.Foundation.Collections.IVectorView" to ClassSubstitution(
+        ClassName("kotlin.collections", "List"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVectorView")
+    ),
+    "Windows.Foundation.Collections.IMap" to ClassSubstitution(
+        ClassName("kotlin.collections", "MutableMap"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap")
+    ),
+    "Windows.Foundation.Collections.IMapView" to ClassSubstitution(
+        ClassName("kotlin.collections", "Map"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMapView")
+    ),
+    "Windows.Foundation.Collections.IIterable" to ClassSubstitution(
+        ClassName("kotlin.collections", "Iterable"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable")
+    ),
+    "Windows.Foundation.Collections.IIterator" to ClassSubstitution(
+        ClassName("kotlin.collections", "Iterator"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator")
+    )
+)
