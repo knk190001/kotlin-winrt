@@ -306,6 +306,7 @@ private fun CodeBlock.Builder.addArrayToManagedStatement(
     )
     return managedName
 }
+
 fun SparseInterface.cleanName() = this.asTypeReference().dropGenericParameterCount().name
 
 fun SparseTypeReference.cleanName() = this.dropGenericParameterCount().name
@@ -474,40 +475,80 @@ fun TypeSpec.Builder.addTypeProperty(it: SparseTypeReference, sparseInterface: S
 
 private fun TypeSpec.Builder.generateABI(sparseInterface: SparseInterface) {
     val abi = TypeSpec.objectBuilder("ABI").apply {
-        if (sparseInterface.genericParameters.isNullOrEmpty()) {
-            addSuperinterface(
-                IABI::class.asClassName().parameterizedBy(
-                    sparseInterface.asTypeReference().asClassName(),
-                    MemoryAddress::class.asClassName()
-                )
-            )
-            addIIDProperty(sparseInterface)
-        } else {
-            val starParameters = sparseInterface.genericParameters.map {
-                STAR
-            }.toTypedArray()
-            val withStarParams = ClassName("", sparseInterface.cleanName()).parameterizedBy(*starParameters)
-            addSuperinterface(
-                IParameterizedABI::class.asClassName().parameterizedBy(
-                    withStarParams,
-                    MemoryAddress::class.asClassName()
-                )
-            )
+        addABISuperInterface(sparseInterface)
 
-            addGetType(sparseInterface, withStarParams)
-        }
-        val handleType: KClass<*> =
+        val handleProviderType: KClass<*> =
             if (sparseInterface.genericParameters == null) INativeHandleProvider::class
             else IParameterizedNativeHandleProvider::class
+        addSuperinterface(handleProviderType, CodeBlock.of("NativeWrappers"))
 
-        addSuperinterface(handleType, CodeBlock.of("NativeWrappers"))
         generateMakeFn(sparseInterface)
         generateReifiedMakeFn(sparseInterface)
         addParameterizedFromNative(sparseInterface)
         addPtrToNative(sparseInterface)
         addLayout()
+
+        if (substitutions[sparseInterface.asTypeReference().fullCleanName()] != null) {
+            addJVMToNativeSubstitution(sparseInterface)
+        }
     }.build()
     addType(abi)
+}
+
+fun TypeSpec.Builder.addJVMToNativeSubstitution(sparseInterface: SparseInterface) {
+    if (sparseInterface.genericParameters != null) {
+        addSuperinterface(IParameterizedNativePeerProvider::class)
+    } else {
+        TODO("Create a non-parameterized version of this interface")
+    }
+    val generatePeerSpec = FunSpec.builder("makeNativePeer").apply {
+        addModifiers(KModifier.OVERRIDE)
+        addParameter("type", KType::class)
+        addParameter("obj", Any::class.asTypeName().copy(nullable = true))
+        returns(Any::class.asTypeName().copy(nullable = true))
+
+        val cb = buildCodeBlock {
+            beginControlFlow("if (obj == null)")
+            addStatement("return %M", ptrNull)
+            endControlFlow()
+
+            val substitution = substitutions[sparseInterface.asTypeReference().fullCleanName()]!!
+            val starProjectedApiTypeName = substitution.apiTypeName.parameterizedBy(sparseInterface.genericParameters.map { STAR })
+            beginControlFlow("if (obj is %T)", starProjectedApiTypeName)
+            addStatement("return %T(type, obj)", substitution.jvmPeerType)
+            endControlFlow()
+            addStatement("throw %T(%S)", IllegalArgumentException::class, "obj is not an instance of ${substitution.apiTypeName}")
+        }
+        addCode(cb)
+    }.build()
+    addFunction(generatePeerSpec)
+}
+
+private fun TypeSpec.Builder.addABISuperInterface(
+    sparseInterface: SparseInterface,
+) {
+    if (sparseInterface.genericParameters.isNullOrEmpty()) {
+        addSuperinterface(
+            IABI::class.asClassName().parameterizedBy(
+                sparseInterface.asTypeReference().asClassName(),
+                MemoryAddress::class.asClassName()
+            )
+        )
+        addIIDProperty(sparseInterface)
+    } else {
+        val starParameters = sparseInterface.genericParameters.map {
+            STAR
+        }.toTypedArray()
+        val withStarParams = ClassName("", sparseInterface.cleanName()).parameterizedBy(*starParameters)
+        addSuperinterface(
+            IParameterizedABI::class.asClassName().parameterizedBy(
+                withStarParams,
+                MemoryAddress::class.asClassName()
+            )
+        )
+
+        addGetType(sparseInterface, withStarParams)
+    }
 }
 
 private fun TypeSpec.Builder.addGetType(sparseInterface: SparseInterface, typeName: TypeName) {
@@ -636,8 +677,6 @@ private fun TypeSpec.Builder.generateImplType(sparseInterface: SparseInterface) 
         }
         addParameterizedSIProperties(sparseInterface)
         addParameterizedSuperInterfaces(sparseInterface)
-//        addParameterizedImplCompanion(sparseInterface)
-
     }.build()
     addType(impl)
 }
@@ -814,7 +853,7 @@ fun generateInterfaceMethod(
 
         if (withMethodBody) {
             addCode(buildCodeBlock {
-                addGenericInterfaceMethodBody(method, sparseInterface, idx)
+                addInterfaceMethodBody(method, sparseInterface, idx)
             })
             addModifiers(KModifier.OVERRIDE)
         } else {
@@ -825,10 +864,10 @@ fun generateInterfaceMethod(
 
 sealed interface ParamType
 data class Synthetic(val name: String) : ParamType
-data class TypeParameter(val name: String, val typeReference: SparseTypeReference) : ParamType
+data class ExplicitType(val name: String, val typeReference: SparseTypeReference) : ParamType
 data class Standard(val name: String) : ParamType
 
-private fun CodeBlock.Builder.addGenericInterfaceMethodBody(
+private fun CodeBlock.Builder.addInterfaceMethodBody(
     method: SparseMethod,
     sparseInterface: SparseInterface,
     idx: Int
@@ -980,7 +1019,7 @@ private fun invokeArgumentExpressionForParameter(
     when (it) {
         is Standard -> "marshalToNative(${it.name})"
         is Synthetic -> it.name
-        is TypeParameter -> {
+        is ExplicitType -> {
             val typeString = kTypeStringFor(
                 it.typeReference,
                 typeParameterIndexMap,
@@ -1003,8 +1042,8 @@ private fun getInvokeParameterTypes(): (SparseParameter) -> List<ParamType> =
     {
         when (it.arrayType()) {
             ArrayType.None -> {
-                if (it.type.isTypeParameter()) {
-                    listOf(TypeParameter(it.name, it.type))
+                if (it.type.isTypeParameter() || substitutions.containsKey(it.type.fullCleanName())) {
+                    listOf(ExplicitType(it.name, it.type))
                 } else {
                     listOf(Standard(it.name))
                 }

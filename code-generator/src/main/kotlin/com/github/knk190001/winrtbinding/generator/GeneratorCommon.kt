@@ -487,32 +487,39 @@ val nullablePtr = jnaPointer.copy(nullable = true)
 
 data class ClassSubstitution(
     val apiTypeName: ClassName,
-    val parentInterface: ClassName
+    val parentInterface: ClassName,
+    val jvmPeerType: ClassName
 )
 
 val substitutions = mapOf(
     "Windows.Foundation.Collections.IVector" to ClassSubstitution(
         ClassName("kotlin.collections", "MutableList"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVector")
     ),
     "Windows.Foundation.Collections.IVectorView" to ClassSubstitution(
         ClassName("kotlin.collections", "List"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVectorView")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVectorView"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVectorView")
     ),
     "Windows.Foundation.Collections.IMap" to ClassSubstitution(
         ClassName("kotlin.collections", "MutableMap"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMap")
     ),
     "Windows.Foundation.Collections.IMapView" to ClassSubstitution(
         ClassName("kotlin.collections", "Map"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMapView")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMapView"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMapView")
     ),
     "Windows.Foundation.Collections.IIterable" to ClassSubstitution(
         ClassName("kotlin.collections", "Iterable"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterable")
     ),
     "Windows.Foundation.Collections.IIterator" to ClassSubstitution(
         ClassName("kotlin.collections", "Iterator"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterator")
     )
 )

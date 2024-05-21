@@ -1,7 +1,9 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
 import com.github.knk190001.winrtbinding.runtime.*
+import com.github.knk190001.winrtbinding.runtime.base.IParameterizedNativePeerProvider
 import com.github.knk190001.winrtbinding.runtime.base.IStructABI
+import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
 import com.sun.jna.platform.win32.WinNT.HANDLE
@@ -58,22 +60,22 @@ fun <T> marshalFromNative(t: Any?, type: KType): T? {
 }
 
 fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
+    val abi = abiOf(type.jvmErasure)
     if (t is MemoryAddress) {
         return t.toPointer()
     }
     if (t is Array<*>) {
         return arrayToNative(type, t).toPointer()
     }
-    if (t is Structure) {
-        val abi = abiOf(type.jvmErasure) as IStructABI<T>
-        return abi.byValue(t)
+    if (t is Structure && t !is Structure.ByValue ) {
+        @Suppress("UNCHECKED_CAST")
+        return (abi as IStructABI<T>).byValue(t)
     }
     if (type.isMarkedNullable) {
         return marshalToNative(t, type.withNullability(false))
     }
-
-    if (t is List<*>) {
-        Class.forName("VectorBacked")
+    if (!type.jvmErasure.isInstance(t) && (abi is IParameterizedNativePeerProvider)) {
+        return abi.makeNativePeer(type, t)
     }
 
     val marshal: Marshal<T, *> = marshals.singleOrNull {

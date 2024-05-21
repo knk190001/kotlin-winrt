@@ -1,5 +1,7 @@
 package com.github.knk190001.winrtbinding.runtime.com
 
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.invokeHR
 import com.sun.jna.Function
 import com.sun.jna.Native
@@ -14,6 +16,7 @@ import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.ValueLayout
 
+@ABIMarker(IUnknown.ABI::class)
 interface IUnknown : NativeMapped, IWinRTInterface {
     val iUnknown_Vtbl: Pointer
         get() = iUnknown_Ptr.getPointer(0)
@@ -44,16 +47,22 @@ interface IUnknown : NativeMapped, IWinRTInterface {
         return WinDef.ULONG(fn.invokeLong(arrayOf(iUnknown_Ptr)))
     }
 
-    object ABI {
+    object ABI: IABI<IUnknown, MemoryAddress> {
         val IID: Guid.IID = Guid.IID("0000000000000000C000000000000046")
 
         fun makeIUnknown(ptr: Pointer?): IUnknown =
             IUnknown_Impl(ptr)
 
-        @JvmStatic
-        fun fromNative(segment: MemoryAddress): IUnknown {
+        override fun fromNative(segment: MemoryAddress): IUnknown {
             val address = segment.get(ValueLayout.ADDRESS, 0)
             return makeIUnknown(Pointer(address.toRawLongValue()))
+        }
+
+        override val layout: MemoryLayout
+            get() = ValueLayout.ADDRESS
+
+        override fun toNative(obj: IUnknown): MemoryAddress {
+            return MemoryAddress.ofLong(Pointer.nativeValue(obj.iUnknown_Ptr))
         }
 
     }

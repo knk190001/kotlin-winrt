@@ -1,5 +1,6 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.sun.jna.Pointer
@@ -128,6 +129,7 @@ class StringByReference(pointer: Pointer? = null) : IByReference<HANDLE>, HANDLE
         }
     }
 }
+@ABIMarker(IUnknown.ABI::class)
 class IUnknownByReference(pointer: Pointer? = null) : IByReference<IUnknown>, IUnknown.ByReference() {
     init {
         if (pointer != null) {
