@@ -13,7 +13,8 @@ class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>): Kot
         initObj()
     }
 
-    override val __1449660594_Type: KType = type
+    override val _Windows_Foundation_CollectionsIIterator_Type: KType = type
+
     private var currentAssigned = false
     private var current: Any? = null
     override fun get_Current(): T {

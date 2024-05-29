@@ -189,7 +189,7 @@ fun SparseTypeReference.valueLayout(): CodeBlock {
             "UInt32&" -> ValueLayout::class.member("ADDRESS")
             "UInt16" -> ValueLayout::class.member("JAVA_SHORT")
             "Object" -> ValueLayout::class.member("ADDRESS")
-            "Single" -> ValueLayout::class.member("JAVA_BYTE")
+            "Single" -> ValueLayout::class.member("JAVA_FLOAT")
             "Char" -> ValueLayout::class.member("JAVA_CHAR")
             "Byte" -> ValueLayout::class.member("JAVA_BYTE")
             "Guid" -> return CodeBlock.builder().apply {
@@ -370,14 +370,6 @@ fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity, pointerName: String = 
     addFunction(toNative)
 }
 
-fun ClassName.parameterizedBy(genericParameters: List<SparseGenericParameter>): TypeName {
-    return this.parameterizedBy(
-        genericParameters
-            .map(SparseGenericParameter::name)
-            .map(TypeVariableName::invoke)
-    )
-}
-
 fun FunSpec.Builder.addTypeParameters(projectable: IDirectProjectable<*>) {
     projectable.genericParameters!!
         .map(SparseGenericParameter::name)
@@ -418,7 +410,7 @@ fun SparseTypeReference.asTypeName(
 
     if (usage != ClassNameUsage.Other) {
         val result =  when (usage) {
-            ClassNameUsage.ParentInterface -> parentInterfaceTypeName(this)
+            ClassNameUsage.ParentInterface -> implTypeName(this)
             ClassNameUsage.ApiSurface -> apiSurfaceTypeName(this)
             else -> throw IllegalArgumentException()
         }
@@ -467,15 +459,15 @@ fun apiSurfaceTypeName(typeReference: SparseTypeReference): TypeName? {
     }
 }
 
-fun parentInterfaceTypeName(typeReference: SparseTypeReference): TypeName? {
+fun implTypeName(typeReference: SparseTypeReference): TypeName? {
     val typeArguments = (typeReference.asTypeName() as? ParameterizedTypeName)
         ?.typeArguments
         ?.toTypedArray()
 
     substitutions[typeReference.fullCleanName()].let {
         if(it == null) return null
-        if (typeArguments == null) return it.parentInterface
-        return it.parentInterface.parameterizedBy(*typeArguments)
+        if (typeArguments == null) return it.implTypeName
+        return it.implTypeName.parameterizedBy(*typeArguments)
     }
 }
 
@@ -485,39 +477,39 @@ val ptrNull = Pointer::class.asClassName().member("NULL")
 val jnaPointer = ClassName("com.github.knk190001.winrtbinding.runtime", "JNAPointer")
 val nullablePtr = jnaPointer.copy(nullable = true)
 
-data class ClassSubstitution(
+data class InterfaceSubstitution(
     val apiTypeName: ClassName,
-    val parentInterface: ClassName,
+    val implTypeName: ClassName,
     val jvmPeerType: ClassName
 )
 
 val substitutions = mapOf(
-    "Windows.Foundation.Collections.IVector" to ClassSubstitution(
+    "Windows.Foundation.Collections.IVector" to InterfaceSubstitution(
         ClassName("kotlin.collections", "MutableList"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVector")
     ),
-    "Windows.Foundation.Collections.IVectorView" to ClassSubstitution(
+    "Windows.Foundation.Collections.IVectorView" to InterfaceSubstitution(
         ClassName("kotlin.collections", "List"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVectorView"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVectorView")
     ),
-    "Windows.Foundation.Collections.IMap" to ClassSubstitution(
+    "Windows.Foundation.Collections.IMap" to InterfaceSubstitution(
         ClassName("kotlin.collections", "MutableMap"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMap")
     ),
-    "Windows.Foundation.Collections.IMapView" to ClassSubstitution(
+    "Windows.Foundation.Collections.IMapView" to InterfaceSubstitution(
         ClassName("kotlin.collections", "Map"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMapView"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMapView")
     ),
-    "Windows.Foundation.Collections.IIterable" to ClassSubstitution(
+    "Windows.Foundation.Collections.IIterable" to InterfaceSubstitution(
         ClassName("kotlin.collections", "Iterable"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterable")
     ),
-    "Windows.Foundation.Collections.IIterator" to ClassSubstitution(
+    "Windows.Foundation.Collections.IIterator" to InterfaceSubstitution(
         ClassName("kotlin.collections", "Iterator"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterator")

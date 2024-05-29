@@ -5,12 +5,13 @@
 - Enable certain JVM types to be passed to WinRT APIs (DateTime)
 - Better projection for event based APIs
 - Project WinRT properties as Kotlin properties, and hide the underlying getter/setter methods
-- Stop using obfuscated names to disambiguate certain properties
+- ~~Stop using obfuscated names to disambiguate certain properties~~
 - Stop using JNA unsigned types
 
 ## Version 2: Panama
 
 - Migrate off JNA
+- Split the runtime helpers into a separate library
 - Adopt Kotlin naming conventions for WinRT APIs
 - Migrate away from inline functions when possible to improve compile times
 - Revamp object lifetime management for both JVM objects with native peers, and WinRT objects with JVM peers

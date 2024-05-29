@@ -11,7 +11,7 @@ class JVMKeyValuePair<K, V>(type: KType, private val backingPair: Pair<K, V>): K
         initObj()
     }
 
-    override val __1684261520_Type: KType = type
+    override val _Windows_Foundation_CollectionsIKeyValuePair_Type: KType = type
 
     override fun get_Key(): K = backingPair.first
 

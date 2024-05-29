@@ -9,7 +9,8 @@ import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
 class JVMVectorView<T>(type:KType, private val backingList: List<T>): KotlinWinRTObject(), IVectorView<T>, List<T> by backingList {
-    override val __970637876_Type: KType = type
+
+    override val _Windows_Foundation_CollectionsIVectorView_Type: KType = type
     init {
         initObj()
     }
@@ -43,7 +44,7 @@ class JVMVectorView<T>(type:KType, private val backingList: List<T>): KotlinWinR
 
     override fun First(): JVMIterator<T> {
         return JVMIterator(IIterator::class.createType(
-            listOf(__970637876_Type.arguments[0])
+            listOf(_Windows_Foundation_CollectionsIVectorView_Type.arguments[0])
         ),backingList.iterator())
     }
 

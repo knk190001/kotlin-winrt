@@ -139,7 +139,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         }
 
         ArrayType.ReceiveArray -> {
-            addReceiveArrayToManagedStatement(param, paramName, managedName)
+            addReceiveArrayToManagedStatement(param, managedName)
             return managedName
         }
     }
@@ -246,7 +246,6 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
 
 private fun CodeBlock.Builder.addReceiveArrayToManagedStatement(
     param: SparseParameter,
-    paramName: String,
     managedName: String
 ): String {
     val componentType = param.type.copy(isArray = false, isReference = false)
@@ -584,7 +583,6 @@ private fun TypeSpec.Builder.generateReifiedMakeFn(sparseInterface: SparseInterf
             .map { TypeVariableName(it).copy(reified = true) }
             .forEach { addTypeVariable(it) }
         addParameter("ptr", nullablePtr)
-        val typeParameters = sparseInterface.genericParameters.joinToString { it.name }
         addCode(
             "return %T(ptr, typeOf<%T>())",
             sparseInterface.asTypeReference()
@@ -695,7 +693,7 @@ private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
     superInterfaces.forEach {
         val property = PropertySpec.builder(it.getInterfacePointerName(), nullablePtr).apply {
             val lazyCb = CodeBlock.builder().apply {
-                beginControlFlow("lazy { ")
+                beginControlFlow("lazy { ".fixSpaces())
                 if (!it.isClosed()) {
                     addStatement("val refiid = %T(guidOf(%L))", REFIID::class, it.getInterfaceTypeName())
                 } else {
@@ -1141,7 +1139,7 @@ private fun CodeBlock.Builder.kTypeStatementFor(
 
 }
 
-private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface, withDefault: Boolean = false) {
+private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface) {
 
     addSuperinterface(NativeMapped::class)
     addSuperinterface(IWinRTInterface::class)
@@ -1259,7 +1257,7 @@ private fun SparseTypeReference.isVoid(): Boolean {
 }
 
 fun SparseInterface.vtblName(): String {
-    return "${asTypeReference().hashID()}_VtblPtr"
+    return "${asTypeReference().packageQualifiedIdentifier()}_VtblPtr"
 }
 
 fun SparseInterface.typeName(): String {

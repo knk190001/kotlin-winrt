@@ -23,7 +23,6 @@ import com.sun.jna.ptr.PointerByReference
 import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.ValueLayout
-import kotlin.math.abs
 import kotlin.reflect.KType
 
 fun generateClass(
@@ -526,52 +525,17 @@ fun generateInterfacePointerProperty(idx: Int, sparseTypeReference: SparseTypeRe
     }.build()
 }
 
-private fun TypeSpec.Builder.generateQueryInterfaceMethods(sparseClass: SparseClass) {
-    sparseClass.interfaces
-        .map(::generateQueryInterfaceMethod)
-        .forEach(this::addFunction)
-}
-
-fun hashID(str: String): String {
-    return "_${abs(str.hashCode())}"
-}
-
-fun SparseTypeReference.hashID(): String {
-    return hashID("${namespace}${cleanName()}")
-}
-
-fun SparseTypeReference.getCastFunctionName(): String {
-    return "as${hashID()}"
+fun SparseTypeReference.packageQualifiedIdentifier(): String {
+    return "${namespace}${cleanName()}".replace(".", "_")
 }
 
 fun SparseTypeReference.getInterfacePointerName(): String {
-    return "_${hashID()}_Ptr"
+    return "_${packageQualifiedIdentifier()}_Ptr"
 }
 
 fun SparseTypeReference.getInterfaceTypeName(): String {
-    return "_${hashID()}_Type"
+    return "_${packageQualifiedIdentifier()}_Type"
 }
-
-private fun generateQueryInterfaceMethod(typeReference: SparseTypeReference) =
-    FunSpec.builder(typeReference.getCastFunctionName()).apply {
-        addModifiers(KModifier.PRIVATE)
-        val cb = CodeBlock.builder().apply {
-            beginControlFlow("if(pointer == %M)", ptrNull)
-            addStatement("return %M", ptrNull)
-            endControlFlow()
-
-            val iidStatement = "val refiid = %T(guidOf<%T>())"
-            addStatement(iidStatement, REFIID::class, typeReference.asTypeName())
-            addStatement("val ref = %T()", PointerByReference::class)
-
-            val iUnkownVtblClass = IUnknownVtbl::class
-            addStatement("%T(pointer!!.getPointer(0)).queryInterface(pointer, refiid, ref)", iUnkownVtblClass)
-            addStatement("return ref.value")
-        }.build()
-        addCode(cb)
-        returns(nullablePtr)
-
-    }.build()
 
 private fun TypeSpec.Builder.generateConstructor(sparseClass: SparseClass) {
     val constructorSpec = FunSpec.constructorBuilder().apply {

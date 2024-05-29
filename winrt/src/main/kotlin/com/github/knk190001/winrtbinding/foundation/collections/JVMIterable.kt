@@ -7,12 +7,12 @@ import kotlin.reflect.KType
 
 @ObjectImplements([IIterable::class])
 class JVMIterable<T>(type: KType, backingIterable: Iterable<T>): KotlinWinRTObject(), IIterable<T>, Iterable<T> by backingIterable {
-    override val __1449643190_Type: KType = type
+    override val _Windows_Foundation_CollectionsIIterable_Type: KType = type
     init {
         initObj()
     }
 
     override fun First(): Iterator<T> {
-        return JVMIterator(__1449643190_Type, iterator())
+        return JVMIterator(_Windows_Foundation_CollectionsIIterable_Type, iterator())
     }
 }

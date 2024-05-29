@@ -13,7 +13,8 @@ import kotlin.reflect.full.createType
 
 class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObject(), IMap<K, V>,
     MutableMap<K, V> by backingMap {
-    override val __8028824_Type: KType = type
+
+    override val _Windows_Foundation_CollectionsIMap_Type: KType = type
 
     init {
         initObj()
@@ -36,8 +37,8 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
         return JVMMapView(
             IMapView::class.createType(
                 listOf(
-                    KTypeProjection(KVariance.INVARIANT, __8028824_Type.arguments[0].type),
-                    KTypeProjection(KVariance.INVARIANT, __8028824_Type.arguments[1].type)
+                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[0].type),
+                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[1].type)
                 )
             ),
             this
@@ -62,10 +63,10 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
         return JVMIterator(
             IIterator::class.createType(
                 listOf(
-                    KTypeProjection(KVariance.INVARIANT, __8028824_Type.arguments[0].type),
-                    KTypeProjection(KVariance.INVARIANT, __8028824_Type.arguments[1].type)
+                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[0].type),
+                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[1].type)
                 )
-            ), Itr(__8028824_Type, iterator())
+            ), Itr(_Windows_Foundation_CollectionsIMap_Type, iterator())
         )
     }
 
@@ -77,7 +78,7 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
             return backingIterator.hasNext()
         }
 
-        override fun next(): IKeyValuePair<K, V>? {
+        override fun next(): IKeyValuePair<K, V> {
             val next = backingIterator.next()
             return JVMKeyValuePair(
                 IKeyValuePair::class.createType(

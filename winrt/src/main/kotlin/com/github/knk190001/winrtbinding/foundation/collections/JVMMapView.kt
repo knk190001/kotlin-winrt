@@ -15,8 +15,8 @@ import kotlin.reflect.full.createType
 @ObjectImplements([IMapView::class])
 class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject(), IMapView<K, V>,
     Map<K, V> by backingMap {
-    override val __1676682589_Type: KType = type
 
+    override val _Windows_Foundation_CollectionsIMapView_Type: KType = type
     init {
         initObj()
     }
@@ -25,15 +25,15 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
 
     override fun Split(first: IMapView.ByReference<K, V>?, second: IMapView.ByReference<K, V>?) {
         if (isEmpty()) {
-            first!!.setValue(IMapView.IMapViewImpl(__1676682589_Type = __1676682589_Type))
-            second!!.setValue(IMapView.IMapViewImpl(__1676682589_Type = __1676682589_Type))
+            first!!.setValue(IMapView.IMapViewImpl(_Windows_Foundation_CollectionsIMapView_Type = _Windows_Foundation_CollectionsIMapView_Type))
+            second!!.setValue(IMapView.IMapViewImpl(_Windows_Foundation_CollectionsIMapView_Type = _Windows_Foundation_CollectionsIMapView_Type))
         }
         val half = ceil(size / 2f).toInt()
         val items = entries.chunked(half)
-        val firstHalf = JVMMapView(__1676682589_Type, items[0].associate { it.toPair() })
+        val firstHalf = JVMMapView(_Windows_Foundation_CollectionsIMapView_Type, items[0].associate { it.toPair() })
         val secondHalf =
-            if (size != 1) JVMMapView(__1676682589_Type, items[1].associate { it.toPair() })
-            else JVMMapView(__1676682589_Type, emptyMap())
+            if (size != 1) JVMMapView(_Windows_Foundation_CollectionsIMapView_Type, items[1].associate { it.toPair() })
+            else JVMMapView(_Windows_Foundation_CollectionsIMapView_Type, emptyMap())
 
         first?.setValue(firstHalf)
         second?.setValue(secondHalf)
@@ -52,10 +52,10 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
         return JVMIterator(
             IIterator::class.createType(
                 listOf(
-                    KTypeProjection(KVariance.INVARIANT, __1676682589_Type.arguments[0].type),
-                    KTypeProjection(KVariance.INVARIANT, __1676682589_Type.arguments[1].type)
+                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMapView_Type.arguments[0].type),
+                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMapView_Type.arguments[1].type)
                 )
-            ), Itr(__1676682589_Type, iterator())
+            ), Itr(_Windows_Foundation_CollectionsIMapView_Type, iterator())
         )
     }
 
@@ -64,7 +64,7 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
             return backingIterator.hasNext()
         }
 
-        override fun next(): IKeyValuePair<K, V>? {
+        override fun next(): IKeyValuePair<K, V> {
             val next = backingIterator.next()
             return JVMKeyValuePair(IKeyValuePair::class.createType(
                 listOf(type.arguments[0], type.arguments[1])
