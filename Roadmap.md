@@ -4,7 +4,7 @@
 
 - Enable certain JVM types to be passed to WinRT APIs (DateTime)
 - Better projection for event based APIs
-- Project WinRT properties as Kotlin properties, and hide the underlying getter/setter methods
+- ~~Project WinRT properties as Kotlin properties, and hide the underlying getter/setter methods~~
 - ~~Stop using obfuscated names to disambiguate certain properties~~
 - Stop using JNA unsigned types
 

@@ -1,7 +1,6 @@
 package com.github.knk190001.winrtbinding.generator.model.entities
 
 import com.beust.klaxon.Json
-import com.github.knk190001.winrtbinding.generator.lookUpTypeReference
 import com.github.knk190001.winrtbinding.generator.model.traits.Trait
 
 data class SparseInterface(
@@ -44,20 +43,17 @@ data class SparseInterface(
         )
     }
 
-    fun sparseSuperInterfaces(): List<SparseInterface> {
-        return superInterfaces
-            .map(lookUpTypeReference)
-            .filterIsInstance<SparseInterface>()
-    }
-
-    fun projectAll() : SparseInterface {
-        val projectedInterface = genericParameters?.fold(this) { acc, sparseGenericParameter ->
-            acc.projectType(sparseGenericParameter.name, sparseGenericParameter.type!!)
-        }?.withProjectedName()
-        if (projectedInterface != null) {
-            return projectedInterface
-        }
-        return this
+    fun events(): List<Pair<SparseMethod,SparseMethod>> {
+        return methods
+            .filter { it.name.startsWith("add_") }
+            .mapNotNull { addMethod ->
+                val removeMethod = methods.find { it.name == addMethod.name.replace("add_", "remove_") }
+                if (removeMethod != null) {
+                    Pair(addMethod, removeMethod)
+                } else {
+                    null
+                }
+            }
     }
 }
 

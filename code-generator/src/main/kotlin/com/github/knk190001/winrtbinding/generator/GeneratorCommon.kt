@@ -48,24 +48,28 @@ internal fun TypeSpec.Builder.addByReferenceType(entity: INamedEntity) {
         .build()
     addAnnotation(brAnnotationSpec)
     val byReference = TypeSpec.classBuilder("ByReference").apply {
-        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("",entity.name)))
+        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", entity.name)))
         generateByReferenceType(entity)
     }.build()
     addType(byReference)
 }
 
-fun SparseTypeReference.asClassName(structByValue: Boolean = true, nullable: Boolean = false, nestedClass:String? = null ): TypeName {
+fun SparseTypeReference.asClassName(
+    structByValue: Boolean = true,
+    nullable: Boolean = false,
+    nestedClass: String? = null
+): TypeName {
     if (nestedClass != null) {
         return (asClassName(structByValue, nullable) as ClassName).nestedClass(nestedClass)
     }
     if (isArray) {
         val baseClass = if (isReference) {
-            if(this.copy(isArray = false).isPrimitiveSystemType()) {
+            if (this.copy(isArray = false).isPrimitiveSystemType()) {
                 PrimitiveOutArray::class.asClassName()
-            }else {
+            } else {
                 OutArray::class.asClassName()
             }
-        }else {
+        } else {
             Array::class.asClassName()
         }
 
@@ -119,7 +123,7 @@ fun SparseTypeReference.asClassName(structByValue: Boolean = true, nullable: Boo
 
 fun SparseTypeReference.asKClass(): KClass<*> {
     if (isArray) return WinRTTypeVariable::class
-    if(namespace.isEmpty()) return Nothing::class
+    if (namespace.isEmpty()) return Nothing::class
     if (namespace == "System") {
         when (name) {
             "UInt32" -> return WinDef.UINT::class
@@ -150,6 +154,7 @@ fun SparseTypeReference.asKClass(): KClass<*> {
                 WinRTInterface::class
             }
         }
+
         is SparseDelegate -> {
             if (genericParameters != null) {
                 WinRTGenericDelegate::class
@@ -157,6 +162,7 @@ fun SparseTypeReference.asKClass(): KClass<*> {
                 WinRTDelegate::class
             }
         }
+
         is SparseEnum -> WinRTEnum::class
         is SparseStruct -> WinRTStruct::class
         else -> Nothing::class
@@ -177,33 +183,36 @@ fun SparseTypeReference.valueLayout(): CodeBlock {
     }
 
     if (namespace == "System") {
-        return CodeBlock.of("%M", when (name) {
-            "UInt32" -> ValueLayout::class.member("JAVA_INT")
-            "UInt64" -> ValueLayout::class.member("JAVA_LONG")
-            "Double" -> ValueLayout::class.member("JAVA_DOUBLE")
-            "Boolean" -> ValueLayout::class.member("JAVA_BOOLEAN")
-            "Int16" ->  ValueLayout::class.member("JAVA_SHORT")
-            "Int32" ->  ValueLayout::class.member("JAVA_INT")
-            "Int64" ->  ValueLayout::class.member("JAVA_LONG")
-            "String" -> ValueLayout::class.member("ADDRESS")
-            "UInt32&" -> ValueLayout::class.member("ADDRESS")
-            "UInt16" -> ValueLayout::class.member("JAVA_SHORT")
-            "Object" -> ValueLayout::class.member("ADDRESS")
-            "Single" -> ValueLayout::class.member("JAVA_FLOAT")
-            "Char" -> ValueLayout::class.member("JAVA_CHAR")
-            "Byte" -> ValueLayout::class.member("JAVA_BYTE")
-            "Guid" -> return CodeBlock.builder().apply {
-                addStatement("%T.structLayout(", MemoryLayout::class)
-                indent()
-                addStatement("%M,", ValueLayout::class.member("JAVA_INT"))
-                addStatement("%M, ", ValueLayout::class.member("JAVA_SHORT"))
-                addStatement("%M,", ValueLayout::class.member("JAVA_SHORT"))
-                addStatement("%M", ValueLayout::class.member("JAVA_LONG"))
-                unindent()
-                addStatement(")")
-            }.build()
-            else -> throw NotImplementedError("Type: $namespace.$name is not handled")
-        })
+        return CodeBlock.of(
+            "%M", when (name) {
+                "UInt32" -> ValueLayout::class.member("JAVA_INT")
+                "UInt64" -> ValueLayout::class.member("JAVA_LONG")
+                "Double" -> ValueLayout::class.member("JAVA_DOUBLE")
+                "Boolean" -> ValueLayout::class.member("JAVA_BOOLEAN")
+                "Int16" -> ValueLayout::class.member("JAVA_SHORT")
+                "Int32" -> ValueLayout::class.member("JAVA_INT")
+                "Int64" -> ValueLayout::class.member("JAVA_LONG")
+                "String" -> ValueLayout::class.member("ADDRESS")
+                "UInt32&" -> ValueLayout::class.member("ADDRESS")
+                "UInt16" -> ValueLayout::class.member("JAVA_SHORT")
+                "Object" -> ValueLayout::class.member("ADDRESS")
+                "Single" -> ValueLayout::class.member("JAVA_FLOAT")
+                "Char" -> ValueLayout::class.member("JAVA_CHAR")
+                "Byte" -> ValueLayout::class.member("JAVA_BYTE")
+                "Guid" -> return CodeBlock.builder().apply {
+                    addStatement("%T.structLayout(", MemoryLayout::class)
+                    indent()
+                    addStatement("%M,", ValueLayout::class.member("JAVA_INT"))
+                    addStatement("%M, ", ValueLayout::class.member("JAVA_SHORT"))
+                    addStatement("%M,", ValueLayout::class.member("JAVA_SHORT"))
+                    addStatement("%M", ValueLayout::class.member("JAVA_LONG"))
+                    unindent()
+                    addStatement(")")
+                }.build()
+
+                else -> throw NotImplementedError("Type: $namespace.$name is not handled")
+            }
+        )
     }
     if (lookUpTypeReference(this) is SparseInterface) {
         return CodeBlock.of("%M", ValueLayout::class.member("ADDRESS"))
@@ -338,9 +347,17 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IDirectProjectable<
                 } else {
                     ", type"
                 }
-                addStatement("return make%T$typeVariableString(%T(address)$typeString)".fixSpaces(), projectable.asTypeReference().asClassName(), Pointer::class)
-            }else {
-                addStatement("return %T$typeVariableString(type, %T(address))".fixSpaces(), projectable.asTypeReference().asClassName(), Pointer::class)
+                addStatement(
+                    "return make%T$typeVariableString(%T(address)$typeString)".fixSpaces(),
+                    projectable.asTypeReference().asClassName(),
+                    Pointer::class
+                )
+            } else {
+                addStatement(
+                    "return %T$typeVariableString(type, %T(address))".fixSpaces(),
+                    projectable.asTypeReference().asClassName(),
+                    Pointer::class
+                )
             }
         }.build()
         addCode(cb)
@@ -409,12 +426,12 @@ fun SparseTypeReference.asTypeName(
     }
 
     if (usage != ClassNameUsage.Other) {
-        val result =  when (usage) {
+        val result = when (usage) {
             ClassNameUsage.ParentInterface -> implTypeName(this)
             ClassNameUsage.ApiSurface -> apiSurfaceTypeName(this)
             else -> throw IllegalArgumentException()
         }
-        if(result != null) return result
+        if (result != null) return result
     }
     if (this.genericParameters == null && !isArray) {
         return this.asClassName(false, nestedClass = nestedClass)
@@ -453,7 +470,7 @@ fun apiSurfaceTypeName(typeReference: SparseTypeReference): TypeName? {
         ?.toTypedArray()
 
     substitutions[typeReference.fullCleanName()].let {
-        if(it == null) return null
+        if (it == null) return null
         if (typeArguments == null) return it.apiTypeName
         return it.apiTypeName.parameterizedBy(*typeArguments)
     }
@@ -465,7 +482,7 @@ fun implTypeName(typeReference: SparseTypeReference): TypeName? {
         ?.toTypedArray()
 
     substitutions[typeReference.fullCleanName()].let {
-        if(it == null) return null
+        if (it == null) return null
         if (typeArguments == null) return it.implTypeName
         return it.implTypeName.parameterizedBy(*typeArguments)
     }
@@ -515,3 +532,47 @@ val substitutions = mapOf(
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterator")
     )
 )
+
+fun TypeSpec.Builder.addEvents(typeReferencee: SparseTypeReference, withImplementation: Boolean, pointerExpr: String? = null, lazy: Boolean = false) {
+    val sparseInterface = lookUpTypeReference(typeReferencee) as SparseInterface
+    sparseInterface.events()
+        .map { (addMethod, removeMethod) ->
+            val projectedMethod = typeReferencee.genericParameters?.let{
+                if(it.any { params -> params.type == null }) return@let null
+                else it
+            }?.let {
+                it.fold(addMethod){ acc, genericParameter ->
+                    acc.projectType(genericParameter.name, genericParameter.type!!)
+                }
+            } ?: addMethod
+
+            val eventComponentType = projectedMethod.parameters[0].type.asTypeName()
+            val eventType = IEvent::class.asTypeName().parameterizedBy(eventComponentType)
+            val tokenType = addMethod.returnType.asTypeName()
+            val prefix = if(pointerExpr != null) "${pointerExpr}, " else ""
+            PropertySpec.builder(addMethod.name.replace("add_", ""), eventType).apply {
+                if (withImplementation) {
+                    val initializerCb = buildCodeBlock {
+                        add(
+                            "%T<%T, %T>(${prefix}this, ${sparseInterface.methods.indexOf(addMethod) + 6}, ${
+                                sparseInterface.methods.indexOf(removeMethod) + 6
+                            }, typeOf<%T>())", NativeEvent::class, eventComponentType, tokenType, tokenType
+                        )
+                    }
+                    if (lazy) {
+                        delegate(buildCodeBlock {
+                            beginControlFlow("lazy")
+                            add(initializerCb)
+                            endControlFlow()
+                        })
+                    } else {
+                        initializer(initializerCb)
+                    }
+                    addModifiers(KModifier.OVERRIDE)
+                } else {
+                    addModifiers(KModifier.ABSTRACT)
+                }
+            }.build()
+        }.forEach(::addProperty)
+}
+

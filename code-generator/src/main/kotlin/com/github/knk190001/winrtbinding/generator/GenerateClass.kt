@@ -10,6 +10,7 @@ import com.github.knk190001.winrtbinding.runtime.base.CompositionPointerType
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
 import com.github.knk190001.winrtbinding.runtime.com.*
+import com.github.knk190001.winrtbinding.runtime.interop.IEvent
 import com.github.knk190001.winrtbinding.runtime.interop.IUnknownByReference
 import com.github.knk190001.winrtbinding.runtime.interop.WinRTObjectInitializer
 import com.squareup.kotlinpoet.*
@@ -69,13 +70,35 @@ private fun TypeSpec.Builder.generateCompanion(sparseClass: SparseClass, lookUp:
     val interfaces = sparseClass.staticInterfaces.map(lookUp)
         .filterIsInstance<SparseInterface>()
     val companion = TypeSpec.companionObjectBuilder().apply {
-        interfaces.forEach { staticInterface ->
-            staticInterface.methods.map { method: SparseMethod ->
+        interfaces.flatMap { staticInterface ->
+            staticInterface.methods
+                .filterNot { it.isEventComponent() }
+                .map { method: SparseMethod ->
                 generateStaticMethod(method, staticInterface)
-            }.forEach(this::addFunction)
-        }
+            }
+        }.forEach { addFunction(it) }
+
+        interfaces.flatMap { staticInterface ->
+            staticInterface.methods
+                .filter { it.isAddEvent() }
+                .map { method: SparseMethod ->
+                    generateStaticEventProperty(method, staticInterface)
+                }
+        }.forEach { addProperty(it) }
     }.build()
     addType(companion)
+}
+
+fun generateStaticEventProperty(method: SparseMethod, staticInterface: SparseInterface): PropertySpec {
+    val eventName = method.name.substringAfter('_')
+    val eventComponentType = method.parameters.single().type.asTypeName()
+    val eventType = IEvent::class.asTypeName().parameterizedBy(eventComponentType)
+    return PropertySpec.builder(eventName, eventType).apply {
+        val cb = buildCodeBlock {
+            addStatement("ABI.${staticInterface.name}_Instance.${eventName}")
+        }
+        initializer(cb)
+    }.build()
 }
 
 private fun List<String>.fixNames(): List<String> {
@@ -461,7 +484,12 @@ private fun TypeSpec.Builder.generateClassTypeSpec(sparseClass: SparseClass) {
     generateConstructor(sparseClass)
     generateTypeProperties(sparseClass)
     generateInterfacePointerProperties(sparseClass)
+    generateEventProperties(sparseClass)
     generateInterfaceGuidArray(sparseClass)
+}
+
+private fun TypeSpec.Builder.generateEventProperties(sparseClass: SparseClass) {
+    sparseClass.interfaces.forEach { addEvents(it,true, it.getInterfacePointerName(), lazy = true) }
 }
 
 private fun TypeSpec.Builder.generateInterfaceGuidArray(sparseClass: SparseClass) {
