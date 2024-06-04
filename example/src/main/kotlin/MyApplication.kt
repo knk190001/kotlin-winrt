@@ -32,10 +32,10 @@ class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregat
         var count:BigInteger = 2.toBigInteger()
         val button = Button().apply {
             put_Content(buttonText)
-            add_Click(RoutedEventHandler { _, _ ->
+            Click += RoutedEventHandler { _, _ ->
                 count *= count
                 labelText.put_Text("Count : $count")
-            })
+            }
         }
 
         val stackPanel = StackPanel().apply {

@@ -16,4 +16,12 @@ data class SparseMethod(
             returnType = returnType.projectType(typeVariable, newTypeReference)
         )
     }
+
+    fun isEventComponent(): Boolean {
+        return name.startsWith("add_") || name.startsWith("remove_")
+    }
+
+    fun isAddEvent(): Boolean {
+        return name.startsWith("add_")
+    }
 }
