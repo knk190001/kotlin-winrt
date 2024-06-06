@@ -1,8 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import de.undercouch.gradle.tasks.download.Download
-import org.jetbrains.kotlin.cli.common.arguments.preprocessCommandLineArguments
+import groovy.util.Node
+import groovy.util.NodeList
+import groovy.xml.XmlParser
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.lang.Thread.sleep
 
 plugins {
     kotlin("jvm") version "1.8.21"
@@ -128,7 +129,14 @@ val signAppx by tasks.registering(Exec::class) {
     commandLine = listOf("signtool", "sign", "/a", "/v", "/fd", "SHA256", "/f", certLocation, "/p", certPwd, ".\\${project.name}.appx")
 }
 
-val packageIdentity = "UnitaryXaml"
+val packageIdentity: String
+    get() {
+        return kotlin.runCatching {
+            val identityNode = (XmlParser().parse("src/main/packageResources/AppxManifest.xml")
+                .get("Identity") as NodeList).firstOrNull() as Node?
+            identityNode?.attribute("Name")?.toString()?.takeIf { it.isNotBlank() }
+        }.getOrNull() ?: "UnitaryXaml"
+    }
 
 val removeExistingPackage by tasks.registering(Exec::class) {
     appxGroup()
