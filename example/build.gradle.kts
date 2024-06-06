@@ -200,6 +200,34 @@ val buildAndInstall by tasks.registering {
     )
 }
 
+val registerPackagedAppFromPath by tasks.registering(Exec::class) {
+    appxGroup()
+    workingDir = packageDir
+    commandLine = listOf(
+        "powershell",
+        "-Command",
+        "& {Add-AppxPackage -Path AppxManifest.xml -Register}"
+    )
+}
+
+val buildAndRun by tasks.registering {
+    appxGroup()
+    dependsOnOrdered(
+        preparePackage,
+        registerPackagedAppFromPath,
+        runPackaged
+    )
+}
+
+val buildAndRunDebug by tasks.registering {
+    appxGroup()
+    dependsOnOrdered(
+        preparePackage,
+        registerPackagedAppFromPath,
+        runPackagedDebug
+    )
+}
+
 fun Task.dependsOnOrdered(vararg tasks: TaskProvider<*>) {
     tasks.dropLast(1).forEachIndexed { i, it ->
         tasks[i+1].get().mustRunAfter(it)
