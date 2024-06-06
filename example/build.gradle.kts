@@ -113,11 +113,18 @@ val makeAppx by tasks.registering(Exec::class) {
     commandLine = listOf("makeappx", "pack","/d", ".\\package", "/p" ,"./${project.name}.appx", "/o")
 }
 
-val certLocation = System.getenv("DEV_CERT_PATH")!!
-val certPwd = System.getenv("DEV_CERT_PWD")!!
 val signAppx by tasks.registering(Exec::class) {
     appxGroup()
     workingDir = appxDir
+    val certLocation = System.getenv("DEV_CERT_PATH")
+    val certPwd = System.getenv("DEV_CERT_PWD")
+
+    if (certLocation == null) {
+        throw GradleException("Please set `DEV_CERT_PATH` environment variable")
+    }
+    if (certPwd == null) {
+        throw GradleException("Please set `DEV_CERT_PWD` environment variable")
+    }
     commandLine = listOf("signtool", "sign", "/a", "/v", "/fd", "SHA256", "/f", certLocation, "/p", certPwd, ".\\${project.name}.appx")
 }
 
