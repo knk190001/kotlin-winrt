@@ -1,8 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import de.undercouch.gradle.tasks.download.Download
-import org.jetbrains.kotlin.cli.common.arguments.preprocessCommandLineArguments
+import groovy.util.Node
+import groovy.util.NodeList
+import groovy.xml.XmlParser
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.lang.Thread.sleep
 
 plugins {
     kotlin("jvm") version "1.8.21"
@@ -113,15 +114,29 @@ val makeAppx by tasks.registering(Exec::class) {
     commandLine = listOf("makeappx", "pack","/d", ".\\package", "/p" ,"./${project.name}.appx", "/o")
 }
 
-val certLocation = System.getenv("DEV_CERT_PATH")!!
-val certPwd = System.getenv("DEV_CERT_PWD")!!
 val signAppx by tasks.registering(Exec::class) {
     appxGroup()
     workingDir = appxDir
+    val certLocation = System.getenv("DEV_CERT_PATH")
+    val certPwd = System.getenv("DEV_CERT_PWD")
+
+    if (certLocation == null) {
+        throw GradleException("Please set `DEV_CERT_PATH` environment variable")
+    }
+    if (certPwd == null) {
+        throw GradleException("Please set `DEV_CERT_PWD` environment variable")
+    }
     commandLine = listOf("signtool", "sign", "/a", "/v", "/fd", "SHA256", "/f", certLocation, "/p", certPwd, ".\\${project.name}.appx")
 }
 
-val packageIdentity = "UnitaryXaml"
+val packageIdentity: String
+    get() {
+        return kotlin.runCatching {
+            val identityNode = (XmlParser().parse("src/main/packageResources/AppxManifest.xml")
+                .get("Identity") as NodeList).firstOrNull() as Node?
+            identityNode?.attribute("Name")?.toString()?.takeIf { it.isNotBlank() }
+        }.getOrNull() ?: "UnitaryXaml"
+    }
 
 val removeExistingPackage by tasks.registering(Exec::class) {
     appxGroup()
@@ -182,6 +197,34 @@ val buildAndInstall by tasks.registering {
         buildPackage,
         removeExistingPackage,
         installPackage,
+    )
+}
+
+val registerPackagedAppFromPath by tasks.registering(Exec::class) {
+    appxGroup()
+    workingDir = packageDir
+    commandLine = listOf(
+        "powershell",
+        "-Command",
+        "& {Add-AppxPackage -Path AppxManifest.xml -Register}"
+    )
+}
+
+val buildAndRun by tasks.registering {
+    appxGroup()
+    dependsOnOrdered(
+        preparePackage,
+        registerPackagedAppFromPath,
+        runPackaged
+    )
+}
+
+val buildAndRunDebug by tasks.registering {
+    appxGroup()
+    dependsOnOrdered(
+        preparePackage,
+        registerPackagedAppFromPath,
+        runPackagedDebug
     )
 }
 
