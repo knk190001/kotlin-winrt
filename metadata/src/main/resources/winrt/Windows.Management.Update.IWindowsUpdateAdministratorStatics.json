@@ -1,0 +1,149 @@
+{
+  "Name": "IWindowsUpdateAdministratorStatics",
+  "Namespace": "Windows.Management.Update",
+  "Guid": "013e6d36ef6953bc8db8c403bca550ed",
+  "Methods": [
+    {
+      "Name": "GetRegisteredAdministrator",
+      "Parameters": [
+        {
+          "Name": "organizationName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WindowsUpdateGetAdministratorResult",
+        "Namespace": "Windows.Management.Update",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RegisterForAdministration",
+      "Parameters": [
+        {
+          "Name": "organizationName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "options",
+          "Type": {
+            "Name": "WindowsUpdateAdministratorOptions",
+            "Namespace": "Windows.Management.Update",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WindowsUpdateAdministratorStatus",
+        "Namespace": "Windows.Management.Update",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UnregisterForAdministration",
+      "Parameters": [
+        {
+          "Name": "organizationName",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "WindowsUpdateAdministratorStatus",
+        "Namespace": "Windows.Management.Update",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetRegisteredAdministratorName",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RequestRestart",
+      "Parameters": [
+        {
+          "Name": "restartOptions",
+          "Type": {
+            "Name": "WindowsUpdateRestartRequestOptions",
+            "Namespace": "Windows.Management.Update",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "CancelRestartRequest",
+      "Parameters": [
+        {
+          "Name": "requestRestartToken",
+          "Type": {
+            "Name": "String",
+            "Namespace": "System",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "ContractVersion": 65536,
+  "GenericParameters": null,
+  "Type": "Interface"
+}

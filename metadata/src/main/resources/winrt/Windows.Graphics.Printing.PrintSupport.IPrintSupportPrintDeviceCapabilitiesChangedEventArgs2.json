@@ -1,0 +1,115 @@
+{
+  "Name": "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2",
+  "Namespace": "Windows.Graphics.Printing.PrintSupport",
+  "Guid": "469df9e7fd075eeba07d9fcc67f089ba",
+  "Methods": [
+    {
+      "Name": "SetSupportedPdlPassthroughContentTypes",
+      "Parameters": [
+        {
+          "Name": "supportedPdlContentTypes",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "String",
+                  "Namespace": "System",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_ResourceLanguage",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "String",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetCurrentPrintDeviceResources",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "XmlDocument",
+        "Namespace": "Windows.Data.Xml.Dom",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "UpdatePrintDeviceResources",
+      "Parameters": [
+        {
+          "Name": "updatedPdr",
+          "Type": {
+            "Name": "XmlDocument",
+            "Namespace": "Windows.Data.Xml.Dom",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetPrintDeviceCapabilitiesUpdatePolicy",
+      "Parameters": [
+        {
+          "Name": "updatePolicy",
+          "Type": {
+            "Name": "PrintSupportPrintDeviceCapabilitiesUpdatePolicy",
+            "Namespace": "Windows.Graphics.Printing.PrintSupport",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "ContractVersion": 983040,
+  "GenericParameters": null,
+  "Type": "Interface"
+}

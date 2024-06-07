@@ -1,0 +1,172 @@
+{
+  "Name": "IPrintSupportPrinterSelectedEventArgs",
+  "Namespace": "Windows.Graphics.Printing.PrintSupport",
+  "Guid": "7b1cb7d9a8a45c09adb266165f817977",
+  "Methods": [
+    {
+      "Name": "get_SourceAppInfo",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "AppInfo",
+        "Namespace": "Windows.ApplicationModel",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_PrintTicket",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WorkflowPrintTicket",
+        "Namespace": "Windows.Graphics.Printing.PrintTicket",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "put_PrintTicket",
+      "Parameters": [
+        {
+          "Name": "value",
+          "Type": {
+            "Name": "WorkflowPrintTicket",
+            "Namespace": "Windows.Graphics.Printing.PrintTicket",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetAdditionalFeatures",
+      "Parameters": [
+        {
+          "Name": "features",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "PrintSupportPrintTicketElement",
+                  "Namespace": "Windows.Graphics.Printing.PrintSupport",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetAdditionalParameters",
+      "Parameters": [
+        {
+          "Name": "parameters",
+          "Type": {
+            "Name": "IIterable`1",
+            "Namespace": "Windows.Foundation.Collections",
+            "GenericParameters": [
+              {
+                "Name": "T",
+                "Position": 0,
+                "Type": {
+                  "Name": "PrintSupportPrintTicketElement",
+                  "Namespace": "Windows.Graphics.Printing.PrintSupport",
+                  "GenericParameters": null,
+                  "IsArray": false,
+                  "IsReference": false
+                }
+              }
+            ],
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "get_AllowedAdditionalFeaturesAndParametersCount",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "UInt32",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "SetAdaptiveCard",
+      "Parameters": [
+        {
+          "Name": "adaptiveCard",
+          "Type": {
+            "Name": "IAdaptiveCard",
+            "Namespace": "Windows.UI.Shell",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "GetDeferral",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "Deferral",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "ContractVersion": 983040,
+  "GenericParameters": null,
+  "Type": "Interface"
+}

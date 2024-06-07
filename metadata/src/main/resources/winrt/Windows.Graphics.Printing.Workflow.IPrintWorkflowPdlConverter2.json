@@ -1,0 +1,68 @@
+{
+  "Name": "IPrintWorkflowPdlConverter2",
+  "Namespace": "Windows.Graphics.Printing.Workflow",
+  "Guid": "854ceec178375b93b7af57a6998c2f71",
+  "Methods": [
+    {
+      "Name": "ConvertPdlAsync",
+      "Parameters": [
+        {
+          "Name": "printTicket",
+          "Type": {
+            "Name": "WorkflowPrintTicket",
+            "Namespace": "Windows.Graphics.Printing.PrintTicket",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "inputStream",
+          "Type": {
+            "Name": "IInputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "outputStream",
+          "Type": {
+            "Name": "IOutputStream",
+            "Namespace": "Windows.Storage.Streams",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "hostBasedProcessingOperations",
+          "Type": {
+            "Name": "PdlConversionHostBasedProcessingOperations",
+            "Namespace": "Windows.Graphics.Printing.Workflow",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "IAsyncAction",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "ContractVersion": 983040,
+  "GenericParameters": null,
+  "Type": "Interface"
+}

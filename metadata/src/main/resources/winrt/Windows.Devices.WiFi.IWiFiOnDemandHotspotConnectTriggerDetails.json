@@ -1,0 +1,80 @@
+{
+  "Name": "IWiFiOnDemandHotspotConnectTriggerDetails",
+  "Namespace": "Windows.Devices.WiFi",
+  "Guid": "a268eb5868f559cf8d3835bf44b097ef",
+  "Methods": [
+    {
+      "Name": "get_RequestedNetwork",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WiFiOnDemandHotspotNetwork",
+        "Namespace": "Windows.Devices.WiFi",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ReportError",
+      "Parameters": [
+        {
+          "Name": "status",
+          "Type": {
+            "Name": "WiFiOnDemandHotspotConnectStatus",
+            "Namespace": "Windows.Devices.WiFi",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "ConnectAsync",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "IAsyncOperation`1",
+        "Namespace": "Windows.Foundation",
+        "GenericParameters": [
+          {
+            "Name": "TResult",
+            "Position": 0,
+            "Type": {
+              "Name": "WiFiOnDemandHotspotConnectionResult",
+              "Namespace": "Windows.Devices.WiFi",
+              "GenericParameters": null,
+              "IsArray": false,
+              "IsReference": false
+            }
+          }
+        ],
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "Connect",
+      "Parameters": [],
+      "ReturnType": {
+        "Name": "WiFiOnDemandHotspotConnectionResult",
+        "Namespace": "Windows.Devices.WiFi",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "ContractVersion": 983040,
+  "GenericParameters": null,
+  "Type": "Interface"
+}

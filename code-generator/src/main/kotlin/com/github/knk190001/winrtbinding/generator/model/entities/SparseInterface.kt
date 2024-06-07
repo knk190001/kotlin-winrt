@@ -17,7 +17,9 @@ data class SparseInterface(
     @Json("GenericParameters")
     override val genericParameters: List<SparseGenericParameter>?,
     @Json("Traits")
-    val traits: List<Trait>
+    val traits: List<Trait>,
+    @Json("ContractVersion")
+    val contractVersion: UInt?
 ): SparseEntity("Interface"), IDirectProjectable<SparseInterface>{
     override fun projectType(typeVariable: String, newTypeReference: SparseTypeReference): SparseInterface {
         return this.copy(
