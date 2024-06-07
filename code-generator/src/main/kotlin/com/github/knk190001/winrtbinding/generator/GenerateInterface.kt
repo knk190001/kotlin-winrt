@@ -352,8 +352,8 @@ private fun generateParameterizedNativeFn(idx: Int, sparseInterface: SparseInter
             addParameter("_type", KType::class)
         }
 
-        addParameter("thisObj", sparseInterface.asTypeReference().asTypeName())
-        addParameter("thisPtr", MemoryAddress::class)
+        addParameter("_thisObj", sparseInterface.asTypeReference().asTypeName())
+        addParameter("_thisPtr", MemoryAddress::class)
         method.parameters.flatMap {
             when (it.arrayType()) {
                 ArrayType.None -> listOf(it.name to it.type.foreignType())
@@ -376,9 +376,9 @@ private fun generateParameterizedNativeFn(idx: Int, sparseInterface: SparseInter
 
         if (!method.returnType.isVoid()) {
             if (method.returnType.isArray) {
-                addParameter("return_size", MemoryAddress::class)
+                addParameter("_return_Size", MemoryAddress::class)
             }
-            addParameter("returnAddr", MemoryAddress::class)
+            addParameter("_returnAddr", MemoryAddress::class)
         }
 
         val cb = if (method.isEventComponent()) {
@@ -403,10 +403,10 @@ private fun generateNativeToJVMForEvent(sparseInterface: SparseInterface, method
         }
         val eventName = method.name.substringAfter("_")
         val nullableAny = Any::class.asTypeName().copy(nullable = true)
-        addStatement("val _event = thisObj.${eventName} as %T<%T, %T>", Event::class, nullableAny, nullableAny)
+        addStatement("val _event = _thisObj.${eventName} as %T<%T, %T>", Event::class, nullableAny, nullableAny)
         if (method.isAddEvent()) {
-            addStatement("val result = _event.nativeAdd(${managedNames.single()})")
-            add("val result_Type = ")
+            addStatement("val _result = _event.nativeAdd(${managedNames.single()})")
+            add("val _result_Type = ")
             kTypeStatementFor(
                 method.returnType.copy(isArray = false, isReference = false),
                 typeParameterIndexMap,
@@ -414,8 +414,8 @@ private fun generateNativeToJVMForEvent(sparseInterface: SparseInterface, method
                 typeVarName = "_type"
             )
             addStatement("")
-            addStatement("val result_ABI = abiOf(result_Type.jvmErasure) as %T", typeNameOf<IBaseABI<Any?, Any?>>())
-            addStatement("result_ABI.copyTo(result, returnAddr)")
+            addStatement("val _result_ABI = abiOf(_result_Type.jvmErasure) as %T", typeNameOf<IBaseABI<Any?, Any?>>())
+            addStatement("_result_ABI.copyTo(_result, _returnAddr)")
         } else {
             addStatement("_event.nativeRemove(${managedNames.single()})")
         }
@@ -442,9 +442,9 @@ private fun generateNativeToJVMBody(
             addToManagedStatementForParameter(it, typeParameterIndexMap)
         }
         if (!method.returnType.isVoid()) {
-            add("val result = ")
+            add("val _result = ")
         }
-        addStatement("thisObj.${method.name}(${managedNames.joinToString()})")
+        addStatement("_thisObj.${method.name}(${managedNames.joinToString()})")
 
         method.parameters
             .filter { it.arrayType() == ArrayType.ReceiveArray }
@@ -465,7 +465,7 @@ private fun generateNativeToJVMBody(
             }
 
         if (!method.returnType.isVoid()) {
-            add("val result_Type = ")
+            add("val _result_Type = ")
             kTypeStatementFor(
                 method.returnType.copy(isArray = false, isReference = false),
                 typeParameterIndexMap,
@@ -474,13 +474,13 @@ private fun generateNativeToJVMBody(
             )
             addStatement("")
             if (method.returnType.isArray) {
-                addStatement("writeListIntoBuffer(result_Type, return_size, returnAddr, result)")
+                addStatement("writeListIntoBuffer(_result_Type, _return_Size, _returnAddr, _result)")
             } else {
                 addStatement(
-                    "val result_ABI = abiOf(result_Type.jvmErasure) as %T",
+                    "val _result_ABI = abiOf(_result_Type.jvmErasure) as %T",
                     typeNameOf<IBaseABI<Any?, Any?>>()
                 )
-                addStatement("result_ABI.copyTo(result, returnAddr)")
+                addStatement("_result_ABI.copyTo(_result, _returnAddr)")
             }
         }
         unindent()
