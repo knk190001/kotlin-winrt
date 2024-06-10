@@ -1,0 +1,35 @@
+{
+  "Name": "PackageDeploymentManager",
+  "Namespace": "Microsoft.Windows.Management.Deployment",
+  "Interfaces": [
+    {
+      "Name": "IPackageDeploymentManager",
+      "Namespace": "Microsoft.Windows.Management.Deployment",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IPackageDeploymentManagerStatics",
+          "Namespace": "Microsoft.Windows.Management.Deployment"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPackageDeploymentManager",
+        "Namespace": "Microsoft.Windows.Management.Deployment",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}

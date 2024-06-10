@@ -1,0 +1,103 @@
+{
+  "Name": "IPackageRuntimeManager",
+  "Namespace": "Microsoft.Windows.Management.Deployment",
+  "Guid": "6bf0fd296c2a58d1af0cabd2eac45e29",
+  "Methods": [
+    {
+      "Name": "AddPackageSet",
+      "Parameters": [
+        {
+          "Name": "packageSet",
+          "Type": {
+            "Name": "PackageSet",
+            "Namespace": "Microsoft.Windows.Management.Deployment",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PackageSetRuntimeDisposition",
+        "Namespace": "Microsoft.Windows.Management.Deployment",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "AddPackageSet",
+      "Parameters": [
+        {
+          "Name": "packageSet",
+          "Type": {
+            "Name": "PackageSet",
+            "Namespace": "Microsoft.Windows.Management.Deployment",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "createOptions",
+          "Type": {
+            "Name": "CreatePackageDependencyOptions",
+            "Namespace": "Microsoft.Windows.ApplicationModel.DynamicDependency",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        },
+        {
+          "Name": "addOptions",
+          "Type": {
+            "Name": "AddPackageDependencyOptions",
+            "Namespace": "Microsoft.Windows.ApplicationModel.DynamicDependency",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "PackageSetRuntimeDisposition",
+        "Namespace": "Microsoft.Windows.Management.Deployment",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    },
+    {
+      "Name": "RemovePackageSet",
+      "Parameters": [
+        {
+          "Name": "packageSetRuntimeDisposition",
+          "Type": {
+            "Name": "PackageSetRuntimeDisposition",
+            "Namespace": "Microsoft.Windows.Management.Deployment",
+            "GenericParameters": null,
+            "IsArray": false,
+            "IsReference": false
+          },
+          "ParameterType": "In"
+        }
+      ],
+      "ReturnType": {
+        "Name": "Void",
+        "Namespace": "System",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      }
+    }
+  ],
+  "Traits": [],
+  "SuperInterfaces": [],
+  "ContractVersion": 65536,
+  "GenericParameters": null,
+  "Type": "Interface"
+}

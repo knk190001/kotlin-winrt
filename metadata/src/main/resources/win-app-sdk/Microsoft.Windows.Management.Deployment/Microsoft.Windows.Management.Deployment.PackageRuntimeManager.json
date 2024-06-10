@@ -1,0 +1,35 @@
+{
+  "Name": "PackageRuntimeManager",
+  "Namespace": "Microsoft.Windows.Management.Deployment",
+  "Interfaces": [
+    {
+      "Name": "IPackageRuntimeManager",
+      "Namespace": "Microsoft.Windows.Management.Deployment",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    }
+  ],
+  "Traits": [
+    {
+      "Interfaces": [
+        {
+          "Name": "IPackageRuntimeManagerStatics",
+          "Namespace": "Microsoft.Windows.Management.Deployment"
+        }
+      ],
+      "TraitType": "Static"
+    },
+    {
+      "DefaultInterface": {
+        "Name": "IPackageRuntimeManager",
+        "Namespace": "Microsoft.Windows.Management.Deployment",
+        "GenericParameters": null,
+        "IsArray": false,
+        "IsReference": false
+      },
+      "TraitType": "DefaultInterface"
+    }
+  ],
+  "Type": "Class"
+}
