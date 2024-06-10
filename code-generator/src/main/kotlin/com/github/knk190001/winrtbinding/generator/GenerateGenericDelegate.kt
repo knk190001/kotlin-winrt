@@ -32,7 +32,6 @@ import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 
 fun generateGenericDelegate(sparseDelegate: SparseDelegate): FileSpec {
-    println(sparseDelegate.fullName())
     return FileSpec.builder(sparseDelegate.namespace, sparseDelegate.name).apply {
         addImports()
         addDelegateFunInterface(sparseDelegate)

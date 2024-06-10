@@ -19,7 +19,7 @@ data class SparseInterface(
     @Json("Traits")
     val traits: List<Trait>,
     @Json("ContractVersion")
-    val contractVersion: UInt?
+    val contractVersion: Long?
 ): SparseEntity("Interface"), IDirectProjectable<SparseInterface>{
     override fun projectType(typeVariable: String, newTypeReference: SparseTypeReference): SparseInterface {
         return this.copy(

@@ -1,9 +1,6 @@
 import Microsoft.UI.Composition.SystemBackdrops.MicaKind
 import Microsoft.UI.Xaml.*
-import Microsoft.UI.Xaml.Controls.Button
-import Microsoft.UI.Xaml.Controls.StackPanel
-import Microsoft.UI.Xaml.Controls.TextBlock
-import Microsoft.UI.Xaml.Controls.XamlControlsResources
+import Microsoft.UI.Xaml.Controls.*
 import Microsoft.UI.Xaml.Markup.IXamlMetadataProvider
 import Microsoft.UI.Xaml.Media.MicaBackdrop
 import Microsoft.UI.Xaml.XamlTypeInfo.XamlControlsXamlMetaDataProvider

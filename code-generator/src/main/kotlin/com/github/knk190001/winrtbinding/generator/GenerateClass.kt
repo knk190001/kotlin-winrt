@@ -47,7 +47,7 @@ fun generateClass(
         } else {
             superclass(PointerType::class)
         }
-        sparseClass.interfaces.forEach {
+        val collisions = sparseClass.nonCollidingInterfaces().forEach {
             val superinterface =
                 it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
             addSuperinterface(superinterface)
@@ -74,8 +74,8 @@ private fun TypeSpec.Builder.generateCompanion(sparseClass: SparseClass, lookUp:
             staticInterface.methods
                 .filterNot { it.isEventComponent() }
                 .map { method: SparseMethod ->
-                generateStaticMethod(method, staticInterface)
-            }
+                    generateStaticMethod(method, staticInterface)
+                }
         }.forEach { addFunction(it) }
 
         interfaces.flatMap { staticInterface ->
@@ -486,10 +486,27 @@ private fun TypeSpec.Builder.generateClassTypeSpec(sparseClass: SparseClass) {
     generateInterfacePointerProperties(sparseClass)
     generateEventProperties(sparseClass)
     generateInterfaceGuidArray(sparseClass)
+    generateInterfaceConflictProperties(sparseClass)
+}
+
+private fun TypeSpec.Builder.generateInterfaceConflictProperties(sparseClass: SparseClass) {
+    sparseClass.collisions().forEach {
+        val propertySpec = PropertySpec.builder("as${it.name}", it.asTypeReference().asTypeName()).apply {
+            delegate(buildCodeBlock {
+                beginControlFlow("lazy")
+                addStatement(
+                    "%T(${it.asTypeReference().getInterfacePointerName()})",
+                    it.asTypeReference().asTypeName(nestedClass = "${it.name}Impl")
+                )
+                endControlFlow()
+            })
+        }.build()
+        addProperty(propertySpec)
+    }
 }
 
 private fun TypeSpec.Builder.generateEventProperties(sparseClass: SparseClass) {
-    sparseClass.interfaces.forEach { addEvents(it,true, it.getInterfacePointerName(), lazy = true) }
+    sparseClass.nonCollidingInterfaces().forEach { addEvents(it, true, it.getInterfacePointerName(), lazy = true) }
 }
 
 private fun TypeSpec.Builder.generateInterfaceGuidArray(sparseClass: SparseClass) {
@@ -501,7 +518,7 @@ private fun TypeSpec.Builder.generateInterfaceGuidArray(sparseClass: SparseClass
         initializer(buildCodeBlock {
             addStatement("arrayOf(")
             indent()
-            sparseClass.interfaces.forEach(this::addGuidStatement)
+            sparseClass.nonCollidingInterfaces().forEach(this::addGuidStatement)
             unindent()
             addStatement(")")
         })
@@ -514,7 +531,7 @@ fun CodeBlock.Builder.addGuidStatement(sparseTypeReference: SparseTypeReference)
 }
 
 private fun TypeSpec.Builder.generateTypeProperties(sparseClass: SparseClass) {
-    val genericInterfaces = sparseClass.interfaces
+    val genericInterfaces = sparseClass.nonCollidingInterfaces()
         .filter { it.hasActualizedGenericParameter() }
 
     genericInterfaces.map {
@@ -536,16 +553,29 @@ private fun TypeSpec.Builder.generateInterfacePointerProperties(sparseClass: Spa
     addProperty(initializerVal)
 
     sparseClass.interfaces
-        .mapIndexed(::generateInterfacePointerProperty)
+        .mapIndexed { idx, sparseTypeReference ->
+            generateInterfacePointerProperty(
+                sparseClass,
+                idx,
+                sparseTypeReference
+            )
+        }
         .forEach(::addProperty)
 }
 
-fun generateInterfacePointerProperty(idx: Int, sparseTypeReference: SparseTypeReference): PropertySpec {
+fun generateInterfacePointerProperty(
+    sparseClass: SparseClass,
+    idx: Int,
+    sparseTypeReference: SparseTypeReference
+): PropertySpec {
     return PropertySpec.builder(
         sparseTypeReference.getInterfacePointerName(),
         nullablePtr
     ).apply {
-        addModifiers(KModifier.OVERRIDE)
+        if (!sparseClass.collisions().contains(lookUpTypeReference(sparseTypeReference))) {
+            addModifiers(KModifier.OVERRIDE)
+        }
+
         getter(FunSpec.getterBuilder().apply {
             addCode("return _interfaceInitializer[_interfaceGuids[$idx]]")
         }.build())

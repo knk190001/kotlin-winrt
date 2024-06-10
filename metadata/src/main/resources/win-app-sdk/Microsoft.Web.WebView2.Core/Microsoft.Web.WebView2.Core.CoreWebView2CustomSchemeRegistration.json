@@ -3,6 +3,13 @@
   "Namespace": "Microsoft.Web.WebView2.Core",
   "Interfaces": [
     {
+      "Name": "ICoreWebView2CustomSchemeRegistration_Manual",
+      "Namespace": "Microsoft.Web.WebView2.Core",
+      "GenericParameters": null,
+      "IsArray": false,
+      "IsReference": false
+    },
+    {
       "Name": "ICoreWebView2CustomSchemeRegistration",
       "Namespace": "Microsoft.Web.WebView2.Core",
       "GenericParameters": null,
@@ -13,13 +20,25 @@
   "Traits": [
     {
       "DefaultInterface": {
-        "Name": "ICoreWebView2CustomSchemeRegistration",
+        "Name": "ICoreWebView2CustomSchemeRegistration_Manual",
         "Namespace": "Microsoft.Web.WebView2.Core",
         "GenericParameters": null,
         "IsArray": false,
         "IsReference": false
       },
       "TraitType": "DefaultInterface"
+    },
+    {
+      "FactoryTypes": [
+        {
+          "Name": "ICoreWebView2CustomSchemeRegistrationFactory",
+          "Namespace": "Microsoft.Web.WebView2.Core",
+          "GenericParameters": null,
+          "IsArray": false,
+          "IsReference": false
+        }
+      ],
+      "TraitType": "FactoryActivation"
     }
   ],
   "Type": "Class"

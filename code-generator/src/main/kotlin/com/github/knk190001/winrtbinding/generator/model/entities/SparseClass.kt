@@ -1,6 +1,7 @@
 package com.github.knk190001.winrtbinding.generator.model.entities
 
 import com.beust.klaxon.Json
+import com.github.knk190001.winrtbinding.generator.lookUpTypeReference
 import com.github.knk190001.winrtbinding.generator.model.traits.*
 
 data class SparseClass(
@@ -49,4 +50,61 @@ data class SparseClass(
     }
 
     val hasSubclass = traits.filterIsInstance<SubclassTrait>().any()
+
+    private fun methodsRecursive(): List<Pair<SparseInterface, SparseMethod>>{
+        val methods = interfaces.map { lookUpTypeReference(it) as SparseInterface }
+            .flatMap { it.methodsRecursive() }
+
+        val superclassMethods = if(hasSuperclass) {
+            (lookUpTypeReference(superclass) as SparseClass).methodsRecursive()
+        } else {
+            emptyList()
+        }
+        return methods + superclassMethods
+    }
+
+    fun collisions(): List<SparseInterface> {
+        if(!hasSuperclass) return emptyList()
+        val resolvedInterfaces = interfaces.map { lookUpTypeReference(it) as SparseInterface }
+        val methods = resolvedInterfaces.flatMap { it.methodsRecursive() }
+
+        val parentClassMethodMap = (lookUpTypeReference(superclass) as SparseClass)
+            .methodsRecursive()
+            .filterNot { (sparseInterface, _) -> resolvedInterfaces.contains(sparseInterface) }
+            .associateByName()
+
+         return methods
+            .filter { parentClassMethodMap.checkForCollision(it) }
+            .map { it.first }
+            .distinct()
+    }
+
+    fun nonCollidingInterfaces(): List<SparseTypeReference> {
+        val collisions = collisions()
+        return interfaces
+            .filterNot { collisions.contains(lookUpTypeReference(it)) }
+    }
+}
+
+private fun SparseInterface.methodsRecursive(): List<Pair<SparseInterface, SparseMethod>> {
+    val methods = this.methods.map { this to it }
+    val superInterfaces = this.superInterfaces
+    val superInterfaceMethods = superInterfaces
+        .map { lookUpTypeReference(it) as SparseInterface }
+        .flatMap { it.methodsRecursive() }
+    return methods + superInterfaceMethods
+}
+
+private fun SparseMethod.collidesWith(other: SparseMethod): Boolean {
+    val b1 = this.name == other.name && this.parameters.size == other.parameters.size &&
+            this.parameters.zip(other.parameters).all { (a, b) -> a.type == b.type }
+    return b1
+}
+
+private fun List<Pair<SparseInterface, SparseMethod>>.associateByName(): Map<String, Set<Pair<SparseInterface, SparseMethod>>> {
+    return this.groupBy { (_, method) -> method.name }.mapValues { it.value.toSet() }
+}
+
+private fun Map<String, Set<Pair<SparseInterface,SparseMethod>>>.checkForCollision(method: Pair<SparseInterface, SparseMethod>): Boolean {
+    return this[method.second.name]?.any { ( _, it) -> it.collidesWith(method.second) } ?: false
 }
