@@ -8,7 +8,8 @@ import kotlin.collections.Iterator
 import kotlin.reflect.KType
 
 @ObjectImplements([IIterator::class])
-class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>): KotlinWinRTObject(), IIterator<T>, Iterator<T> by backingIterator{
+class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>) : KotlinWinRTObject(), IIterator<T>,
+    Iterator<T> by backingIterator {
     init {
         initObj()
     }
@@ -17,16 +18,18 @@ class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>): Kot
 
     private var currentAssigned = false
     private var current: Any? = null
-    override fun get_Current(): T {
-        @Suppress("UNCHECKED_CAST")
-        if(currentAssigned) return current as T
-        return next()
-    }
+    override val Current: T
+        get() {
+            @Suppress("UNCHECKED_CAST")
+            if (currentAssigned) return current as T
+            return next()
+        }
 
-    override fun get_HasCurrent(): Boolean {
-        if(currentAssigned) return true
-        return backingIterator.hasNext()
-    }
+    override val HasCurrent: Boolean
+        get() {
+            if (currentAssigned) return true
+            return backingIterator.hasNext()
+        }
 
     override fun MoveNext(): Boolean {
         currentAssigned = false
@@ -36,8 +39,8 @@ class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>): Kot
 
     override fun GetMany(items: Array<T>): WinDef.UINT {
         var idx = 0
-        while (get_HasCurrent() && idx < items.size) {
-            items[idx] = get_Current()
+        while (HasCurrent && idx < items.size) {
+            items[idx] = Current
             MoveNext()
             idx++
         }

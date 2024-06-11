@@ -58,9 +58,9 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
                     index++
                     return object : MutableMap.MutableEntry<K, V> {
                         override val key: K
-                            get() = current.get_Key()
+                            get() = current.Key
                         override val value: V
-                            get() = current.get_Value()
+                            get() = current.Value
 
                         override fun setValue(newValue: V): V {
                             val oldValue = value
@@ -72,7 +72,7 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
 
                 override fun remove() {
                     val previous = contents[index - 1]
-                    backingMap.Remove(previous.get_Key())
+                    backingMap.Remove(previous.Key)
                     contents.removeAt(index - 1)
                     index--
                 }
@@ -119,12 +119,12 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
                 override fun next(): K {
                     val current = contents[index]
                     index++
-                    return current.get_Key()
+                    return current.Key
                 }
 
                 override fun remove() {
                     val previous = contents[index - 1]
-                    backingMap.Remove(previous.get_Key())
+                    backingMap.Remove(previous.Key)
                     contents.removeAt(index - 1)
                     index--
                 }
@@ -135,7 +135,7 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
     override val keys: MutableSet<K>
         get() = KeySet(this)
     override val size: Int
-        get() = get_Size().toInt()
+        get() = Size.toInt()
 
     class Values<K, V>(private val backingMap: NativeMap<K, V>) : AbstractMutableCollection<V>() {
         override val size: Int
@@ -153,8 +153,8 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
             val iterator = backingMap.First()
             while (iterator!!.hasNext()) {
                 val current = iterator.next()
-                if (current!!.get_Value() == element) {
-                    backingMap.Remove(current.get_Key())
+                if (current!!.Value == element) {
+                    backingMap.Remove(current.Key)
                     return true
                 }
             }
@@ -178,12 +178,12 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
                 override fun next(): V {
                     val current = contents[index]
                     index++
-                    return current.get_Value()
+                    return current.Value
                 }
 
                 override fun remove() {
                     val previous = contents[index - 1]
-                    backingMap.Remove(previous.get_Key())
+                    backingMap.Remove(previous.Key)
                     contents.removeAt(index - 1)
                     index--
                 }
@@ -209,6 +209,6 @@ interface NativeMap<K, V> : IMap.WithDefault<K, V>, MutableMap<K, V> {
     }
 
     override fun isEmpty(): Boolean {
-        return get_Size().toInt() == 0
+        return Size.toInt() == 0
     }
 }

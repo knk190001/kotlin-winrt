@@ -57,5 +57,17 @@ data class SparseInterface(
                 }
             }
     }
+
+    fun properties(): List<Pair<SparseMethod?, SparseMethod?>> {
+        return methods
+            .filter { it.name.startsWith("get_") || it.name.startsWith("put_") }
+            .groupBy { it.name.substringAfter("_") }
+            .entries
+            .map { (_ ,methods) ->
+                val getMethod = methods.find { it.name.startsWith("get_") }
+                val putMethod = methods.find { it.name.startsWith("put_") }
+                getMethod to putMethod
+            }
+    }
 }
 

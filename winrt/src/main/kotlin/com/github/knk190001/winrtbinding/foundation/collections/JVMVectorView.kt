@@ -8,19 +8,23 @@ import com.sun.jna.platform.win32.WinDef
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
-class JVMVectorView<T>(type:KType, private val backingList: List<T>): KotlinWinRTObject(), IVectorView<T>, List<T> by backingList {
+class JVMVectorView<T>(type: KType, private val backingList: List<T>) : KotlinWinRTObject(), IVectorView<T>,
+    List<T> by backingList {
 
     override val _Windows_Foundation_CollectionsIVectorView_Type: KType = type
+
     init {
         initObj()
     }
+
     override fun GetAt(index: WinDef.UINT): T {
         return backingList[index.toInt()]
     }
 
-    override fun get_Size(): WinDef.UINT {
-        return WinDef.UINT(backingList.size.toLong())
-    }
+    override val Size: WinDef.UINT
+        get() {
+            return WinDef.UINT(backingList.size.toLong())
+        }
 
     override fun GetMany(startIndex: WinDef.UINT, items: Array<T>): WinDef.UINT {
         var backingIdx = startIndex.toInt()
@@ -43,9 +47,11 @@ class JVMVectorView<T>(type:KType, private val backingList: List<T>): KotlinWinR
     }
 
     override fun First(): JVMIterator<T> {
-        return JVMIterator(IIterator::class.createType(
-            listOf(_Windows_Foundation_CollectionsIVectorView_Type.arguments[0])
-        ),backingList.iterator())
+        return JVMIterator(
+            IIterator::class.createType(
+                listOf(_Windows_Foundation_CollectionsIVectorView_Type.arguments[0])
+            ), backingList.iterator()
+        )
     }
 
 

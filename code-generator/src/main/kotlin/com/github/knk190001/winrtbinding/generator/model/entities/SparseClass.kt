@@ -84,6 +84,28 @@ data class SparseClass(
         return interfaces
             .filterNot { collisions.contains(lookUpTypeReference(it)) }
     }
+
+    fun propertyCollisions(): List<Pair<Pair<SparseMethod, SparseInterface>, Pair<SparseMethod, SparseInterface>>> {
+        val getters = nonCollidingInterfaces()
+            .asSequence()
+            .map { lookUpTypeReference(it) as SparseInterface }
+            .flatMap { it.properties().map { prop -> prop to it}}
+            .filter { (it, _) -> it.first != null && it.second == null}
+            .map { (it, sparseInterface) -> it.first!! to sparseInterface }
+            .associateBy { (it, _) -> it.name.substringAfter('_') }
+
+        val setters = nonCollidingInterfaces()
+            .asSequence()
+            .map { lookUpTypeReference(it) as SparseInterface }
+            .flatMap { it.properties().map { prop -> prop to it}}
+            .filter { (it, _) -> it.first == null && it.second != null }
+            .map { (it, sparseInterface) -> it.second!!  to sparseInterface}
+            .associateBy { (it, _) -> it.name.substringAfter('_') }
+
+        return getters.keys.intersect(setters.keys)
+            .map { key -> Pair(getters[key]!!, setters[key]!!) }
+            .toList()
+    }
 }
 
 private fun SparseInterface.methodsRecursive(): List<Pair<SparseInterface, SparseMethod>> {

@@ -13,46 +13,47 @@ class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregat
     IXamlMetadataProvider by XamlControlsXamlMetaDataProvider(){
     override fun OnLaunched(args: LaunchActivatedEventArgs?) {
         println("Launch")
-        this.get_Resources()!!.get_MergedDictionaries()!! += XamlControlsResources()
+        this.Resources!!.MergedDictionaries!! += XamlControlsResources()
         initContents()
     }
 
     private fun initContents() {
         val buttonText = TextBlock().apply {
-            put_Text("Hello world")
+            Text = "Hello world"
         }
 
         val labelText = TextBlock().apply {
-            put_Text("Count : 2")
+            Text = "Count : 2"
         }
 
         var count:BigInteger = 2.toBigInteger()
         val button = Button().apply {
-            put_Content(buttonText)
+            Content = buttonText
             Click += RoutedEventHandler { _, _ ->
                 count *= count
-                labelText.put_Text("Count : $count")
+                labelText.Text = "Count : $count"
             }
         }
 
         val stackPanel = StackPanel().apply {
-            put_HorizontalAlignment(HorizontalAlignment.Center)
-            put_VerticalAlignment(VerticalAlignment.Center)
-            val children = get_Children()!!
+
+            HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Center
+            VerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment.Center
+            val children = Children!!
             children += button
             children += labelText
 
         }
 
         val w = Window().apply {
-            put_Content(stackPanel)
+            Content = stackPanel
             val backdrop = MicaBackdrop()
-            backdrop.put_Kind(MicaKind.Base)
-            put_SystemBackdrop(backdrop)
-            put_ExtendsContentIntoTitleBar(true)
-            put_Title("Hello world from kotlin!")
+            backdrop.Kind = MicaKind.Base
+            SystemBackdrop = backdrop
+            ExtendsContentIntoTitleBar = true
+            Title = "Hello world from kotlin!"
         }
         w.Activate()
-        w.get_DispatcherQueue()!!.RunEventLoop()
+        w.DispatcherQueue!!.RunEventLoop()
     }
 }

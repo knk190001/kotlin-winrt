@@ -2,7 +2,6 @@ package com.github.knk190001.winrtbinding.foundation.collections
 
 import Windows.Foundation.Collections.IIterable
 import Windows.Foundation.Collections.IIterator
-import java.util.*
 
 interface NativeIterable<T>: IIterable.WithDefault<T>, Iterable<T>  {
     override fun iterator(): Iterator<T> {
@@ -12,11 +11,11 @@ interface NativeIterable<T>: IIterable.WithDefault<T>, Iterable<T>  {
 
     private class Itr<T>(private val iterator: IIterator<T>): Iterator<T> {
         override fun hasNext(): Boolean {
-            return iterator.get_HasCurrent()
+            return iterator.HasCurrent
         }
 
         override fun next(): T {
-            val current = iterator.get_Current()
+            val current = iterator.Current
             iterator.MoveNext()
             return current
         }

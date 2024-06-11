@@ -2,9 +2,8 @@
 
 ## Version 1: JNA + Panama (MVP)
 
-- Enable certain JVM types to be passed to WinRT APIs (DateTime)
 - ~~Better projection for event based APIs~~
-- Project WinRT properties as Kotlin properties, and hide the underlying getter/setter methods
+- ~~Project WinRT properties as Kotlin properties, and hide the underlying getter/setter methods~~
 - ~~Stop using obfuscated names to disambiguate certain properties~~
 - Stop using JNA unsigned types
 
@@ -19,6 +18,8 @@
 - Reduce overall size of generated code
 - Make it easier to implement generic WinRT interfaces in Kotlin
 - Make the library easier to use with Java
+- Breakup the main WinRT library into smaller subprojects containing individual WinRT namespaces
+- Rewrite the launcher in Kotlin and compile it using GraalVM
 
 ## Other: 
 
@@ -26,3 +27,4 @@
 - Look into creating a kotlin library that reads and writes Ecma 335 metadata
 - Look into automating the creation of WinRT libraries from NuGet packages that contain WinMD files
 - Rewrite the code generation plugin to enable automatic creation of subprojects 
+

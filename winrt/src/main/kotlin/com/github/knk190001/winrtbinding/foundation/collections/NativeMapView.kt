@@ -9,7 +9,7 @@ interface NativeMapView<K, V>: IMapView.WithDefault<K, V>, Map<K, V> {
     override val keys: Set<K>
         get() = entries.map { it.key }.toSet()
     override val size: Int
-        get() = get_Size().toInt()
+        get() = Size.toInt()
     override val values: Collection<V>
         get() = entries.map { it.value }
 
@@ -49,9 +49,9 @@ interface NativeMapView<K, V>: IMapView.WithDefault<K, V>, Map<K, V> {
                     index++
                     return object : Map.Entry<K, V> {
                         override val key: K
-                            get() = current.get_Key()
+                            get() = current.Key
                         override val value: V
-                            get() = current.get_Value()
+                            get() = current.Value
 
                     }
                 }
@@ -73,6 +73,6 @@ interface NativeMapView<K, V>: IMapView.WithDefault<K, V>, Map<K, V> {
     }
 
     override fun isEmpty(): Boolean {
-        return get_Size().toInt() == 0
+        return Size.toInt() == 0
     }
 }

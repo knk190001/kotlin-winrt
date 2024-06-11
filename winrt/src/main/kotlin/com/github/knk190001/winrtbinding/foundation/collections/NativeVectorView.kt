@@ -6,7 +6,7 @@ import java.util.*
 
 interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
     override val size: Int
-        get() = get_Size().toInt()
+        get() = Size.toInt()
 
     override fun get(index: Int): T {
         return GetAt(WinDef.UINT(index.toLong()))

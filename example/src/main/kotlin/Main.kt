@@ -6,13 +6,11 @@ import Windows.Data.Text.SelectableWordSegmentsTokenizingHandler
 import Windows.Data.Text.SelectableWordsSegmenter
 import Windows.Foundation.*
 import Windows.Foundation.Collections.IIterable
-import Windows.Foundation.Collections.IVector
 import Windows.Foundation.Collections.IVectorView
 import Windows.Graphics.Imaging.BitmapDecoder
 import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
-import com.github.knk190001.winrtbinding.foundation.collections.JVMVector
 import com.github.knk190001.winrtbinding.runtime.WinRT
 import com.sun.jna.platform.win32.WinDef
 import kotlinx.coroutines.runBlocking
@@ -20,7 +18,6 @@ import kotlinx.coroutines.yield
 import java.nio.file.Path
 import kotlin.io.path.pathString
 import kotlin.io.path.readLines
-import kotlin.reflect.typeOf
 
 
 fun main(): Unit = runBlocking {
@@ -42,15 +39,15 @@ fun main(): Unit = runBlocking {
 
 suspend fun IAsyncAction.await() {
     var completed = false
-    this.put_Completed(AsyncActionCompletedHandler { _, status ->
+    this.Completed = AsyncActionCompletedHandler { _, status ->
         if (status == AsyncStatus.Completed) {
             completed = true
         }
-    })
+    }
 
     while (!completed) {
-        if (get_Status() == AsyncStatus.Error || get_Status() == AsyncStatus.Canceled) {
-            throw RuntimeException(get_Status().toString())
+        if (Status == AsyncStatus.Error || Status == AsyncStatus.Canceled) {
+            throw RuntimeException(Status.toString())
         }
         yield()
     }
@@ -81,12 +78,12 @@ private fun segmentTest() {
                                                             words: IIterable<SelectableWordSegment?>? ->
         val precedingWordsIttr = precedingWords!!.First()!!
         for (selectableWordSegment in precedingWordsIttr) {
-            println("Preceding: " + selectableWordSegment!!.get_Text())
+            println("Preceding: " + selectableWordSegment!!.Text)
         }
 
         val wordsItr = words!!.First()!!
         for (selectableWordSegment in wordsItr) {
-            println("Word: " + selectableWordSegment!!.get_Text())
+            println("Word: " + selectableWordSegment!!.Text)
         }
     }
     segmenter.Tokenize("Hello World!", WinDef.UINT(0), handler)
@@ -119,16 +116,8 @@ fun printResults(results: List<Float>, labels: Map<Int, List<String>>) {
         .reversed()
         .filterIndexed { index, _ -> index < 20 }
         .forEach {
-            println("${it.second.joinToString()}: ${it.first!! * 100f}")
+            println("${it.second.joinToString()}: ${it.first * 100f}")
         }
-}
-
-inline fun <reified T> IVectorView<T>.toArray(): Array<T?> {
-    val result = arrayOfNulls<T>(get_Size().toInt())
-    for (i in 0 until this.get_Size().toInt()) {
-        result[i] = this.GetAt(WinDef.UINT(i.toLong()))
-    }
-    return result
 }
 
 fun loadLabels(labelsPath: Path): Map<Int, List<String>> {
@@ -139,7 +128,7 @@ fun loadLabels(labelsPath: Path): Map<Int, List<String>> {
 
 fun evaluateModel(session: LearningModelSession, binding: LearningModelBinding): List<Float> {
     val results = session.Evaluate(binding, "RunId")!!
-    val outputs = results.get_Outputs()!!
+    val outputs = results.Outputs!!
     println("Outputs: " + outputs.size)
     val kvp = outputs.entries.first()
     println("Key: ${kvp.key}")
@@ -148,19 +137,18 @@ fun evaluateModel(session: LearningModelSession, binding: LearningModelBinding):
     return resultTensor.GetAsVectorView()!!
 }
 
-suspend fun bindModel(model: LearningModel, imageFrame: VideoFrame): Pair<LearningModelSession, LearningModelBinding> {
+fun bindModel(model: LearningModel, imageFrame: VideoFrame): Pair<LearningModelSession, LearningModelBinding> {
     val device = LearningModelDevice(LearningModelDeviceKind.Default)
     val session = LearningModelSession(model, device)
     val binding = LearningModelBinding(session)
     val imageFeatureValue = ImageFeatureValue.CreateFromVideoFrame(imageFrame)!!
     binding.Bind("data_0", imageFeatureValue)
-    val shape = JVMVector(typeOf<IVector<Long>>(), mutableListOf(1L, 1000L, 1L, 1L))
-    val contents = JVMVector(typeOf<IVector<Float>>(), mutableListOf<Float>().also { arr ->
+    val shape = mutableListOf(1L, 1000L, 1L, 1L)
+    val contents = mutableListOf<Float>().also { arr ->
         repeat(1000) { arr.add(0f) }
-    })
+    }
 
     val tensor = TensorFloat.CreateFromIterable(shape, contents)
-
 
     binding.Bind("softmaxout_1", tensor)
     return session to binding
@@ -176,15 +164,15 @@ suspend fun loadImageFile(imageFile: Path): VideoFrame {
 
 suspend inline fun <reified T> IAsyncOperation<T>.await(): T {
     var completed = false
-    this.put_Completed(AsyncOperationCompletedHandler<T> { _, status ->
+    this.Completed = (AsyncOperationCompletedHandler<T> { _, status ->
         if (status == AsyncStatus.Completed) {
             completed = true
         }
     })
 
     while (!completed) {
-        if (get_Status() == AsyncStatus.Error || get_Status() == AsyncStatus.Canceled) {
-            throw RuntimeException(get_Status().toString())
+        if (Status == AsyncStatus.Error || Status == AsyncStatus.Canceled) {
+            throw RuntimeException(Status.toString())
         }
         yield()
     }

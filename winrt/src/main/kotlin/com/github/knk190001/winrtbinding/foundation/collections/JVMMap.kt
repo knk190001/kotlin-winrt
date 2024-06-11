@@ -25,9 +25,10 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
         return get(key) as V
     }
 
-    override fun get_Size(): UINT {
-        return UINT(size.toLong())
-    }
+    override val Size: UINT
+        get(){
+            return UINT(size.toLong())
+        }
 
     override fun HasKey(key: K): Boolean {
         return containsKey(key)

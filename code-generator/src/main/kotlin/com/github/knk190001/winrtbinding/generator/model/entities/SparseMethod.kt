@@ -24,4 +24,12 @@ data class SparseMethod(
     fun isAddEvent(): Boolean {
         return name.startsWith("add_")
     }
+
+    fun isPropertyComponent(): Boolean {
+        return name.startsWith("get_") || name.startsWith("put_")
+    }
+
+    fun isGetter(): Boolean {
+        return name.startsWith("get_")
+    }
 }

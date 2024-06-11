@@ -47,7 +47,8 @@ fun generateClass(
         } else {
             superclass(PointerType::class)
         }
-        val collisions = sparseClass.nonCollidingInterfaces().forEach {
+
+        sparseClass.nonCollidingInterfaces().forEach {
             val superinterface =
                 it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
             addSuperinterface(superinterface)
@@ -72,7 +73,7 @@ private fun TypeSpec.Builder.generateCompanion(sparseClass: SparseClass, lookUp:
     val companion = TypeSpec.companionObjectBuilder().apply {
         interfaces.flatMap { staticInterface ->
             staticInterface.methods
-                .filterNot { it.isEventComponent() }
+                .filterNot { it.isEventComponent() || it.isPropertyComponent() }
                 .map { method: SparseMethod ->
                     generateStaticMethod(method, staticInterface)
                 }
@@ -85,8 +86,44 @@ private fun TypeSpec.Builder.generateCompanion(sparseClass: SparseClass, lookUp:
                     generateStaticEventProperty(method, staticInterface)
                 }
         }.forEach { addProperty(it) }
+
+        interfaces.flatMap {
+            it.properties().map { prop -> prop to it }
+        }.map { (prop, sparseInterface) ->
+            generateStaticProperty(prop, sparseInterface)
+        }.forEach { addProperty(it) }
     }.build()
     addType(companion)
+}
+
+private fun generateStaticProperty(
+    prop: Pair<SparseMethod?, SparseMethod?>,
+    sparseInterface: SparseInterface
+): PropertySpec {
+    val (getter, setter) = prop
+    val propertyName = getter?.name?.substringAfter("_") ?: setter!!.name.substringAfter("_")
+    val propertyType = getter?.returnType ?: setter!!.parameters.single().type
+    return PropertySpec.builder(
+        propertyName,
+        propertyType.asTypeName(nullable = propertyType.isNullable(), usage = ClassNameUsage.ApiSurface)
+    ).apply {
+        mutable(setter != null)
+        if (getter != null) {
+            getter(FunSpec.getterBuilder().apply {
+                addCode("return ABI.${sparseInterface.name}_Instance.${propertyName}")
+            }.build())
+        } else {
+            getter(FunSpec.getterBuilder().apply {
+                addStatement("throw %T()", UnsupportedOperationException::class.asTypeName())
+            }.build())
+        }
+        if (setter != null) {
+            setter(FunSpec.setterBuilder().apply {
+                addParameter("value", propertyType.asTypeName(usage = ClassNameUsage.ApiSurface, nullable = propertyType.isNullable()))
+                addCode("ABI.${sparseInterface.name}_Instance.${propertyName} = value".fixSpaces())
+            }.build())
+        }
+    }.build()
 }
 
 fun generateStaticEventProperty(method: SparseMethod, staticInterface: SparseInterface): PropertySpec {
@@ -487,6 +524,47 @@ private fun TypeSpec.Builder.generateClassTypeSpec(sparseClass: SparseClass) {
     generateEventProperties(sparseClass)
     generateInterfaceGuidArray(sparseClass)
     generateInterfaceConflictProperties(sparseClass)
+    generateDeconflictionProperties(sparseClass)
+}
+
+private fun TypeSpec.Builder.generateDeconflictionProperties(sparseClass: SparseClass) {
+    sparseClass.propertyCollisions()
+        .forEach { (getterPair, setterPair) ->
+            val (getter, getterInterface) = getterPair
+            val (setter, setterInterface) = setterPair
+            val type = getter.returnType
+            val typeName = if (type.isArray) {
+                val componentType = type.copy(isArray = false)
+                MUTABLE_LIST.parameterizedBy(
+                    componentType.asTypeName(
+                        usage = ClassNameUsage.ApiSurface,
+                        nullable = componentType.isNullable()
+                    )
+                )
+            } else type.asTypeName(usage = ClassNameUsage.ApiSurface, nullable = type.isNullable())
+            val propertyName = getter.name.substringAfter('_')
+            val propertySpec = PropertySpec.builder(getter.name.substringAfter('_'), typeName).apply {
+                mutable()
+                addModifiers(KModifier.OVERRIDE)
+                val getterSpec = FunSpec.getterBuilder().apply {
+                    addStatement(
+                        "return super<%T>.${propertyName}",
+                        getterInterface.asTypeReference().asClassName(nestedClass = "WithDefault")
+                    )
+                }.build()
+                getter(getterSpec)
+
+                val setterSpec = FunSpec.setterBuilder().apply {
+                    addParameter("value", typeName)
+                    addStatement(
+                        "super<%T>.${propertyName} = value",
+                        setterInterface.asTypeReference().asClassName(nestedClass = "WithDefault")
+                    )
+                }.build()
+                setter(setterSpec)
+            }.build()
+            addProperty(propertySpec)
+        }
 }
 
 private fun TypeSpec.Builder.generateInterfaceConflictProperties(sparseClass: SparseClass) {

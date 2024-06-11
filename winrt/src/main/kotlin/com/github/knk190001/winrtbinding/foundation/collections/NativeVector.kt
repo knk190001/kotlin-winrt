@@ -8,7 +8,7 @@ import java.util.function.Predicate
 
 interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     override val size: Int
-        get() = get_Size().toInt()
+        get() = Size.toInt()
 
     override fun clear() {
         Clear()
@@ -40,7 +40,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun isEmpty(): Boolean {
-        return get_Size().toInt() == 0
+        return Size.toInt() == 0
     }
 
     private open class Itr<T>(val backingVector: NativeVector<T>) : MutableIterator<T> {

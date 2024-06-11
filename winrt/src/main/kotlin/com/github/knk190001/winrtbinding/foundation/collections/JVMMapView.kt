@@ -21,7 +21,7 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
         initObj()
     }
 
-    override fun get_Size(): WinDef.UINT = WinDef.UINT(size.toLong())
+    override val Size: WinDef.UINT = WinDef.UINT(size.toLong())
 
     override fun Split(first: IMapView.ByReference<K, V>?, second: IMapView.ByReference<K, V>?) {
         if (isEmpty()) {

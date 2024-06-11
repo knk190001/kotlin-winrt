@@ -13,23 +13,29 @@ import kotlin.reflect.full.createType
 
 
 @ObjectImplements([IVector::class, IIterable::class])
-class JVMVector<T>(type:KType, private val backingList: MutableList<T>): KotlinWinRTObject(), IVector<T>, MutableList<T> by backingList {
+class JVMVector<T>(type: KType, private val backingList: MutableList<T>) : KotlinWinRTObject(), IVector<T>,
+    MutableList<T> by backingList {
 
     override val _Windows_Foundation_CollectionsIVector_Type: KType = type
 
     init {
         initObj()
     }
+
     override fun GetAt(index: WinDef.UINT): T {
         return backingList[index.toInt()]
     }
 
-    override fun get_Size(): WinDef.UINT {
-        return WinDef.UINT(backingList.size.toLong())
-    }
+    override val Size: WinDef.UINT
+        get() {
+            return WinDef.UINT(backingList.size.toLong())
+        }
 
     override fun GetView(): List<T> {
-        return JVMVectorView(IVectorView::class.createType(listOf(_Windows_Foundation_CollectionsIVector_Type.arguments[0])), backingList)
+        return JVMVectorView(
+            IVectorView::class.createType(listOf(_Windows_Foundation_CollectionsIVector_Type.arguments[0])),
+            backingList
+        )
     }
 
     override fun RemoveAt(index: WinDef.UINT) {
@@ -82,8 +88,10 @@ class JVMVector<T>(type:KType, private val backingList: MutableList<T>): KotlinW
     }
 
     override fun First(): JVMIterator<T> {
-        return JVMIterator(IIterator::class.createType(
-            listOf(_Windows_Foundation_CollectionsIVector_Type.arguments[0])
-        ),backingList.iterator())
+        return JVMIterator(
+            IIterator::class.createType(
+                listOf(_Windows_Foundation_CollectionsIVector_Type.arguments[0])
+            ), backingList.iterator()
+        )
     }
 }

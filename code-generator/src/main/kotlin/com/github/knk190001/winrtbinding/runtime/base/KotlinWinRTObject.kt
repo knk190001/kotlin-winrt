@@ -50,7 +50,7 @@ open class KotlinWinRTObject : PointerType() {
             (abi as IParameterizedABI<Any?, Any?>).getType(this) to abi.handles
         } else {
             throw IllegalArgumentException("Parameterized interface ABI doesn't implement IParameterizedNativeHandleProvider")
-         }
+        }
 
     private fun generateInterfaceVtbl(
         kClass: KClass<*>,
@@ -65,11 +65,11 @@ open class KotlinWinRTObject : PointerType() {
 
         val linker = Linker.nativeLinker()
 
-        val indexMethodMap = kClass.declaredFunctions.filter {
+        val indexMethodMap = kClass.functionsAndProperties().filter {
             it.hasAnnotation<InterfaceMethod>()
         }.associateBy { it.findAnnotation<InterfaceMethod>()!!.methodIndex }
 
-        val indexMethodNameMap = kClass.declaredFunctions.filter {
+        val indexMethodNameMap = kClass.functionsAndProperties().filter {
             it.hasAnnotation<InterfaceMethod>()
         }.associate {
             it.findAnnotation<InterfaceMethod>()!!.methodIndex to it.name
@@ -111,6 +111,10 @@ open class KotlinWinRTObject : PointerType() {
                         PrimitiveOutArray::class -> listOf(typeOf<MemoryAddress>(), typeOf<MemoryAddress>())
                         else -> listOf(it.type)
                     }
+                    /*TODO: OutArray and PrimitiveOutArray aren't used anymore.
+                            Need to find a way of handling the updated types without
+                            getting in the way of non receive array list parameters
+                            */
                 }
             }
         }.drop(1)
@@ -135,5 +139,11 @@ open class KotlinWinRTObject : PointerType() {
             )
         return MethodHandles.explicitCastArguments(handle.bindTo(kType), descriptorMethodType) to
                 descriptorMethodType.toFunctionDescriptor(promoteReturnToParameter = false, addThisObjParam = false)
+    }
+}
+
+private fun KClass<*>.functionsAndProperties(): List<KFunction<*>> {
+    return declaredFunctions + declaredMemberProperties.flatMap {
+        listOfNotNull(it.getter, (it as? KMutableProperty<*>)?.setter)
     }
 }
