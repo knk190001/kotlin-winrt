@@ -12,11 +12,11 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid
-import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinDef.ULONG
-import com.sun.jna.platform.win32.WinDef.USHORT
 import com.sun.jna.ptr.ByReference
-import java.lang.foreign.*
+import java.lang.foreign.MemoryAddress
+import java.lang.foreign.MemoryLayout
+import java.lang.foreign.MemorySegment
+import java.lang.foreign.ValueLayout
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
@@ -95,12 +95,12 @@ fun SparseTypeReference.asClassName(
             "Char" -> Char::class.asClassName()
             "Boolean" -> Boolean::class.asClassName()
             "Void" -> Unit::class.asClassName()
-            "UInt32" -> WinDef.UINT::class.asClassName()
+            "UInt32" -> UInt::class.asClassName()
             "String" -> String::class.asClassName()
-            "UInt32&" -> WinDef.UINTByReference::class.asClassName()
+            "UInt32&" -> UIntByReference::class.asClassName()
             "Object" -> IUnknown::class.asClassName()
-            "UInt64" -> ULONG::class.asClassName()
-            "UInt16" -> USHORT::class.asClassName()
+            "UInt64" -> ULong::class.asClassName()
+            "UInt16" -> UShort::class.asClassName()
             "Guid" -> Guid.GUID::class.asClassName()
             else -> throw NotImplementedError("Type: $namespace.$name is not handled")
         }
@@ -126,8 +126,10 @@ fun SparseTypeReference.asKClass(): KClass<*> {
     if (namespace.isEmpty()) return Nothing::class
     if (namespace == "System") {
         when (name) {
-            "UInt32" -> return WinDef.UINT::class
-            "UInt64" -> return ULONG::class
+            "UInt16" -> return UShort::class
+            "UInt32" -> return UInt::class
+            "UInt32&" -> return UIntByReference::class
+            "UInt64" -> return ULong::class
             "Double" -> return Double::class
             "Boolean" -> return Boolean::class
             "Int16" -> return Short::class
@@ -135,8 +137,6 @@ fun SparseTypeReference.asKClass(): KClass<*> {
             "Int64" -> return Long::class
             "Void" -> return Unit::class
             "String" -> return String::class
-            "UInt32&" -> return WinDef.UINTByReference::class
-            "UInt16" -> return USHORT::class
             "Object" -> return IUnknown::class
             "Single" -> return Float::class
             "Char" -> return Char::class

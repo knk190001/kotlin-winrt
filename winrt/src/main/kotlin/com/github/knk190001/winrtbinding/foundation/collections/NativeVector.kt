@@ -1,7 +1,7 @@
 package com.github.knk190001.winrtbinding.foundation.collections
 
 import Windows.Foundation.Collections.IVector
-import com.sun.jna.platform.win32.WinDef
+import com.github.knk190001.winrtbinding.foundation.collections.NativeVector.SubList
 import java.util.*
 import java.util.function.Predicate
 
@@ -21,13 +21,13 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
 
     override fun addAll(index: Int, elements: Collection<T>): Boolean {
         elements.reversed().forEach {
-            InsertAt(WinDef.UINT(index.toLong()), it)
+            InsertAt(index.toUInt(), it)
         }
         return true
     }
 
     override fun add(index: Int, element: T) {
-        InsertAt(WinDef.UINT(index.toLong()), element)
+        InsertAt(index.toUInt(), element)
     }
 
     override fun add(element: T): Boolean {
@@ -36,7 +36,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun get(index: Int): T {
-        return GetAt(WinDef.UINT(index.toLong()))
+        return GetAt(index.toUInt())
     }
 
     override fun isEmpty(): Boolean {
@@ -64,7 +64,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
             if (lastRet < 0) {
                 throw IllegalStateException()
             }
-            backingVector.RemoveAt(WinDef.UINT(lastRet.toLong()))
+            backingVector.RemoveAt(lastRet.toUInt())
             cursor = lastRet
         }
 
@@ -119,7 +119,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun removeAt(index: Int): T {
-        val uIndex = WinDef.UINT(index.toLong())
+        val uIndex = index.toUInt()
         val result = GetAt(uIndex)
         RemoveAt(uIndex)
         return result
@@ -286,7 +286,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun set(index: Int, element: T): T {
-        val uIndex = WinDef.UINT(index.toLong())
+        val uIndex = index.toUInt()
         val prev = GetAt(uIndex)
         SetAt(uIndex, element)
         return prev

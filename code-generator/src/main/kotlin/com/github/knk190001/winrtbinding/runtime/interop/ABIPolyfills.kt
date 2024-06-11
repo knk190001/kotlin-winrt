@@ -43,43 +43,43 @@ object StringABI: IABI<String, MemoryAddress> {
 
 }
 
-object UShortABI : IABI<USHORT, Short> {
-    override fun fromNative(obj: Short): USHORT {
-        return USHORT(obj.toLong())
+object UShortABI : IABI<UShort, Short> {
+    override fun fromNative(obj: Short): UShort {
+        return obj.toUShort()
     }
 
     override val layout: MemoryLayout
         get() = ValueLayout.JAVA_SHORT
 
-    override fun toNative(obj: USHORT): Short {
+    override fun toNative(obj: UShort): Short {
         return obj.toShort()
     }
 
 }
 
-object UIntABI : IABI<WinDef.UINT, Int> {
-    override fun fromNative(obj: Int): WinDef.UINT {
-        return WinDef.UINT(obj.toLong())
+object UIntABI : IABI<UInt, Int> {
+    override fun fromNative(obj: Int): UInt {
+        return obj.toUInt()
     }
 
     override val layout: MemoryLayout
         get() = ValueLayout.JAVA_INT
 
-    override fun toNative(obj: WinDef.UINT): Int {
+    override fun toNative(obj: UInt): Int {
         return obj.toInt()
     }
 
 }
 
-object ULongABI : IABI<WinDef.ULONG, Long> {
-    override fun fromNative(obj: Long): WinDef.ULONG {
-        return WinDef.ULONG(obj)
+object ULongABI : IABI<ULong, Long> {
+    override fun fromNative(obj: Long): ULong {
+        return obj.toULong()
     }
 
     override val layout: MemoryLayout
         get() = ValueLayout.JAVA_LONG
 
-    override fun toNative(obj: WinDef.ULONG): Long {
+    override fun toNative(obj: ULong): Long {
         return obj.toLong()
     }
 

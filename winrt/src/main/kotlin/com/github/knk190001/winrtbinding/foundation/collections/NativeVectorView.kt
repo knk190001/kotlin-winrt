@@ -1,7 +1,6 @@
 package com.github.knk190001.winrtbinding.foundation.collections
 
 import Windows.Foundation.Collections.IVectorView
-import com.sun.jna.platform.win32.WinDef
 import java.util.*
 
 interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
@@ -9,7 +8,7 @@ interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
         get() = Size.toInt()
 
     override fun get(index: Int): T {
-        return GetAt(WinDef.UINT(index.toLong()))
+        return GetAt(index.toUInt())
     }
 
     override fun isEmpty(): Boolean {

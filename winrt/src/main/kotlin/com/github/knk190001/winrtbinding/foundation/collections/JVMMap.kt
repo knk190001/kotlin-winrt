@@ -5,7 +5,6 @@ import Windows.Foundation.Collections.IKeyValuePair
 import Windows.Foundation.Collections.IMap
 import Windows.Foundation.Collections.IMapView
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
-import com.sun.jna.platform.win32.WinDef.UINT
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
@@ -25,9 +24,9 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
         return get(key) as V
     }
 
-    override val Size: UINT
+    override val Size: UInt
         get(){
-            return UINT(size.toLong())
+            return size.toUInt()
         }
 
     override fun HasKey(key: K): Boolean {

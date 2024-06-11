@@ -360,17 +360,17 @@ private fun CodeBlock.Builder.addPrimitiveToManagedStatement(
         }
 
         "UInt64" -> {
-            addStatement("val $managedName = %T($paramName)", ULONG::class)
+            addStatement("val $managedName = $paramName.toULong()", ULONG::class)
             return managedName
         }
 
         "UInt32" -> {
-            addStatement("val $managedName = %T($paramName.toLong())", WinDef.UINT::class)
+            addStatement("val $managedName = $paramName.toUInt()", WinDef.UINT::class)
             return managedName
         }
 
         "UInt16" -> {
-            addStatement("val $managedName = %T($paramName.toLong())", WinDef.USHORT::class)
+            addStatement("val $managedName = $paramName.toUShort()", WinDef.USHORT::class)
             return managedName
         }
 

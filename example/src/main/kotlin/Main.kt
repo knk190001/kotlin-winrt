@@ -6,13 +6,11 @@ import Windows.Data.Text.SelectableWordSegmentsTokenizingHandler
 import Windows.Data.Text.SelectableWordsSegmenter
 import Windows.Foundation.*
 import Windows.Foundation.Collections.IIterable
-import Windows.Foundation.Collections.IVectorView
 import Windows.Graphics.Imaging.BitmapDecoder
 import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
 import com.github.knk190001.winrtbinding.runtime.WinRT
-import com.sun.jna.platform.win32.WinDef
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 import java.nio.file.Path
@@ -86,7 +84,7 @@ private fun segmentTest() {
             println("Word: " + selectableWordSegment!!.Text)
         }
     }
-    segmenter.Tokenize("Hello World!", WinDef.UINT(0), handler)
+    segmenter.Tokenize("Hello World!", 0u, handler)
 }
 
 suspend fun mlTest() {

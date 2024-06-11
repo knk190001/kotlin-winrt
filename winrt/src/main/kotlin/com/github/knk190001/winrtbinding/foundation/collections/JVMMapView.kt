@@ -5,7 +5,6 @@ import Windows.Foundation.Collections.IKeyValuePair
 import Windows.Foundation.Collections.IMapView
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
-import com.sun.jna.platform.win32.WinDef
 import kotlin.math.ceil
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
@@ -21,7 +20,7 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
         initObj()
     }
 
-    override val Size: WinDef.UINT = WinDef.UINT(size.toLong())
+    override val Size: UInt = size.toUInt()
 
     override fun Split(first: IMapView.ByReference<K, V>?, second: IMapView.ByReference<K, V>?) {
         if (isEmpty()) {

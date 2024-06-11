@@ -2,6 +2,7 @@ package com.github.knk190001.winrtbinding.generator
 
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseField
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseStruct
+import com.github.knk190001.winrtbinding.generator.model.entities.SparseTypeReference
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.IStructABI
@@ -21,25 +22,20 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
         addABIAnnotation(sparseStruct.asTypeReference().asClassName(false))
         addSignatureAnnotation(sparseStruct)
 
-        val fields = sparseStruct.fields.sortedBy {
-            it.index
-        }
+        val fields = sparseStruct.fields.sortedBy { it.index }
 
-        val fieldOrderAnnotation = AnnotationSpec.builder(FieldOrder::class).apply {
-            addMember(fields.joinToString { "\"${it.name}\"" })
-        }.build()
-        addAnnotation(fieldOrderAnnotation)
+        addFieldOrderAnnotation(fields)
 
 
-        fields.map {
-            val type = if(it.type.isSystemType() && it.type.name == "String") HANDLE::class.asClassName().copy(true )
-            else  it.type.asTypeName(nullable = true)
-            PropertySpec.builder(it.name, type).apply {
-                jvmField()
-                initializer("null")
-                mutable()
-            }.build()
-        }.forEach(::addProperty)
+        fields
+            .map(::generateFieldProperty)
+            .forEach(::addProperty)
+
+
+        fields
+            .filter { it.type.isUnsigned() }
+            .map(::generateUnsignedBackingFields)
+            .forEach(::addProperty)
 
         superclass(Structure::class)
         val ptrParameterSpec = ParameterSpec.builder("ptr", nullablePtr)
@@ -54,37 +50,9 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
             .build()
         addAnnotation(brAnnotationSpec)
 
-        val byReference = TypeSpec.classBuilder("ByReference").apply {
-            superclass(sparseStruct.asTypeReference().asClassName(false))
-            addSuperinterface(Structure.ByReference::class)
-            addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("",sparseStruct.name)))
-            val constructorSpec = FunSpec.constructorBuilder().apply {
-                addParameter(ptrParameterSpec)
-            }.build()
-            primaryConstructor(constructorSpec)
-            addSuperclassConstructorParameter("ptr")
+        addByReferenceType(sparseStruct, ptrParameterSpec)
+        addByValueType(sparseStruct, ptrParameterSpec)
 
-
-            val getValueFn = FunSpec.builder("getValue").apply {
-                addModifiers(KModifier.OVERRIDE)
-                addCode("return this")
-                returns(ClassName(sparseStruct.namespace,sparseStruct.name))
-            }.build()
-            addFunction(getValueFn)
-        }.build()
-
-        val byValue = TypeSpec.classBuilder("ByValue").apply {
-            superclass(ClassName(sparseStruct.namespace,sparseStruct.name))
-            addSuperinterface(Structure.ByValue::class)
-            val constructorSpec = FunSpec.constructorBuilder().apply {
-                addParameter(ptrParameterSpec)
-            }.build()
-            primaryConstructor(constructorSpec)
-            addSuperclassConstructorParameter("ptr")
-        }.build()
-
-        addType(byReference)
-        addType(byValue)
         primaryConstructor(constructor)
         addSuperclassConstructorParameter("ptr")
 
@@ -92,6 +60,117 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
     }.build()
     addType(type)
 }.build()
+
+private fun TypeSpec.Builder.addByValueType(
+    sparseStruct: SparseStruct,
+    ptrParameterSpec: ParameterSpec
+) {
+    val byValue = TypeSpec.classBuilder("ByValue").apply {
+        superclass(ClassName(sparseStruct.namespace, sparseStruct.name))
+        addSuperinterface(Structure.ByValue::class)
+        val constructorSpec = FunSpec.constructorBuilder().apply {
+            addParameter(ptrParameterSpec)
+        }.build()
+        primaryConstructor(constructorSpec)
+        addSuperclassConstructorParameter("ptr")
+    }.build()
+    addType(byValue)
+}
+
+private fun TypeSpec.Builder.addByReferenceType(
+    sparseStruct: SparseStruct,
+    ptrParameterSpec: ParameterSpec
+) {
+    val byReference = TypeSpec.classBuilder("ByReference").apply {
+        superclass(sparseStruct.asTypeReference().asClassName(false))
+        addSuperinterface(Structure.ByReference::class)
+        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", sparseStruct.name)))
+        val constructorSpec = FunSpec.constructorBuilder().apply {
+            addParameter(ptrParameterSpec)
+        }.build()
+        primaryConstructor(constructorSpec)
+        addSuperclassConstructorParameter("ptr")
+
+
+        val getValueFn = FunSpec.builder("getValue").apply {
+            addModifiers(KModifier.OVERRIDE)
+            addCode("return this")
+            returns(ClassName(sparseStruct.namespace, sparseStruct.name))
+        }.build()
+        addFunction(getValueFn)
+    }.build()
+    addType(byReference)
+}
+
+private fun TypeSpec.Builder.addFieldOrderAnnotation(fields: List<SparseField>) {
+    val fieldOrderAnnotation = AnnotationSpec.builder(FieldOrder::class).apply {
+        addMember(fields.map {
+            if (it.type.isUnsigned()) {
+                "${it.name}_Internal"
+            } else {
+                it.name
+            }
+        }.joinToString { "\"$it\"" })
+    }.build()
+    addAnnotation(fieldOrderAnnotation)
+}
+
+fun generateUnsignedBackingFields(sparseField: SparseField): PropertySpec {
+    val spec = PropertySpec.builder("${sparseField.name}_Internal", sparseField.type.foreignType()).apply {
+        jvmField()
+        mutable()
+        addModifiers(KModifier.INTERNAL)
+        initializer("0")
+    }.build()
+    return spec
+}
+
+private fun generateFieldProperty(it: SparseField): PropertySpec {
+    val type = if (it.type.isString()) HANDLE::class.asClassName().copy(true)
+    else it.type.asTypeName(nullable = it.type.isNullable())
+    return PropertySpec.builder(it.name, type).apply {
+        if (it.type.isUnsigned()) {
+            getter(FunSpec.getterBuilder().addStatement("return ${it.name}_Internal.${it.type.nativeToManagedUnsigned()}").build())
+            setter(FunSpec.setterBuilder().apply {
+                addParameter("value", it.type.foreignType())
+                addStatement("${it.name}_Internal = value.${it.type.managedToNativeUnsigned()}")
+            }.build())
+        }  else {
+            jvmField()
+            initializer(it.type.defaultValue())
+        }
+        mutable()
+    }.build()
+}
+
+private fun SparseTypeReference.isString() = isSystemType() && name == "String"
+
+private fun SparseTypeReference.isUnsigned() = isSystemType() && name.startsWith("UInt")
+
+private fun SparseTypeReference.defaultValue() = when (name) {
+    "Boolean" -> "false"
+    "Char" -> "'\\0'"
+    "Byte", "Int16", "Int32", "Int64" -> "0"
+    "Double" -> "0.0"
+    "Single" -> "0.0f"
+    else -> "null"
+}
+
+private fun SparseTypeReference.nativeToManagedUnsigned() = when (name) {
+    "UInt8" -> "toUByte()"
+    "UInt16" -> "toUShort()"
+    "UInt32" -> "toUInt()"
+    "UInt64" -> "toULong()"
+    else -> throw IllegalArgumentException("Unsupported unsigned type $name")
+}
+
+private fun SparseTypeReference.managedToNativeUnsigned() = when (name) {
+    "UInt8" -> "toByte()"
+    "UInt16" -> "toShort()"
+    "UInt32" -> "toInt()"
+    "UInt64" -> "toLong()"
+    else -> throw IllegalArgumentException("Unsupported unsigned type $name")
+}
 
 private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
     val abi = TypeSpec.objectBuilder("ABI").apply {
