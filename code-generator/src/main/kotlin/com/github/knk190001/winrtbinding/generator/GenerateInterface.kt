@@ -49,6 +49,9 @@ private fun FileSpec.Builder.addParameterizedInterface(sparseInterface: SparseIn
 
         addABIAnnotation(sparseInterface.withName(sparseInterface.cleanName()).asTypeReference().asClassName())
         addGuidAnnotation(sparseInterface.guid)
+        if(sparseInterface.genericParameters == null){
+            addSignatureAnnotation(sparseInterface)
+        }
         addByReferenceAnnotation(sparseInterface)
         addInterfaceTypeProperty(sparseInterface)
         addTypeParameters(sparseInterface)

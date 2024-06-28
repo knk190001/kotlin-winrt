@@ -321,9 +321,9 @@ fun KType.javaForeignType(): Class<*> {
     val kClass = this.classifier as KClass<*>
     val abiAnnotation = kClass.findAnnotation<ABIMarker>()
         ?: return when (kClass) {
-            WinDef.USHORT::class -> Short::class.javaPrimitiveType!!
-            WinDef.UINT::class -> Int::class.javaPrimitiveType!!
-            WinDef.ULONG::class -> Long::class.javaPrimitiveType!!
+            UShort::class -> Short::class.javaPrimitiveType!!
+            UInt::class -> Int::class.javaPrimitiveType!!
+            ULong::class -> Long::class.javaPrimitiveType!!
             Float::class -> Float::class.javaPrimitiveType!!
             Double::class -> Double::class.javaPrimitiveType!!
             Boolean::class -> Byte::class.javaPrimitiveType!!

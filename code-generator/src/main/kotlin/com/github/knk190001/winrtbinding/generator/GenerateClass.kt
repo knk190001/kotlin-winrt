@@ -758,8 +758,9 @@ private fun TypeSpec.Builder.generateFactoryConstructor(sparseMethod: SparseMeth
 
 private fun TypeSpec.Builder.generateDirectActivationConstructor() {
     val constructorSpec = FunSpec.constructorBuilder().apply {
-        val activationMarkerParam = ParameterSpec.builder("activationMarker", UNIT).apply {
-            defaultValue(CodeBlock.of("%T", UNIT))
+        val unit = ClassName("", "kotlin.Unit")
+        val activationMarkerParam = ParameterSpec.builder("activationMarker", unit).apply {
+            defaultValue(CodeBlock.of("%T", unit))
         }.build()
         addParameter(activationMarkerParam)
         callThisConstructor("ABI.activate()")

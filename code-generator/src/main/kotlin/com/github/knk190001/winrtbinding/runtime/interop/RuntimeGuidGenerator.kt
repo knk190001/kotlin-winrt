@@ -14,6 +14,7 @@ import memeid.UUID
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.*
+import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
 import com.github.knk190001.winrtbinding.runtime.annotations.Guid as GuidAnnotation
 
@@ -87,13 +88,13 @@ inline fun <reified T : Annotation> KType.annotationOfType(): T? {
 }
 
 inline fun <reified T> guidOf(): IID {
-    if (!T::class.hasAnnotation<GenericType>()) {
-        return IID(T::class.findAnnotation<GuidAnnotation>()!!.guid)
-    }
-    return RuntimeGuidGenerator.createIID<T>()
+    return guidOf(typeOf<T>())
 }
 
 fun guidOf(type: KType): IID {
+    if (!type.jvmErasure.hasAnnotation<GenericType>()) {
+        return IID(type.annotationOfType<GuidAnnotation>()!!.guid)
+    }
     return RuntimeGuidGenerator.createIID(type)
 }
 
