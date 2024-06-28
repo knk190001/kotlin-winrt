@@ -3,9 +3,9 @@ package com.github.knk190001.winrtbinding.runtime.base
 import com.github.knk190001.winrtbinding.runtime.*
 import com.github.knk190001.winrtbinding.runtime.annotations.InterfaceMethod
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
+import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
 import com.github.knk190001.winrtbinding.runtime.interop.OutArray
 import com.github.knk190001.winrtbinding.runtime.interop.PrimitiveOutArray
-import com.github.knk190001.winrtbinding.runtime.interop.RuntimeGuidGenerator
 import com.github.knk190001.winrtbinding.runtime.interop.guidOf
 import com.sun.jna.Memory
 import com.sun.jna.Native
@@ -105,16 +105,12 @@ open class KotlinWinRTObject : PointerType() {
             when (paramType.classifier) {
                 is KTypeParameter -> listOf(reifiedTypeMap[(it.type.classifier as KTypeParameter).name]!!)
                 else -> {
-                    when (paramType.jvmErasure) {
-                        Array::class -> listOf(typeOf<Int>(), typeOf<MemoryAddress>())
-                        OutArray::class -> listOf(typeOf<MemoryAddress>(), typeOf<MemoryAddress>())
-                        PrimitiveOutArray::class -> listOf(typeOf<MemoryAddress>(), typeOf<MemoryAddress>())
-                        else -> listOf(it.type)
-                    }
-                    /*TODO: OutArray and PrimitiveOutArray aren't used anymore.
-                            Need to find a way of handling the updated types without
-                            getting in the way of non receive array list parameters
-                            */
+                    if (paramType.jvmErasure == Array::class) listOf(typeOf<Int>(), typeOf<MemoryAddress>())
+                    else if (paramType.jvmErasure == MutableList::class && it.hasAnnotation<ReceiveArray>()) listOf(
+                        typeOf<MemoryAddress>(),
+                        typeOf<MemoryAddress>()
+                    )
+                    else listOf(it.type)
                 }
             }
         }.drop(1)
@@ -137,7 +133,15 @@ open class KotlinWinRTObject : PointerType() {
                 MemoryAddress::class.java,
                 *(handleTypes + descriptorReturnParam).toTypedArray()
             )
-        return MethodHandles.explicitCastArguments(handle.bindTo(kType), descriptorMethodType) to
+
+        val mhClass = MethodHandles.lookup().revealDirect(handle).declaringClass
+        val bound = if (mhClass.kotlin.isSubclassOf(IParameterizedNativeHandleProvider::class)) {
+            handle.bindTo(kType)
+        } else {
+            handle
+        }
+
+        return MethodHandles.explicitCastArguments(bound, descriptorMethodType) to
                 descriptorMethodType.toFunctionDescriptor(promoteReturnToParameter = false, addThisObjParam = false)
     }
 }
