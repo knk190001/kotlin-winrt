@@ -1,5 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm")
+    `maven-publish`
 }
 
 group = "com.github.knk190001"
@@ -16,4 +17,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            groupId = "com.github.knk190001"
+            artifactId = "winrt-metadata"
+            version = "1.0"
+        }
+    }
 }

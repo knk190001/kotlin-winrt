@@ -6,7 +6,7 @@ import groovy.xml.XmlParser
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm")
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("de.undercouch.download") version "5.5.0"
     application
@@ -36,14 +36,6 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "19"
         freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
-    }
-}
-
-kotlin {
-    sourceSets.all {
-        languageSettings {
-            languageVersion = "2.0"
-        }
     }
 }
 

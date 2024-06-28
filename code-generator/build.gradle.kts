@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
 
 group = "com.github.knk190001"
@@ -13,7 +14,6 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     api("com.squareup:kotlinpoet:1.12.0")
-    api("com.headius:invokebinder:1.13")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
@@ -35,10 +35,13 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-kotlin {
-    sourceSets.all {
-        languageSettings {
-            languageVersion = "2.0"
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            groupId = "com.github.knk190001"
+            artifactId = "kotlin-winrt"
+            version = "1.0"
         }
     }
 }

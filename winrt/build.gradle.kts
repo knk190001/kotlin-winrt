@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
 
 apply(plugin = "com.github.knk190001.gradle-code-generator-kotlin")
@@ -35,7 +36,6 @@ val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "19"
     freeCompilerArgs += "-Xjvm-default=all"
-    freeCompilerArgs += "-Xlambdas=indy"
     suppressWarnings = true
 }
 
@@ -65,7 +65,18 @@ java {
 }
 
 val codeGeneratorBuild = rootProject.project(":code-generator").tasks.named("build")
-
 tasks.named("generateMain") {
     dependsOn(codeGeneratorBuild)
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            groupId = "com.github.knk190001"
+            artifactId = "winrt"
+            version = "1.0"
+        }
+    }
+}
+
