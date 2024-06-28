@@ -23,6 +23,7 @@ class TraitAdapter : TypeAdapter<Trait> {
             "CompositionActivation" -> CompositionActivationTrait::class
             "Superclass" -> SuperclassTrait::class
             "Subclass" -> SubclassTrait::class
+            "ContentProperty" -> ContentPropertyTrait::class
             else -> {
                 throw NotImplementedError("Trait $type has not been implemented")
             }

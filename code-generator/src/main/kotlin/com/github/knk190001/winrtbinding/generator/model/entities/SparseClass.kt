@@ -51,6 +51,8 @@ data class SparseClass(
 
     val hasSubclass = traits.filterIsInstance<SubclassTrait>().any()
 
+    val contentProperty = traits.filterIsInstance<ContentPropertyTrait>().firstOrNull()?.property
+
     private fun methodsRecursive(): List<Pair<SparseInterface, SparseMethod>>{
         val methods = interfaces.map { lookUpTypeReference(it) as SparseInterface }
             .flatMap { it.methodsRecursive() }
