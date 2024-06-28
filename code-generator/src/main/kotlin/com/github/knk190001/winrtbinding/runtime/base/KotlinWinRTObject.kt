@@ -4,8 +4,6 @@ import com.github.knk190001.winrtbinding.runtime.*
 import com.github.knk190001.winrtbinding.runtime.annotations.InterfaceMethod
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
-import com.github.knk190001.winrtbinding.runtime.interop.OutArray
-import com.github.knk190001.winrtbinding.runtime.interop.PrimitiveOutArray
 import com.github.knk190001.winrtbinding.runtime.interop.guidOf
 import com.sun.jna.Memory
 import com.sun.jna.Native

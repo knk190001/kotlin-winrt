@@ -26,16 +26,12 @@ import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
 import java.lang.invoke.MethodType
-import kotlin.Any
 import kotlin.Int
 import kotlin.String
 import kotlin.reflect.*
 import kotlin.reflect.full.*
-import kotlin.reflect.jvm.internal.ReflectProperties.Val
-import kotlin.reflect.jvm.internal.impl.resolve.constants.KClassValue.Value
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.jvmErasure
-import kotlin.streams.toList
 import com.sun.jna.Function as JnaFunction
 
 val WinRT = JNAApiInterface.INSTANCE
@@ -140,7 +136,7 @@ class WinRTTypeMapper : DefaultTypeMapper() {
                 return array.toTypedArray()
             }
 
-            override fun nativeType(): Class<*>? {
+            override fun nativeType(): Class<*> {
                 return LongArray::class.java
             }
 
@@ -156,7 +152,7 @@ class WinRTTypeMapper : DefaultTypeMapper() {
                 return array.toTypedArray()
             }
 
-            override fun nativeType(): Class<*>? {
+            override fun nativeType(): Class<*> {
                 return FloatArray::class.java
             }
 
@@ -198,15 +194,14 @@ fun Unknown.ByReference.setValue(unknown: Unknown) {
     this.pointer = unknown.pointer
 }
 
-typealias JNAPointer = com.sun.jna.Pointer
+typealias JNAPointer = Pointer
 
-val iUnknownIID = IUnknown.IID_IUNKNOWN;
+val iUnknownIID = IUnknown.IID_IUNKNOWN
 
 interface FromNativePolyfill<T> {
     fun fromNative(segment: MemoryAddress): T
 }
 
-@Suppress("UNCHECKED_CAST")
 val String.Companion.ABI: IABI<String, MemoryAddress>
     get() = StringABI
 
@@ -319,7 +314,7 @@ fun booleanFromNative(segment: MemorySegment): Boolean {
 
 fun KType.javaForeignType(): Class<*> {
     val kClass = this.classifier as KClass<*>
-    val abiAnnotation = kClass.findAnnotation<ABIMarker>()
+    kClass.findAnnotation<ABIMarker>()
         ?: return when (kClass) {
             UShort::class -> Short::class.javaPrimitiveType!!
             UInt::class -> Int::class.javaPrimitiveType!!

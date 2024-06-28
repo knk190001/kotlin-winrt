@@ -531,7 +531,7 @@ private fun TypeSpec.Builder.generateDeconflictionProperties(sparseClass: Sparse
     sparseClass.propertyCollisions()
         .forEach { (getterPair, setterPair) ->
             val (getter, getterInterface) = getterPair
-            val (setter, setterInterface) = setterPair
+            val (_, setterInterface) = setterPair
             val type = getter.returnType
             val typeName = if (type.isArray) {
                 val componentType = type.copy(isArray = false)

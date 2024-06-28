@@ -34,6 +34,10 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
     }
 }
+kotlin {
+    jvmToolchain(19)
+    compilerOptions.freeCompilerArgs.set(listOf("-Xjvm-default=all-compatibility"))
+}
 
 publishing {
     publications {
