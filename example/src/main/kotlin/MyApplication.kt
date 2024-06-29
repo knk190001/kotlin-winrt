@@ -4,8 +4,10 @@ import Microsoft.UI.Xaml.Controls.*
 import Microsoft.UI.Xaml.Markup.IXamlMetadataProvider
 import Microsoft.UI.Xaml.Media.MicaBackdrop
 import Microsoft.UI.Xaml.XamlTypeInfo.XamlControlsXamlMetaDataProvider
+import com.github.knk190001.winrtbinding.foundation.collections.Reference
 import com.github.knk190001.winrtbinding.runtime.annotations.AggregateImplements
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
+
 import java.math.BigInteger
 
 @AggregateImplements([IApplicationOverrides::class, IXamlMetadataProvider::class])
@@ -35,14 +37,17 @@ class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregat
             }
         }
 
-        val stackPanel = StackPanel().apply {
+        val toggle = ToggleSwitch().apply {
+            Header = Reference("Header")
+        }
 
+        val stackPanel = StackPanel().apply {
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Center
             VerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment.Center
             val children = Children!!
             children += button
             children += labelText
-
+            children += toggle
         }
 
         val w = Window().apply {
