@@ -6,6 +6,7 @@ import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.mapIfInstanceOf
 import com.github.knk190001.winrtbinding.runtime.annotations.*
 import com.github.knk190001.winrtbinding.runtime.base.*
+import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
 import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
@@ -894,7 +895,7 @@ private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
 }
 
 private fun TypeSpec.Builder.addParameterizedSuperInterfaces(sparseInterface: SparseInterface) {
-    addSuperinterface(IUnknown::class)
+    addSuperinterface(IInspectable::class)
     sparseInterface.superInterfaces.map {
         it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
     }.forEach(::addSuperinterface)
@@ -1355,7 +1356,6 @@ private fun CodeBlock.Builder.kTypeStatementFor(
 }
 
 private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface) {
-
     addSuperinterface(NativeMapped::class)
     addSuperinterface(IWinRTInterface::class)
 
@@ -1363,7 +1363,7 @@ private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface
         .map(SparseTypeReference::asTypeName)
         .forEach(this::addSuperinterface)
 
-    addSuperinterface(IUnknown::class)
+    addSuperinterface(IInspectable::class)
 }
 
 private fun TypeSpec.Builder.generateByReference(sparseInterface: SparseInterface) {

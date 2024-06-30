@@ -176,16 +176,6 @@ fun JnaFunction.invokeHR(params: Array<Any?>): HRESULT {
     return this.invoke(HRESULT::class.java, params, winRTOptions) as HRESULT
 }
 
-inline fun <A : IWinRTInterface, reified T : A> Array<A>.interfaceOfType(): T {
-    //Loop through the array and return the first interface that matches the type
-    this.forEach {
-        if (it is T) {
-            return it
-        }
-    }
-    throw IllegalArgumentException("No interface of type ${T::class.java.name} found in the array")
-}
-
 fun Guid.GUID.ByReference.getValue(): Guid.GUID {
     return this
 }
@@ -448,6 +438,18 @@ fun Callback.toFunctionPointer(): Pointer {
 fun <T> readReceiveArrayIntoList(type: KType, size: IntByReference, ptr: PointerByReference, list: MutableList<T>) {
     val abi = abiOf(type.jvmErasure)
     val bufferSize = abi.layout.byteSize() * size.value
+    val segment = MemorySegment.ofAddress(ptr.value.toMemoryAddress(), bufferSize, MemorySession.global())
+    segment.elements(abi.layout).toList()
+        .map {
+            @Suppress("UNCHECKED_CAST")
+            it as T
+        }
+        .forEach(list::add)
+
+}
+fun <T> readReceiveArrayIntoList(type: KType, size: ULongByReference, ptr: PointerByReference, list: MutableList<T>) {
+    val abi = abiOf(type.jvmErasure)
+    val bufferSize = abi.layout.byteSize() * size.getValue().toLong()
     val segment = MemorySegment.ofAddress(ptr.value.toMemoryAddress(), bufferSize, MemorySession.global())
     segment.elements(abi.layout).toList()
         .map {

@@ -54,7 +54,7 @@ fun generateClass(
             addSuperinterface(superinterface)
         }
 
-        addSuperinterface(IUnknown::class)
+        addSuperinterface(IInspectable::class)
         addSuperinterface(IWinRTObject::class)
 
         generateClassTypeSpec(sparseClass)
