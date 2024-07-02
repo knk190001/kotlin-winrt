@@ -4,7 +4,6 @@ import Microsoft.UI.Xaml.Controls.*
 import Microsoft.UI.Xaml.Markup.IXamlMetadataProvider
 import Microsoft.UI.Xaml.Media.MicaBackdrop
 import Microsoft.UI.Xaml.XamlTypeInfo.XamlControlsXamlMetaDataProvider
-import com.github.knk190001.winrtbinding.foundation.collections.Reference
 import com.github.knk190001.winrtbinding.runtime.annotations.AggregateImplements
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
 
@@ -38,7 +37,7 @@ class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregat
         }
 
         val toggle = ToggleSwitch().apply {
-            Header = Reference("Header")
+            Header = "Header"
         }
 
         val stackPanel = StackPanel().apply {

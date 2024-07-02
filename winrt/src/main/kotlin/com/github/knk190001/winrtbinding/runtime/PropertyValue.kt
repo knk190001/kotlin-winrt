@@ -1,10 +1,9 @@
-package com.github.knk190001.winrtbinding.foundation.collections
+package com.github.knk190001.winrtbinding.runtime
 
 import Windows.Foundation.*
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.base.Delegate
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
-import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.sun.jna.platform.win32.Guid
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
@@ -14,24 +13,26 @@ import kotlin.reflect.full.isSubtypeOf
 import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
 
+val propertyReferences = mutableListOf<PropertyValue<*>>()
 
 @Suppress("UNCHECKED_CAST")
-@ObjectImplements([IReference::class, IPropertyValue::class])
-class Reference<T>(override val _Windows_FoundationIReference_Type: KType? = null, override val Value: T) :
-    KotlinWinRTObject(), IReference<T> {
+@ObjectImplements([IPropertyValue::class])
+class PropertyValue<T>(val type: KType?, val value: T) :
+    KotlinWinRTObject(), IPropertyValue{
 
     @Suppress("UNCHECKED_CAST")
     constructor() : this(null, null as T)
 
     init {
-        if (_Windows_FoundationIReference_Type != null) {
+        if (type != null) {
             initObj()
         }
+        propertyReferences += this
     }
 
     companion object {
-        inline operator fun <reified T> invoke(value: T): Reference<T> {
-            return Reference(
+        inline operator fun <reified T> invoke(value: T): PropertyValue<T> {
+            return PropertyValue(
                 IReference::class.createType(listOf(KTypeProjection(KVariance.INVARIANT, typeOf<T>()))),
                 value
             )
@@ -70,7 +71,7 @@ class Reference<T>(override val _Windows_FoundationIReference_Type: KType? = nul
     }
 
     override val Type: PropertyType
-        get() = propertyTypeOf(_Windows_FoundationIReference_Type!!.arguments[0].type!!)
+        get() = propertyTypeOf(type!!.arguments[0].type!!)
 
     override val IsNumericScalar: Boolean
         get() = when (Type) {
@@ -79,189 +80,189 @@ class Reference<T>(override val _Windows_FoundationIReference_Type: KType? = nul
             else -> false
         }
 
-    override fun GetUInt8(): Byte {
+    override fun GetUInt8(): UByte {
         if (Type != PropertyType.UInt8) throw IllegalStateException()
-        return Value as Byte
+        return value as UByte
     }
 
 
     override fun GetInt16(): Short {
         if (Type != PropertyType.Int16) throw IllegalStateException()
-        return Value as Short
+        return value as Short
     }
 
     override fun GetUInt16(): UShort {
         if (Type != PropertyType.UInt16) throw IllegalStateException()
-        return Value as UShort
+        return value as UShort
     }
 
     override fun GetInt32(): Int {
         if (Type != PropertyType.Int32) throw IllegalStateException()
-        return Value as Int
+        return value as Int
     }
 
     override fun GetUInt32(): UInt {
         if (Type != PropertyType.UInt32) throw IllegalStateException()
-        return Value as UInt
+        return value as UInt
     }
 
     override fun GetInt64(): Long {
         if (Type != PropertyType.Int64) throw IllegalStateException()
-        return Value as Long
+        return value as Long
     }
 
     override fun GetUInt64(): ULong {
         if (Type != PropertyType.UInt64) throw IllegalStateException()
-        return Value as ULong
+        return value as ULong
     }
 
     override fun GetSingle(): Float {
         if (Type != PropertyType.Single) throw IllegalStateException()
-        return Value as Float
+        return value as Float
     }
 
     override fun GetDouble(): Double {
         if (Type != PropertyType.Double) throw IllegalStateException()
-        return Value as Double
+        return value as Double
     }
 
     override fun GetChar16(): Char {
         if (Type != PropertyType.Char16) throw IllegalStateException()
-        return Value as Char
+        return value as Char
     }
 
     override fun GetBoolean(): Boolean {
         if (Type != PropertyType.Boolean) throw IllegalStateException()
-        return Value as Boolean
+        return value as Boolean
     }
 
     override fun GetString(): String {
         if (Type != PropertyType.String) throw IllegalStateException()
-        return Value as String
+        return value as String
     }
 
     override fun GetGuid(): Guid.GUID {
         if (Type != PropertyType.Guid) throw IllegalStateException()
-        return Value as Guid.GUID
+        return value as Guid.GUID
     }
 
     override fun GetDateTime(): DateTime {
         if (Type != PropertyType.DateTime) throw IllegalStateException()
-        return Value as DateTime
+        return value as DateTime
     }
 
     override fun GetTimeSpan(): TimeSpan {
         if (Type != PropertyType.TimeSpan) throw IllegalStateException()
-        return Value as TimeSpan
+        return value as TimeSpan
     }
 
     override fun GetPoint(): Point {
         if (Type != PropertyType.Point) throw IllegalStateException()
-        return Value as Point
+        return value as Point
     }
 
     override fun GetSize(): Size {
         if (Type != PropertyType.Size) throw IllegalStateException()
-        return Value as Size
+        return value as Size
     }
 
     override fun GetRect(): Rect {
         if (Type != PropertyType.Rect) throw IllegalStateException()
-        return Value as Rect
+        return value as Rect
     }
 
-    override fun GetUInt8Array(value: MutableList<Byte>) {
+    override fun GetUInt8Array(value: MutableList<UByte>) {
         if (Type != PropertyType.UInt8Array) throw IllegalStateException()
-        value.addAll(Value as List<Byte>)
+        value.addAll(value as List<UByte>)
     }
 
     override fun GetInt16Array(value: MutableList<Short>) {
 if (Type != PropertyType.Int16Array) throw IllegalStateException()
-        value.addAll(Value as List<Short>)
+        value.addAll(value as List<Short>)
     }
 
     override fun GetUInt16Array(value: MutableList<UShort>) {
         if (Type != PropertyType.UInt16Array) throw IllegalStateException()
-        value.addAll(Value as List<UShort>)
+        value.addAll(value as List<UShort>)
     }
 
     override fun GetInt32Array(value: MutableList<Int>) {
         if (Type != PropertyType.Int32Array) throw IllegalStateException()
-        value.addAll(Value as List<Int>)
+        value.addAll(value as List<Int>)
     }
 
     override fun GetUInt32Array(value: MutableList<UInt>) {
         if (Type != PropertyType.UInt32Array) throw IllegalStateException()
-        value.addAll(Value as List<UInt>)
+        value.addAll(value as List<UInt>)
     }
 
     override fun GetInt64Array(value: MutableList<Long>) {
         if (Type != PropertyType.Int64Array) throw IllegalStateException()
-        value.addAll(Value as List<Long>)
+        value.addAll(value as List<Long>)
     }
 
     override fun GetUInt64Array(value: MutableList<ULong>) {
         if (Type != PropertyType.UInt64Array) throw IllegalStateException()
-        value.addAll(Value as List<ULong>)
+        value.addAll(value as List<ULong>)
     }
 
     override fun GetSingleArray(value: MutableList<Float>) {
         if (Type != PropertyType.SingleArray) throw IllegalStateException()
-        value.addAll(Value as List<Float>)
+        value.addAll(value as List<Float>)
     }
 
     override fun GetDoubleArray(value: MutableList<Double>) {
         if (Type != PropertyType.DoubleArray) throw IllegalStateException()
-        value.addAll(Value as List<Double>)
+        value.addAll(value as List<Double>)
     }
 
     override fun GetChar16Array(value: MutableList<Char>) {
         if (Type != PropertyType.Char16Array) throw IllegalStateException()
-        value.addAll(Value as List<Char>)
+        value.addAll(value as List<Char>)
     }
 
     override fun GetBooleanArray(value: MutableList<Boolean>) {
         if (Type != PropertyType.BooleanArray) throw IllegalStateException()
-        value.addAll(Value as List<Boolean>)
+        value.addAll(value as List<Boolean>)
     }
 
     override fun GetStringArray(value: MutableList<String?>) {
         if (Type != PropertyType.StringArray) throw IllegalStateException()
-        value.addAll(Value as List<String?>)
+        value.addAll(value as List<String?>)
     }
 
-    override fun GetInspectableArray(value: MutableList<IUnknown?>) {
+    override fun GetInspectableArray(value: MutableList<Any?>) {
         if (Type != PropertyType.InspectableArray) throw IllegalStateException()
-        value.addAll(Value as List<IUnknown?>)
+        value.addAll(value as List<Any?>)
     }
 
     override fun GetGuidArray(value: MutableList<Guid.GUID?>) {
         if (Type != PropertyType.GuidArray) throw IllegalStateException()
-        value.addAll(Value as List<Guid.GUID?>)
+        value.addAll(value as List<Guid.GUID?>)
     }
 
     override fun GetDateTimeArray(value: MutableList<DateTime?>) {
         if (Type != PropertyType.DateTimeArray) throw IllegalStateException()
-        value.addAll(Value as List<DateTime?>)
+        value.addAll(value as List<DateTime?>)
     }
 
     override fun GetTimeSpanArray(value: MutableList<TimeSpan?>) {
         if (Type != PropertyType.TimeSpanArray) throw IllegalStateException()
-        value.addAll(Value as List<TimeSpan?>)
+        value.addAll(value as List<TimeSpan?>)
     }
 
     override fun GetPointArray(value: MutableList<Point?>) {
         if (Type != PropertyType.PointArray) throw IllegalStateException()
-        value.addAll(Value as List<Point?>)
+        value.addAll(value as List<Point?>)
     }
 
     override fun GetSizeArray(value: MutableList<Size?>) {
         if (Type != PropertyType.SizeArray) throw IllegalStateException()
-        value.addAll(Value as List<Size?>)
+        value.addAll(value as List<Size?>)
     }
 
     override fun GetRectArray(value: MutableList<Rect?>) {
         if (Type != PropertyType.RectArray) throw IllegalStateException()
-        value.addAll(Value as List<Rect?>)
+        value.addAll(value as List<Rect?>)
     }
 }

@@ -7,13 +7,12 @@ import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
 import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
-import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.sun.jna.*
 import com.sun.jna.Function.ALT_CONVENTION
-import com.sun.jna.platform.win32.COM.IUnknown
-import com.sun.jna.platform.win32.COM.Unknown
 import com.sun.jna.platform.win32.Guid
+import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.platform.win32.Win32Exception
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
@@ -180,13 +179,9 @@ fun Guid.GUID.ByReference.getValue(): Guid.GUID {
     return this
 }
 
-fun Unknown.ByReference.setValue(unknown: Unknown) {
-    this.pointer = unknown.pointer
-}
-
 typealias JNAPointer = Pointer
 
-val iUnknownIID = IUnknown.IID_IUNKNOWN
+val iUnknownIID = IUnknown.ABI.IID
 
 interface FromNativePolyfill<T> {
     fun fromNative(segment: MemoryAddress): T
@@ -307,6 +302,7 @@ fun KType.javaForeignType(): Class<*> {
     kClass.findAnnotation<ABIMarker>()
         ?: return when (kClass) {
             UShort::class -> Short::class.javaPrimitiveType!!
+            UByte::class -> Byte::class.javaPrimitiveType!!
             UInt::class -> Int::class.javaPrimitiveType!!
             ULong::class -> Long::class.javaPrimitiveType!!
             Float::class -> Float::class.javaPrimitiveType!!
@@ -471,4 +467,30 @@ fun <T> writeListIntoBuffer(type: KType, size:MemoryAddress, buffer:MemoryAddres
         .mapFirst { it * abi.layout.byteSize() }
         .mapFirst { buffer.address().toRawLongValue() + it }
         .forEach { (index, it) -> abi.copyTo(it, MemoryAddress.ofLong(index)) }
+}
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : Any> IUnknown.cast(): T {
+    val refiid = REFIID(guidOf<T>())
+    val abi = abiOf<T>()
+    val casted = this.QueryInterface(refiid)
+    if (abi is IParameterizedABI) {
+        return (abi as IParameterizedABI<T, MemoryAddress>).fromNative(typeOf<T>(), casted.iUnknown_Ptr.toMemoryAddress())
+
+    } else if(abi is IABI) {
+        return (abi as IABI<T, MemoryAddress>).fromNative(casted.iUnknown_Ptr.toMemoryAddress())
+    }
+    throw IllegalArgumentException("Unsupported ABI type: $abi")
+}
+
+inline fun <reified T: Any> IUnknown.instanceOf(): Boolean {
+    val refiid = REFIID(guidOf<T>())
+
+    val obj = try {
+        this.QueryInterface(refiid)
+    } catch (e: Exception) {
+        return false
+    }
+    obj.Release()
+    return true
 }

@@ -13,6 +13,10 @@ import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.*
 import kotlin.reflect.KClass
 
+const val AnyABIClass = "com.github.knk190001.winrtbinding.runtime.AnyABI"
+@Suppress("UNCHECKED_CAST")
+val AnyABI = Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, MemoryAddress>
+
 val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     String::class to StringABI,
     USHORT::class to UShortABI,
@@ -27,6 +31,7 @@ val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     Byte::class to ByteABI,
     GUID::class to GUIDABI,
     Char::class to CharABI,
+    Any::class to AnyABI
 )
 
 object StringABI: IABI<String, MemoryAddress> {
@@ -216,6 +221,3 @@ object CharABI : IABI<Char, Char> {
     }
 
 }
-
-
-

@@ -330,6 +330,12 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         return managedName
     }
 
+    if (param.type.namespace == "System" && param.type.name == "Object") {
+        val anyAbiClassName = ClassName("com.github.knk190001.winrtbinding.runtime", "AnyABI")
+        addStatement("val $managedName = %T.fromNative(${param.name})", anyAbiClassName)
+        return managedName
+    }
+
     if (param.type.name == "Boolean") {
         addStatement("val $managedName = ${param.name} != 0", param.type.asClassName())
         return managedName
@@ -477,7 +483,12 @@ fun CodeBlock.Builder.kTypeStatementFor(
     indent()
     typeReference.genericParameters!!.forEach {
         if (it.type == null) {
-            kTypeStatementFor(SparseTypeReference(it.name, ""), typeParameterIndexMap, projection, typeVarName = typeVarName)
+            kTypeStatementFor(
+                SparseTypeReference(it.name, ""),
+                typeParameterIndexMap,
+                projection,
+                typeVarName = typeVarName
+            )
         } else {
             kTypeStatementFor(it.type, typeParameterIndexMap, true, typeVarName = typeVarName)
         }

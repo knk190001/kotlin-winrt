@@ -82,7 +82,6 @@ private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
     addImport("com.github.knk190001.winrtbinding.runtime", "toHandle")
     addImport("com.github.knk190001.winrtbinding.runtime", "handleToString")
-    addImport("com.github.knk190001.winrtbinding.runtime", "setValue")
     addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
     addImport("com.github.knk190001.winrtbinding.runtime", "ABI")
     addImport("com.github.knk190001.winrtbinding.runtime", "invokeHR")
@@ -269,7 +268,11 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                     "guidFromNative(${param.name})"
                 } else if (param.type.namespace == "System" && param.type.name == "Boolean") {
                     "${param.name} != 0.toByte()"
-                } else {
+                } else if(param.type.namespace == "System" && param.type.name == "Object"){
+                    typeParameters.add(ClassName("com.github.knk190001.winrtbinding.runtime", "AnyABI"))
+                    typeParameters.add(param.type.asClassName())
+                    "%T.fromNative(${param.name}) as %T"
+                }else {
                     typeParameters.add(0, param.type.asClassName())
                     typeParameters.add(param.type.asTypeName())
                     "%T.ABI.fromNative($typeOfString${param.name}) as %T"

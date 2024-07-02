@@ -145,7 +145,7 @@ private fun generateFieldProperty(it: SparseField): PropertySpec {
 
 private fun SparseTypeReference.isString() = isSystemType() && name == "String"
 
-private fun SparseTypeReference.isUnsigned() = isSystemType() && name.startsWith("UInt")
+private fun SparseTypeReference.isUnsigned() = isSystemType() && name.startsWith("UInt") || name == "Byte"
 
 private fun SparseTypeReference.defaultValue() = when (name) {
     "Boolean" -> "false"
@@ -157,7 +157,7 @@ private fun SparseTypeReference.defaultValue() = when (name) {
 }
 
 private fun SparseTypeReference.nativeToManagedUnsigned() = when (name) {
-    "UInt8" -> "toUByte()"
+    "Byte" -> "toUByte()"
     "UInt16" -> "toUShort()"
     "UInt32" -> "toUInt()"
     "UInt64" -> "toULong()"
@@ -165,7 +165,7 @@ private fun SparseTypeReference.nativeToManagedUnsigned() = when (name) {
 }
 
 private fun SparseTypeReference.managedToNativeUnsigned() = when (name) {
-    "UInt8" -> "toByte()"
+    "Byte" -> "toByte()"
     "UInt16" -> "toShort()"
     "UInt32" -> "toInt()"
     "UInt64" -> "toLong()"

@@ -7,9 +7,6 @@ import com.github.knk190001.winrtbinding.runtime.base.Delegate
 import com.github.knk190001.winrtbinding.runtime.com.*
 import com.sun.jna.Structure
 import com.sun.jna.platform.win32.Guid.IID
-import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinDef.UINT
-import com.sun.jna.platform.win32.WinDef.ULONG
 import memeid.UUID
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
@@ -36,24 +33,25 @@ object RuntimeGuidGenerator {
             return getSignature(type.withNullability(false))
         }
         when (type) {
-            typeOf<IUnknown>() -> return "cinterface(IInspectable)"
+            typeOf<Any>() -> return "cinterface(IInspectable)"
             typeOf<String>() -> return "string"
             else -> {}
         }
         if (type.isValueType()) {
             return when (type) {
-                typeOf<Boolean>() -> "b1"
                 typeOf<Byte>() -> "i1"
-                typeOf<Char>() -> "c2"
-                typeOf<Double>() -> "f8"
-                typeOf<IID>() -> "g16"
+                typeOf<UByte>() -> "u1"
                 typeOf<Short>() -> "i2"
+                typeOf<UShort>() -> "u2"
                 typeOf<Int>() -> "i4"
+                typeOf<UInt>() -> "u4"
                 typeOf<Long>() -> "i8"
+                typeOf<ULong>() -> "u8"
                 typeOf<Float>() -> "f4"
-                typeOf<WinDef.USHORT>() -> "u2"
-                typeOf<UINT>() -> "u4"
-                typeOf<ULONG>() -> "u8"
+                typeOf<Double>() -> "f8"
+                typeOf<Boolean>() -> "b1"
+                typeOf<Char>() -> "c2"
+                typeOf<IID>() -> "g16"
                 else -> {
                     if (type.isSubtypeOf(typeOf<Enum<*>>()) || type.isSubtypeOf(typeOf<Structure>())) {
                         return type.annotationOfType<Signature>()!!.signature
@@ -101,19 +99,19 @@ fun guidOf(type: KType): IID {
 private fun KType.isValueType(): Boolean {
     if (classifier !is KClass<*>) return false
     when (classifier as KClass<*>) {
-        Boolean::class -> return true
         Byte::class -> return true
-        Char::class -> return true
-        Double::class -> return true
-        IID::class -> return true
+        UByte::class -> return true
         Short::class -> return true
+        UShort::class -> return true
         Int::class -> return true
+        UInt::class -> return true
         Long::class -> return true
-        UINT::class -> return true
+        ULong::class -> return true
         Float::class -> return true
-        WinDef.USHORT::class -> return true
-        UINT::class -> return true
-        ULONG::class -> return true
+        Double::class -> return true
+        Boolean::class -> return true
+        Char::class -> return true
+        IID::class -> return true
         else -> {}
     }
     return (classifier as KClass<*>).isSubclassOf(Enum::class) ||
