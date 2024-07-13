@@ -420,7 +420,7 @@ fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescr
 
     val reifiedParameters = delegateMethod.parameters.map {
         if (it.type !is KTypeParameter) {
-            it.type
+            it.type.reify(reifiedTypeMap)
         } else {
             reifiedTypeMap[(it.type as KTypeParameter).name]
         }
@@ -438,6 +438,20 @@ fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescr
         handle.bindTo(ktype),
         MethodType.methodType(Int::class.javaPrimitiveType, handleTypes)
     ) to FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, *descriptorTypes)
+}
+
+private fun KType.reify(typeMap: Map<String, KType?>): KType? {
+    return when (classifier) {
+        is KTypeParameter ->  typeMap[(classifier as KTypeParameter).name]
+        is KClass<*> -> {
+            val kClass = classifier as KClass<*>
+            val reifiedArguments = arguments
+                .map { it.type!!.reify(typeMap) }
+                .map { KTypeProjection(KVariance.INVARIANT, it!!) }
+            kClass.createType(reifiedArguments)
+        }
+        else -> { throw NotImplementedError("Classifier: $this is not handled") }
+    }
 }
 
 fun MemoryAddress.toPointer(): Pointer {
