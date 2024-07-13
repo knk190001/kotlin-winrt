@@ -19,9 +19,10 @@ val AnyABI = Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, Memor
 
 val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     String::class to StringABI,
-    USHORT::class to UShortABI,
-    WinDef.UINT::class to UIntABI,
-    WinDef.ULONG::class to ULongABI,
+    UByte::class to UByteABI,
+    UShort::class to UShortABI,
+    UInt::class to UIntABI,
+    ULong::class to ULongABI,
     Float::class to FloatABI,
     Double::class to DoubleABI,
     Boolean::class to BooleanABI,
@@ -33,6 +34,19 @@ val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     Char::class to CharABI,
     Any::class to AnyABI
 )
+
+object UByteABI : IABI<UByte, Byte> {
+    override fun fromNative(obj: Byte): UByte {
+        return obj.toUByte()
+    }
+
+    override val layout: MemoryLayout
+        get() = ValueLayout.JAVA_BYTE
+
+    override fun toNative(obj: UByte): Byte {
+        return obj.toByte()
+    }
+}
 
 object StringABI: IABI<String, MemoryAddress> {
     override fun fromNative(obj: MemoryAddress): String {

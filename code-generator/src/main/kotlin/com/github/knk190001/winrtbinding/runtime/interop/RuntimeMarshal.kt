@@ -121,4 +121,3 @@ class StringMarshal : Marshal<String, HANDLE> {
     }
 
 }
-

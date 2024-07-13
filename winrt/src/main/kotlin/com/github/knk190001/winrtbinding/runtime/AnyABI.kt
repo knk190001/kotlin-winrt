@@ -4,13 +4,17 @@ import Windows.Foundation.*
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
 import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.ValueLayout
 
-object AnyABI: IABI<Any, MemoryAddress> {
-    override fun fromNative(obj: MemoryAddress): Any {
+object AnyABI: IABI<Any?, MemoryAddress> {
+    override fun fromNative(obj: MemoryAddress): Any? {
+        if (obj == MemoryAddress.NULL) {
+            return null
+        }
         val it = IUnknown.ABI.makeIUnknown(obj.toPointer())
         if (it.instanceOf<IPropertyValue>()) {
             val prop = it.cast<IPropertyValue>()
@@ -66,7 +70,7 @@ object AnyABI: IABI<Any, MemoryAddress> {
         get() = ValueLayout.ADDRESS
 
     @Suppress("UNCHECKED_CAST")
-    override fun toNative(obj: Any): MemoryAddress {
+    override fun toNative(obj: Any?): MemoryAddress {
         return when (obj) {
             is Unit -> PropertyValue<Unit>(obj).pointer.toMemoryAddress()
             is UByte -> PropertyValue<UByte>(obj).pointer.toMemoryAddress()

@@ -67,6 +67,7 @@ interface JNAApiInterface : StdCallLibrary {
 
 fun checkHR(hr: HRESULT) {
     if (hr.toInt() != 0) {
+        System.err.println("Native Error: 0x${hr.toInt().toUInt().toString(16)}")
         throw Win32Exception(hr)
     }
 }
@@ -161,6 +162,27 @@ class WinRTTypeMapper : DefaultTypeMapper() {
         addTypeConverter(String::class.java, stringConverter)
         addTypeConverter(Array<Long>::class.java, boxedLongConverter)
         addTypeConverter(Array<Float>::class.java, boxedFloatArrayConverter)
+        addTypeConverter(UByte::class.java, abiTypeConverter<UByte, Byte>())
+        addTypeConverter(UShort::class.java, abiTypeConverter<UShort, Short>())
+        addTypeConverter(UInt::class.java, abiTypeConverter<UInt, Int>())
+        addTypeConverter(ULong::class.java, abiTypeConverter<ULong, Long>())
+    }
+}
+
+inline fun <reified T : Any, reified R : Any> abiTypeConverter(): TypeConverter {
+    @Suppress("UNCHECKED_CAST") val abi = abiOf<T>() as IABI<T, R>
+    return object : TypeConverter {
+        override fun toNative(value: Any, context: ToNativeContext): R {
+            return abi.toNative(value as T)
+        }
+
+        override fun fromNative(value: Any, context: FromNativeContext): T {
+            return abi.fromNative(value as R)
+        }
+
+        override fun nativeType(): Class<*> {
+            return R::class.java
+        }
 
     }
 }
@@ -320,6 +342,7 @@ fun KType.javaForeignType(): Class<*> {
             MemorySegment::class -> MemorySegment::class.java
             MemoryAddress::class -> MemoryAddress::class.java
             UIntByReference::class -> MemoryAddress::class.java
+            Any::class -> MemoryAddress::class.java
             else -> throw NotImplementedError("Type: $kClass is not handled")
         }
     if (kClass.java.isEnum) {
