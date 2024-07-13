@@ -78,6 +78,7 @@ private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime.interop", "marshalToNative")
     addImport("com.github.knk190001.winrtbinding.runtime.interop", "runtimeFromNativeJF")
     addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
+    addImport("com.github.knk190001.winrtbinding.runtime", "iAgileObjectIID")
     addImport("kotlin.reflect", "typeOf")
     addImport("kotlin.reflect.full", "createType")
     addImport("com.sun.jna", "Memory")
@@ -527,7 +528,7 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
             addStatement("val newDelegate = %T(typeOf<%T>(), fn, %T(12))", delegateClass, delegateType, Memory::class)
             addStatement("val guid = guidOf<%T>()", delegateType)
             addStatement(
-                "newDelegate.init(listOf(%T.IID, guid), %T(stub.address().toRawLongValue()))",
+                "newDelegate.init(listOf(%T.IID, guid, iAgileObjectIID), %T(stub.address().toRawLongValue()))",
                 IUnknown.ABI::class,
                 Pointer::class
             )

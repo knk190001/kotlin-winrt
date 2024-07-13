@@ -83,6 +83,7 @@ private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime", "toHandle")
     addImport("com.github.knk190001.winrtbinding.runtime", "handleToString")
     addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
+    addImport("com.github.knk190001.winrtbinding.runtime", "iAgileObjectIID")
     addImport("com.github.knk190001.winrtbinding.runtime", "ABI")
     addImport("com.github.knk190001.winrtbinding.runtime", "invokeHR")
     addImport("com.github.knk190001.winrtbinding.runtime", "checkHR")
@@ -390,7 +391,7 @@ private fun TypeSpec.Builder.generatePseudoConstructor(
             } else {
                 "IID"
             }
-            addStatement("newDelegate.init(listOf(ABI.$iidType,iUnknownIID), nativeFn)", Guid.IID::class, sd.guid)
+            addStatement("newDelegate.init(listOf(ABI.$iidType,iUnknownIID, iAgileObjectIID), nativeFn)", Guid.IID::class, sd.guid)
             addStatement("return newDelegate")
         }.build()
         addCode(cb)

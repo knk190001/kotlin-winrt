@@ -7,6 +7,7 @@ import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
 import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
+import com.github.knk190001.winrtbinding.runtime.com.IAgileObject
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.sun.jna.*
@@ -204,10 +205,7 @@ fun Guid.GUID.ByReference.getValue(): Guid.GUID {
 typealias JNAPointer = Pointer
 
 val iUnknownIID = IUnknown.ABI.IID
-
-interface FromNativePolyfill<T> {
-    fun fromNative(segment: MemoryAddress): T
-}
+val iAgileObjectIID = IAgileObject.ABI.IID
 
 val String.Companion.ABI: IABI<String, MemoryAddress>
     get() = StringABI
