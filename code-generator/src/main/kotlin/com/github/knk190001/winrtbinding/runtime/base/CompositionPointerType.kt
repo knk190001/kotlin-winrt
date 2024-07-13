@@ -1,6 +1,7 @@
 package com.github.knk190001.winrtbinding.runtime.base
 
 import com.github.knk190001.winrtbinding.runtime.JNAPointer
+import com.github.knk190001.winrtbinding.runtime.com.IInspectableVtbl
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.sun.jna.*
 import kotlin.reflect.jvm.javaConstructor
@@ -9,7 +10,8 @@ import kotlin.reflect.jvm.reflect
 open class CompositionPointerType(pointer: JNAPointer? = Pointer.NULL) : NativeMapped, ICompositionPointer {
     override var inner: IUnknown? = null
     private var principalPtr = pointer
-    override var vtbl: Memory? = null
+    override var interfacePointers: MutableList<Memory> = mutableListOf()
+    override var vtbl: IInspectableVtbl? = null
 
     var pointer:Pointer?
         get() {
