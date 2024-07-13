@@ -49,3 +49,7 @@ publishing {
         }
     }
 }
+
+java {
+    withSourcesJar()
+}

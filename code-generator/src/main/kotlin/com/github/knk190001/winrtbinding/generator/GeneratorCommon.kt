@@ -3,16 +3,12 @@ package com.github.knk190001.winrtbinding.generator
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.Signature
-import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid
-import com.sun.jna.ptr.ByReference
 import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.MemorySegment
@@ -20,39 +16,6 @@ import java.lang.foreign.ValueLayout
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
-internal fun TypeSpec.Builder.generateByReferenceType(
-    entity: INamedEntity
-) {
-    val className = ClassName.bestGuess("${entity.namespace}.${entity.name}")
-
-    superclass(ByReference::class)
-    val ptrSize = Native::class.member("POINTER_SIZE")
-    addSuperclassConstructorParameter("%M", ptrSize)
-
-    val getValueSpec = FunSpec.builder("getValue").apply {
-        addModifiers(KModifier.OVERRIDE)
-        addCode("return %T(pointer.getPointer(0))", className)
-    }.build()
-    addFunction(getValueSpec)
-
-    val setValueSpec = FunSpec.builder("setValue").apply {
-        addParameter("value", className)
-        addCode("pointer.setPointer(0, value.pointer)")
-    }.build()
-    addFunction(setValueSpec)
-}
-
-internal fun TypeSpec.Builder.addByReferenceType(entity: INamedEntity) {
-    val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
-        .addMember("brClass = %L.ByReference::class", entity.name)
-        .build()
-    addAnnotation(brAnnotationSpec)
-    val byReference = TypeSpec.classBuilder("ByReference").apply {
-        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", entity.name)))
-        generateByReferenceType(entity)
-    }.build()
-    addType(byReference)
-}
 
 fun SparseTypeReference.asClassName(
     structByValue: Boolean = true,
@@ -88,7 +51,8 @@ fun SparseTypeReference.asClassName(
         return when (name) {
             "Single" -> Float::class.asClassName()
             "Double" -> Double::class.asClassName()
-            "Byte" -> Byte::class.asClassName()
+            "Byte" -> UByte::class.asClassName()
+            "SByte" -> Byte::class.asClassName()
             "Int16" -> Short::class.asClassName()
             "Int32" -> Int::class.asClassName()
             "Int64" -> Long::class.asClassName()
@@ -98,7 +62,7 @@ fun SparseTypeReference.asClassName(
             "UInt32" -> UInt::class.asClassName()
             "String" -> String::class.asClassName()
             "UInt32&" -> UIntByReference::class.asClassName()
-            "Object" -> IUnknown::class.asClassName()
+            "Object" -> Any::class.asClassName()
             "UInt64" -> ULong::class.asClassName()
             "UInt16" -> UShort::class.asClassName()
             "Guid" -> Guid.GUID::class.asClassName()
@@ -137,7 +101,7 @@ fun SparseTypeReference.asKClass(): KClass<*> {
             "Int64" -> return Long::class
             "Void" -> return Unit::class
             "String" -> return String::class
-            "Object" -> return IUnknown::class
+            "Object" -> return Any::class
             "Single" -> return Float::class
             "Char" -> return Char::class
             "Byte" -> return Byte::class
@@ -241,7 +205,7 @@ fun SparseTypeReference.byReferenceClassName(): TypeName {
             "Int64" -> LongByReference::class.asClassName()
             "Void" -> Unit::class.asClassName()
             "String" -> StringByReference::class.asClassName()
-            "Object" -> IUnknownByReference::class.asClassName()
+            "Object" -> AnyByReference::class.asClassName()
             "Byte" -> ByteByReference::class.asClassName()
             "Guid" -> GuidByReference::class.asClassName()
             "Char" -> CharByReference::class.asClassName()

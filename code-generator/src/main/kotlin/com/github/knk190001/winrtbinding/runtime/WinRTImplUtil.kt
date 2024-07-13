@@ -28,7 +28,7 @@ fun generateIInspectable(thisObj:Any, interfaces: Map<Guid.GUID, Pointer>): Pair
         }
         if (thisObj is IKotlinWinRTAggregate) {
             try {
-                returnValue.value = thisObj.inner?.QueryInterface(iid)
+                returnValue.value = thisObj.inner?.QueryInterface(iid)!!.iUnknown_Ptr
                 return@QueryInterface WinNT.S_OK
             } catch (e: Exception) {
                 return@QueryInterface WinNT.HRESULT(WinNT.E_NOTIMPL)

@@ -3,8 +3,10 @@ package com.github.knk190001.winrtbinding.runtime.interop
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import com.github.knk190001.winrtbinding.runtime.toMemoryAddress
+import com.github.knk190001.winrtbinding.runtime.toPointer
+import com.sun.jna.Native
 import com.sun.jna.Pointer
-import com.sun.jna.platform.win32.COM.Unknown
 import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.WinNT.HANDLE
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference
@@ -43,10 +45,10 @@ fun <T> makeByReferenceType(type: KType): IByReference<T> {
             Long::class -> LongByReference() as IByReference<T>
             Unit::class -> throw IllegalArgumentException("ByReference<Unit> can't exist")
             String::class -> StringByReference() as IByReference<T>
-            IUnknown::class -> IUnknownByReference() as IByReference<T>
             Byte::class -> ByteByReference() as IByReference<T>
             GUID::class -> GuidByReference() as IByReference<T>
             Char::class -> CharByReference() as IByReference<T>
+            Any::class -> AnyByReference() as IByReference<T>
             else -> throw NotImplementedError("Type: ${type.classifier} is not handled")
         }
     }
@@ -154,11 +156,19 @@ class StringByReference(pointer: Pointer? = null) : IByReference<HANDLE>, HANDLE
     }
 }
 @ABIMarker(IUnknown.ABI::class)
-class IUnknownByReference(pointer: Pointer? = null) : IByReference<IUnknown>, IUnknown.ByReference() {
+class AnyByReference(pointer: Pointer? = null) : IByReference<Any>, ByReference(Native.POINTER_SIZE) {
     init {
         if (pointer != null) {
             this.pointer = pointer
         }
+    }
+
+    override fun getValue(): Any {
+        return AnyABI.fromNative(pointer.getPointer(0).toMemoryAddress())
+    }
+
+    fun setValue(value: Any) {
+        pointer.setPointer(0, AnyABI.toNative(value).toPointer())
     }
 }
 class ByteByReference(pointer: Pointer? = null) : IByReference<Byte>, com.sun.jna.ptr.ByteByReference() {

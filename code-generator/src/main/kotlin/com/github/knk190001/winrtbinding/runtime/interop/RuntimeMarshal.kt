@@ -8,10 +8,7 @@ import com.sun.jna.Pointer
 import com.sun.jna.Structure
 import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.MemoryAddress
-import kotlin.reflect.KClass
 import kotlin.reflect.KType
-import kotlin.reflect.full.isSubtypeOf
-import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.full.withNullability
 import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
@@ -77,6 +74,9 @@ fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
     if (!type.jvmErasure.isInstance(t) && (abi is IParameterizedNativePeerProvider)) {
         return abi.makeNativePeer(type, t)
     }
+    if (type == typeOf<Any>() && t !is NativeMapped && t !is Pointer && t !is Structure) {
+        return AnyABI.toNative(t as Any).toPointer()
+    }
 
     val marshal: Marshal<T, *> = marshals.singleOrNull {
         type == it.fromType
@@ -121,4 +121,3 @@ class StringMarshal : Marshal<String, HANDLE> {
     }
 
 }
-

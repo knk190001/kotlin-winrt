@@ -56,10 +56,18 @@ java {
     }
 }
 
-val codeGeneratorBuild = rootProject.project(":code-generator").tasks.named("build")
 
-tasks.named("generateMain") {
-    dependsOn(codeGeneratorBuild)
+gradle.projectsEvaluated {
+    val codeGeneratorBuild = rootProject.project(":code-generator").tasks.named("build")
+    tasks.named("generateMain") {
+        dependsOn(codeGeneratorBuild)
+
+    }
+
+    val winAppSdkGenerateMain = tasks.named("generateMain")
+    tasks.named("sourcesJar") {
+        dependsOn(winAppSdkGenerateMain)
+    }
 }
 
 publishing {
@@ -71,4 +79,8 @@ publishing {
             version = "1.0"
         }
     }
+}
+
+java {
+    withSourcesJar()
 }

@@ -82,8 +82,8 @@ private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
     addImport("com.github.knk190001.winrtbinding.runtime", "toHandle")
     addImport("com.github.knk190001.winrtbinding.runtime", "handleToString")
-    addImport("com.github.knk190001.winrtbinding.runtime", "setValue")
     addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
+    addImport("com.github.knk190001.winrtbinding.runtime", "iAgileObjectIID")
     addImport("com.github.knk190001.winrtbinding.runtime", "ABI")
     addImport("com.github.knk190001.winrtbinding.runtime", "invokeHR")
     addImport("com.github.knk190001.winrtbinding.runtime", "checkHR")
@@ -269,7 +269,11 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                     "guidFromNative(${param.name})"
                 } else if (param.type.namespace == "System" && param.type.name == "Boolean") {
                     "${param.name} != 0.toByte()"
-                } else {
+                } else if(param.type.namespace == "System" && param.type.name == "Object"){
+                    typeParameters.add(ClassName("com.github.knk190001.winrtbinding.runtime", "AnyABI"))
+                    typeParameters.add(param.type.asClassName())
+                    "%T.fromNative(${param.name}) as %T"
+                }else {
                     typeParameters.add(0, param.type.asClassName())
                     typeParameters.add(param.type.asTypeName())
                     "%T.ABI.fromNative($typeOfString${param.name}) as %T"
@@ -387,7 +391,7 @@ private fun TypeSpec.Builder.generatePseudoConstructor(
             } else {
                 "IID"
             }
-            addStatement("newDelegate.init(listOf(ABI.$iidType,iUnknownIID), nativeFn)", Guid.IID::class, sd.guid)
+            addStatement("newDelegate.init(listOf(ABI.$iidType,iUnknownIID, iAgileObjectIID), nativeFn)", Guid.IID::class, sd.guid)
             addStatement("return newDelegate")
         }.build()
         addCode(cb)

@@ -9,7 +9,6 @@ import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
 import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
-import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.ptr.PointerByReference
 import java.lang.RuntimeException
 import java.lang.foreign.MemoryAddress
@@ -17,6 +16,7 @@ import java.lang.foreign.MemoryLayout
 import java.lang.foreign.ValueLayout
 
 @ABIMarker(IUnknown.ABI::class)
+@com.github.knk190001.winrtbinding.runtime.annotations.Guid("0000000000000000c000000000000046")
 interface IUnknown : NativeMapped, IWinRTInterface {
     val iUnknown_Vtbl: Pointer
         get() = iUnknown_Ptr.getPointer(0)
@@ -24,7 +24,7 @@ interface IUnknown : NativeMapped, IWinRTInterface {
     val iUnknown_Ptr: Pointer
         get() = toNative() as Pointer
 
-    fun QueryInterface(iid: Guid.REFIID): Pointer {
+    fun QueryInterface(iid: Guid.REFIID): IUnknown {
         val fnPtr = iUnknown_Vtbl.getPointer(0)
         val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
         val result = PointerByReference()
@@ -32,19 +32,19 @@ interface IUnknown : NativeMapped, IWinRTInterface {
         if (hr.toInt() != 0) {
             throw RuntimeException(hr.toString())
         }
-        return result.value
+        return IUnknown_Impl(result.value)
     }
 
-    fun AddRef(): WinDef.ULONG {
-        val fnPtr = iUnknown_Vtbl.getPointer(1)
+    fun AddRef(): ULong {
+        val fnPtr = iUnknown_Vtbl.getPointer(Native.POINTER_SIZE.toLong())
         val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
-        return WinDef.ULONG(fn.invokeLong(arrayOf(iUnknown_Ptr)))
+        return fn.invokeLong(arrayOf(iUnknown_Ptr)).toULong()
     }
 
-    fun Release(): WinDef.ULONG {
-        val fnPtr = iUnknown_Vtbl.getPointer(2)
+    fun Release(): ULong {
+        val fnPtr = iUnknown_Vtbl.getPointer(2L * Native.POINTER_SIZE)
         val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
-        return WinDef.ULONG(fn.invokeLong(arrayOf(iUnknown_Ptr)))
+        return fn.invokeLong(arrayOf(iUnknown_Ptr)).toULong()
     }
 
     object ABI: IABI<IUnknown, MemoryAddress> {

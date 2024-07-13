@@ -78,6 +78,7 @@ private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime.interop", "marshalToNative")
     addImport("com.github.knk190001.winrtbinding.runtime.interop", "runtimeFromNativeJF")
     addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
+    addImport("com.github.knk190001.winrtbinding.runtime", "iAgileObjectIID")
     addImport("kotlin.reflect", "typeOf")
     addImport("kotlin.reflect.full", "createType")
     addImport("com.sun.jna", "Memory")
@@ -330,6 +331,12 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         return managedName
     }
 
+    if (param.type.namespace == "System" && param.type.name == "Object") {
+        val anyAbiClassName = ClassName("com.github.knk190001.winrtbinding.runtime", "AnyABI")
+        addStatement("val $managedName = %T.fromNative(${param.name})", anyAbiClassName)
+        return managedName
+    }
+
     if (param.type.name == "Boolean") {
         addStatement("val $managedName = ${param.name} != 0", param.type.asClassName())
         return managedName
@@ -477,7 +484,12 @@ fun CodeBlock.Builder.kTypeStatementFor(
     indent()
     typeReference.genericParameters!!.forEach {
         if (it.type == null) {
-            kTypeStatementFor(SparseTypeReference(it.name, ""), typeParameterIndexMap, projection, typeVarName = typeVarName)
+            kTypeStatementFor(
+                SparseTypeReference(it.name, ""),
+                typeParameterIndexMap,
+                projection,
+                typeVarName = typeVarName
+            )
         } else {
             kTypeStatementFor(it.type, typeParameterIndexMap, true, typeVarName = typeVarName)
         }
@@ -516,7 +528,7 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
             addStatement("val newDelegate = %T(typeOf<%T>(), fn, %T(12))", delegateClass, delegateType, Memory::class)
             addStatement("val guid = guidOf<%T>()", delegateType)
             addStatement(
-                "newDelegate.init(listOf(%T.IID, guid), %T(stub.address().toRawLongValue()))",
+                "newDelegate.init(listOf(%T.IID, guid, iAgileObjectIID), %T(stub.address().toRawLongValue()))",
                 IUnknown.ABI::class,
                 Pointer::class
             )

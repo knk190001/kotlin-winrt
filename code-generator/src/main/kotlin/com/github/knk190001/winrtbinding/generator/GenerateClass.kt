@@ -6,20 +6,24 @@ import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.runtime.JNAApiInterface
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.CompositionPointerType
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
 import com.github.knk190001.winrtbinding.runtime.com.*
 import com.github.knk190001.winrtbinding.runtime.interop.IEvent
-import com.github.knk190001.winrtbinding.runtime.interop.IUnknownByReference
+import com.github.knk190001.winrtbinding.runtime.interop.AnyByReference
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.interop.WinRTObjectInitializer
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.REFIID
+import com.sun.jna.ptr.ByReference
 import com.sun.jna.ptr.PointerByReference
 import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
@@ -54,11 +58,11 @@ fun generateClass(
             addSuperinterface(superinterface)
         }
 
-        addSuperinterface(IUnknown::class)
+        addSuperinterface(IInspectable::class)
         addSuperinterface(IWinRTObject::class)
 
         generateClassTypeSpec(sparseClass)
-        addByReferenceType(sparseClass)
+        addByReferenceType(sparseClass, "ptr")
         generateClassABI(sparseClass)
         if (sparseClass.hasStaticInterfaces) {
             generateCompanion(sparseClass, lookUp)
@@ -66,6 +70,39 @@ fun generateClass(
     }.build()
     addType(classTypeSpec)
 }.build()
+
+private fun TypeSpec.Builder.addByReferenceType(entity: INamedEntity, ptrPropertyName: String? = null) {
+    val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
+        .addMember("brClass = %L.ByReference::class", entity.name)
+        .build()
+    addAnnotation(brAnnotationSpec)
+    val byReference = TypeSpec.classBuilder("ByReference").apply {
+        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", entity.name)))
+        generateByReferenceType(entity)
+    }.build()
+    addType(byReference)
+}
+
+private fun TypeSpec.Builder.generateByReferenceType(entity: INamedEntity) {
+    val className = ClassName.bestGuess("${entity.namespace}.${entity.name}")
+
+    superclass(ByReference::class)
+    val ptrSize = Native::class.member("POINTER_SIZE")
+    addSuperclassConstructorParameter("%M", ptrSize)
+
+    val getValueSpec = FunSpec.builder("getValue").apply {
+        addModifiers(KModifier.OVERRIDE)
+        addCode("return %T(ptr = pointer.getPointer(0))", className)
+    }.build()
+    addFunction(getValueSpec)
+
+    val setValueSpec = FunSpec.builder("setValue").apply {
+        addParameter("value", className)
+        addCode("pointer.setPointer(0, value.pointer)")
+    }.build()
+    addFunction(setValueSpec)
+}
+
 
 private fun TypeSpec.Builder.generateCompanion(sparseClass: SparseClass, lookUp: LookUp) {
     val interfaces = sparseClass.staticInterfaces.map(lookUp)
@@ -238,7 +275,7 @@ private fun TypeSpec.Builder.addFromNative(sparseClass: SparseClass) {
         addParameter("segment", MemoryAddress::class)
         returns(sparseClass.asTypeReference().asClassName())
         addStatement("val address = segment.toRawLongValue()", ValueLayout::class.member("ADDRESS"))
-        addStatement("return %T(%T(address))".fixSpaces(), sparseClass.asTypeReference().asClassName(), Pointer::class)
+        addStatement("return %T(ptr = %T(address))".fixSpaces(), sparseClass.asTypeReference().asClassName(), Pointer::class)
     }.build()
     addFunction(fromNative)
 }
@@ -318,13 +355,13 @@ fun TypeSpec.Builder.generateCompositionFactoryActivationFunction(
 
         returns(nullablePtr)
         val cb = CodeBlock.builder().apply {
-            addStatement("val inner = %T()", IUnknownByReference::class)
+            addStatement("val inner = %T()", AnyByReference::class)
             add("val obj = ${factoryInterface.name}_Instance.${method.name}(")
             add((userParams.map { it.name } +
-                    listOf("%T.ABI.makeIUnknown(aggregatingClass?.initAggregate())", "inner")).joinToString(),
-                IUnknown::class)
+                    listOf("%T(aggregatingClass?.initAggregate())", "inner")).joinToString(),
+                IInspectable.IInspectable_Impl::class)
             add(")?.pointer\n")
-            addStatement("aggregatingClass?.inner = inner.getValue()")
+            addStatement("aggregatingClass?.inner = inner.getValue() as? %T", IUnknown::class)
             addStatement("return obj")
         }.build()
         addCode(cb)
@@ -731,7 +768,7 @@ private fun TypeSpec.Builder.generateCompositionFactoryConstructor(sparseMethod:
 
 
         val parameterNames = (userParams
-            .map { it.name } + "this as %T")
+            .map { it.name } + "aggregatingClass = this as %T")
 
         val cb = buildCodeBlock {
             beginControlFlow("pointer = if (this is %T)", IKotlinWinRTAggregate::class)

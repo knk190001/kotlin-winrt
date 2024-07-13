@@ -7,13 +7,13 @@ import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
 import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
-import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
+import com.github.knk190001.winrtbinding.runtime.com.IAgileObject
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.sun.jna.*
 import com.sun.jna.Function.ALT_CONVENTION
-import com.sun.jna.platform.win32.COM.IUnknown
-import com.sun.jna.platform.win32.COM.Unknown
 import com.sun.jna.platform.win32.Guid
+import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.platform.win32.Win32Exception
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
@@ -68,6 +68,7 @@ interface JNAApiInterface : StdCallLibrary {
 
 fun checkHR(hr: HRESULT) {
     if (hr.toInt() != 0) {
+        System.err.println("Native Error: 0x${hr.toInt().toUInt().toString(16)}")
         throw Win32Exception(hr)
     }
 }
@@ -162,6 +163,27 @@ class WinRTTypeMapper : DefaultTypeMapper() {
         addTypeConverter(String::class.java, stringConverter)
         addTypeConverter(Array<Long>::class.java, boxedLongConverter)
         addTypeConverter(Array<Float>::class.java, boxedFloatArrayConverter)
+        addTypeConverter(UByte::class.java, abiTypeConverter<UByte, Byte>())
+        addTypeConverter(UShort::class.java, abiTypeConverter<UShort, Short>())
+        addTypeConverter(UInt::class.java, abiTypeConverter<UInt, Int>())
+        addTypeConverter(ULong::class.java, abiTypeConverter<ULong, Long>())
+    }
+}
+
+inline fun <reified T : Any, reified R : Any> abiTypeConverter(): TypeConverter {
+    @Suppress("UNCHECKED_CAST") val abi = abiOf<T>() as IABI<T, R>
+    return object : TypeConverter {
+        override fun toNative(value: Any, context: ToNativeContext): R {
+            return abi.toNative(value as T)
+        }
+
+        override fun fromNative(value: Any, context: FromNativeContext): T {
+            return abi.fromNative(value as R)
+        }
+
+        override fun nativeType(): Class<*> {
+            return R::class.java
+        }
 
     }
 }
@@ -176,31 +198,14 @@ fun JnaFunction.invokeHR(params: Array<Any?>): HRESULT {
     return this.invoke(HRESULT::class.java, params, winRTOptions) as HRESULT
 }
 
-inline fun <A : IWinRTInterface, reified T : A> Array<A>.interfaceOfType(): T {
-    //Loop through the array and return the first interface that matches the type
-    this.forEach {
-        if (it is T) {
-            return it
-        }
-    }
-    throw IllegalArgumentException("No interface of type ${T::class.java.name} found in the array")
-}
-
 fun Guid.GUID.ByReference.getValue(): Guid.GUID {
     return this
 }
 
-fun Unknown.ByReference.setValue(unknown: Unknown) {
-    this.pointer = unknown.pointer
-}
-
 typealias JNAPointer = Pointer
 
-val iUnknownIID = IUnknown.IID_IUNKNOWN
-
-interface FromNativePolyfill<T> {
-    fun fromNative(segment: MemoryAddress): T
-}
+val iUnknownIID = IUnknown.ABI.IID
+val iAgileObjectIID = IAgileObject.ABI.IID
 
 val String.Companion.ABI: IABI<String, MemoryAddress>
     get() = StringABI
@@ -317,6 +322,7 @@ fun KType.javaForeignType(): Class<*> {
     kClass.findAnnotation<ABIMarker>()
         ?: return when (kClass) {
             UShort::class -> Short::class.javaPrimitiveType!!
+            UByte::class -> Byte::class.javaPrimitiveType!!
             UInt::class -> Int::class.javaPrimitiveType!!
             ULong::class -> Long::class.javaPrimitiveType!!
             Float::class -> Float::class.javaPrimitiveType!!
@@ -334,6 +340,7 @@ fun KType.javaForeignType(): Class<*> {
             MemorySegment::class -> MemorySegment::class.java
             MemoryAddress::class -> MemoryAddress::class.java
             UIntByReference::class -> MemoryAddress::class.java
+            Any::class -> MemoryAddress::class.java
             else -> throw NotImplementedError("Type: $kClass is not handled")
         }
     if (kClass.java.isEnum) {
@@ -413,7 +420,7 @@ fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescr
 
     val reifiedParameters = delegateMethod.parameters.map {
         if (it.type !is KTypeParameter) {
-            it.type
+            it.type.reify(reifiedTypeMap)
         } else {
             reifiedTypeMap[(it.type as KTypeParameter).name]
         }
@@ -431,6 +438,20 @@ fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescr
         handle.bindTo(ktype),
         MethodType.methodType(Int::class.javaPrimitiveType, handleTypes)
     ) to FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, *descriptorTypes)
+}
+
+private fun KType.reify(typeMap: Map<String, KType?>): KType? {
+    return when (classifier) {
+        is KTypeParameter ->  typeMap[(classifier as KTypeParameter).name]
+        is KClass<*> -> {
+            val kClass = classifier as KClass<*>
+            val reifiedArguments = arguments
+                .map { it.type!!.reify(typeMap) }
+                .map { KTypeProjection(KVariance.INVARIANT, it!!) }
+            kClass.createType(reifiedArguments)
+        }
+        else -> { throw NotImplementedError("Classifier: $this is not handled") }
+    }
 }
 
 fun MemoryAddress.toPointer(): Pointer {
@@ -457,6 +478,18 @@ fun <T> readReceiveArrayIntoList(type: KType, size: IntByReference, ptr: Pointer
         .forEach(list::add)
 
 }
+fun <T> readReceiveArrayIntoList(type: KType, size: ULongByReference, ptr: PointerByReference, list: MutableList<T>) {
+    val abi = abiOf(type.jvmErasure)
+    val bufferSize = abi.layout.byteSize() * size.getValue().toLong()
+    val segment = MemorySegment.ofAddress(ptr.value.toMemoryAddress(), bufferSize, MemorySession.global())
+    segment.elements(abi.layout).toList()
+        .map {
+            @Suppress("UNCHECKED_CAST")
+            it as T
+        }
+        .forEach(list::add)
+
+}
 
 fun <T> writeListIntoBuffer(type: KType, size:MemoryAddress, buffer:MemoryAddress, list: MutableList<T>) {
     val abi = abiOf(type.jvmErasure) as IBaseABI<T, Any?>
@@ -469,4 +502,30 @@ fun <T> writeListIntoBuffer(type: KType, size:MemoryAddress, buffer:MemoryAddres
         .mapFirst { it * abi.layout.byteSize() }
         .mapFirst { buffer.address().toRawLongValue() + it }
         .forEach { (index, it) -> abi.copyTo(it, MemoryAddress.ofLong(index)) }
+}
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : Any> IUnknown.cast(): T {
+    val refiid = REFIID(guidOf<T>())
+    val abi = abiOf<T>()
+    val casted = this.QueryInterface(refiid)
+    if (abi is IParameterizedABI) {
+        return (abi as IParameterizedABI<T, MemoryAddress>).fromNative(typeOf<T>(), casted.iUnknown_Ptr.toMemoryAddress())
+
+    } else if(abi is IABI) {
+        return (abi as IABI<T, MemoryAddress>).fromNative(casted.iUnknown_Ptr.toMemoryAddress())
+    }
+    throw IllegalArgumentException("Unsupported ABI type: $abi")
+}
+
+inline fun <reified T: Any> IUnknown.instanceOf(): Boolean {
+    val refiid = REFIID(guidOf<T>())
+
+    val obj = try {
+        this.QueryInterface(refiid)
+    } catch (e: Exception) {
+        return false
+    }
+    obj.Release()
+    return true
 }

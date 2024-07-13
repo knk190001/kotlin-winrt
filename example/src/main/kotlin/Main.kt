@@ -11,6 +11,8 @@ import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
 import com.github.knk190001.winrtbinding.runtime.WinRT
+import com.github.knk190001.winrtbinding.runtime.cast
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 import java.nio.file.Path
@@ -130,8 +132,7 @@ fun evaluateModel(session: LearningModelSession, binding: LearningModelBinding):
     println("Outputs: " + outputs.size)
     val kvp = outputs.entries.first()
     println("Key: ${kvp.key}")
-    val o = outputs["softmaxout_1"]!!
-    val resultTensor = TensorFloat(o.iUnknown_Ptr)
+    val resultTensor = (outputs["softmaxout_1"]!! as IUnknown).cast<TensorFloat>()
     return resultTensor.GetAsVectorView()!!
 }
 
