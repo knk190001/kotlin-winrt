@@ -3,6 +3,7 @@ package com.github.knk190001.winrtbinding.runtime.com
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.invokeHR
+import com.github.knk190001.winrtbinding.runtime.toPointer
 import com.sun.jna.Function
 import com.sun.jna.Native
 import com.sun.jna.NativeMapped
@@ -11,7 +12,7 @@ import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.ptr.PointerByReference
 import java.lang.RuntimeException
-import java.lang.foreign.MemoryAddress
+import java.lang.foreign.MemorySegment
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.ValueLayout
 
@@ -47,22 +48,22 @@ interface IUnknown : NativeMapped, IWinRTInterface {
         return fn.invokeLong(arrayOf(iUnknown_Ptr)).toULong()
     }
 
-    object ABI: IABI<IUnknown, MemoryAddress> {
+    object ABI: IABI<IUnknown, MemorySegment> {
         val IID: Guid.IID = Guid.IID("0000000000000000C000000000000046")
 
         fun makeIUnknown(ptr: Pointer?): IUnknown =
             IUnknown_Impl(ptr)
 
-        override fun fromNative(segment: MemoryAddress): IUnknown {
-            val address = segment.get(ValueLayout.ADDRESS, 0)
-            return makeIUnknown(Pointer(address.toRawLongValue()))
+        override fun fromNative(obj: MemorySegment): IUnknown {
+            val address = obj.get(ValueLayout.ADDRESS, 0)
+            return makeIUnknown(obj.toPointer())
         }
 
         override val layout: MemoryLayout
             get() = ValueLayout.ADDRESS
 
-        override fun toNative(obj: IUnknown): MemoryAddress {
-            return MemoryAddress.ofLong(Pointer.nativeValue(obj.iUnknown_Ptr))
+        override fun toNative(obj: IUnknown): MemorySegment {
+            return MemorySegment.ofAddress(Pointer.nativeValue(obj.iUnknown_Ptr))
         }
 
     }

@@ -7,7 +7,7 @@ import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
 import com.sun.jna.platform.win32.WinNT.HANDLE
-import java.lang.foreign.MemoryAddress
+import java.lang.foreign.MemorySegment
 import kotlin.reflect.KType
 import kotlin.reflect.full.withNullability
 import kotlin.reflect.jvm.jvmErasure
@@ -58,7 +58,7 @@ fun <T> marshalFromNative(t: Any?, type: KType): T? {
 
 fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
     val abi = abiOf(type.jvmErasure)
-    if (t is MemoryAddress) {
+    if (t is MemorySegment) {
         return t.toPointer()
     }
     if (t is Array<*>) {

@@ -11,7 +11,7 @@ class JVMKeyValuePair<K, V>(type: KType, private val backingPair: Pair<K, V>): K
         initObj()
     }
 
-    override val _Windows_Foundation_CollectionsIKeyValuePair_Type: KType = type
+    override val Windows_Foundation_CollectionsIKeyValuePair_Type: KType = type
 
     override val Key: K = backingPair.first
 

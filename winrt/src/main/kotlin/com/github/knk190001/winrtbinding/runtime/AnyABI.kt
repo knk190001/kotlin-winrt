@@ -4,15 +4,14 @@ import Windows.Foundation.*
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
-import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
-import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
+import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
 
-object AnyABI: IABI<Any?, MemoryAddress> {
-    override fun fromNative(obj: MemoryAddress): Any? {
-        if (obj == MemoryAddress.NULL) {
+object AnyABI: IABI<Any?, MemorySegment> {
+    override fun fromNative(obj: MemorySegment): Any? {
+        if (obj.address() == 0L) {
             return null
         }
         val it = IUnknown.ABI.makeIUnknown(obj.toPointer())
@@ -70,49 +69,49 @@ object AnyABI: IABI<Any?, MemoryAddress> {
         get() = ValueLayout.ADDRESS
 
     @Suppress("UNCHECKED_CAST")
-    override fun toNative(obj: Any?): MemoryAddress {
+    override fun toNative(obj: Any?): MemorySegment {
         return when (obj) {
-            is Unit -> PropertyValue<Unit>(obj).pointer.toMemoryAddress()
-            is UByte -> PropertyValue<UByte>(obj).pointer.toMemoryAddress()
-            is Short -> PropertyValue<Short>(obj).pointer.toMemoryAddress()
-            is UShort -> PropertyValue<UShort>(obj).pointer.toMemoryAddress()
-            is Int -> PropertyValue<Int>(obj).pointer.toMemoryAddress()
-            is UInt -> PropertyValue<UInt>(obj).pointer.toMemoryAddress()
-            is Long -> PropertyValue<Long>(obj).pointer.toMemoryAddress()
-            is ULong -> PropertyValue<ULong>(obj).pointer.toMemoryAddress()
-            is Float -> PropertyValue<Float>(obj).pointer.toMemoryAddress()
-            is Double -> PropertyValue<Double>(obj).pointer.toMemoryAddress()
-            is Char -> PropertyValue<Char>(obj).pointer.toMemoryAddress()
-            is Boolean -> PropertyValue<Boolean>(obj).pointer.toMemoryAddress()
-            is String -> PropertyValue<String>(obj).pointer.toMemoryAddress()
-            is IInspectable -> obj.iUnknown_Ptr.toMemoryAddress()
-            is DateTime -> PropertyValue<DateTime>(obj).pointer.toMemoryAddress()
-            is TimeSpan -> PropertyValue<TimeSpan>(obj).pointer.toMemoryAddress()
-            is GUID -> PropertyValue<GUID>(obj).pointer.toMemoryAddress()
-            is Point -> PropertyValue<Point>(obj).pointer.toMemoryAddress()
-            is Size -> PropertyValue<Size>(obj).pointer.toMemoryAddress()
-            is Rect -> PropertyValue<Rect>(obj).pointer.toMemoryAddress()
+            is Unit -> PropertyValue<Unit>(obj).pointer.toMemorySegment()
+            is UByte -> PropertyValue<UByte>(obj).pointer.toMemorySegment()
+            is Short -> PropertyValue<Short>(obj).pointer.toMemorySegment()
+            is UShort -> PropertyValue<UShort>(obj).pointer.toMemorySegment()
+            is Int -> PropertyValue<Int>(obj).pointer.toMemorySegment()
+            is UInt -> PropertyValue<UInt>(obj).pointer.toMemorySegment()
+            is Long -> PropertyValue<Long>(obj).pointer.toMemorySegment()
+            is ULong -> PropertyValue<ULong>(obj).pointer.toMemorySegment()
+            is Float -> PropertyValue<Float>(obj).pointer.toMemorySegment()
+            is Double -> PropertyValue<Double>(obj).pointer.toMemorySegment()
+            is Char -> PropertyValue<Char>(obj).pointer.toMemorySegment()
+            is Boolean -> PropertyValue<Boolean>(obj).pointer.toMemorySegment()
+            is String -> PropertyValue<String>(obj).pointer.toMemorySegment()
+            is IInspectable -> obj.iUnknown_Ptr.toMemorySegment()
+            is DateTime -> PropertyValue<DateTime>(obj).pointer.toMemorySegment()
+            is TimeSpan -> PropertyValue<TimeSpan>(obj).pointer.toMemorySegment()
+            is GUID -> PropertyValue<GUID>(obj).pointer.toMemorySegment()
+            is Point -> PropertyValue<Point>(obj).pointer.toMemorySegment()
+            is Size -> PropertyValue<Size>(obj).pointer.toMemorySegment()
+            is Rect -> PropertyValue<Rect>(obj).pointer.toMemorySegment()
             is Array<*> -> {
                 when (obj::class.java.componentType.kotlin) {
-                    UByte::class -> PropertyValue<Array<UByte>>(obj as Array<UByte>).pointer.toMemoryAddress()
-                    Short::class -> PropertyValue<Array<Short>>(obj as Array<Short>).pointer.toMemoryAddress()
-                    UShort::class -> PropertyValue<Array<UShort>>(obj as Array<UShort>).pointer.toMemoryAddress()
-                    Int::class -> PropertyValue<Array<Int>>(obj as Array<Int>).pointer.toMemoryAddress()
-                    UInt::class -> PropertyValue<Array<UInt>>(obj as Array<UInt>).pointer.toMemoryAddress()
-                    Long::class -> PropertyValue<Array<Long>>(obj as Array<Long>).pointer.toMemoryAddress()
-                    ULong::class -> PropertyValue<Array<ULong>>(obj as Array<ULong>).pointer.toMemoryAddress()
-                    Float::class -> PropertyValue<Array<Float>>(obj as Array<Float>).pointer.toMemoryAddress()
-                    Double::class -> PropertyValue<Array<Double>>(obj as Array<Double>).pointer.toMemoryAddress()
-                    Char::class -> PropertyValue<Array<Char>>(obj as Array<Char>).pointer.toMemoryAddress()
-                    Boolean::class -> PropertyValue<Array<Boolean>>(obj as Array<Boolean>).pointer.toMemoryAddress()
-                    String::class -> PropertyValue<Array<String>>(obj as Array<String>).pointer.toMemoryAddress()
-                    IInspectable::class -> PropertyValue<Array<IInspectable>>(obj as Array<IInspectable>).pointer.toMemoryAddress()
-                    DateTime::class -> PropertyValue<Array<DateTime>>(obj as Array<DateTime>).pointer.toMemoryAddress()
-                    TimeSpan::class -> PropertyValue<Array<TimeSpan>>(obj as Array<TimeSpan>).pointer.toMemoryAddress()
-                    GUID::class -> PropertyValue<Array<GUID>>(obj as Array<GUID>).pointer.toMemoryAddress()
-                    Point::class -> PropertyValue<Array<Point>>(obj as Array<Point>).pointer.toMemoryAddress()
-                    Size::class -> PropertyValue<Array<Size>>(obj as Array<Size>).pointer.toMemoryAddress()
-                    Rect::class -> PropertyValue<Array<Rect>>(obj as Array<Rect>).pointer.toMemoryAddress()
+                    UByte::class -> PropertyValue<Array<UByte>>(obj as Array<UByte>).pointer.toMemorySegment()
+                    Short::class -> PropertyValue<Array<Short>>(obj as Array<Short>).pointer.toMemorySegment()
+                    UShort::class -> PropertyValue<Array<UShort>>(obj as Array<UShort>).pointer.toMemorySegment()
+                    Int::class -> PropertyValue<Array<Int>>(obj as Array<Int>).pointer.toMemorySegment()
+                    UInt::class -> PropertyValue<Array<UInt>>(obj as Array<UInt>).pointer.toMemorySegment()
+                    Long::class -> PropertyValue<Array<Long>>(obj as Array<Long>).pointer.toMemorySegment()
+                    ULong::class -> PropertyValue<Array<ULong>>(obj as Array<ULong>).pointer.toMemorySegment()
+                    Float::class -> PropertyValue<Array<Float>>(obj as Array<Float>).pointer.toMemorySegment()
+                    Double::class -> PropertyValue<Array<Double>>(obj as Array<Double>).pointer.toMemorySegment()
+                    Char::class -> PropertyValue<Array<Char>>(obj as Array<Char>).pointer.toMemorySegment()
+                    Boolean::class -> PropertyValue<Array<Boolean>>(obj as Array<Boolean>).pointer.toMemorySegment()
+                    String::class -> PropertyValue<Array<String>>(obj as Array<String>).pointer.toMemorySegment()
+                    IInspectable::class -> PropertyValue<Array<IInspectable>>(obj as Array<IInspectable>).pointer.toMemorySegment()
+                    DateTime::class -> PropertyValue<Array<DateTime>>(obj as Array<DateTime>).pointer.toMemorySegment()
+                    TimeSpan::class -> PropertyValue<Array<TimeSpan>>(obj as Array<TimeSpan>).pointer.toMemorySegment()
+                    GUID::class -> PropertyValue<Array<GUID>>(obj as Array<GUID>).pointer.toMemorySegment()
+                    Point::class -> PropertyValue<Array<Point>>(obj as Array<Point>).pointer.toMemorySegment()
+                    Size::class -> PropertyValue<Array<Size>>(obj as Array<Size>).pointer.toMemorySegment()
+                    Rect::class -> PropertyValue<Array<Rect>>(obj as Array<Rect>).pointer.toMemorySegment()
                     else -> throw IllegalArgumentException("Unsupported array type")
                 }
             }

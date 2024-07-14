@@ -62,7 +62,6 @@ open class KotlinWinRTObject : PointerType() {
         ptrToVtbl.setPointer(0, vtbl)
 
         val linker = Linker.nativeLinker()
-
         val indexMethodMap = kClass.functionsAndProperties().filter {
             it.hasAnnotation<InterfaceMethod>()
         }.associateBy { it.findAnnotation<InterfaceMethod>()!!.methodIndex }
@@ -77,11 +76,11 @@ open class KotlinWinRTObject : PointerType() {
             .mapValues { (index, handle) ->
                 val (typeBound, descriptor) = transformParameterizedHandle(kType, indexMethodMap[index]!!, handle)
                 val thisBound = typeBound.bindTo(this)
-                val upcallStub = linker.upcallStub(thisBound, descriptor, MemorySession.global())
-                println("${indexMethodNameMap[index]}: ${upcallStub.address().toPointer()}")
+                val upcallStub = linker.upcallStub(thisBound, descriptor, Arena.global())
+                println("${indexMethodNameMap[index]}: ${upcallStub.toPointer()}")
                 upcallStub
             }
-            .map { (index: Int, stub: MemorySegment) -> (index + 6) * 8L to stub.address().toPointer() }
+            .map { (index: Int, stub: MemorySegment) -> (index + 6) * 8L to stub.toPointer() }
             .forEach { (offset, fnPtr) -> vtbl.setPointer(offset, fnPtr) }
 
         return ptrToVtbl
@@ -103,10 +102,10 @@ open class KotlinWinRTObject : PointerType() {
             when (paramType.classifier) {
                 is KTypeParameter -> listOf(reifiedTypeMap[(it.type.classifier as KTypeParameter).name]!!)
                 else -> {
-                    if (paramType.jvmErasure == Array::class) listOf(typeOf<Int>(), typeOf<MemoryAddress>())
+                    if (paramType.jvmErasure == Array::class) listOf(typeOf<Int>(), typeOf<MemorySegment>())
                     else if (paramType.jvmErasure == MutableList::class && it.hasAnnotation<ReceiveArray>()) listOf(
-                        typeOf<MemoryAddress>(),
-                        typeOf<MemoryAddress>()
+                        typeOf<MemorySegment>(),
+                        typeOf<MemorySegment>()
                     )
                     else listOf(it.type)
                 }
@@ -121,14 +120,14 @@ open class KotlinWinRTObject : PointerType() {
         } else Void.TYPE
 
         val descriptorReturnParam =
-            if (reifiedReturnType == Void.TYPE) listOf<Class<*>>() else listOf(MemoryAddress::class.java)
+            if (reifiedReturnType == Void.TYPE) listOf<Class<*>>() else listOf(MemorySegment::class.java)
         val handleTypes = reifiedParameters.map { it.javaForeignType() }
 
         val descriptorMethodType =
             MethodType.methodType(
                 Int::class.javaPrimitiveType,
                 kClass.java,
-                MemoryAddress::class.java,
+                MemorySegment::class.java,
                 *(handleTypes + descriptorReturnParam).toTypedArray()
             )
 

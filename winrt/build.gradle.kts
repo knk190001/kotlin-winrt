@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.support.kotlinCompilerOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -34,17 +35,16 @@ tasks.test {
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "19"
-    freeCompilerArgs += "-Xjvm-default=all"
     suppressWarnings = true
 }
 
 kotlin {
-    sourceSets.all {
-        languageSettings {
-            languageVersion = "2.0"
-        }
+    jvmToolchain {
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+        languageVersion.set(JavaLanguageVersion.of(22))
     }
+    compileKotlin.kotlinOptions.suppressWarnings = true
+    compileKotlin.compilerOptions.freeCompilerArgs = listOf("-Xjvm-default=all")
 }
 
 buildscript {
@@ -55,13 +55,6 @@ buildscript {
 
 tasks.withType<org.gradle.jvm.tasks.Jar> {
     this.isZip64 = true
-}
-
-java {
-    toolchain {
-        vendor.set(JvmVendorSpec.ADOPTIUM)
-        languageVersion.set(JavaLanguageVersion.of(19))
-    }
 }
 
 gradle.projectsEvaluated {

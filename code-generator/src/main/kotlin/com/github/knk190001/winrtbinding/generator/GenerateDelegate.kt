@@ -189,14 +189,14 @@ private fun TypeSpec.Builder.generateNativeHandleProperty(sd: SparseDelegate) {
             indent()
             addStatement("%T.methodType(%T::class.java, ", MethodType::class, Int::class.java)
             add("%T::class.java, ", ClassName("", "${sd.name}Body"))
-            add("%T::class.java, ", MemoryAddress::class)
+            add("%T::class.java, ", MemorySegment::class)
 
             sd.parameters.flatMap {
                 when (it.arrayType()) {
                     ArrayType.None -> listOf(it.type.foreignType())
-                    ArrayType.PassArray -> listOf(Int::class, MemoryAddress::class)
-                    ArrayType.FillArray -> listOf(Int::class, MemoryAddress::class)
-                    ArrayType.ReceiveArray -> listOf(MemoryAddress::class, MemoryAddress::class)
+                    ArrayType.PassArray -> listOf(Int::class, MemorySegment::class)
+                    ArrayType.FillArray -> listOf(Int::class, MemorySegment::class)
+                    ArrayType.ReceiveArray -> listOf(MemorySegment::class, MemorySegment::class)
                 }
             }.forEach { add("%T::class.java, ", it) }
             addStatement(")")
@@ -213,28 +213,28 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
         val suppressWarningSpec = AnnotationSpec.builder(Suppress::class).addMember("%S", "UNCHECKED_CAST").build()
         addAnnotation(suppressWarningSpec)
         addParameter("fn", ClassName("", "${sd.name}Body"))
-        addParameter("thisObj", MemoryAddress::class)
+        addParameter("thisObj", MemorySegment::class)
         sd.parameters.flatMap {
             when (it.arrayType()) {
                 ArrayType.None -> listOf(it.name to it.type.foreignType())
                 ArrayType.FillArray -> {
                     listOf(
                         "${it.name}_size" to Int::class,
-                        it.name to MemoryAddress::class
+                        it.name to MemorySegment::class
                     )
                 }
 
                 ArrayType.PassArray -> {
                     listOf(
                         "${it.name}_size" to Int::class,
-                        it.name to MemoryAddress::class
+                        it.name to MemorySegment::class
                     )
                 }
 
                 ArrayType.ReceiveArray -> {
                     listOf(
-                        "${it.name}_size" to MemoryAddress::class,
-                        it.name to MemoryAddress::class
+                        "${it.name}_size" to MemorySegment::class,
+                        it.name to MemorySegment::class
                     )
                 }
             }
@@ -297,7 +297,7 @@ private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
                 name
             } else ""
             if (sd.returnType.name != "Void") {
-                addStatement("val returnAddress = %T(returnValue[ADDRESS, 0].toRawLongValue())", Pointer::class)
+                addStatement("val returnAddress = %T(returnValue[ADDRESS, 0].address())", Pointer::class)
                 addStatement("val returnByValue = %T()", sd.returnType.byReferenceClassName())
                 addStatement("returnByValue.setPointer(returnAddress)")
                 if (sd.returnType.isSystemTypeOrObject() && sd.returnType.name == "Object") {
@@ -330,7 +330,7 @@ private fun TypeSpec.Builder.generatePseudoConstructor(
         returns(delegateTypeName)
 
         val cb = CodeBlock.builder().apply {
-            addStatement("val session = %T.global()", MemorySession::class)
+            addStatement("val session = %T.global()", Arena::class)
             addStatement("val stub = %T.nativeLinker().upcallStub(", Linker::class)
             indent()
             addStatement("nativeFnHandle.bindTo(fn),")
@@ -381,7 +381,7 @@ private fun TypeSpec.Builder.generatePseudoConstructor(
             addStatement("session)")
             unindent()
             addStatement(
-                "val nativeFn = %T.getCallback(Native::class.java, %T(stub.address().toRawLongValue())) as Native",
+                "val nativeFn = %T.getCallback(Native::class.java, %T(stub.address())) as Native",
                 CallbackReference::class,
                 Pointer::class
             )
@@ -462,7 +462,7 @@ private fun TypeSpec.Builder.generateABI(sd: SparseDelegate) {
         addSuperinterface(
             IABI::class.asClassName().parameterizedBy(
                 sd.asTypeReference().asClassName(),
-                MemoryAddress::class.asClassName()
+                MemorySegment::class.asClassName()
             )
         )
         addFromNative(sd)
@@ -482,11 +482,10 @@ private fun TypeSpec.Builder.addIID(sd: SparseDelegate) {
 private fun TypeSpec.Builder.addFromNative(sd: SparseDelegate) {
     val fromNative = FunSpec.builder("fromNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("segment", MemoryAddress::class)
+        addParameter("segment", MemorySegment::class)
         returns(sd.asTypeReference().asClassName())
-        addStatement("val address = segment.toRawLongValue()", ValueLayout::class.member("ADDRESS"))
         addStatement(
-            "return %T(%T(address))".fixSpaces(),
+            "return %T(%T(segment.address()))".fixSpaces(),
             sd.asTypeReference().asClassName(),
             Pointer::class
         )

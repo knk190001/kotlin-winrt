@@ -34,7 +34,7 @@ tasks.test {
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "19"
+    jvmTarget = "22"
     freeCompilerArgs += "-Xjvm-default=all"
     suppressWarnings = true
 }
@@ -52,7 +52,7 @@ tasks.withType<org.gradle.jvm.tasks.Jar> {
 java {
     toolchain {
         vendor.set(JvmVendorSpec.ADOPTIUM)
-        languageVersion.set(JavaLanguageVersion.of(19))
+        languageVersion.set(JavaLanguageVersion.of(22))
     }
 }
 

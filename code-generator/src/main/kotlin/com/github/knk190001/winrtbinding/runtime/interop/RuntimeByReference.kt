@@ -3,7 +3,7 @@ package com.github.knk190001.winrtbinding.runtime.interop
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
-import com.github.knk190001.winrtbinding.runtime.toMemoryAddress
+import com.github.knk190001.winrtbinding.runtime.toMemorySegment
 import com.github.knk190001.winrtbinding.runtime.toPointer
 import com.sun.jna.Native
 import com.sun.jna.Pointer
@@ -164,7 +164,7 @@ class AnyByReference(pointer: Pointer? = null) : IByReference<Any>, ByReference(
     }
 
     override fun getValue(): Any {
-        return AnyABI.fromNative(pointer.getPointer(0).toMemoryAddress())
+        return AnyABI.fromNative(pointer.getPointer(0).toMemorySegment())
     }
 
     fun setValue(value: Any) {

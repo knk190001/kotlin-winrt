@@ -13,7 +13,7 @@ import kotlin.reflect.full.createType
 class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObject(), IMap<K, V>,
     MutableMap<K, V> by backingMap {
 
-    override val _Windows_Foundation_CollectionsIMap_Type: KType = type
+    override val Windows_Foundation_CollectionsIMap_Type: KType = type
 
     init {
         initObj()
@@ -37,8 +37,8 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
         return JVMMapView(
             IMapView::class.createType(
                 listOf(
-                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[0].type),
-                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[1].type)
+                    KTypeProjection(KVariance.INVARIANT, Windows_Foundation_CollectionsIMap_Type.arguments[0].type),
+                    KTypeProjection(KVariance.INVARIANT, Windows_Foundation_CollectionsIMap_Type.arguments[1].type)
                 )
             ),
             this
@@ -63,10 +63,10 @@ class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObjec
         return JVMIterator(
             IIterator::class.createType(
                 listOf(
-                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[0].type),
-                    KTypeProjection(KVariance.INVARIANT, _Windows_Foundation_CollectionsIMap_Type.arguments[1].type)
+                    KTypeProjection(KVariance.INVARIANT, Windows_Foundation_CollectionsIMap_Type.arguments[0].type),
+                    KTypeProjection(KVariance.INVARIANT, Windows_Foundation_CollectionsIMap_Type.arguments[1].type)
                 )
-            ), Itr(_Windows_Foundation_CollectionsIMap_Type, iterator())
+            ), Itr(Windows_Foundation_CollectionsIMap_Type, iterator())
         )
     }
 

@@ -28,7 +28,7 @@ import com.sun.jna.platform.win32.WinNT
 import com.sun.jna.ptr.ByReference
 import com.sun.jna.ptr.PointerByReference
 import java.lang.IllegalStateException
-import java.lang.foreign.MemoryAddress
+import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
@@ -50,7 +50,7 @@ private fun FileSpec.Builder.addParameterizedInterface(sparseInterface: SparseIn
 
         addABIAnnotation(sparseInterface.withName(sparseInterface.cleanName()).asTypeReference().asClassName())
         addGuidAnnotation(sparseInterface.guid)
-        if(sparseInterface.genericParameters == null){
+        if (sparseInterface.genericParameters == null) {
             addSignatureAnnotation(sparseInterface)
         }
         addByReferenceAnnotation(sparseInterface)
@@ -86,7 +86,12 @@ fun generateProperty(
     val propertyType = getter?.returnType ?: setter!!.parameters.single().type
     val propertyTypeName: TypeName = if (isArrayProperty) {
         val componentType = propertyType.copy(isArray = false)
-        MUTABLE_LIST.parameterizedBy(componentType.asTypeName(nullable = componentType.isNullable(), usage = ClassNameUsage.ApiSurface))
+        MUTABLE_LIST.parameterizedBy(
+            componentType.asTypeName(
+                nullable = componentType.isNullable(),
+                usage = ClassNameUsage.ApiSurface
+            )
+        )
     } else propertyType.asTypeName(nullable = propertyType.isNullable(), usage = ClassNameUsage.ApiSurface)
     val propertyName = getter?.name?.substringAfter("get_") ?: setter!!.name.substringAfter("put_")
 
@@ -97,7 +102,7 @@ fun generateProperty(
                     .any { (superGetter, _) ->
                         superGetter != null && superGetter.name.substringAfter('_') == propertyName
                     }
-            }){
+            }) {
             addModifiers(KModifier.OVERRIDE)
         }
         mutable(setter != null)
@@ -196,20 +201,20 @@ private fun CodeBlock.Builder.addMethodHandleExpression(
         add("%T::class.java, ", KType::class)
     }
     add("%T::class.java, ", sparseInterface.asTypeReference().asClassName())
-    add("%T::class.java, ", MemoryAddress::class)
+    add("%T::class.java, ", MemorySegment::class)
     sparseMethod.parameters.flatMap {
         when (it.arrayType()) {
             ArrayType.None -> listOf(it.type.foreignType())
-            ArrayType.PassArray -> listOf(Int::class, MemoryAddress::class)
-            ArrayType.FillArray -> listOf(Int::class, MemoryAddress::class)
-            ArrayType.ReceiveArray -> listOf(MemoryAddress::class, MemoryAddress::class)
+            ArrayType.PassArray -> listOf(Int::class, MemorySegment::class)
+            ArrayType.FillArray -> listOf(Int::class, MemorySegment::class)
+            ArrayType.ReceiveArray -> listOf(MemorySegment::class, MemorySegment::class)
         }
     }.forEach { add("%T::class.java, ", it) }
     if (!sparseMethod.returnType.isVoid()) {
         if (sparseMethod.returnType.isArray) {
-            add("%T::class.java, ", MemoryAddress::class)
+            add("%T::class.java, ", MemorySegment::class)
         }
-        add("%T::class.java ", MemoryAddress::class)
+        add("%T::class.java ", MemorySegment::class)
     }
     add(")), ")
 }
@@ -247,7 +252,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         return addPrimitiveToManagedStatement(param, managedName, paramName)
     } else if (param.type.isPrimitiveSystemType() && param.type.isReference) {
         addStatement(
-            "val $managedName = %T(%T($paramName.toRawLongValue()))",
+            "val $managedName = %T(%T($paramName.address()))",
             param.type.byReferenceClassName(),
             Pointer::class
         )
@@ -287,14 +292,14 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         } else ""
         if (lookUpTypeReference(param.type) is SparseInterface) {
             addStatement(
-                "val $managedName = %T.ABI.make%T(%T($paramName.toRawLongValue()), ${typeString.dropLast(1)})",
+                "val $managedName = %T.ABI.make%T(%T($paramName.address()), ${typeString.dropLast(1)})",
                 param.type.asClassName(),
                 param.type.asTypeName(),
                 Pointer::class
             )
         } else {
             addStatement(
-                "val $managedName = %T($typeString %T($paramName.toRawLongValue()))",
+                "val $managedName = %T($typeString %T($paramName.address()))",
                 param.type.asTypeName(),
                 Pointer::class
             )
@@ -304,7 +309,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
 
     //Structs by reference
     if (param.type.isReference && !param.type.isSystemTypeOrObject() && lookUpTypeReference(param.type) is SparseStruct) {
-        addStatement("val $managedName = %T(%T($paramName.toRawLongValue()))", param.type.asClassName(), Pointer::class)
+        addStatement("val $managedName = %T(%T($paramName.address()))", param.type.asClassName(), Pointer::class)
         return managedName
     }
 
@@ -312,7 +317,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
     if (param.type.isSystemType() && param.type.name == "Guid") {
         if (param.type.isReference) {
             addStatement(
-                "val $managedName = %T(%T($paramName.toRawLongValue()))",
+                "val $managedName = %T(%T($paramName.address()))",
                 GuidByReference::class,
                 Pointer::class
             )
@@ -324,7 +329,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
 
     if (param.type.isReference) {
         addStatement("val $managedName = %T()", param.type.asTypeName())
-        addStatement("$managedName.pointer = %T($paramName.toRawLongValue())", Pointer::class)
+        addStatement("$managedName.pointer = %T($paramName.address())", Pointer::class)
         return managedName
     }
 
@@ -453,32 +458,32 @@ private fun generateParameterizedNativeFn(idx: Int, sparseInterface: SparseInter
         }
 
         addParameter("_thisObj", sparseInterface.asTypeReference().asTypeName())
-        addParameter("_thisPtr", MemoryAddress::class)
+        addParameter("_thisPtr", MemorySegment::class)
         method.parameters.flatMap {
             when (it.arrayType()) {
                 ArrayType.None -> listOf(it.name to it.type.foreignType())
                 ArrayType.FillArray -> listOf(
                     "${it.name}_size" to Int::class,
-                    it.name to MemoryAddress::class
+                    it.name to MemorySegment::class
                 )
 
                 ArrayType.PassArray -> listOf(
                     "${it.name}_size" to Int::class,
-                    it.name to MemoryAddress::class
+                    it.name to MemorySegment::class
                 )
 
                 ArrayType.ReceiveArray -> listOf(
-                    "${it.name}_size" to MemoryAddress::class,
-                    it.name to MemoryAddress::class
+                    "${it.name}_size" to MemorySegment::class,
+                    it.name to MemorySegment::class
                 )
             }
         }.forEach { addParameter(it.first, it.second) }
 
         if (!method.returnType.isVoid()) {
             if (method.returnType.isArray) {
-                addParameter("_return_Size", MemoryAddress::class)
+                addParameter("_return_Size", MemorySegment::class)
             }
-            addParameter("_returnAddr", MemoryAddress::class)
+            addParameter("_returnAddr", MemorySegment::class)
         }
 
         val cb = if (method.isEventComponent()) {
@@ -545,7 +550,7 @@ private fun generateNativeToJVMBody(
             add("val _result = ")
         }
 
-        if(method.isPropertyComponent()) {
+        if (method.isPropertyComponent()) {
             val propertyName = method.name.substringAfter("_")
             if (method.isGetter()) {
                 addStatement("_thisObj.$propertyName")
@@ -701,7 +706,7 @@ private fun TypeSpec.Builder.addABISuperInterface(
         addSuperinterface(
             IABI::class.asClassName().parameterizedBy(
                 sparseInterface.asTypeReference().asClassName(),
-                MemoryAddress::class.asClassName()
+                MemorySegment::class.asClassName()
             )
         )
         addIIDProperty(sparseInterface)
@@ -713,7 +718,7 @@ private fun TypeSpec.Builder.addABISuperInterface(
         addSuperinterface(
             IParameterizedABI::class.asClassName().parameterizedBy(
                 withStarParams,
-                MemoryAddress::class.asClassName()
+                MemorySegment::class.asClassName()
             )
         )
 
@@ -734,10 +739,10 @@ private fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", entity.asTypeReference().asTypeName(emptyTypeParameters = true))
-        returns(MemoryAddress::class)
+        returns(MemorySegment::class)
         addStatement(
-            "return %T.ofLong(%T.nativeValue(obj.toNative() as %T))",
-            MemoryAddress::class,
+            "return %T.ofAddress(%T.nativeValue(obj.toNative() as %T))",
+            MemorySegment::class,
             Pointer::class,
             nullablePtr
         )
@@ -1056,7 +1061,7 @@ fun generateInterfaceMethod(
                 .copy(method.returnType.isNullable())
         }
 
-        if(functionType == FunctionType.Normal) {
+        if (functionType == FunctionType.Normal) {
             returns(returnType)
         }
 
@@ -1064,10 +1069,10 @@ fun generateInterfaceMethod(
             addCode(buildCodeBlock {
                 addInterfaceMethodBody(method, sparseInterface, idx)
             })
-            if(functionType == FunctionType.Normal) {
+            if (functionType == FunctionType.Normal) {
                 addModifiers(KModifier.OVERRIDE)
             }
-        } else if(functionType == FunctionType.Normal) {
+        } else if (functionType == FunctionType.Normal) {
             addInterfaceMethodAnnotation(idx)
             addModifiers(KModifier.ABSTRACT)
         }
@@ -1219,7 +1224,12 @@ private fun CodeBlock.Builder.addToNativeForPassAndFillArrays(
         .filter { it.arrayType() == ArrayType.PassArray || it.arrayType() == ArrayType.FillArray }
         .forEach {
             add("val ${it.name}_Native = arrayToNative(")
-            kTypeStatementFor(it.type.copy(isArray = false), typeParameterIndexMap, typeVarName = sparseInterface.typeName(), root = true)
+            kTypeStatementFor(
+                it.type.copy(isArray = false),
+                typeParameterIndexMap,
+                typeVarName = sparseInterface.typeName(),
+                root = true
+            )
             add(", ${it.name}")
             if (isProperty) {
                 add(".toTypedArray()")
@@ -1490,8 +1500,6 @@ private fun FileSpec.Builder.addImports() {
         "makeByReferenceType",
         "marshalToNative",
         "marshalFromNative",
-        "makePrimitiveOutArray",
-        "makeOutArray",
         "marshalToNative",
         "marshalFromNative",
         "guidOf",

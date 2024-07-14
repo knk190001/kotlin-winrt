@@ -3,7 +3,6 @@ import de.undercouch.gradle.tasks.download.Download
 import groovy.util.Node
 import groovy.util.NodeList
 import groovy.xml.XmlParser
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
@@ -32,11 +31,9 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "19"
-        freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
-    }
+kotlin {
+    jvmToolchain(22)
+    compilerOptions.freeCompilerArgs.set(listOf("-Xjvm-default=all-compatibility"))
 }
 
 tasks.withType<Copy>().named("processResources") {
@@ -73,7 +70,7 @@ val copyShadowJar by tasks.registering (Copy::class) {
 
 val downloadJRE by tasks.registering(Download::class) {
     appxGroup()
-    src("https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.2%2B7/OpenJDK19U-jre_x64_windows_hotspot_19.0.2_7.zip")
+    src("https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.1%2B8/OpenJDK22U-jre_x64_windows_hotspot_22.0.1_8.zip")
     dest(appxDir)
     overwrite(false)
 }
@@ -83,7 +80,7 @@ val unzipJRE by tasks.registering(Copy::class) {
     dependsOn(downloadJRE)
     val jre = provider {
         fileTree(downloadJRE.get().dest).matching {
-            include("*.zip")
+            include("OpenJDK22*.zip")
         }.singleFile
     }
     from(zipTree(jre))

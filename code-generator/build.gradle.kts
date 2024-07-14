@@ -28,14 +28,8 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "19"
-        freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
-    }
-}
 kotlin {
-    jvmToolchain(19)
+    jvmToolchain(22)
     compilerOptions.freeCompilerArgs.set(listOf("-Xjvm-default=all-compatibility"))
 }
 

@@ -8,7 +8,7 @@ import com.sun.jna.Native
 import com.sun.jna.Pointer
 import java.lang.foreign.Linker
 import java.lang.foreign.MemorySegment
-import java.lang.foreign.MemorySession
+import java.lang.foreign.Arena
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.functions
@@ -58,12 +58,12 @@ interface IKotlinWinRTAggregate: ICompositionPointer {
             .mapValues { (index, handle) ->
                 val bound = handle.bindTo(this)
                 val upcallStub = linker.upcallStub(
-                    bound, indexMethodMap[index]!!.toFunctionDescriptor(), MemorySession.global()
+                    bound, indexMethodMap[index]!!.toFunctionDescriptor(), Arena.global()
                 )
-                println("${indexMethodNameMap[index]}: ${upcallStub.address().toPointer()}")
+                println("${indexMethodNameMap[index]}: ${upcallStub.toPointer()}")
                 upcallStub
             }
-            .map { (index: Int, stub: MemorySegment) -> (index + 6) * 8L to stub.address().toPointer() }
+            .map { (index: Int, stub: MemorySegment) -> (index + 6) * 8L to stub.toPointer() }
             .forEach { (offset, fnPtr) -> vtbl.setPointer(offset, fnPtr) }
 
         return ptrToVtbl

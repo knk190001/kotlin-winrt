@@ -11,8 +11,9 @@ import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.WinNT
 import com.sun.jna.ptr.PointerByReference
-import java.lang.foreign.MemoryAddress
+import java.lang.foreign.Arena
 import java.lang.foreign.MemoryLayout
+import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
 import kotlin.reflect.typeOf
 
@@ -55,15 +56,15 @@ interface IInspectable : IUnknown, NativeMapped, IWinRTInterface {
             get() = pointer.getPointer(0)
     }
 
-    object ABI: IABI<IInspectable, MemoryAddress> {
-        override fun fromNative(obj: MemoryAddress): IInspectable {
+    object ABI: IABI<IInspectable, MemorySegment> {
+        override fun fromNative(obj: MemorySegment): IInspectable {
             return IInspectable_Impl(obj.toPointer())
         }
 
         override val layout: MemoryLayout = ValueLayout.ADDRESS
 
-        override fun toNative(obj: IInspectable): MemoryAddress {
-            return obj.iUnknown_Ptr.toMemoryAddress()
+        override fun toNative(obj: IInspectable): MemorySegment {
+            return obj.iUnknown_Ptr.toMemorySegment()
         }
 
     }

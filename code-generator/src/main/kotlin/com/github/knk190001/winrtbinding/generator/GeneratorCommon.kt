@@ -9,7 +9,6 @@ import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid
-import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
@@ -27,11 +26,7 @@ fun SparseTypeReference.asClassName(
     }
     if (isArray) {
         val baseClass = if (isReference) {
-            if (this.copy(isArray = false).isPrimitiveSystemType()) {
-                PrimitiveOutArray::class.asClassName()
-            } else {
-                OutArray::class.asClassName()
-            }
+            ClassName("kotlin.collections", "MutableList")
         } else {
             Array::class.asClassName()
         }
@@ -164,7 +159,11 @@ fun SparseTypeReference.valueLayout(): CodeBlock {
                 "Char" -> ValueLayout::class.member("JAVA_CHAR")
                 "Byte" -> ValueLayout::class.member("JAVA_BYTE")
                 "Guid" -> return CodeBlock.builder().apply {
-                    addStatement("%T.structLayout(", MemoryLayout::class)
+                    val structLayoutWithPadding = MemberName(
+                        "com.github.knk190001.winrtbinding.runtime",
+                        "structLayoutWithPadding"
+                    )
+                    addStatement("%M(",structLayoutWithPadding)
                     indent()
                     addStatement("%M,", ValueLayout::class.member("JAVA_INT"))
                     addStatement("%M, ", ValueLayout::class.member("JAVA_SHORT"))
@@ -188,7 +187,7 @@ fun SparseTypeReference.valueLayout(): CodeBlock {
 
 fun SparseTypeReference.byReferenceClassName(): TypeName {
     if (isArray) {
-        return OutArray::class.asClassName()
+        return MUTABLE_LIST
             .parameterizedBy(copy(isReference = false, isArray = false).asClassName())
 
     }
@@ -227,7 +226,7 @@ fun SparseTypeReference.foreignType(): KClass<*> {
     }
 
     if (isReference) {
-        return MemoryAddress::class
+        return MemorySegment::class
     }
 
     if (namespace == "System") {
@@ -242,8 +241,8 @@ fun SparseTypeReference.foreignType(): KClass<*> {
             "Int32" -> Int::class
             "Int64" -> Long::class
             "Void" -> Unit::class
-            "String" -> MemoryAddress::class
-            "Object" -> MemoryAddress::class
+            "String" -> MemorySegment::class
+            "Object" -> MemorySegment::class
             "Byte" -> Byte::class
             "Guid" -> MemorySegment::class
             "Char" -> Char::class
@@ -262,7 +261,7 @@ fun SparseTypeReference.foreignType(): KClass<*> {
         return MemorySegment::class
     }
 
-    return MemoryAddress::class
+    return MemorySegment::class
 }
 
 fun TypeSpec.Builder.addSignatureAnnotation(sparseInterface: INamedEntity) {
@@ -288,7 +287,7 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IDirectProjectable<
         if (!projectable.genericParameters.isNullOrEmpty()) {
             addParameter("type", KType::class)
         }
-        addParameter("segment", MemoryAddress::class)
+        addParameter("segment", MemorySegment::class)
 
         val typeVariables = projectable.genericParameters
             ?.map { STAR }
@@ -304,7 +303,7 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IDirectProjectable<
         else "<${typeVariables.joinToString { "Unit" }}>"
 
         val cb = CodeBlock.builder().apply {
-            addStatement("val address = segment.toRawLongValue()")
+            addStatement("val address = segment.address()")
             if (projectable is SparseInterface) {
                 val typeString = if (projectable.genericParameters.isNullOrEmpty()) {
                     ""
@@ -340,13 +339,13 @@ fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity, pointerName: String = 
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", entity.asTypeReference().asTypeName(emptyTypeParameters = true))
-        returns(MemoryAddress::class)
+        returns(MemorySegment::class)
         val objPointerExpression = if (entity is SparseInterface && entity.genericParameters.isNullOrEmpty()) {
             "(obj as WithDefault).$pointerName"
         } else {
             "obj.$pointerName"
         }
-        addStatement("return %T.ofLong(%T.nativeValue($objPointerExpression))", MemoryAddress::class, Pointer::class)
+        addStatement("return %T.ofAddress(%T.nativeValue($objPointerExpression))", MemorySegment::class, Pointer::class)
     }.build()
     addFunction(toNative)
 }

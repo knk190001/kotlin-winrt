@@ -15,7 +15,7 @@ import kotlin.reflect.full.createType
 class JVMVector<T>(type: KType, private val backingList: MutableList<T>) : KotlinWinRTObject(), IVector<T>,
     MutableList<T> by backingList {
 
-    override val _Windows_Foundation_CollectionsIVector_Type: KType = type
+    override val Windows_Foundation_CollectionsIVector_Type: KType = type
 
     init {
         initObj()
@@ -32,7 +32,7 @@ class JVMVector<T>(type: KType, private val backingList: MutableList<T>) : Kotli
 
     override fun GetView(): List<T> {
         return JVMVectorView(
-            IVectorView::class.createType(listOf(_Windows_Foundation_CollectionsIVector_Type.arguments[0])),
+            IVectorView::class.createType(listOf(Windows_Foundation_CollectionsIVector_Type.arguments[0])),
             backingList
         )
     }
@@ -89,7 +89,7 @@ class JVMVector<T>(type: KType, private val backingList: MutableList<T>) : Kotli
     override fun First(): JVMIterator<T> {
         return JVMIterator(
             IIterator::class.createType(
-                listOf(_Windows_Foundation_CollectionsIVector_Type.arguments[0])
+                listOf(Windows_Foundation_CollectionsIVector_Type.arguments[0])
             ), backingList.iterator()
         )
     }

@@ -6,6 +6,7 @@ import com.github.knk190001.winrtbinding.generator.model.entities.SparseTypeRefe
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.IStructABI
+import com.github.knk190001.winrtbinding.runtime.structLayoutWithPadding
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmField
@@ -130,12 +131,15 @@ private fun generateFieldProperty(it: SparseField): PropertySpec {
     else it.type.asTypeName(nullable = it.type.isNullable())
     return PropertySpec.builder(it.name, type).apply {
         if (it.type.isUnsigned()) {
-            getter(FunSpec.getterBuilder().addStatement("return ${it.name}_Internal.${it.type.nativeToManagedUnsigned()}").build())
+            getter(
+                FunSpec.getterBuilder().addStatement("return ${it.name}_Internal.${it.type.nativeToManagedUnsigned()}")
+                    .build()
+            )
             setter(FunSpec.setterBuilder().apply {
                 addParameter("value", it.type.foreignType())
                 addStatement("${it.name}_Internal = value.${it.type.managedToNativeUnsigned()}")
             }.build())
-        }  else {
+        } else {
             jvmField()
             initializer(it.type.defaultValue())
         }
@@ -206,16 +210,21 @@ private fun TypeSpec.Builder.addToNative(sparseStruct: SparseStruct) {
         addParameter("obj", sparseStruct.asTypeReference().asClassName(structByValue = false))
         returns(MemorySegment::class)
         addStatement("obj.write()")
-        addStatement("val address  = %T.ofLong(Pointer.nativeValue(obj.pointer))", MemoryAddress::class)
-        addStatement("return %T.ofAddress(address, layout.byteSize(), %T.global())", MemorySegment::class, MemorySession::class)
+        addStatement("val address = %T.nativeValue(obj.pointer)", Pointer::class)
+        addStatement("return %T.ofAddress(address).reinterpret(layout.byteSize())", MemorySegment::class)
     }.build()
     addFunction(toNative)
 }
+
 private fun TypeSpec.Builder.addLayout(sparseStruct: SparseStruct) {
     val layout = PropertySpec.builder("layout", GroupLayout::class).apply {
         addModifiers(KModifier.OVERRIDE)
         val initializerCb = CodeBlock.builder().apply {
-            addStatement("%T.structLayout(", MemoryLayout::class)
+            val structLayoutWithPadding = MemberName(
+                "com.github.knk190001.winrtbinding.runtime",
+                "structLayoutWithPadding"
+            )
+            addStatement("%M(", structLayoutWithPadding)
             indent()
             sparseStruct.fields
                 .map(SparseField::type)
@@ -237,8 +246,7 @@ private fun TypeSpec.Builder.addFromNative(sparseStruct: SparseStruct) {
         addParameter("segment", MemorySegment::class)
         val className = sparseStruct.asTypeReference().asClassName(structByValue = false)
         returns(className)
-        addStatement("val address = segment.address().toRawLongValue()")
-        addStatement("val struct = %T(%T(address))".fixSpaces(), className, Pointer::class)
+        addStatement("val struct = %T(%T(segment.address()))".fixSpaces(), className, Pointer::class)
         addStatement("struct.read()")
         addStatement("return struct ")
     }.build()

@@ -1,10 +1,8 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
+import com.github.knk190001.winrtbinding.runtime.*
 import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
-import com.github.knk190001.winrtbinding.runtime.handleToString
-import com.github.knk190001.winrtbinding.runtime.toHandle
-import com.github.knk190001.winrtbinding.runtime.toPointer
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.WinDef
@@ -15,7 +13,7 @@ import kotlin.reflect.KClass
 
 const val AnyABIClass = "com.github.knk190001.winrtbinding.runtime.AnyABI"
 @Suppress("UNCHECKED_CAST")
-val AnyABI = Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, MemoryAddress>
+val AnyABI = Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, MemorySegment>
 
 val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     String::class to StringABI,
@@ -48,16 +46,16 @@ object UByteABI : IABI<UByte, Byte> {
     }
 }
 
-object StringABI: IABI<String, MemoryAddress> {
-    override fun fromNative(obj: MemoryAddress): String {
+object StringABI: IABI<String, MemorySegment> {
+    override fun fromNative(obj: MemorySegment): String {
         return HANDLE(obj.toPointer()).handleToString()
     }
 
     override val layout: MemoryLayout
         get() = ValueLayout.ADDRESS
 
-    override fun toNative(obj: String): MemoryAddress {
-        return MemoryAddress.ofLong(Pointer.nativeValue(obj.toHandle().pointer))
+    override fun toNative(obj: String): MemorySegment {
+        return MemorySegment.ofAddress(Pointer.nativeValue(obj.toHandle().pointer))
     }
 
 }
@@ -204,11 +202,11 @@ object ByteABI : IABI<Byte, Byte> {
 
 object GUIDABI : IABI<GUID, MemorySegment> {
     override fun fromNative(obj: MemorySegment): GUID {
-        return GUID(Pointer(obj.address().toRawLongValue()))
+        return GUID(obj.toPointer())
     }
 
     override val layout: MemoryLayout
-        get() = MemoryLayout.structLayout(
+        get() = structLayoutWithPadding(
             ValueLayout.JAVA_INT,
             ValueLayout.JAVA_SHORT,
             ValueLayout.JAVA_SHORT,
@@ -216,8 +214,7 @@ object GUIDABI : IABI<GUID, MemorySegment> {
         )
 
     override fun toNative(obj: GUID): MemorySegment {
-        val address = MemoryAddress.ofLong(Pointer.nativeValue(obj.pointer))
-        return MemorySegment.ofAddress(address, layout.byteSize(), MemorySession.global())
+        return obj.pointer.toMemorySegment().reinterpret(layout.byteSize())
     }
 
 }

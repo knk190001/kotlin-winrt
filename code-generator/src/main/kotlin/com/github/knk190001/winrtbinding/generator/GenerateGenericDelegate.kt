@@ -102,7 +102,7 @@ private fun TypeSpec.Builder.addABI(sparseDelegate: SparseDelegate) {
         val withStarParams = ClassName("", sparseDelegate.name).parameterizedBy(*starParameters)
         addSuperinterface(
             IParameterizedABI::class.asClassName().parameterizedBy(
-                withStarParams, MemoryAddress::class.asClassName()
+                withStarParams, MemorySegment::class.asClassName()
             )
         )
         addParameterizedFromNative(sparseDelegate)
@@ -206,7 +206,7 @@ private fun TypeSpec.Builder.generateGenericNativeHandleProperty(sd: SparseDeleg
                 add("%T.methodType(%T::class.java, \n", MethodType::class, Int::class.java)
                 add("%T::class.java, ", KType::class)
                 add("%T::class.java, ", ClassName("", "${sd.name}Body"))
-                add("%T::class.java, ", MemoryAddress::class)
+                add("%T::class.java, ", MemorySegment::class)
 
                 sd.parameters.flatMap {
                     when (it.arrayType()) {
@@ -235,7 +235,7 @@ private fun TypeSpec.Builder.addNativeFn(sparseDelegate: SparseDelegate) {
 
         addParameter("type", KType::class)
         addParameter("fn", getBodyClassName(sparseDelegate))
-        addParameter("thisPtr", MemoryAddress::class)
+        addParameter("thisPtr", MemorySegment::class)
         sparseDelegate.parameters.flatMap {
             when (it.arrayType()) {
                 ArrayType.None -> listOf(it.name to it.type.foreignType())
@@ -314,7 +314,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         if (lookUpTypeReference(param.type) is SparseInterface) {
             typeString = ", $typeString"
             addStatement(
-                "val $managedName = %T.ABI.make%T(%T(${param.name}.toRawLongValue())$typeString)",
+                "val $managedName = %T.ABI.make%T(%T(${param.name}.address())$typeString)",
                 param.type.asClassName(),
                 param.type.asTypeName(),
                 Pointer::class
@@ -322,7 +322,7 @@ private fun CodeBlock.Builder.addToManagedStatementForParameter(
         } else {
             typeString = "$typeString, "
             addStatement(
-                "val $managedName = %T($typeString%T(${param.name}.toRawLongValue()))",
+                "val $managedName = %T($typeString%T(${param.name}.address()))",
                 param.type.asClassName(),
                 Pointer::class
             )
@@ -517,7 +517,7 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
         returns(delegateType)
 
         val cb = CodeBlock.builder().apply {
-            addStatement("val session = %T.global()", MemorySession::class)
+            addStatement("val session = %T.global()", Arena::class)
             addStatement("val handleDescriptorPair = transformParameterizedHandle(typeOf<%T>())", delegateType)
             addStatement("val methodHandle = handleDescriptorPair.first.bindTo(fn)")
             addStatement("val functionDescriptor = handleDescriptorPair.second")
@@ -528,7 +528,7 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
             addStatement("val newDelegate = %T(typeOf<%T>(), fn, %T(12))", delegateClass, delegateType, Memory::class)
             addStatement("val guid = guidOf<%T>()", delegateType)
             addStatement(
-                "newDelegate.init(listOf(%T.IID, guid, iAgileObjectIID), %T(stub.address().toRawLongValue()))",
+                "newDelegate.init(listOf(%T.IID, guid, iAgileObjectIID), %T(stub.address()))",
                 IUnknown.ABI::class,
                 Pointer::class
             )

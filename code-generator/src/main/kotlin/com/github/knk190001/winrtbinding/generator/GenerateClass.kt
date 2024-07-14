@@ -25,8 +25,8 @@ import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.ptr.ByReference
 import com.sun.jna.ptr.PointerByReference
-import java.lang.foreign.MemoryAddress
 import java.lang.foreign.MemoryLayout
+import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
 import kotlin.reflect.KType
 
@@ -234,9 +234,10 @@ private fun TypeSpec.Builder.generateClassABI(sparseClass: SparseClass) {
         addSuperinterface(
             IABI::class.asClassName().parameterizedBy(
                 ClassName("", sparseClass.name),
-                MemoryAddress::class.asClassName()
+                MemorySegment::class.asClassName()
             )
         )
+
         if (sparseClass.isDirectlyActivatable) {
             generateDirectActivationCode(sparseClass)
         }
@@ -272,10 +273,9 @@ private fun TypeSpec.Builder.addLayout() {
 private fun TypeSpec.Builder.addFromNative(sparseClass: SparseClass) {
     val fromNative = FunSpec.builder("fromNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("segment", MemoryAddress::class)
+        addParameter("segment", MemorySegment::class)
         returns(sparseClass.asTypeReference().asClassName())
-        addStatement("val address = segment.toRawLongValue()", ValueLayout::class.member("ADDRESS"))
-        addStatement("return %T(ptr = %T(address))".fixSpaces(), sparseClass.asTypeReference().asClassName(), Pointer::class)
+        addStatement("return %T(ptr = %T(segment.address()))".fixSpaces(), sparseClass.asTypeReference().asClassName(), Pointer::class)
     }.build()
     addFunction(fromNative)
 }
@@ -703,11 +703,11 @@ fun SparseTypeReference.packageQualifiedIdentifier(): String {
 }
 
 fun SparseTypeReference.getInterfacePointerName(): String {
-    return "_${packageQualifiedIdentifier()}_Ptr"
+    return "${packageQualifiedIdentifier()}_Ptr"
 }
 
 fun SparseTypeReference.getInterfaceTypeName(): String {
-    return "_${packageQualifiedIdentifier()}_Type"
+    return "${packageQualifiedIdentifier()}_Type"
 }
 
 private fun TypeSpec.Builder.generateConstructor(sparseClass: SparseClass) {
