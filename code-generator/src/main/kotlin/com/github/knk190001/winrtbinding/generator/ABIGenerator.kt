@@ -18,8 +18,7 @@ fun generateProjection(serializedMetadata: List<String>, serializedReferenceMeta
     val entityMap = entities.associateBy { it.fullName() }
     val referenceEntityMap = referenceEntities.associateBy { it.fullName() }
 
-    val lookUp: LookUp = { typeReference ->
-        val tr = typeReference.normalize()
+    val lookUp: LookUp = { tr ->
         val result = entityMap.getOrDefault(tr.fullName(), referenceEntityMap[tr.fullName()])
         if (result == null) {
             println("Not found: ${tr.fullName()}")
@@ -29,7 +28,7 @@ fun generateProjection(serializedMetadata: List<String>, serializedReferenceMeta
     }
     lookUpTypeReference = lookUp
 
-    return entities .map {
+    return entities.map {
         when (it) {
             is SparseClass -> generateClass(it, lookUp)
             is SparseInterface -> generateInterface(it)

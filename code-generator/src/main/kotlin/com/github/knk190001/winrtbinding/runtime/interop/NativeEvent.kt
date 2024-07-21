@@ -1,14 +1,14 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
-import com.github.knk190001.winrtbinding.runtime.base.Delegate
 import com.github.knk190001.winrtbinding.runtime.invokeHR
 import com.sun.jna.Function
 import com.sun.jna.Native
 import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
+import com.sun.jna.PointerType
 import kotlin.reflect.KType
 
-class NativeEvent<E : Delegate, T>(
+class NativeEvent<E : PointerType, T>(
     val obj: Pointer?,
     val backingObj: NativeMapped,
     private val addVtblIdx: Int,

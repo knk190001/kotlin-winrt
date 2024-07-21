@@ -36,7 +36,7 @@ fun generateClass(
 ) = FileSpec.builder(sparseClass.namespace, sparseClass.name).apply {
     addImports()
     val classTypeSpec = TypeSpec.classBuilder(sparseClass.name).apply {
-        addABIAnnotation(sparseClass.asTypeReference().asClassName())
+        addABIAnnotation(sparseClass.asClassName())
         if (sparseClass.interfaces.isNotEmpty()) {
             addSignatureAnnotation(sparseClass)
         }
@@ -274,8 +274,8 @@ private fun TypeSpec.Builder.addFromNative(sparseClass: SparseClass) {
     val fromNative = FunSpec.builder("fromNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("segment", MemorySegment::class)
-        returns(sparseClass.asTypeReference().asClassName())
-        addStatement("return %T(ptr = %T(segment.address()))".fixSpaces(), sparseClass.asTypeReference().asClassName(), Pointer::class)
+        returns(sparseClass.asClassName())
+        addStatement("return %T(ptr = %T(segment.address()))".fixSpaces(), sparseClass.asClassName(), Pointer::class)
     }.build()
     addFunction(fromNative)
 }
@@ -385,7 +385,7 @@ private fun TypeSpec.Builder.generateCompositionFactoryLazyProperties(sparseClas
 private fun TypeSpec.Builder.generateFactoryLazyProperty(factoryInterface: SparseInterface) {
     val factoryInterfaceProperty = PropertySpec.builder(
         "${factoryInterface.name}_Instance",
-        factoryInterface.asTypeReference().asClassName()
+        factoryInterface.asClassName()
     ).apply {
         val delegateCb = CodeBlock.builder().apply {
             beginControlFlow("lazy")
@@ -586,7 +586,7 @@ private fun TypeSpec.Builder.generateDeconflictionProperties(sparseClass: Sparse
                 val getterSpec = FunSpec.getterBuilder().apply {
                     addStatement(
                         "return super<%T>.${propertyName}",
-                        getterInterface.asTypeReference().asClassName(nestedClass = "WithDefault")
+                        getterInterface.asClassName(nestedClass = "WithDefault")
                     )
                 }.build()
                 getter(getterSpec)
@@ -595,7 +595,7 @@ private fun TypeSpec.Builder.generateDeconflictionProperties(sparseClass: Sparse
                     addParameter("value", typeName)
                     addStatement(
                         "super<%T>.${propertyName} = value",
-                        setterInterface.asTypeReference().asClassName(nestedClass = "WithDefault")
+                        setterInterface.asClassName(nestedClass = "WithDefault")
                     )
                 }.build()
                 setter(setterSpec)
@@ -606,12 +606,12 @@ private fun TypeSpec.Builder.generateDeconflictionProperties(sparseClass: Sparse
 
 private fun TypeSpec.Builder.generateInterfaceConflictProperties(sparseClass: SparseClass) {
     sparseClass.collisions().forEach {
-        val propertySpec = PropertySpec.builder("as${it.name}", it.asTypeReference().asTypeName()).apply {
+        val propertySpec = PropertySpec.builder("as${it.name}", it.asTypeName()).apply {
             delegate(buildCodeBlock {
                 beginControlFlow("lazy")
                 addStatement(
-                    "%T(${it.asTypeReference().getInterfacePointerName()})",
-                    it.asTypeReference().asTypeName(nestedClass = "${it.name}Impl")
+                    "%T(${it.getInterfacePointerName()})",
+                    it.asTypeName(nestedClass = "${it.name}Impl")
                 )
                 endControlFlow()
             })
@@ -698,15 +698,15 @@ fun generateInterfacePointerProperty(
     }.build()
 }
 
-fun SparseTypeReference.packageQualifiedIdentifier(): String {
-    return "${namespace}${cleanName()}".replace(".", "_")
+fun INamedEntity.packageQualifiedIdentifier(): String {
+    return "${namespace}_$name".replace(".", "_")
 }
 
-fun SparseTypeReference.getInterfacePointerName(): String {
+fun INamedEntity.getInterfacePointerName(): String {
     return "${packageQualifiedIdentifier()}_Ptr"
 }
 
-fun SparseTypeReference.getInterfaceTypeName(): String {
+fun INamedEntity.getInterfaceTypeName(): String {
     return "${packageQualifiedIdentifier()}_Type"
 }
 

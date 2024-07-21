@@ -1,15 +1,15 @@
 package com.github.knk190001.winrtbinding.runtime
 
 import Windows.Foundation.*
+import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
-import com.github.knk190001.winrtbinding.runtime.base.Delegate
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
 import com.sun.jna.platform.win32.Guid
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 import kotlin.reflect.full.createType
-import kotlin.reflect.full.isSubtypeOf
+import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
 
@@ -61,7 +61,7 @@ class PropertyValue<T>(val type: KType?, val value: T) :
                 Size::class -> PropertyType.Size
                 Rect::class -> PropertyType.Rect
                 Array::class -> propertyTypeOf(type.arguments[0].type!!)
-                else -> if (type.isSubtypeOf(typeOf<Delegate>())) {
+                else -> if (type.hasAnnotation<DelegateMarker>()) {
                     PropertyType.OtherType
                 } else {
                     PropertyType.Inspectable

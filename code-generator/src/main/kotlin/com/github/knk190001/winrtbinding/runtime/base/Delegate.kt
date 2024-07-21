@@ -1,90 +1,263 @@
 package com.github.knk190001.winrtbinding.runtime.base
 
-import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
-import com.sun.jna.*
-import com.sun.jna.Structure.FieldOrder
-import com.sun.jna.platform.win32.Guid.GUID
-import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinDef.UINT
-import com.sun.jna.platform.win32.WinNT.HRESULT
-import kotlin.reflect.jvm.jvmName
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import com.github.knk190001.winrtbinding.runtime.iAgileObjectIID
+import com.github.knk190001.winrtbinding.runtime.iUnknownIID
+import com.github.knk190001.winrtbinding.runtime.interop.GUIDABI
+import com.github.knk190001.winrtbinding.runtime.structLayoutWithPadding
+import com.sun.jna.platform.win32.Guid.IID
+import java.lang.foreign.*
+import java.lang.invoke.MethodHandles
+import java.lang.ref.Cleaner
+import java.lang.ref.WeakReference
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.reflect.jvm.javaMethod
 
-open class Delegate(ptr: Pointer? = Memory(12)) : PointerType(ptr) {
-    lateinit var  vtbl: DelegateVtbl
 
-    class ByReference  : com.sun.jna.ptr.ByReference(Native.POINTER_SIZE) {
-        fun setValue(delegate: Delegate) {
-            this.pointer.setPointer(0, delegate.pointer)
-        }
+object Delegate {
+    val delegatePtrLayout = ValueLayout.ADDRESS.withTargetLayout(DelegateStruct.layout)
+    val refiidLayout = ValueLayout.ADDRESS.withTargetLayout(GUIDABI.layout)
 
-        fun getValue(): Delegate {
-            return Delegate(this.pointer.getPointer(0))
-        }
-    }
+    val iUnknownByteArray = iUnknownIID.toByteArray()
+    val iAgileObjectByteArray = iAgileObjectIID.toByteArray()
 
-    fun init(uuids: List<GUID>, fn: Callback) {
-        init(uuids, CallbackReference.getFunctionPointer(fn))
-    }
+    @JvmStatic
+    private fun queryInterface(thisPtr: MemorySegment, refiid: MemorySegment, ppvObject: MemorySegment): Int {
+        try {
+            val thisStruct = DelegateStruct(thisPtr)
 
-    fun init(uuids: List<GUID>, fn: Pointer) {
-        vtbl = DelegateVtbl()
-        vtbl.autoWrite = true
-        vtbl.autoRead = true
-        vtbl.iUnknownVtbl!!.autoRead = true
-        vtbl.iUnknownVtbl!!.autoWrite = true
-
-        pointer.setPointer(0, vtbl.pointer)
-        pointer.setInt(Native.POINTER_SIZE.toLong(), 1)
-        vtbl.fn = fn
-        val unknown = vtbl.iUnknownVtbl
-        println("Delegate class: ${this::class.jvmName}")
-        println("Delegate pointer: 0x${Pointer.nativeValue(pointer).toString(16)}")
-        println("Function pointer: 0x${Pointer.nativeValue(fn).toString(16)}")
-        unknown!!.queryInterface = IUnknownVtbl.QueryInterface { thisPtr, iid, returnValue ->
-            println("QueryInterface: ${iid.value.toGuidString()}")
-            returnValue.value = Pointer.NULL
-            if (thisPtr == Pointer.NULL) {
-                return@QueryInterface HRESULT(UINT(0x80070057).toInt())
+            val thisTypeByteArray = thisStruct.iid.toArray(ValueLayout.JAVA_BYTE)
+            val requestedGuidByteArray = refiid.toArray(ValueLayout.JAVA_BYTE)
+            if (requestedGuidByteArray.contentEquals(thisTypeByteArray) ||
+                requestedGuidByteArray.contentEquals(iUnknownByteArray) ||
+                requestedGuidByteArray.contentEquals(iAgileObjectByteArray)
+            ) {
+                thisStruct.refCount++
+                ppvObject.set(ValueLayout.ADDRESS, 0, thisPtr)
+                return 0
             }
-            if (uuids.contains(iid.value)) {
-                unknown.addRef(thisPtr)
-                returnValue.value = pointer
-                return@QueryInterface HRESULT(0)
-            }
-            println("End QueryInterface")
-            return@QueryInterface HRESULT(-2147467262)
+            return 0x80004002u.toInt()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return 0x80004005u.toInt()
         }
-        unknown.addRef = IUnknownVtbl.AddRef {
-            println("AddRef")
-            val refCount = pointer.getInt(Native.POINTER_SIZE.toLong())
-            pointer.setInt(Native.POINTER_SIZE.toLong(), refCount + 1)
-            println("End AddRef")
-            return@AddRef WinDef.ULONG(refCount+1L)
-        }
-        unknown.release = IUnknownVtbl.Release {
-            println("Release")
-            val refCount = pointer.getInt(Native.POINTER_SIZE.toLong())
-            pointer.setInt(Native.POINTER_SIZE.toLong(), refCount - 1)
-            println("End Release")
-            return@Release WinDef.ULONG(refCount-1L)
-        }
-        vtbl.iUnknownVtbl!!.write()
-        vtbl.write()
     }
 
-    @FieldOrder("iUnknownVtbl", "fn")
-    open class DelegateVtbl(ptr: Pointer? = Pointer.NULL) : Structure(ptr) {
-        class ByValue(ptr: Pointer?) : DelegateVtbl(ptr), Structure.ByValue
-        class ByReference(ptr: Pointer?) : DelegateVtbl(ptr), Structure.ByReference
-        init {
-            autoRead = true
-            autoWrite = true
+    @JvmStatic
+    private fun addRef(thisPtr: MemorySegment): Int {
+        val delegateStruct = DelegateStruct(thisPtr)
+        val refCount = delegateStruct.refCount++
+        if (refCount == 0) {
+            ReferenceManager.setStrong(thisPtr.address())
         }
+        return refCount + 1
+    }
 
-        @JvmField
-        var iUnknownVtbl: IUnknownVtbl? = null
+    @JvmStatic
+    private fun release(thisPtr: MemorySegment): Int {
+        val delegateStruct = DelegateStruct(thisPtr)
+        val refCount = delegateStruct.refCount--
+        if (refCount == 1) {
+            ReferenceManager.setWeak(thisPtr.address())
+        }
+        return refCount - 1
+    }
 
-        @JvmField
-        var fn: Pointer? = null
+    private val lookup = MethodHandles.lookup()
+    private val queryInterfaceHandle = lookup.unreflect(::queryInterface.javaMethod)
+    private val addRefHandle = lookup.unreflect(::addRef.javaMethod)
+    private val releaseHandle = lookup.unreflect(::release.javaMethod)
+
+    private val queryInterfaceStub = Linker.nativeLinker().upcallStub(
+        queryInterfaceHandle,
+        FunctionDescriptor.of(
+            ValueLayout.JAVA_INT, delegatePtrLayout, refiidLayout,
+            ValueLayout.ADDRESS.withTargetLayout(ValueLayout.ADDRESS)
+        ),
+        Arena.global()
+    )
+
+    private val addRefStub = Linker.nativeLinker().upcallStub(
+        addRefHandle,
+        FunctionDescriptor.of(ValueLayout.JAVA_INT, delegatePtrLayout),
+        Arena.global()
+    )
+
+    private val releaseStub = Linker.nativeLinker().upcallStub(
+        releaseHandle,
+        FunctionDescriptor.of(ValueLayout.JAVA_INT, delegatePtrLayout),
+        Arena.global()
+    )
+
+    private val delegateVtblPrototype = DelegateVtbl(Arena.global()).also {
+        it.queryInterface = queryInterfaceStub
+        it.addRef = addRefStub
+        it.release = releaseStub
+    }.segment
+
+    fun createDelegate(arena: Arena, iid: IID, invokeFnPtr: MemorySegment): MemorySegment {
+        val delegateStruct = DelegateStruct(arena)
+        delegateStruct.vtbl.segment.copyFrom(delegateVtblPrototype)
+        delegateStruct.vtbl.invoke = invokeFnPtr
+        delegateStruct.refCount = 1
+        delegateStruct.iid.copyFrom(MemorySegment.ofArray(iid.toByteArray()))
+
+        ReferenceManager.registerArena(arena, delegateStruct.segment.address())
+        return delegateStruct.segment
     }
 }
+
+
+object ReferenceManager {
+    private val table = ConcurrentHashMap<Long, Ref<Arena>?>()
+    private val cleaner = Cleaner.create()
+
+    private interface Ref<T> {
+        val value: T?
+
+        fun toWeak(): WeakRef<T>
+        fun toStrong(): StrongRef<T>
+    }
+
+    private class StrongRef<T>(override var value: T) : Ref<T> {
+        override fun toWeak(): WeakRef<T> {
+            return WeakRef(value)
+        }
+
+        override fun toStrong(): StrongRef<T> = this
+    }
+
+    private class WeakRef<T>(value: T) : Ref<T> {
+        private val ref = WeakReference(value)
+        override val value: T?
+            get() = ref.get()
+
+        override fun toStrong(): StrongRef<T> {
+            return if (value != null) {
+                StrongRef(value!!)
+            } else {
+                throw IllegalStateException("Reference was garbage collected")
+            }
+        }
+
+        override fun toWeak(): WeakRef<T> = this
+    }
+
+    fun registerArena(arena: Arena, address: Long) {
+        val ref = StrongRef(arena)
+        table[address] = ref
+
+        cleaner.register(arena) {
+            remove(address)
+        }
+    }
+
+    fun register(obj: IUnknown) {
+        cleaner.register(obj) {
+            obj.Release()
+        }
+    }
+
+    fun remove(address: Long) {
+        table[address] = null
+        println("Freed: $address")
+    }
+
+    fun setWeak(address: Long) {
+        table[address] = table[address]?.toWeak()
+    }
+
+    fun setStrong(address: Long) {
+        table[address] = table[address]?.toStrong()
+    }
+}
+
+class DelegateVtbl(val segment: MemorySegment) {
+    constructor(arena: Arena) : this(arena.allocate(layout))
+
+    var queryInterface: MemorySegment
+        get() = queryInterfaceVarHandle.get(segment, 0L) as MemorySegment
+        set(value) = queryInterfaceVarHandle.set(segment, 0L, value)
+
+    var addRef: MemorySegment
+        get() = addRefVarHandle.get(segment, 0L) as MemorySegment
+        set(value) = addRefVarHandle.set(segment, 0L, value)
+
+    var release: MemorySegment
+        get() = releaseVarHandle.get(segment, 0L) as MemorySegment
+        set(value) = releaseVarHandle.set(segment, 0L, value)
+
+    var invoke: MemorySegment
+        get() = invokeVarHandle.get(segment, 0L) as MemorySegment
+        set(value) = invokeVarHandle.set(segment, 0L, value)
+
+    companion object {
+        val layout: MemoryLayout = MemoryLayout.structLayout(
+            ValueLayout.ADDRESS.withName("queryInterface"),
+            ValueLayout.ADDRESS.withName("addRef"),
+            ValueLayout.ADDRESS.withName("release"),
+            ValueLayout.ADDRESS.withName("invoke")
+        )
+
+        private val queryInterfaceVarHandle = layout.varHandle(
+            MemoryLayout.PathElement.groupElement("queryInterface")
+        )
+
+        private val addRefVarHandle = layout.varHandle(
+            MemoryLayout.PathElement.groupElement("addRef")
+        )
+
+        private val releaseVarHandle = layout.varHandle(
+            MemoryLayout.PathElement.groupElement("release")
+        )
+
+        private val invokeVarHandle = layout.varHandle(
+            MemoryLayout.PathElement.groupElement("invoke")
+        )
+    }
+}
+
+class DelegateStruct(val segment: MemorySegment) {
+    constructor(arena: Arena) : this(arena.allocate(layout).also {
+        val vtblSegment = arena.allocate(DelegateVtbl.layout)
+        vtblPtrHandle.set(it, 0L, vtblSegment)
+    })
+
+    val vtbl: DelegateVtbl = DelegateVtbl(vtblPtr)
+
+    var vtblPtr: MemorySegment
+        get() = vtblPtrHandle.get(segment, 0L) as MemorySegment
+        set(value) = vtblPtrHandle.set(segment, 0L, value)
+
+    var refCount: Int
+        get() = refCountHandle.get(segment, 0L) as Int
+        set(value) = refCountHandle.set(segment, 0L, value)
+
+    var iid: MemorySegment
+        get() = segment.asSlice(iidOffset, GUIDABI.layout.byteSize())
+        set(value) {
+            iid.copyFrom(value)
+        }
+
+    companion object {
+        val layout = structLayoutWithPadding(
+            ValueLayout.ADDRESS.withTargetLayout(DelegateVtbl.layout)
+                .withName("vtblPtr"),
+            GUIDABI.layout.withName("iid"),
+            ValueLayout.JAVA_INT.withName("refCount")
+        )
+
+        private val vtblPtrHandle = layout.varHandle(
+            MemoryLayout.PathElement.groupElement("vtblPtr")
+        )
+
+        private val refCountHandle = layout.varHandle(
+            MemoryLayout.PathElement.groupElement("refCount")
+        )
+
+        private val iidOffset = layout.byteOffset(
+            MemoryLayout.PathElement.groupElement("iid")
+        )
+    }
+}
+

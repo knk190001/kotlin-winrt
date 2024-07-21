@@ -4,7 +4,7 @@ import com.beust.klaxon.Json
 
 data class SparseDelegate(
     @Json("Name")
-    override val name: String,
+    override val originalName: String,
     @Json("Namespace")
     override val namespace: String,
     @Json("Guid")
@@ -15,32 +15,14 @@ data class SparseDelegate(
     val returnType: SparseTypeReference,
     @Json("GenericParameters")
     override val genericParameters: List<SparseGenericParameter>? = null
-) : SparseEntity("Delegate"), IDirectProjectable<SparseDelegate> {
-    val parameterized
-        get() = genericParameters != null
+) : SparseEntity("Delegate"), IParameterizable<SparseDelegate> {
 
     override fun projectType(typeVariable: String, newTypeReference: SparseTypeReference): SparseDelegate {
-        if (genericParameters == null) return this
+        if (!isGeneric) return this
         return copy(
             parameters = parameters.map { it.projectType(typeVariable, newTypeReference) },
             returnType = returnType.projectType(typeVariable, newTypeReference),
-            genericParameters = genericParameters.map { it.projectType(typeVariable, newTypeReference) }
-        )
-    }
-
-    override fun withName(newName: String): SparseDelegate {
-        return copy(name = newName)
-    }
-
-    override fun withProjectedName(): SparseDelegate {
-        return withName(asTypeReference().getProjectedName())
-    }
-
-    override fun asTypeReference(): SparseTypeReference {
-        return SparseTypeReference(
-            name,
-            namespace,
-            genericParameters
+            genericParameters = genericParameters!!.map { it.projectType(typeVariable, newTypeReference) }
         )
     }
 }

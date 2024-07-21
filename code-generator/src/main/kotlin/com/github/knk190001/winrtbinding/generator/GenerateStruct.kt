@@ -20,19 +20,18 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
     val type = TypeSpec.classBuilder(sparseStruct.name).apply {
         addModifiers(KModifier.OPEN)
-        addABIAnnotation(sparseStruct.asTypeReference().asClassName(false))
+        addABIAnnotation(sparseStruct.asClassName(false))
         addSignatureAnnotation(sparseStruct)
+        val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
+            .addMember("brClass = %L.ByReference::class", sparseStruct.name)
+            .build()
+        addAnnotation(brAnnotationSpec)
 
         val fields = sparseStruct.fields.sortedBy { it.index }
-
         addFieldOrderAnnotation(fields)
-
-
         fields
             .map(::generateFieldProperty)
             .forEach(::addProperty)
-
-
         fields
             .filter { it.type.isUnsigned() }
             .map(::generateUnsignedBackingFields)
@@ -46,18 +45,12 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
             .addParameter(ptrParameterSpec)
             .build()
 
-        val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
-            .addMember("brClass = %L.ByReference::class", sparseStruct.name)
-            .build()
-        addAnnotation(brAnnotationSpec)
-
         addByReferenceType(sparseStruct, ptrParameterSpec)
         addByValueType(sparseStruct, ptrParameterSpec)
+        addABI(sparseStruct)
 
         primaryConstructor(constructor)
         addSuperclassConstructorParameter("ptr")
-
-        addABI(sparseStruct)
     }.build()
     addType(type)
 }.build()
@@ -83,7 +76,7 @@ private fun TypeSpec.Builder.addByReferenceType(
     ptrParameterSpec: ParameterSpec
 ) {
     val byReference = TypeSpec.classBuilder("ByReference").apply {
-        superclass(sparseStruct.asTypeReference().asClassName(false))
+        superclass(sparseStruct.asClassName(false))
         addSuperinterface(Structure.ByReference::class)
         addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", sparseStruct.name)))
         val constructorSpec = FunSpec.constructorBuilder().apply {
@@ -180,7 +173,7 @@ private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
     val abi = TypeSpec.objectBuilder("ABI").apply {
         addSuperinterface(
             IStructABI::class.asClassName().parameterizedBy(
-                sparseStruct.asTypeReference().asClassName(false)
+                sparseStruct.asClassName(false)
             )
         )
         addByValue(sparseStruct)
@@ -194,7 +187,7 @@ private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
 private fun TypeSpec.Builder.addByValue(sparseStruct: SparseStruct) {
     val byValue = FunSpec.builder("byValue").apply {
         addModifiers(KModifier.OVERRIDE)
-        val type = sparseStruct.asTypeReference().asClassName(structByValue = false)
+        val type = sparseStruct.asClassName(structByValue = false)
         addParameter("struct", type)
         addCode(buildCodeBlock {
             addStatement("return ByValue(struct.pointer)")
@@ -207,7 +200,7 @@ private fun TypeSpec.Builder.addByValue(sparseStruct: SparseStruct) {
 private fun TypeSpec.Builder.addToNative(sparseStruct: SparseStruct) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", sparseStruct.asTypeReference().asClassName(structByValue = false))
+        addParameter("obj", sparseStruct.asClassName(structByValue = false))
         returns(MemorySegment::class)
         addStatement("obj.write()")
         addStatement("val address = %T.nativeValue(obj.pointer)", Pointer::class)
@@ -244,7 +237,7 @@ private fun TypeSpec.Builder.addFromNative(sparseStruct: SparseStruct) {
     val fromNative = FunSpec.builder("fromNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("segment", MemorySegment::class)
-        val className = sparseStruct.asTypeReference().asClassName(structByValue = false)
+        val className = sparseStruct.asClassName(structByValue = false)
         returns(className)
         addStatement("val struct = %T(%T(segment.address()))".fixSpaces(), className, Pointer::class)
         addStatement("struct.read()")

@@ -2,501 +2,639 @@ package com.github.knk190001.winrtbinding.generator
 
 import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
-import com.github.knk190001.winrtbinding.generator.model.entities.SparseDelegate
-import com.github.knk190001.winrtbinding.generator.model.entities.SparseInterface
-import com.github.knk190001.winrtbinding.runtime.annotations.GenericType
-import com.github.knk190001.winrtbinding.runtime.interop.IByReference
-import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
+import com.github.knk190001.winrtbinding.generator.model.entities.*
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.base.Delegate
+import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.GenericType
+import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
+import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.github.knk190001.winrtbinding.runtime.interop.ISpecializable
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.sun.jna.CallbackReference
+import com.squareup.kotlinpoet.jvm.jvmStatic
 import com.sun.jna.Function
-import com.sun.jna.Memory
 import com.sun.jna.Native
 import com.sun.jna.Pointer
-import com.sun.jna.platform.win32.Guid
-import com.sun.jna.platform.win32.WinNT.HRESULT
+import com.sun.jna.PointerType
+import com.sun.jna.platform.win32.WinNT
 import com.sun.jna.ptr.ByReference
-import com.sun.jna.win32.StdCallLibrary.StdCallCallback
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
 import java.lang.invoke.MethodType
+import kotlin.reflect.KType
+import kotlin.reflect.KTypeProjection
+import kotlin.reflect.KVariance
 
-fun generateDelegate(
-    sparseDelegate: SparseDelegate
-): FileSpec {
-    if (sparseDelegate.parameterized) {
-        val cleanName = sparseDelegate.asTypeReference().cleanName()
-        return generateGenericDelegate(sparseDelegate.withName(cleanName))
-    }
-    return generateNonGenericDelegate(sparseDelegate)
+
+fun generateDelegate(sparseDelegate: SparseDelegate): FileSpec {
+    return FileSpec.builder(sparseDelegate.namespace, sparseDelegate.name).apply {
+        addImports()
+        addDelegateFunInterface(sparseDelegate)
+        val delegateTypeSpec = TypeSpec.classBuilder(sparseDelegate.name).apply {
+            addABIAnnotation(sparseDelegate.asClassName())
+            superclass(PointerType::class)
+            addSuperinterface(IUnknown::class)
+            addSuperclassConstructorParameter("ptr")
+            addDelegateTypeSpec(sparseDelegate)
+        }.build()
+        addType(delegateTypeSpec)
+    }.build()
 }
 
-fun generateNonGenericDelegate(
-    sd: SparseDelegate
-) = FileSpec.builder(sd.namespace, sd.name).apply {
-    addImports()
-    val delegateTypeName = ClassName(sd.namespace, sd.name)
-    val delegateParameters = sd.parameters.map {
+fun FileSpec.Builder.addDelegateFunInterface(sparseDelegate: SparseDelegate) {
+    val delegateParameters = sparseDelegate.parameters.map {
         ParameterSpec.builder(
             it.name,
             it.type.asTypeName(nullable = !it.type.isPrimitiveSystemType() && !it.type.isArray)
         ).build()
     }
+    val delegateTypeParameters = sparseDelegate.genericParameters
+        ?.map(SparseGenericParameter::name)
+        ?.map(TypeVariableName::invoke)
 
-    val funInterface = TypeSpec.funInterfaceBuilder("${sd.name}Body").apply {
+    val funInterface = TypeSpec.funInterfaceBuilder("${sparseDelegate.name}Body").apply {
+        delegateTypeParameters?.forEach(::addTypeVariable)
         val invokeFn = FunSpec.builder("invoke").apply {
             addModifiers(KModifier.ABSTRACT, KModifier.OPERATOR)
             delegateParameters.forEach(::addParameter)
-            returns(sd.returnType.asTypeName())
+            returns(sparseDelegate.returnType.asTypeName(nullable = sparseDelegate.returnType.isNullable()))
         }.build()
         addFunction(invokeFn)
     }.build()
     addType(funInterface)
-
-    val delegateClass = TypeSpec.classBuilder(sd.name).apply {
-        addABIAnnotation(sd.asTypeReference().asClassName())
-        addSignatureAnnotation(sd)
-        superclass(Delegate::class)
-        if (sd.genericParameters != null) {
-            addAnnotation(GenericType::class)
-            addSuperinterface(
-                sd.asTypeReference().normalize().dropGenericParameterCount().asTypeName()
-            )
-        }
-        generateConstructor()
-        generateCompanion(sd, delegateTypeName)
-        generateNativeInterface(sd)
-        generateByReference(sd)
-        generateInvokeFunction(sd)
-        generateABI(sd)
-    }.build()
-    addType(delegateClass)
-}.build()
+}
 
 private fun FileSpec.Builder.addImports() {
-    addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
-    addImport("com.github.knk190001.winrtbinding.runtime", "toHandle")
-    addImport("com.github.knk190001.winrtbinding.runtime", "handleToString")
-    addImport("com.github.knk190001.winrtbinding.runtime", "iUnknownIID")
-    addImport("com.github.knk190001.winrtbinding.runtime", "iAgileObjectIID")
-    addImport("com.github.knk190001.winrtbinding.runtime", "ABI")
-    addImport("com.github.knk190001.winrtbinding.runtime", "invokeHR")
-    addImport("com.github.knk190001.winrtbinding.runtime", "checkHR")
-    addImport("com.github.knk190001.winrtbinding.runtime", "arrayFromNative")
-    addImport("com.github.knk190001.winrtbinding.runtime", "guidFromNative")
-    addImport("com.github.knk190001.winrtbinding.runtime", "booleanFromNative")
+    addImport(
+        "com.github.knk190001.winrtbinding.runtime",
+        "invokeHR",
+        "checkHR",
+        "toFunctionDescriptor",
+        "transformParameterizedHandle",
+        "iUnknownIID",
+        "iAgileObjectIID",
+        "guidFromNative",
+        "abiOf",
+        "arrayFromNative",
+        "arrayToNative",
+        "toHandle",
+        "toPointer"
+    )
+    addImport(
+        "com.github.knk190001.winrtbinding.runtime.interop",
+        "guidOf",
+        "makeByReferenceType",
+        "marshalFromNative",
+        "marshalToNative",
+        "runtimeFromNativeJF"
+    )
     addImport("kotlin.reflect", "typeOf")
-    addImport("kotlin.reflect.jvm", "javaMethod")
+    addImport("kotlin.reflect.full", "createType")
+    addImport("com.sun.jna", "Memory")
 }
 
-private fun TypeSpec.Builder.generateInvokeFunction(sd: SparseDelegate) {
-    val invokeFn = FunSpec.builder("invoke").apply {
-        if (sd.genericParameters != null) {
+private fun TypeSpec.Builder.addDelegateTypeSpec(sparseDelegate: SparseDelegate) {
+    addDelegateAnnotations(sparseDelegate)
+    addTypeParameters(sparseDelegate)
+    addPrimaryConstructor(sparseDelegate)
+    addInvokeOperator(sparseDelegate)
+    addCompanionObject(sparseDelegate)
+    addByReferenceType(sparseDelegate)
+    addABI(sparseDelegate)
+}
+
+private fun TypeSpec.Builder.addABI(sparseDelegate: SparseDelegate) {
+    val abiTypeSpec = TypeSpec.objectBuilder("ABI").apply {
+        val starParameters = sparseDelegate.genericParameters?.map {
+            STAR
+        }?.toTypedArray()
+
+        val withStarParams = starParameters?.let {
+            ClassName("", sparseDelegate.name).parameterizedBy(*it)
+        } ?: ClassName("", sparseDelegate.name)
+
+        val superInterface = if (sparseDelegate.isGeneric) {
+            IParameterizedABI::class.asClassName()
+        } else {
+            IABI::class.asClassName()
+        }
+
+        addSuperinterface(
+            superInterface.parameterizedBy(
+                withStarParams, MemorySegment::class.asClassName()
+            )
+        )
+        addParameterizedFromNative(sparseDelegate)
+        addPtrToNative(sparseDelegate)
+
+        if (sparseDelegate.isGeneric) {
+            addGetType(withStarParams)
+        } else {
+            addIIDProperty(sparseDelegate)
+        }
+        addLayout()
+    }.build()
+    addType(abiTypeSpec)
+}
+
+private fun TypeSpec.Builder.addGetType(typeName: TypeName) {
+    val getTypeSpec = FunSpec.builder("getType").apply {
+        addModifiers(KModifier.OVERRIDE)
+        addParameter("obj", typeName)
+        addCode("return obj.type!!")
+    }.build()
+    addFunction(getTypeSpec)
+}
+
+private fun TypeSpec.Builder.addLayout() {
+    val layoutSpec = PropertySpec.builder("layout", MemoryLayout::class).apply {
+        addModifiers(KModifier.OVERRIDE)
+        initializer("%T.ADDRESS", ValueLayout::class)
+    }.build()
+    addProperty(layoutSpec)
+}
+
+private fun TypeSpec.Builder.addByReferenceType(sparseDelegate: SparseDelegate) {
+    val byReferenceInterfaceSpec = TypeSpec.classBuilder("ByReference").apply {
+        addTypeParameters(sparseDelegate)
+        superclass(ByReference::class)
+        addSuperclassConstructorParameter("%M", Native::class.member("POINTER_SIZE"))
+        addSuperinterface(
+            IByReference::class.asClassName()
+                .parameterizedBy(sparseDelegate.asTypeName())
+        )
+
+        if (sparseDelegate.isGeneric) {
+            addSuperinterface(ISpecializable::class)
+
+            val typePropertySpec = PropertySpec.builder("type", KType::class.asTypeName().copy(nullable = true)).apply {
+                mutable(true)
+                initializer("null")
+            }.build()
+
+            addProperty(typePropertySpec)
+
+            val specializeSpec = FunSpec.builder("specialize").apply {
+                addModifiers(KModifier.OVERRIDE)
+                addParameter("type", KType::class)
+                addStatement("this.type = type")
+            }.build()
+
+            addFunction(specializeSpec)
+        }
+
+        val getValueFn = FunSpec.builder("getValue").apply {
             addModifiers(KModifier.OVERRIDE)
-        }
-        sd.parameters.forEach {
-            addParameter(
-                it.name, it.type.asTypeName()
-                    .copy(!it.type.isPrimitiveSystemType() && !it.type.isArray)
+            val typeParameter = if (sparseDelegate.isGeneric) "type!!" else null
+            val parameters = listOfNotNull(typeParameter, "pointer.getPointer(0)").joinToString()
+            addCode(
+                "return %T(${parameters})",
+                sparseDelegate.asTypeName()
             )
-        }
-        val cb = CodeBlock.builder().apply {
-            if (sd.returnType.name != "Void") {
-                addStatement("val result = %T()", sd.returnType.byReferenceClassName())
-                returns(sd.returnType.asTypeName())
-            }
-            val marshalledParameters = sd.parameters.map {
-                Marshaller.marshals.getOrDefault(it.type.asKClass(), Marshaller.default)
-                    .generateToNativeMarshalCode(it.name)
-            }
-            marshalledParameters.forEach {
-                add(it.second)
-            }
-
-            val marshalledNames = marshalledParameters.map {
-                it.first
-            }
-            addStatement("val function = %T.getFunction(vtbl.fn!!)", Function::class)
-            add("val hr = function.invokeHR(arrayOf(this.pointer,")
-            add(marshalledNames.mapIndexed { idx, name ->
-                if (sd.parameters[idx].type.namespace != "System" &&
-                    lookUpTypeReference(sd.parameters[idx].type) is SparseInterface
-                ) {
-                    "$name?.toNative() as Pointer"
-                } else {
-                    name
-                }
-            }.toMutableList().apply {
-                if (sd.returnType.name != "Void") {
-                    add("result")
-                }
-            }.joinToString())
-
-            addStatement("))")
-            addStatement("checkHR(hr)")
-
-            if (sd.returnType.name != "Void") {
-                addStatement("val resultValue = result.getValue()")
-                val (name, cb) = Marshaller.marshals.getOrDefault(sd.returnType.asKClass(), Marshaller.default)
-                    .generateFromNativeMarshalCode("resultValue")
-                add(cb)
-                addStatement("return $name")
-            }
+            returns(sparseDelegate.asTypeName())
         }.build()
-        addCode(cb)
+        addFunction(getValueFn)
+
+        val setValueFn = FunSpec.builder("setValue").apply {
+            addParameter("value", sparseDelegate.asTypeName())
+            addCode("pointer = value.pointer!!")
+        }.build()
+        addFunction(setValueFn)
+
     }.build()
-    addFunction(invokeFn)
+
+    addType(byReferenceInterfaceSpec)
 }
 
-private fun TypeSpec.Builder.generateConstructor() {
-    val ctor = FunSpec.constructorBuilder().apply {
-        val ptrParameter = ParameterSpec.builder("ptr", nullablePtr)
-            .defaultValue("%T.NULL", Pointer::class)
-            .build()
-        addParameter(ptrParameter)
+private fun TypeSpec.Builder.addCompanionObject(sparseDelegate: SparseDelegate) {
+    val companionObject = TypeSpec.companionObjectBuilder().apply {
+        addBodyInvokeOperator(sparseDelegate)
+        if (sparseDelegate.isGeneric) {
+            addReifiedPointerInvokeOperator(sparseDelegate)
+        }
+        addNativeHandleProperty(sparseDelegate)
+        addNativeFn(sparseDelegate)
     }.build()
-    primaryConstructor(ctor)
-    addSuperclassConstructorParameter("ptr")
+    addType(companionObject)
 }
 
-private fun TypeSpec.Builder.generateCompanion(
-    sd: SparseDelegate,
-    delegateTypeName: ClassName
-) {
-    val companionObj = TypeSpec.companionObjectBuilder().apply {
-        generatePseudoConstructor(sd, delegateTypeName)
-        generateForeignFunction(sd)
-        generateNativeHandleProperty(sd)
-    }.build()
-    addType(companionObj)
-}
-
-private fun TypeSpec.Builder.generateNativeHandleProperty(sd: SparseDelegate) {
+private fun TypeSpec.Builder.addNativeHandleProperty(sd: SparseDelegate) {
     val nativeHandleProperty = PropertySpec.builder("nativeFnHandle", MethodHandle::class).apply {
-        addModifiers(KModifier.PRIVATE)
-        initializer(CodeBlock.builder().apply {
-            addStatement(
-                "%T.lookup().findStatic(%T::class.java, %S,",
-                MethodHandles::class,
-                sd.asTypeReference().asClassName(),
-                "nativeFn"
-            )
-            indent()
-            addStatement("%T.methodType(%T::class.java, ", MethodType::class, Int::class.java)
-            add("%T::class.java, ", ClassName("", "${sd.name}Body"))
-            add("%T::class.java, ", MemorySegment::class)
-
-            sd.parameters.flatMap {
-                when (it.arrayType()) {
-                    ArrayType.None -> listOf(it.type.foreignType())
-                    ArrayType.PassArray -> listOf(Int::class, MemorySegment::class)
-                    ArrayType.FillArray -> listOf(Int::class, MemorySegment::class)
-                    ArrayType.ReceiveArray -> listOf(MemorySegment::class, MemorySegment::class)
+        getter(FunSpec.getterBuilder().apply {
+            addAnnotation(NativeFunctionMarker::class)
+            val getterCB = CodeBlock.builder().apply {
+                add(
+                    "return %T.lookup().findStatic( %T::class.java, %S,\n",
+                    MethodHandles::class,
+                    sd.asClassName(),
+                    "nativeFn"
+                )
+                indent()
+                add("%T.methodType(%T::class.java, \n", MethodType::class, Int::class.java)
+                if (sd.isGeneric) {
+                    add("%T::class.java, ", KType::class)
                 }
-            }.forEach { add("%T::class.java, ", it) }
-            addStatement(")")
-            unindent()
-            addStatement(")")
+                add("%T::class.java, ", ClassName("", "${sd.name}Body"))
+                add("%T::class.java, ", MemorySegment::class)
+
+                sd.parameters.flatMap {
+                    when (it.arrayType()) {
+                        ArrayType.None -> listOf(it.type.foreignType())
+                        ArrayType.PassArray -> listOf(Int::class, MemorySegment::class)
+                        ArrayType.FillArray -> listOf(Int::class, MemorySegment::class)
+                        ArrayType.ReceiveArray -> listOf(MemorySegment::class, MemorySegment::class)
+                    }
+                }.forEach { add("%T::class.java, ", it) }
+                addStatement(")\n")
+                unindent()
+                add(")")
+            }.build()
+            addCode(getterCB)
         }.build())
     }.build()
     addProperty(nativeHandleProperty)
 }
 
-private fun TypeSpec.Builder.generateForeignFunction(sd: SparseDelegate) {
-    val nativeFnSpec = FunSpec.builder("nativeFn").apply {
-        addAnnotation(JvmStatic::class)
-        val suppressWarningSpec = AnnotationSpec.builder(Suppress::class).addMember("%S", "UNCHECKED_CAST").build()
-        addAnnotation(suppressWarningSpec)
-        addParameter("fn", ClassName("", "${sd.name}Body"))
-        addParameter("thisObj", MemorySegment::class)
-        sd.parameters.flatMap {
+
+private fun TypeSpec.Builder.addNativeFn(sparseDelegate: SparseDelegate) {
+    assert(sparseDelegate.returnType.name == "Void")
+    val nativeFn = FunSpec.builder("nativeFn").apply {
+        jvmStatic()
+        addTypeParameters(sparseDelegate)
+
+        if (sparseDelegate.isGeneric) {
+            addParameter("_type", KType::class)
+        }
+        addParameter("fn", getBodyClassName(sparseDelegate))
+        addParameter("thisPtr", MemorySegment::class)
+        sparseDelegate.parameters.flatMap {
             when (it.arrayType()) {
                 ArrayType.None -> listOf(it.name to it.type.foreignType())
-                ArrayType.FillArray -> {
-                    listOf(
-                        "${it.name}_size" to Int::class,
-                        it.name to MemorySegment::class
-                    )
-                }
+                ArrayType.FillArray -> listOf(
+                    "${it.name}_size" to Int::class,
+                    it.name to MemorySegment::class
+                )
 
-                ArrayType.PassArray -> {
-                    listOf(
-                        "${it.name}_size" to Int::class,
-                        it.name to MemorySegment::class
-                    )
-                }
+                ArrayType.PassArray -> listOf(
+                    "${it.name}_size" to Int::class,
+                    it.name to MemorySegment::class
+                )
 
-                ArrayType.ReceiveArray -> {
-                    listOf(
-                        "${it.name}_size" to MemorySegment::class,
-                        it.name to MemorySegment::class
-                    )
-                }
+                ArrayType.ReceiveArray -> listOf(
+                    "${it.name}_size" to MemorySegment::class,
+                    it.name to MemorySegment::class
+                )
             }
-        }.forEach {
-            addParameter(it.first, it.second)
-        }
+        }.forEach { addParameter(it.first, it.second) }
 
-        if (sd.returnType.name != "Void") {
-            addParameter("returnValue", MemorySegment::class)
-        }
+        val typeParameterIndexMap = sparseDelegate.genericParameters
+            ?.mapIndexed { idx, it -> it.name to idx }
+            ?.toMap() ?: emptyMap()
 
         val cb = CodeBlock.builder().apply {
             beginControlFlow("try")
-            val mappedNames = sd.parameters.map {
-                it to (it.type.isPrimitiveSystemType() && it.type.name != "Boolean")
-            }.map { (param, isPrimitive) ->
-                if (isPrimitive) {
-                    return@map param.name
-                }
-                val typeParameters = mutableListOf<TypeName>()
-                val managedName = "${param.name}_Managed"
-                val typeOfString = if (!param.type.genericParameters.isNullOrEmpty()) {
-                    typeParameters.add(param.type.asTypeName())
-                    "typeOf<%T>(), "
-                } else {
-                    ""
-                }
-                val fromNativeString = if (param.type.isArray) {
-                    typeParameters.add(0, param.type.copy(isArray = false).asTypeName())
-                    "arrayFromNative<%T>(${param.name}_size, ${param.name})"
-                } else if (param.type.namespace == "System" && param.type.name == "Guid") {
-                    "guidFromNative(${param.name})"
-                } else if (param.type.namespace == "System" && param.type.name == "Boolean") {
-                    "${param.name} != 0.toByte()"
-                } else if(param.type.namespace == "System" && param.type.name == "Object"){
-                    typeParameters.add(ClassName("com.github.knk190001.winrtbinding.runtime", "AnyABI"))
-                    typeParameters.add(param.type.asClassName())
-                    "%T.fromNative(${param.name}) as %T"
-                }else {
-                    typeParameters.add(0, param.type.asClassName())
-                    typeParameters.add(param.type.asTypeName())
-                    "%T.ABI.fromNative($typeOfString${param.name}) as %T"
-                }
-
-                addStatement(
-                    "val $managedName = $fromNativeString",
-                    *typeParameters.toTypedArray()
-                )
-
-                managedName
+            val managedNames = sparseDelegate.parameters.map {
+                addToManagedStatementForParameter(it, typeParameterIndexMap)
             }
-            if (sd.returnType.name != "Void") {
-                add("val result = ")
-            }
-            addStatement("fn(${mappedNames.joinToString()})")
-            val returnVarName = if (sd.returnType.name != "Void") {
-                val (name, cb) = Marshaller.marshals.getOrDefault(sd.returnType.asKClass(), Marshaller.default)
-                    .generateToNativeMarshalCode("result")
-                add(cb)
-                name
-            } else ""
-            if (sd.returnType.name != "Void") {
-                addStatement("val returnAddress = %T(returnValue[ADDRESS, 0].address())", Pointer::class)
-                addStatement("val returnByValue = %T()", sd.returnType.byReferenceClassName())
-                addStatement("returnByValue.setPointer(returnAddress)")
-                if (sd.returnType.isSystemTypeOrObject() && sd.returnType.name == "Object") {
-                    addStatement("returnByValue.setValue($returnVarName)")
-                } else {
-                    addStatement("returnByValue.setValue($returnVarName)")
-                }
-            }
+            addStatement("fn(${managedNames.joinToString()})")
             unindent()
             addStatement("} catch (e: Throwable) {")
             indent()
             addStatement("e.printStackTrace()")
-            addStatement("return WinNT.E_FAIL")
+            addStatement("return %T.E_FAIL", WinNT::class)
             endControlFlow()
             addStatement("return 0")
         }.build()
         addCode(cb)
         returns(Int::class)
     }.build()
-    addFunction(nativeFnSpec)
+    addFunction(nativeFn)
 }
 
-private fun TypeSpec.Builder.generatePseudoConstructor(
-    sd: SparseDelegate,
-    delegateTypeName: ClassName
-) {
-    val createFn = FunSpec.builder("invoke").apply {
+private fun TypeSpec.Builder.addReifiedPointerInvokeOperator(sparseDelegate: SparseDelegate) {
+    val invokeFn = FunSpec.builder("invoke").apply {
+        addModifiers(KModifier.OPERATOR, KModifier.INLINE)
+        addMethodTypeParameters(sparseDelegate)
+        addParameter("pointer", nullablePtr)
+        returns(sparseDelegate.asTypeName())
+        addStatement("val type = typeOf<%T>()", sparseDelegate.asTypeName())
+        addStatement("return %T(type, pointer)", sparseDelegate.asClassName())
+    }.build()
+    addFunction(invokeFn)
+}
+
+private fun TypeSpec.Builder.addPointerInvokeOperator(sparseDelegate: SparseDelegate) {
+    val typeParameterIndexMap =
+        sparseDelegate.genericParameters?.mapIndexed { idx, it -> it.name to idx }?.toMap()
+            ?: emptyMap()
+    val invokeFn = FunSpec.builder("invoke").apply {
         addModifiers(KModifier.OPERATOR)
-        addParameter("fn", ClassName(sd.namespace, "${sd.name}Body"))
-        returns(delegateTypeName)
+        addMethodTypeParameters(sparseDelegate, reified = false)
+        if (sparseDelegate.isGeneric) {
+            addParameter("type", KType::class)
+        }
+        addParameter("ptr", nullablePtr)
+        returns(sparseDelegate.asTypeName())
+        val bodyClassName = getBodyClassName(sparseDelegate)
+        val cb = CodeBlock.builder().apply {
+            addStatement("val thisPtr = ptr!!.getPointer(0)")
+            addStatement("val vtbl = thisPtr!!.getPointer(0)")
+            addStatement(
+                "val function = %T.getFunction(vtbl.getPointer(3L * %T.POINTER_SIZE))",
+                Function::class,
+                Native::class
+            )
+            beginControlFlow("val body: %T = %T", bodyClassName, bodyClassName)
+            addStatement(sparseDelegate.parameters.joinToString(transform = SparseParameter::name, postfix = " ->"))
+            val marshaledParameters = Marshaller.marshalVariablesToNative(sparseDelegate.parameters, this)
+                .zip(sparseDelegate.parameters)
+                .map { (marshaled, sparseParameter) ->
+                    if (sparseParameter.type.namespace.isNotEmpty()) {
+                        marshaled
+                    } else {
+                        "marshalToNative(${marshaled}, ${kTypeStringFor(sparseParameter.type, typeParameterIndexMap)})"
+                    }
+                }
+
+            val result = if (sparseDelegate.returnType.name != "Void") {
+                addResultVariable(sparseDelegate)
+                "result"
+            } else null
+            val invokeParameters = listOfNotNull("thisPtr", *marshaledParameters.toTypedArray(), result).joinToString()
+            addStatement("val hr = function.invokeHR(arrayOf(${invokeParameters}))")
+            addStatement("checkHR(hr)")
+
+            if (sparseDelegate.returnType.name != "Void") {
+                add("val returnType = ")
+                kTypeStatementFor(sparseDelegate.returnType, typeParameterIndexMap)
+                addStatement("")
+
+                val notNullAssertion = if (sparseDelegate.returnType.isNullable()) "" else "!!"
+                addStatement(
+                    "marshalFromNative<%T>(result.getValue(), returnType)${notNullAssertion}",
+                    sparseDelegate.returnType.asTypeName()
+                )
+            }
+            endControlFlow()
+            val typeParameter = if (sparseDelegate.isGeneric) "type" else null
+            val parameters = listOfNotNull(typeParameter, "body", "thisPtr").joinToString()
+            addStatement("return %T(${parameters})", sparseDelegate.asClassName())
+        }.build()
+        addCode(cb)
+    }.build()
+    addFunction(invokeFn)
+}
+
+private fun CodeBlock.Builder.addResultVariable(sparseDelegate: SparseDelegate) {
+    val typeParameterIndexMap = sparseDelegate.genericParameters
+        ?.mapIndexed { idx, it -> it.name to idx }
+        ?.toMap() ?: emptyMap()
+
+
+    val resultType = sparseDelegate.returnType
+    if (!resultType.isGeneric) {
+        if (resultType.isTypeParameter()) {
+            addStatement(
+                "val result = makeByReferenceType<%L>(%L!!.arguments[%L].type!!)",
+                resultType.name,
+                "type",
+                typeParameterIndexMap[resultType.name]
+            )
+        } else {
+            addStatement("val result = makeByReferenceType<%T>()", resultType.asClassName())
+        }
+        return
+    }
+
+    addStatement(
+        "val result = makeByReferenceType<%T>(", resultType.asTypeName()
+    )
+    kTypeStatementFor(resultType, typeParameterIndexMap)
+    add(")\n")
+}
+
+fun kTypeStringFor(
+    typeReference: SparseTypeReference,
+    typeParameterIndexMap: Map<String, Int>,
+    projection: Boolean = false,
+    typeVarName: String = "type"
+): String {
+    val builder = CodeBlock.builder()
+    return with(builder) {
+        kTypeStatementFor(typeReference, typeParameterIndexMap, projection, true, typeVarName)
+        builder.build().toString()
+    }
+}
+
+fun CodeBlock.Builder.kTypeStatementFor(
+    typeReference: SparseTypeReference,
+    typeParameterIndexMap: Map<String, Int>,
+    projection: Boolean = false,
+    root: Boolean = false,
+    typeVarName: String = "type"
+) {
+    if (!typeReference.hasTypeParameter()) {
+        add("typeOf<%T>()", typeReference.asTypeName())
+        return
+    }
+    if (typeReference.isTypeParameter()) {
+        add("${typeVarName}!!.arguments[${typeParameterIndexMap[typeReference.name]}]")
+        if (root) {
+            add(".type!!")
+        }
+        return
+    }
+    if (projection) {
+        add("%T(%M,", KTypeProjection::class, KVariance::class.member("INVARIANT"))
+    }
+
+    add("%T::class.createType(listOf(\n", typeReference.asClassName())
+    indent()
+    typeReference.genericParameters!!.forEach {
+        if (it.type == null) {
+            kTypeStatementFor(
+                SparseTypeReference(it.name, ""),
+                typeParameterIndexMap,
+                projection,
+                typeVarName = typeVarName
+            )
+        } else {
+            kTypeStatementFor(it.type, typeParameterIndexMap, true, typeVarName = typeVarName)
+        }
+        add(",\n")
+    }
+    unindent()
+    add("))")
+    if (projection) {
+        add(")")
+    }
+
+}
+
+
+private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegate) {
+    val invokeFn = FunSpec.builder("invoke").apply {
+        if (sparseDelegate.isGeneric) {
+            addModifiers(KModifier.INLINE)
+        }
+        addModifiers(KModifier.OPERATOR)
+        addMethodTypeParameters(sparseDelegate, true)
+
+        val bodyClassName = getBodyClassName(sparseDelegate)
+        addParameter("fn", bodyClassName)
+
+        val delegateType = sparseDelegate.asTypeName()
+        val delegateClass = sparseDelegate.asClassName()
+        returns(delegateType)
 
         val cb = CodeBlock.builder().apply {
-            addStatement("val session = %T.global()", Arena::class)
-            addStatement("val stub = %T.nativeLinker().upcallStub(", Linker::class)
-            indent()
-            addStatement("nativeFnHandle.bindTo(fn),")
+            addStatement("val arena = %T.ofAuto()", Arena::class)
+            val parameterized = sparseDelegate.isGeneric.toString()
+            addStatement("val (methodHandle, functionDescriptor) = transformParameterizedHandle(typeOf<%T>(), ${parameterized})", delegateType)
+            addStatement("val boundHandle = methodHandle.bindTo(fn)")
             addStatement(
-                "%T.of(%M, %M ",
-                FunctionDescriptor::class,
-                ValueLayout::class.member("JAVA_INT"),
-                ValueLayout::class.member("ADDRESS")
+                "val stub = %T.nativeLinker().upcallStub(boundHandle, functionDescriptor, arena)",
+                Linker::class
             )
-            sd.parameters.flatMap {
-                when (it.arrayType()) {
-                    ArrayType.None -> listOf(it.type.valueLayout())
-                    ArrayType.PassArray -> listOf(
-                        ValueLayout::class.member("JAVA_INT"),
-                        ValueLayout::class.member("ADDRESS")
-                    )
 
-                    ArrayType.FillArray -> listOf(
-                        ValueLayout::class.member("JAVA_INT"),
-                        ValueLayout::class.member("ADDRESS")
-                    )
-
-                    ArrayType.ReceiveArray -> listOf(
-                        ValueLayout::class.member("ADDRESS"),
-                        ValueLayout::class.member("ADDRESS")
-                    )
-                }
-            }.forEach {
-                add(", ")
-                when (it) {
-                    is MemberName -> {
-                        add("%M", it)
-                    }
-
-                    is CodeBlock -> {
-                        add(it)
-                    }
-
-                    else -> {
-                        add("%T", it)
-                    }
-                }
+            add("val guid = ")
+            if (sparseDelegate.isGeneric) {
+                addStatement("guidOf<%T>()", delegateType)
+            }else {
+                addStatement("ABI.IID")
             }
-            if (sd.returnType.name != "Void") {
-                add(", %M", ValueLayout::class.member("ADDRESS"))
-            }
-            addStatement("),")
-            addStatement("session)")
-            unindent()
-            addStatement(
-                "val nativeFn = %T.getCallback(Native::class.java, %T(stub.address())) as Native",
-                CallbackReference::class,
-                Pointer::class
+
+            addStatement("val delegateStruct = %T.createDelegate(arena, guid, stub)", Delegate::class)
+
+            addStatement("val type = typeOf<%T>()", delegateType)
+
+            val typeParameter = if (sparseDelegate.isGeneric) "type" else null
+            val ctorParams = listOfNotNull(
+                typeParameter,
+                "delegateStruct.toPointer()",
+                "arena"
             )
-            addStatement("val newDelegate = %T(%T(12))", delegateTypeName, Memory::class)
-            val iidType = if (sd.parameterized) {
-                "PIID"
-            } else {
-                "IID"
-            }
-            addStatement("newDelegate.init(listOf(ABI.$iidType,iUnknownIID, iAgileObjectIID), nativeFn)", Guid.IID::class, sd.guid)
+            addStatement("val newDelegate = %T(${ctorParams.joinToString()})", delegateType)
+            addStatement("%T.register(newDelegate)", ReferenceManager::class)
             addStatement("return newDelegate")
         }.build()
         addCode(cb)
     }.build()
-    addFunction(createFn)
+    addFunction(invokeFn)
 }
 
-private fun TypeSpec.Builder.generateNativeInterface(sd: SparseDelegate) {
-    val nativeInterface = TypeSpec.funInterfaceBuilder("Native").apply {
-        addSuperinterface(StdCallCallback::class)
-        val invoke = FunSpec.builder("invoke").apply {
-            addParameter("thisPtr", Pointer::class)
-            addModifiers(KModifier.ABSTRACT)
-            sd.parameters.forEach {
-                if (it.type.namespace != "System" && lookUpTypeReference(it.type) is SparseInterface) {
-                    addParameter(it.name, Pointer::class)
-                } else if (Marshaller.marshals.contains(it.type.asKClass())) {
-                    addParameter(it.name, Marshaller.marshals[it.type.asKClass()]!!.nativeType)
-                } else {
-                    addParameter(
-                        it.name,
-                        it.type.asClassName(false).copy(!it.type.isPrimitiveSystemType() && !it.type.isArray)
-                    )
-                }
-            }
-            if (sd.returnType.name != "Void") {
-                addParameter("retVal", sd.returnType.byReferenceClassName())
-            }
-            returns(HRESULT::class)
+private fun SparseDelegate.asMethod(): SparseMethod {
+    return SparseMethod(
+        "invoke",
+        parameters,
+        returnType
+    )
+}
+
+private fun TypeSpec.Builder.addInvokeOperator(sparseDelegate: SparseDelegate) {
+    val invokeFn = generateInterfaceMethod(
+        sparseDelegate.asMethod(),
+        sparseDelegate,
+        -3,
+        true,
+        vtblName = "iUnknown_Vtbl",
+        pointerName = "iUnknown_Ptr",
+        typeVarName = "type"
+
+    )
+    addFunction(invokeFn)
+}
+
+private fun TypeSpec.Builder.addPrimaryConstructor(sparseDelegate: SparseDelegate) {
+    val constructor = FunSpec.constructorBuilder().apply {
+        if (sparseDelegate.isGeneric) {
+            val typeParameterSpec = ParameterSpec.builder("type", KType::class.asClassName().copy(true)).apply {
+                defaultValue("null")
+            }.build()
+            addParameter(typeParameterSpec)
+            val typePropertySpec = PropertySpec.builder("type", KType::class.asClassName().copy(true)).apply {
+                initializer("type")
+            }.build()
+            addProperty(typePropertySpec)
+        }
+
+        val ptrParameterSpec = ParameterSpec.builder("ptr", typeNameOf<Pointer?>()).apply {
+            defaultValue("%T.NULL", Pointer::class)
         }.build()
-        addFunction(invoke)
+        addParameter(ptrParameterSpec)
+
+        val arenaParameterSpec = ParameterSpec.builder("arena", typeNameOf<Arena?>()).apply {
+            defaultValue("null")
+        }.build()
+        addParameter(arenaParameterSpec)
+
+        val arenaPropertySpec = PropertySpec.builder("arena", typeNameOf<Arena?>()).apply {
+            initializer("arena")
+            addModifiers(KModifier.PRIVATE)
+        }.build()
+        addProperty(arenaPropertySpec)
     }.build()
-    addType(nativeInterface)
+    primaryConstructor(constructor)
 }
 
-private fun TypeSpec.Builder.generateByReference(sd: SparseDelegate) {
-    val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
-        .addMember("brClass = %L.ByReference::class", sd.name)
-        .build()
-    addAnnotation(brAnnotationSpec)
-
-    val delegateTypeName = ClassName(sd.namespace, sd.name)
-    val byReference = TypeSpec.classBuilder("ByReference").apply {
-        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", sd.name)))
-
-        superclass(ByReference::class)
-        val memberName = MemberName(Native::class.asClassName(), "POINTER_SIZE")
-        addSuperclassConstructorParameter("%M", memberName)
-        val getValueSpec = FunSpec.builder("getValue").apply {
-            addModifiers(KModifier.OVERRIDE)
-            addCode("return %T(pointer.getPointer(0))", delegateTypeName)
-            returns(delegateTypeName)
-        }.build()
-        addFunction(getValueSpec)
-
-        val setValueSpec = FunSpec.builder("setValue").apply {
-            addParameter("delegate", delegateTypeName)
-            addCode("pointer.setPointer(0, delegate.pointer)")
-        }.build()
-        addFunction(setValueSpec)
-    }.build()
-    addType(byReference)
+private fun getBodyClassName(sparseDelegate: SparseDelegate): TypeName {
+    val parameterizedTypeName = sparseDelegate.asTypeName()
+    return parameterizedTypeName(sparseDelegate, parameterizedTypeName)
 }
 
-private fun TypeSpec.Builder.generateABI(sd: SparseDelegate) {
-    val abiObject = TypeSpec.objectBuilder("ABI").apply {
-        addIID(sd)
-        addSuperinterface(
-            IABI::class.asClassName().parameterizedBy(
-                sd.asTypeReference().asClassName(),
-                MemorySegment::class.asClassName()
-            )
+private fun parameterizedTypeName(
+    sparseDelegate: SparseDelegate,
+    parameterizedTypeName: TypeName
+): TypeName {
+    if (parameterizedTypeName !is ParameterizedTypeName) {
+        return ClassName(sparseDelegate.namespace, "${sparseDelegate.name}Body")
+    }
+
+    return ClassName(sparseDelegate.namespace, "${sparseDelegate.name}Body")
+        .parameterizedBy(*parameterizedTypeName.typeArguments.toTypedArray<TypeName>())
+}
+
+private fun TypeSpec.Builder.addTypeParameters(sparseDelegate: SparseDelegate) {
+    sparseDelegate.genericParameters
+        ?.map(SparseGenericParameter::name)
+        ?.map(TypeVariableName::invoke)
+        ?.forEach(::addTypeVariable)
+}
+
+private fun FunSpec.Builder.addMethodTypeParameters(sparseDelegate: SparseDelegate, reified: Boolean = true) {
+    sparseDelegate.genericParameters
+        ?.map(SparseGenericParameter::name)
+        ?.map(TypeVariableName::invoke)
+        ?.map {
+            it.copy(reified = reified)
+        }
+        ?.forEach(::addTypeVariable)
+}
+
+private fun TypeSpec.Builder.addDelegateAnnotations(sparseDelegate: SparseDelegate) {
+    if (sparseDelegate.isGeneric) {
+        addAnnotation(GenericType::class)
+    }
+    addAnnotation(DelegateMarker::class)
+    addGuidAnnotation(sparseDelegate.guid)
+    addByReferenceAnnotation(sparseDelegate)
+}
+
+private fun TypeSpec.Builder.addByReferenceAnnotation(sparseDelegate: SparseDelegate) {
+    val annotation = AnnotationSpec.builder(WinRTByReference::class).apply {
+        addMember(
+            "%T::class",
+            (sparseDelegate.asTypeReference()
+                .asClassName() as ClassName).nestedClass("ByReference")
         )
-        addFromNative(sd)
-        addPtrToNative(sd)
-        addLayout()
     }.build()
-    addType(abiObject)
+    addAnnotation(annotation)
 }
 
-private fun TypeSpec.Builder.addIID(sd: SparseDelegate) {
-    val iidProperty = PropertySpec.builder("IID", Guid.IID::class).apply {
-        initializer("%T(%S)", Guid.IID::class, sd.guid)
-    }.build()
-    addProperty(iidProperty)
-}
-
-private fun TypeSpec.Builder.addFromNative(sd: SparseDelegate) {
-    val fromNative = FunSpec.builder("fromNative").apply {
-        addModifiers(KModifier.OVERRIDE)
-        addParameter("segment", MemorySegment::class)
-        returns(sd.asTypeReference().asClassName())
-        addStatement(
-            "return %T(%T(segment.address()))".fixSpaces(),
-            sd.asTypeReference().asClassName(),
-            Pointer::class
-        )
-    }.build()
-    addFunction(fromNative)
-}
-
-private fun TypeSpec.Builder.addLayout() {
-    val layoutProperty = PropertySpec.builder("layout", ValueLayout::class).apply {
-        addModifiers(KModifier.OVERRIDE)
-        initializer("%M", ValueLayout::class.member("ADDRESS"))
-    }.build()
-    addProperty(layoutProperty)
-}

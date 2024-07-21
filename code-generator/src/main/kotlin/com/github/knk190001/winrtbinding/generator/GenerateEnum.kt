@@ -15,7 +15,7 @@ import java.lang.foreign.ValueLayout
 fun generateEnum(sEnum : SparseEnum): FileSpec {
     val fileSpec = FileSpec.builder(sEnum.namespace, sEnum.name)
     val type = TypeSpec.enumBuilder(sEnum.name).apply {
-        addABIAnnotation(sEnum.asTypeReference().asClassName())
+        addABIAnnotation(sEnum.asClassName())
         addSignatureAnnotation(sEnum)
         addSuperinterface(NativeMapped::class)
         primaryConstructor(
@@ -104,7 +104,7 @@ private fun TypeSpec.Builder.generateABI(sparseEnum: SparseEnum) {
     val abi = TypeSpec.objectBuilder("ABI").apply {
         addSuperinterface(
             IABI::class.asClassName().parameterizedBy(
-                sparseEnum.asTypeReference().asClassName(),
+                sparseEnum.asClassName(),
                 Int::class.asClassName()
             )
         )
@@ -118,7 +118,7 @@ private fun TypeSpec.Builder.generateABI(sparseEnum: SparseEnum) {
 private fun TypeSpec.Builder.addToNative(sparseEnum: SparseEnum) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", sparseEnum.asTypeReference().asClassName())
+        addParameter("obj", sparseEnum.asClassName())
         returns(Int::class)
         addStatement("return obj.value")
     }.build()
@@ -138,7 +138,7 @@ private fun TypeSpec.Builder.addFromNative(sparseEnum: SparseEnum) {
         addModifiers(KModifier.OVERRIDE)
         addParameter("value", Int::class)
         addStatement("return ${sparseEnum.name}.values()[0].fromNative(value, null)".fixSpaces())
-        returns(sparseEnum.asTypeReference().asClassName())
+        returns(sparseEnum.asClassName())
     }.build()
     addFunction(fromNative)
 }

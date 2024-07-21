@@ -7,6 +7,6 @@ interface INamedEntity {
     fun fullName()= "$namespace.$name"
 
     fun asTypeReference(): SparseTypeReference {
-        return SparseTypeReference(name, namespace, null, false, false)
+        return SparseTypeReference(name, namespace, null, isArray = false, isReference = false)
     }
 }

@@ -10,10 +10,27 @@ import com.sun.jna.platform.win32.WinDef.USHORT
 import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.*
 import kotlin.reflect.KClass
+import kotlin.reflect.jvm.internal.ReflectProperties.Val
 
 const val AnyABIClass = "com.github.knk190001.winrtbinding.runtime.AnyABI"
 @Suppress("UNCHECKED_CAST")
-val AnyABI = Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, MemorySegment>
+val AnyABI = try {
+    Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, MemorySegment>
+} catch (e: Exception) {
+    // Fallback to a dummy implementation when testing
+    object : IABI<Any, MemorySegment> {
+        override fun fromNative(obj: MemorySegment): Any {
+            TODO()
+        }
+
+        override val layout: MemoryLayout
+            get() = ValueLayout.ADDRESS
+
+        override fun toNative(obj: Any): MemorySegment {
+            TODO()
+        }
+    }
+}
 
 val abiPolyfillMap = mapOf<KClass<*>, IBaseABI<*, *>>(
     String::class to StringABI,

@@ -12,7 +12,7 @@ class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>) : Ko
         initObj()
     }
 
-    override val Windows_Foundation_CollectionsIIterator_Type: KType = type
+    override val Windows_Foundation_Collections_IIterator_Type: KType = type
 
     private var currentAssigned = false
     private var current: Any? = null

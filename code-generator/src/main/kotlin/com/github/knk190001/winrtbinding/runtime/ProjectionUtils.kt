@@ -406,13 +406,14 @@ inline fun <reified T> Pointer.getValue(offset: Long, currentValue: T): T? {
 
 val ptr: JNAPointer? = Pointer.NULL
 
-fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescriptor> {
+fun transformParameterizedHandle(ktype: KType, bindType: Boolean): Pair<MethodHandle, FunctionDescriptor> {
     val kClass = ktype.classifier as KClass<*>
     val nativeHandleProperty = kClass.companionObject!!.declaredMemberProperties
         .single { it.getter.hasAnnotation<NativeFunctionMarker>() }
 
     val handle = (nativeHandleProperty as KProperty1<Any, MethodHandle>).get(kClass.companionObject!!.objectInstance!!)
-    val funInterface = handle.type().parameterType(1)
+    val bodyIndex = if (bindType) 1 else 0
+    val funInterface = handle.type().parameterType(bodyIndex)
     val delegateMethod = funInterface.kotlin.declaredFunctions.single()
     val reifiedTypeParameters = ktype.arguments.map { it.type }
     val reifiedTypeMap = kClass.typeParameters.zip(reifiedTypeParameters).associate { (typeParam, reifiedType) ->
@@ -435,8 +436,9 @@ fun transformParameterizedHandle(ktype: KType): Pair<MethodHandle, FunctionDescr
     val descriptorTypes = reifiedParameters
         .map { layoutOf(it!!.classifier as KClass<*>) }
         .toTypedArray()
+    val bound = if(bindType)handle.bindTo(ktype) else handle
     return MethodHandles.explicitCastArguments(
-        handle.bindTo(ktype),
+        bound,
         MethodType.methodType(Int::class.javaPrimitiveType, handleTypes)
     ) to FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, *descriptorTypes)
 }

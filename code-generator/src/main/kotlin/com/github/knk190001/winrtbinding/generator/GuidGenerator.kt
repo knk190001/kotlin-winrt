@@ -6,9 +6,7 @@ import memeid.UUID
 
 
 object GuidGenerator {
-
-    fun getSignature(typeReference: SparseTypeReference, lookup: LookUp): String {
-        val tr = typeReference.normalize()
+    fun getSignature(tr: SparseTypeReference, lookup: LookUp): String {
         if (tr.isTypeOf("System", "Object")) {
             return "cinterface(IInspectable)"
         }
@@ -44,10 +42,10 @@ object GuidGenerator {
                 }
             }
         } else {
-            val entity = lookup(typeReference)
-            if (entity is IDirectProjectable<*> && typeReference.genericParameters != null) {
+            val entity = lookup(tr)
+            if (entity is IParameterizable<*> && tr.isGeneric) {
                 val typeParameters =
-                    typeReference.genericParameters.map { it.type }
+                    tr.genericParameters!!.map { it.type }
                         .joinToString(";") { getSignature(it!!, lookup) }
 
                 return "pinterface(${entity.guid.guidToSignatureFormat()};$typeParameters)"
@@ -66,10 +64,10 @@ object GuidGenerator {
     }
 
 
-    private val wrtPinterfaceNamespaceJava = UUID.fromString("11f47ad5-7b73-42c0-abae-878b1e16adee")
+    private val wrtPinterfaceNamespace = UUID.fromString("11f47ad5-7b73-42c0-abae-878b1e16adee")
     fun createIID(type: SparseTypeReference, lookup: LookUp): GUID? {
         val signature: String = getSignature(type, lookup)
-        return UUID.V5.from(wrtPinterfaceNamespaceJava, signature).toString()
+        return UUID.V5.from(wrtPinterfaceNamespace, signature).toString()
             .let { GUID.fromString(it) }
     }
 
@@ -107,9 +105,6 @@ object GuidGenerator {
                 this.isSystemType("UInt32") ||
                 this.isSystemType("UInt64")
     }
-
-
-
 }
 fun String.guidToSignatureFormat(): String {
     return GUID.fromString(this).toGuidString().lowercase()

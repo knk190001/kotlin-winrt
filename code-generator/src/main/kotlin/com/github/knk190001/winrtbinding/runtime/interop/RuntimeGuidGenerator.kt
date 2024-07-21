@@ -1,9 +1,9 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
 import com.github.knk190001.winrtbinding.generator.guidToSignatureFormat
+import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.GenericType
 import com.github.knk190001.winrtbinding.runtime.annotations.Signature
-import com.github.knk190001.winrtbinding.runtime.base.Delegate
 import com.github.knk190001.winrtbinding.runtime.com.*
 import com.sun.jna.Structure
 import com.sun.jna.platform.win32.Guid.IID
@@ -69,7 +69,7 @@ object RuntimeGuidGenerator {
                     type.arguments.joinToString(";") { getSignature(it.type!!) }
                 })"
             }
-            if (type.isSubtypeOf(typeOf<Delegate>())) {
+            if (type.hasAnnotation<DelegateMarker>()) {
                 return "delegate({${type.annotationOfType<GuidAnnotation>()!!.guid.guidToSignatureFormat()}})"
             }
             if (!type.isSubtypeOf(typeOf<IWinRTObject>())) {

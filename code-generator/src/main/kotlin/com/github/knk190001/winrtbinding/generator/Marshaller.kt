@@ -182,7 +182,7 @@ object ClassMarshalGenerator : IPtrMarshalGenerator {
         if (type == null) return varName to CodeBlock.of("")
         val newVariableName = "${varName}_Native"
         val cb = CodeBlock.builder().apply {
-            addStatement("val $newVariableName = ${varName}.toNative() as Pointer")
+            addStatement("val $newVariableName = ${varName}?.toNative() as? Pointer")
         }.build()
         return newVariableName to cb
     }
