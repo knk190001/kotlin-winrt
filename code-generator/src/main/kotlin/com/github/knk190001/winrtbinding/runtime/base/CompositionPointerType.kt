@@ -10,8 +10,6 @@ import kotlin.reflect.jvm.reflect
 open class CompositionPointerType(pointer: JNAPointer? = Pointer.NULL) : NativeMapped, ICompositionPointer {
     override var inner: IUnknown? = null
     private var principalPtr = pointer
-    override var interfacePointers: MutableList<Memory> = mutableListOf()
-    override var vtbl: IInspectableVtbl? = null
 
     var pointer:Pointer?
         get() {

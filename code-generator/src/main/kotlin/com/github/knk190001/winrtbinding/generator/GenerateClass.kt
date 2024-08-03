@@ -6,9 +6,9 @@ import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.runtime.JNAApiInterface
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.CompositionPointerType
-import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
 import com.github.knk190001.winrtbinding.runtime.com.*
 import com.github.knk190001.winrtbinding.runtime.interop.IEvent
@@ -59,7 +59,6 @@ fun generateClass(
         }
 
         addSuperinterface(IInspectable::class)
-        addSuperinterface(IWinRTObject::class)
 
         generateClassTypeSpec(sparseClass)
         addByReferenceType(sparseClass, "ptr")
@@ -356,9 +355,15 @@ fun TypeSpec.Builder.generateCompositionFactoryActivationFunction(
         returns(nullablePtr)
         val cb = CodeBlock.builder().apply {
             addStatement("val inner = %T()", AnyByReference::class)
+
+            beginControlFlow("val baseInterface = if (aggregatingClass != null)")
+            addStatement("%T(aggregatingClass.initAggregate())", IInspectable.IInspectable_Impl::class)
+            nextControlFlow("else")
+            addStatement("null")
+            endControlFlow()
             add("val obj = ${factoryInterface.name}_Instance.${method.name}(")
             add((userParams.map { it.name } +
-                    listOf("%T(aggregatingClass?.initAggregate())", "inner")).joinToString(),
+                    listOf("baseInterface", "inner")).joinToString(),
                 IInspectable.IInspectable_Impl::class)
             add(")?.pointer\n")
             addStatement("aggregatingClass?.inner = inner.getValue() as? %T", IUnknown::class)

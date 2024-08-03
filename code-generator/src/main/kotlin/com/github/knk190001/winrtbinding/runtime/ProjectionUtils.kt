@@ -1,12 +1,14 @@
 package com.github.knk190001.winrtbinding.runtime
 
 import com.github.knk190001.winrtbinding.generator.mapFirst
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
+import com.github.knk190001.winrtbinding.runtime.abi.IBaseABI
+import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
+import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedNativeHandleProvider
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
-import com.github.knk190001.winrtbinding.runtime.base.IABI
-import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
-import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.com.IAgileObject
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.*
@@ -195,8 +197,29 @@ private val winRTOptions = mapOf<String, Any?>(
 )
 
 fun JnaFunction.invokeHR(params: Array<Any?>): HRESULT {
+    val jvmBacked = params
+        .filterNotNull()
+        .mapNotNull {
+            when (it) {
+                is IUnknown -> it
+                is Pointer -> IUnknown.ABI.makeIUnknown(it)
+                else -> null
+            }
+        }
+        .filter {
+            ReferenceManager.containsBackingObject(Pointer.nativeValue(it.iUnknown_Ptr))
+        }
+
+    jvmBacked.forEach {
+        it.AddRef()
+    }
     println("Invoke HR: $this")
-    return this.invoke(HRESULT::class.java, params, winRTOptions) as HRESULT
+    val hr = this.invoke(HRESULT::class.java, params, winRTOptions) as HRESULT
+
+    jvmBacked.forEach {
+        it.Release()
+    }
+    return hr
 }
 
 fun Guid.GUID.ByReference.getValue(): Guid.GUID {
@@ -294,23 +317,30 @@ fun readLayout(layout: MemoryLayout, segment: MemorySegment): Any {
     }
 }
 
+
 @Suppress("UNCHECKED_CAST")
 fun arrayToNative(type: KType, array: Array<*>): MemorySegment {
     val abi = abiOf(type.jvmErasure) as IBaseABI<Any?, Any?>
     val nativeArray = Arena.global().allocate(abi.layout, array.size.toLong())
 
+    writeArrayTo(type, array, nativeArray)
+    return nativeArray
+}
+
+
+fun writeArrayTo(componentType: KType, array: Array<*>, buffer: MemorySegment) {
+    val abi = abiOf(componentType.jvmErasure) as IBaseABI<Any?, Any?>
     val nativeValues = array.map {
-        if (abi.layout == ValueLayout.ADDRESS && it == null) Pointer.NULL else marshalToNative(it, type)
+        if (abi.layout == ValueLayout.ADDRESS && it == null) Pointer.NULL else marshalToNative(it, componentType)
     }
 
     array.indices
         .filter { array[it] != null }
         .associateWith { it * abi.layout.byteSize() }
-        .mapValues { nativeArray.address() + it.value }
+        .mapValues { buffer.address() + it.value }
         .mapValues { MemorySegment.ofAddress(it.value) }
         .mapKeys { nativeValues[it.key] }
         .forEach(abi::copyTo)
-    return nativeArray
 }
 
 fun booleanFromNative(segment: MemorySegment): Boolean {
@@ -375,17 +405,19 @@ fun MethodType.toFunctionDescriptor(
 }
 
 fun KFunction<*>.toFunctionDescriptor(): FunctionDescriptor {
-    val returnSizeParam = if(hasAnnotation<ReceiveArray>()) listOf(ValueLayout.ADDRESS) else emptyList()
+    val returnSizeParam = if (hasAnnotation<ReceiveArray>()) listOf(ValueLayout.ADDRESS) else emptyList()
     val returnParam =
-        if(returnType.jvmErasure == Unit::class) emptyList()
+        if (returnType.jvmErasure == Unit::class) emptyList()
         else returnSizeParam + listOf(ValueLayout.ADDRESS)
     val thisParam = listOf(ValueLayout.ADDRESS)
     val foreignParameterTypes = (parameters.drop(1).flatMap {
         if (it.type.isSubtypeOf(typeOf<Array<*>>())) {
-            listOf(ValueLayout.JAVA_INT,ValueLayout.ADDRESS)
-        }else if(it.hasAnnotation<ReceiveArray>()){
+            listOf(ValueLayout.JAVA_INT, ValueLayout.ADDRESS)
+        } else if (it.hasAnnotation<ReceiveArray>()) {
             listOf(ValueLayout.ADDRESS, ValueLayout.ADDRESS)
-        } else { listOf(layoutOf(it.type.jvmErasure)) }
+        } else {
+            listOf(layoutOf(it.type.jvmErasure))
+        }
     }.let {
         thisParam + it + returnParam
     }).toTypedArray()
@@ -400,7 +432,6 @@ val getValueFn = Pointer::class.functions.single {
 }
 
 inline fun <reified T> Pointer.getValue(offset: Long, currentValue: T): T? {
-    //    Object getValue(long offset, Class<?> type, Object currentValue) {
     return getValueFn.call(this, offset, T::class.java, currentValue) as T?
 }
 
@@ -411,41 +442,72 @@ fun transformParameterizedHandle(ktype: KType, bindType: Boolean): Pair<MethodHa
     val nativeHandleProperty = kClass.companionObject!!.declaredMemberProperties
         .single { it.getter.hasAnnotation<NativeFunctionMarker>() }
 
-    val handle = (nativeHandleProperty as KProperty1<Any, MethodHandle>).get(kClass.companionObject!!.objectInstance!!)
+    val handle = (nativeHandleProperty as KProperty1<Any, MethodHandle>)
+        .get(kClass.companionObject!!.objectInstance!!)
     val bodyIndex = if (bindType) 1 else 0
     val funInterface = handle.type().parameterType(bodyIndex)
     val delegateMethod = funInterface.kotlin.declaredFunctions.single()
-    val reifiedTypeParameters = ktype.arguments.map { it.type }
-    val reifiedTypeMap = kClass.typeParameters.zip(reifiedTypeParameters).associate { (typeParam, reifiedType) ->
-        typeParam.name to reifiedType
-    }
-
-    val reifiedParameters = delegateMethod.parameters.map {
-        if (it.type !is KTypeParameter) {
-            it.type.reify(reifiedTypeMap)
-        } else {
-            reifiedTypeMap[(it.type as KTypeParameter).name]
-        }
-    }.drop(1)
-    val handleTypes =
-        (listOf(
-            funInterface,
-            MemorySegment::class.java
-        ) + reifiedParameters.map { it!!.javaForeignType() }).toTypedArray()
-
-    val descriptorTypes = reifiedParameters
-        .map { layoutOf(it!!.classifier as KClass<*>) }
-        .toTypedArray()
-    val bound = if(bindType)handle.bindTo(ktype) else handle
-    return MethodHandles.explicitCastArguments(
-        bound,
-        MethodType.methodType(Int::class.javaPrimitiveType, handleTypes)
-    ) to FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, *descriptorTypes)
+    return transformParameterizedHandle(ktype, delegateMethod, handle, bindType, funInterface.kotlin)
 }
 
-private fun KType.reify(typeMap: Map<String, KType?>): KType? {
+fun transformParameterizedHandle(
+    kType: KType,
+    fn: KFunction<*>,
+    handle: MethodHandle,
+    bindType: Boolean = abiOf(kType.jvmErasure) is IParameterizedNativeHandleProvider,
+    receiverType: KClass<*> = kType.jvmErasure
+): Pair<MethodHandle, FunctionDescriptor> {
+    val kClass = kType.jvmErasure
+    val reifiedTypeParameters = kType.arguments.map { it.type }
+    val reifiedTypeMap = kClass.typeParameters
+        .zip(reifiedTypeParameters)
+        .associate { (typeParam, reifiedType) ->
+            typeParam.name to reifiedType
+        }
+
+    val reifiedParameters = fn.parameters.flatMap {
+        val paramType = it.type
+        when (paramType.classifier) {
+            is KTypeParameter -> listOf(it.type.reify(reifiedTypeMap))
+            else -> {
+                if (paramType.jvmErasure == Array::class) listOf(typeOf<Int>(), typeOf<MemorySegment>())
+                else if (paramType.jvmErasure == MutableList::class && it.hasAnnotation<ReceiveArray>()) listOf(
+                    typeOf<MemorySegment>(),
+                    typeOf<MemorySegment>()
+                )
+                else listOf(it.type)
+            }
+        }
+    }.drop(1)
+
+    val descriptorReturnParam =
+        if (fn.returnType == typeOf<Unit>()) listOf<Class<*>>()
+        else if (fn.hasAnnotation<ReceiveArray>()) listOf(MemorySegment::class.java, MemorySegment::class.java)
+        else listOf(MemorySegment::class.java)
+    val handleTypes = reifiedParameters.map { it.javaForeignType() }
+
+    val descriptorMethodType =
+        MethodType.methodType(
+            Int::class.javaPrimitiveType,
+            receiverType.java,
+            MemorySegment::class.java,
+            *(handleTypes + descriptorReturnParam).toTypedArray()
+        )
+
+    val bound = if (bindType) {
+        handle.bindTo(kType)
+    } else {
+        handle
+    }
+
+    return MethodHandles.explicitCastArguments(bound, descriptorMethodType) to
+            descriptorMethodType.toFunctionDescriptor(promoteReturnToParameter = false, addThisObjParam = false)
+}
+
+
+private fun KType.reify(typeMap: Map<String, KType?>): KType {
     return when (classifier) {
-        is KTypeParameter ->  typeMap[(classifier as KTypeParameter).name]
+        is KTypeParameter -> typeMap[(classifier as KTypeParameter).name]!!
         is KClass<*> -> {
             val kClass = classifier as KClass<*>
             val reifiedArguments = arguments
@@ -453,7 +515,10 @@ private fun KType.reify(typeMap: Map<String, KType?>): KType? {
                 .map { KTypeProjection(KVariance.INVARIANT, it!!) }
             kClass.createType(reifiedArguments)
         }
-        else -> { throw NotImplementedError("Classifier: $this is not handled") }
+
+        else -> {
+            throw NotImplementedError("Classifier: $this is not handled")
+        }
     }
 }
 
@@ -461,7 +526,8 @@ fun MemorySegment.toPointer(): Pointer {
     return Pointer(this.address())
 }
 
-fun Pointer.toMemorySegment(): MemorySegment {
+fun Pointer?.toMemorySegment(): MemorySegment {
+    if (this == Pointer.NULL) return MemorySegment.NULL
     return MemorySegment.ofAddress(Pointer.nativeValue(this))
 }
 
@@ -481,6 +547,7 @@ fun <T> readReceiveArrayIntoList(type: KType, size: IntByReference, ptr: Pointer
         .forEach(list::add)
 
 }
+
 fun <T> readReceiveArrayIntoList(type: KType, size: ULongByReference, ptr: PointerByReference, list: MutableList<T>) {
     val abi = abiOf(type.jvmErasure)
     val bufferSize = abi.layout.byteSize() * size.getValue().toLong()
@@ -495,14 +562,14 @@ fun <T> readReceiveArrayIntoList(type: KType, size: ULongByReference, ptr: Point
 
 }
 
-fun <T> writeListIntoBuffer(type: KType, size:MemorySegment, buffer:MemorySegment, list: MutableList<T>) {
+fun <T> writeListIntoBuffer(type: KType, size: MemorySegment, buffer: MemorySegment, list: MutableList<T>) {
     val abi = abiOf(type.jvmErasure) as IBaseABI<T, Any?>
     val array = Arena.global().allocate(abi.layout.byteSize() * list.size)
 
     size[ValueLayout.JAVA_INT, 0] = list.size
     buffer[ValueLayout.ADDRESS, 0] = array
 
-    list.mapIndexed { idx, it -> idx to it}
+    list.mapIndexed { idx, it -> idx to it }
         .mapFirst { it * abi.layout.byteSize() }
         .mapFirst { buffer.address() + it }
         .forEach { (index, it) -> abi.copyTo(it, MemorySegment.ofAddress(index)) }
@@ -514,15 +581,18 @@ inline fun <reified T : Any> IUnknown.cast(): T {
     val abi = abiOf<T>()
     val casted = this.QueryInterface(refiid)
     if (abi is IParameterizedABI) {
-        return (abi as IParameterizedABI<T, MemorySegment>).fromNative(typeOf<T>(), casted.iUnknown_Ptr.toMemorySegment())
+        return (abi as IParameterizedABI<T, MemorySegment>).fromNative(
+            typeOf<T>(),
+            casted.iUnknown_Ptr.toMemorySegment()
+        )
 
-    } else if(abi is IABI) {
+    } else if (abi is IABI) {
         return (abi as IABI<T, MemorySegment>).fromNative(casted.iUnknown_Ptr.toMemorySegment())
     }
     throw IllegalArgumentException("Unsupported ABI type: $abi")
 }
 
-inline fun <reified T: Any> IUnknown.instanceOf(): Boolean {
+inline fun <reified T : Any> IUnknown.instanceOf(): Boolean {
     val refiid = REFIID(guidOf<T>())
 
     val obj = try {
@@ -536,7 +606,7 @@ inline fun <reified T: Any> IUnknown.instanceOf(): Boolean {
 
 fun structLayoutWithPadding(vararg fields: MemoryLayout): StructLayout {
     var totalSize: Long = 0
-    var maxAlignment:Long = 1
+    var maxAlignment: Long = 1
     val newLayout = fields.flatMap { memoryLayout ->
         val size = memoryLayout.byteSize()
         val alignment = memoryLayout.byteAlignment()
@@ -560,4 +630,25 @@ fun structLayoutWithPadding(vararg fields: MemoryLayout): StructLayout {
     val structLayout = MemoryLayout.structLayout(*(newLayout + listOfNotNull(tailPadding)).toTypedArray())
 
     return structLayout
+}
+
+fun addRefOutgoing(kType: KType, addr: MemorySegment) {
+    val address = addr.reinterpret(ValueLayout.ADDRESS.byteSize())
+    val abi = abiOf(kType.jvmErasure) as IBaseABI<Any?, Any?>
+    if (address == MemorySegment.NULL) return
+    if (!kType.isSubtypeOf(typeOf<IUnknown>())) return
+    val objAddr = address[ValueLayout.ADDRESS, 0]
+    if (objAddr == MemorySegment.NULL) return
+    val obj = when (abi) {
+        is IParameterizedABI -> {
+            abi.fromNative(kType, objAddr)
+        }
+
+        is IABI -> {
+            abi.fromNative(objAddr)
+        }
+    }
+    if (obj is IUnknown) {
+        obj.AddRef()
+    }
 }

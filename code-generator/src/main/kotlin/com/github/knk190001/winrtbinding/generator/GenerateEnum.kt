@@ -8,7 +8,7 @@ import com.sun.jna.ptr.ByReference
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseEnum
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import java.lang.foreign.ValueLayout
 

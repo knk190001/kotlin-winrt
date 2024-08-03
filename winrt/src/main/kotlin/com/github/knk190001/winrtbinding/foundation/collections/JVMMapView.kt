@@ -14,12 +14,7 @@ import kotlin.reflect.full.createType
 @ObjectImplements([IMapView::class])
 class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject(), IMapView<K, V>,
     Map<K, V> by backingMap {
-
     override val Windows_Foundation_Collections_IMapView_Type: KType = type
-    init {
-        initObj()
-    }
-
     override val Size: UInt = size.toUInt()
 
     override fun Split(first: IMapView.ByReference<K, V>?, second: IMapView.ByReference<K, V>?) {

@@ -1,4 +1,4 @@
-package com.github.knk190001.winrtbinding.runtime.base
+package com.github.knk190001.winrtbinding.runtime.abi
 
 import com.sun.jna.platform.win32.Guid.GUID
 import java.lang.invoke.MethodHandle

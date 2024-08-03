@@ -71,5 +71,29 @@ data class SparseTypeReference(
         return isTypeParameter() || (genericParameters?.any { it.type?.hasTypeParameter() == true } == true)
     }
 
+    fun isTypeOf(namespace: String, name: String): Boolean {
+        return this.namespace == namespace && this.name == name
+    }
+
+    fun isSystemType(name: String): Boolean {
+        return isTypeOf("System", name)
+    }
+
+    fun isPrimitive():Boolean {
+        return isSystemType("Boolean") ||
+                isSystemType("Byte") ||
+                isSystemType("Char") ||
+                isSystemType("Double") ||
+                isSystemType("Guid") ||
+                isSystemType("Int16") ||
+                isSystemType("Int32") ||
+                isSystemType("Int64") ||
+                isSystemType("SByte") ||
+                isSystemType("Single") ||
+                isSystemType("UInt16") ||
+                isSystemType("UInt32") ||
+                isSystemType("UInt64")
+    }
+
     override fun asTypeReference() = this
 }

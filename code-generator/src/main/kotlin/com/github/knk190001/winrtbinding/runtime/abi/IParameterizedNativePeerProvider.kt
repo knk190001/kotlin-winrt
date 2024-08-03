@@ -1,6 +1,5 @@
-package com.github.knk190001.winrtbinding.runtime.base
+package com.github.knk190001.winrtbinding.runtime.abi
 
-import com.sun.jna.NativeMapped
 import kotlin.reflect.KType
 
 interface IParameterizedNativePeerProvider {

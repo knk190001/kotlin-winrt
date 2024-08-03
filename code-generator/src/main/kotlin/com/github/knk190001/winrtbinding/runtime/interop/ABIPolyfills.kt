@@ -1,24 +1,26 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
 import com.github.knk190001.winrtbinding.runtime.*
-import com.github.knk190001.winrtbinding.runtime.base.IABI
-import com.github.knk190001.winrtbinding.runtime.base.IBaseABI
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
+import com.github.knk190001.winrtbinding.runtime.abi.IAnyABI
+import com.github.knk190001.winrtbinding.runtime.abi.IBaseABI
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
-import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinDef.USHORT
+import com.sun.jna.platform.win32.Guid.IID
 import com.sun.jna.platform.win32.WinNT.HANDLE
-import java.lang.foreign.*
+import java.lang.foreign.MemoryLayout
+import java.lang.foreign.MemorySegment
+import java.lang.foreign.ValueLayout
 import kotlin.reflect.KClass
-import kotlin.reflect.jvm.internal.ReflectProperties.Val
 
 const val AnyABIClass = "com.github.knk190001.winrtbinding.runtime.AnyABI"
-@Suppress("UNCHECKED_CAST")
+
 val AnyABI = try {
-    Class.forName(AnyABIClass).kotlin.objectInstance as IABI<Any, MemorySegment>
+    Class.forName(AnyABIClass).kotlin.objectInstance as IAnyABI
 } catch (e: Exception) {
     // Fallback to a dummy implementation when testing
-    object : IABI<Any, MemorySegment> {
+    object : IAnyABI {
         override fun fromNative(obj: MemorySegment): Any {
             TODO()
         }
@@ -26,7 +28,11 @@ val AnyABI = try {
         override val layout: MemoryLayout
             get() = ValueLayout.ADDRESS
 
-        override fun toNative(obj: Any): MemorySegment {
+        override fun toNative(obj: Any?): MemorySegment {
+            TODO()
+        }
+
+        override fun box(value: Any?): IUnknown {
             TODO()
         }
     }
@@ -217,9 +223,9 @@ object ByteABI : IABI<Byte, Byte> {
 
 }
 
-object GUIDABI : IABI<GUID, MemorySegment> {
-    override fun fromNative(obj: MemorySegment): GUID {
-        return GUID(obj.toPointer())
+object GUIDABI : IABI<IID, MemorySegment> {
+    override fun fromNative(obj: MemorySegment): IID {
+        return IID(obj.toPointer())
     }
 
     override val layout: MemoryLayout
@@ -230,7 +236,7 @@ object GUIDABI : IABI<GUID, MemorySegment> {
             ValueLayout.JAVA_LONG
         )
 
-    override fun toNative(obj: GUID): MemorySegment {
+    override fun toNative(obj: IID): MemorySegment {
         return obj.pointer.toMemorySegment().reinterpret(layout.byteSize())
     }
 

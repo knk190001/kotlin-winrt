@@ -156,14 +156,14 @@ class StringByReference(pointer: Pointer? = null) : IByReference<HANDLE>, HANDLE
     }
 }
 @ABIMarker(IUnknown.ABI::class)
-class AnyByReference(pointer: Pointer? = null) : IByReference<Any>, ByReference(Native.POINTER_SIZE) {
+class AnyByReference(pointer: Pointer? = null) : IByReference<Any?>, ByReference(Native.POINTER_SIZE) {
     init {
         if (pointer != null) {
             this.pointer = pointer
         }
     }
 
-    override fun getValue(): Any {
+    override fun getValue(): Any? {
         return AnyABI.fromNative(pointer.getPointer(0).toMemorySegment())
     }
 

@@ -7,10 +7,6 @@ import kotlin.reflect.KType
 
 @ObjectImplements([IKeyValuePair::class])
 class JVMKeyValuePair<K, V>(type: KType, private val backingPair: Pair<K, V>): KotlinWinRTObject(), IKeyValuePair<K, V> {
-    init {
-        initObj()
-    }
-
     override val Windows_Foundation_Collections_IKeyValuePair_Type: KType = type
 
     override val Key: K = backingPair.first

@@ -6,6 +6,4 @@ import com.sun.jna.Memory
 
 interface ICompositionPointer {
     var inner: IUnknown?
-    var interfacePointers: MutableList<Memory>
-    var vtbl: IInspectableVtbl?
 }

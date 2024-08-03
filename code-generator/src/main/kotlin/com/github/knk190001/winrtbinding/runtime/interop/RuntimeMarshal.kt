@@ -1,8 +1,8 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
+import IStructABI
 import com.github.knk190001.winrtbinding.runtime.*
-import com.github.knk190001.winrtbinding.runtime.base.IParameterizedNativePeerProvider
-import com.github.knk190001.winrtbinding.runtime.base.IStructABI
+import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedNativePeerProvider
 import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
@@ -75,7 +75,7 @@ fun <T : Any> marshalToNative(t: T?, type: KType): Any? {
         return abi.makeNativePeer(type, t)
     }
     if (type == typeOf<Any>() && t !is NativeMapped && t !is Pointer && t !is Structure) {
-        return AnyABI.toNative(t as Any).toPointer()
+        return AnyABI.box(t as Any?)
     }
 
     val marshal: Marshal<T, *> = marshals.singleOrNull {

@@ -9,12 +9,7 @@ import kotlin.reflect.full.createType
 
 class JVMVectorView<T>(type: KType, private val backingList: List<T>) : KotlinWinRTObject(), IVectorView<T>,
     List<T> by backingList {
-
     override val Windows_Foundation_Collections_IVectorView_Type: KType = type
-
-    init {
-        initObj()
-    }
 
     override fun GetAt(index: UInt): T {
         return backingList[index.toInt()]

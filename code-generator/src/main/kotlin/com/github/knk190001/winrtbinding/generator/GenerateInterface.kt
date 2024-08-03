@@ -4,11 +4,10 @@ import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.mapIfInstanceOf
+import com.github.knk190001.winrtbinding.runtime.abi.*
 import com.github.knk190001.winrtbinding.runtime.annotations.*
-import com.github.knk190001.winrtbinding.runtime.base.*
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
-import com.github.knk190001.winrtbinding.runtime.com.IWinRTInterface
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
@@ -275,7 +274,7 @@ fun CodeBlock.Builder.addToManagedStatementForParameter(
     }
     //Delegates, and Interfaces
     if (!param.type.isReference && !param.type.isSystemTypeOrObject() && lookUpTypeReference(param.type) is IParameterizable<*>) {
-        val typeString = if (!param.type.genericParameters.isNullOrEmpty()) {
+        val typeString = if (param.type.isGeneric) {
             addStatement(
                 "val ${param.name}_Type = ${
                     kTypeStringFor(
@@ -326,6 +325,15 @@ fun CodeBlock.Builder.addToManagedStatementForParameter(
 
     if (param.type.isReference) {
         addStatement("val $managedName = %T()", param.type.asTypeName())
+        addStatement(
+            "val ${param.name}_Type = ${
+                kTypeStringFor(
+                    param.type,
+                    typeParameterIndexMap,
+                    typeVarName = "_type"
+                )
+            }"
+        )
         addStatement("$managedName.pointer = %T($paramName.address())", Pointer::class)
         return managedName
     }
@@ -558,7 +566,11 @@ private fun generateNativeToJVMBody(
         } else {
             addStatement("_thisObj.${method.name}(${managedNames.joinToString()})")
         }
-
+        method.parameters
+            .filter { it.arrayType() == ArrayType.FillArray }
+            .forEach {
+                addStatement("writeArrayTo(${it.name}_Type, ${it.name}_Managed, ${it.name})")
+            }
 
         method.parameters
             .filter { it.arrayType() == ArrayType.ReceiveArray }
@@ -578,6 +590,12 @@ private fun generateNativeToJVMBody(
                 addStatement("writeListIntoBuffer(${it.name}_Type, ${it.name}_size, ${it.name.escapeReserved()}, ${it.name}_Managed)")
             }
 
+        method.parameters
+            .filter { it.arrayType() == ArrayType.None  && !it.type.isSystemType() && it.type.isReference && (it.type.isSystemType("Object") || lookUpTypeReference(it.type).isReferenceType()) }
+            .forEach {
+                addStatement("addRefOutgoing(${it.name}_Type, ${it.name})")
+            }
+
         if (!method.returnType.isVoid()) {
             add("val _result_Type = ")
             kTypeStatementFor(
@@ -595,6 +613,9 @@ private fun generateNativeToJVMBody(
                     typeNameOf<IBaseABI<Any?, Any?>>()
                 )
                 addStatement("_result_ABI.copyTo(_result, _returnAddr)")
+                if(!method.returnType.isSystemType() && (method.returnType.isTypeParameter() || method.returnType.isSystemType("Object") || lookUpTypeReference(method.returnType).isReferenceType())) {
+                    addStatement("addRefOutgoing(_result_Type, _returnAddr)")
+                }
             }
         }
         unindent()
@@ -1289,7 +1310,10 @@ private fun getInvokeParameterTypes(): (SparseParameter) -> List<ParamType> =
         }
     }
 
-private fun CodeBlock.Builder.addResultVariable(typeReference: SparseTypeReference, sparseInterface: IParameterizable<*>) {
+private fun CodeBlock.Builder.addResultVariable(
+    typeReference: SparseTypeReference,
+    sparseInterface: IParameterizable<*>
+) {
     val typeParameterIndexMap = sparseInterface.genericParameters
         ?.mapIndexed { idx, it -> it.name to idx }
         ?.toMap() ?: emptyMap()
@@ -1374,8 +1398,6 @@ private fun CodeBlock.Builder.kTypeStatementFor(
 
 private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface) {
     addSuperinterface(NativeMapped::class)
-    addSuperinterface(IWinRTInterface::class)
-
     sparseInterface.superInterfaces
         .map(SparseTypeReference::asTypeName)
         .forEach(this::addSuperinterface)
@@ -1518,7 +1540,9 @@ private fun FileSpec.Builder.addImports() {
         "readArrayFromPtr",
         "readReceiveArrayIntoList",
         "writeListIntoBuffer",
-        "checkHR"
+        "checkHR",
+        "writeArrayTo",
+        "addRefOutgoing"
     )
     addImport("kotlin.reflect.full", "createType")
     addImport("kotlin.reflect", "typeOf")

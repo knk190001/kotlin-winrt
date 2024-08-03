@@ -14,12 +14,7 @@ import kotlin.reflect.full.createType
 @ObjectImplements([IVector::class, IIterable::class])
 class JVMVector<T>(type: KType, private val backingList: MutableList<T>) : KotlinWinRTObject(), IVector<T>,
     MutableList<T> by backingList {
-
-    override val Windows_Foundation_Collections_IVector_Type: KType = type
-
-    init {
-        initObj()
-    }
+        override val Windows_Foundation_Collections_IVector_Type: KType = type
 
     override fun GetAt(index: UInt): T {
         return backingList[index.toInt()]

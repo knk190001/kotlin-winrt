@@ -72,9 +72,6 @@ object RuntimeGuidGenerator {
             if (type.hasAnnotation<DelegateMarker>()) {
                 return "delegate({${type.annotationOfType<GuidAnnotation>()!!.guid.guidToSignatureFormat()}})"
             }
-            if (!type.isSubtypeOf(typeOf<IWinRTObject>())) {
-                return type.annotationOfType<Signature>()!!.signature
-            }
             return type.annotationOfType<Signature>()!!.signature
         }
     }

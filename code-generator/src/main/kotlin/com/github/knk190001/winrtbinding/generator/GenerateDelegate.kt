@@ -3,15 +3,15 @@ package com.github.knk190001.winrtbinding.generator
 import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
-import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
-import com.github.knk190001.winrtbinding.runtime.base.Delegate
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
+import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.GenericType
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.base.IABI
-import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import com.github.knk190001.winrtbinding.runtime.delegate.Delegate
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.interop.ISpecializable
 import com.squareup.kotlinpoet.*
@@ -85,7 +85,8 @@ private fun FileSpec.Builder.addImports() {
         "arrayFromNative",
         "arrayToNative",
         "toHandle",
-        "toPointer"
+        "toPointer",
+        "writeArrayTo"
     )
     addImport(
         "com.github.knk190001.winrtbinding.runtime.interop",
@@ -522,7 +523,7 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
                 "arena"
             )
             addStatement("val newDelegate = %T(${ctorParams.joinToString()})", delegateType)
-            addStatement("%T.register(newDelegate)", ReferenceManager::class)
+            addStatement("%T.releaseOnGC(newDelegate)", ReferenceManager::class)
             addStatement("return newDelegate")
         }.build()
         addCode(cb)

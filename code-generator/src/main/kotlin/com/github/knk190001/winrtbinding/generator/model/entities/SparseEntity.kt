@@ -23,3 +23,7 @@ class EntityAdapter : TypeAdapter<SparseEntity> {
         }
     }
 }
+
+fun SparseEntity.isReferenceType(): Boolean {
+    return this is SparseClass || this is SparseInterface || this is SparseDelegate
+}

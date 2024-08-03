@@ -1,12 +1,11 @@
 package com.github.knk190001.winrtbinding.generator
 
+import IStructABI
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseField
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseStruct
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseTypeReference
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.base.IStructABI
-import com.github.knk190001.winrtbinding.runtime.structLayoutWithPadding
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmField

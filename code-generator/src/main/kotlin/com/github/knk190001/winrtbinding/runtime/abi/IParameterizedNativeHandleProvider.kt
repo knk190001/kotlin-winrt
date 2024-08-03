@@ -1,4 +1,4 @@
-package com.github.knk190001.winrtbinding.runtime.base
+package com.github.knk190001.winrtbinding.runtime.abi
 
 import java.lang.invoke.MethodHandle
 

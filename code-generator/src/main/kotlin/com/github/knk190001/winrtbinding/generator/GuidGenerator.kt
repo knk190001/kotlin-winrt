@@ -71,14 +71,7 @@ object GuidGenerator {
             .let { GUID.fromString(it) }
     }
 
-    private fun SparseTypeReference.isTypeOf(namespace: String, name: String): Boolean {
-        return this.namespace == namespace && this.name == name
-    }
 
-    private fun SparseTypeReference.isSystemType(name: String): Boolean {
-        return isTypeOf("System", name)
-
-    }
 
     private fun SparseTypeReference.isValueType(
         lookup: LookUp
@@ -90,21 +83,6 @@ object GuidGenerator {
         return declaration is SparseEnum || declaration is SparseStruct
     }
 
-    private fun SparseTypeReference.isPrimitive():Boolean {
-        return this.isSystemType("Boolean") ||
-                this.isSystemType("Byte") ||
-                this.isSystemType("Char") ||
-                this.isSystemType("Double") ||
-                this.isSystemType("Guid") ||
-                this.isSystemType("Int16") ||
-                this.isSystemType("Int32") ||
-                this.isSystemType("Int64") ||
-                this.isSystemType("SByte") ||
-                this.isSystemType("Single") ||
-                this.isSystemType("UInt16") ||
-                this.isSystemType("UInt32") ||
-                this.isSystemType("UInt64")
-    }
 }
 fun String.guidToSignatureFormat(): String {
     return GUID.fromString(this).toGuidString().lowercase()

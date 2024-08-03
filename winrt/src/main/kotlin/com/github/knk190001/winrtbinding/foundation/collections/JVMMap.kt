@@ -12,12 +12,7 @@ import kotlin.reflect.full.createType
 
 class JVMMap<K, V>(type: KType, backingMap: MutableMap<K, V>) : KotlinWinRTObject(), IMap<K, V>,
     MutableMap<K, V> by backingMap {
-
-    override val Windows_Foundation_Collections_IMap_Type: KType = type
-
-    init {
-        initObj()
-    }
+        override val Windows_Foundation_Collections_IMap_Type: KType = type
 
     override fun Lookup(key: K): V {
         @Suppress("UNCHECKED_CAST")

@@ -1,11 +1,10 @@
 package com.github.knk190001.winrtbinding.runtime.interop
 
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
+import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.abiOf
-import com.github.knk190001.winrtbinding.runtime.base.IABI
-import com.github.knk190001.winrtbinding.runtime.base.IParameterizedABI
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
-import kotlin.reflect.full.companionObjectInstance
 
 @Suppress("UNCHECKED_CAST")
 fun <T : Any> runtimeFromNativeJF(obj: Any, type: KType): T {
@@ -14,7 +13,7 @@ fun <T : Any> runtimeFromNativeJF(obj: Any, type: KType): T {
             val casted = abi as IABI<T, Any>
             casted.fromNative(obj)
         }
-        is IParameterizedABI<*,*> -> {
+        is IParameterizedABI<*, *> -> {
             val casted = abi as IParameterizedABI<T, Any>
             casted.fromNative(type, obj)
         }

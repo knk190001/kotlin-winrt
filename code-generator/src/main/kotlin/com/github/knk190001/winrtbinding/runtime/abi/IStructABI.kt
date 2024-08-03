@@ -1,6 +1,4 @@
-package com.github.knk190001.winrtbinding.runtime.base
-
-import com.sun.jna.Structure.ByValue
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import java.lang.foreign.MemorySegment
 
 interface IStructABI<Managed: Any> : IABI<Managed, MemorySegment> {

@@ -30,7 +30,8 @@ tasks.test {
 
 kotlin {
     jvmToolchain(22)
-    compilerOptions.freeCompilerArgs.set(listOf("-Xjvm-default=all-compatibility"))
+    compilerOptions.freeCompilerArgs.set(
+        listOf("-Xjvm-default=all", "-Xlambdas=indy"))
 }
 
 publishing {

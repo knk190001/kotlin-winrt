@@ -2,7 +2,7 @@ package com.github.knk190001.winrtbinding.runtime.com
 
 import com.github.knk190001.winrtbinding.runtime.*
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
-import com.github.knk190001.winrtbinding.runtime.base.IABI
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.interop.IntByReference
 import com.github.knk190001.winrtbinding.runtime.interop.ULongByReference
 import com.sun.jna.*
@@ -20,7 +20,7 @@ import kotlin.reflect.typeOf
 
 @ABIMarker(IInspectable::class)
 @com.github.knk190001.winrtbinding.runtime.annotations.Guid("af86e2e0b12d4c6a9c5ad7aa65101e90")
-interface IInspectable : IUnknown, NativeMapped, IWinRTInterface {
+interface IInspectable : IUnknown, NativeMapped {
     fun GetIids(iidCount: ULongByReference, iids: MutableList<Guid.IID>) {
         val fnPtr = iUnknown_Vtbl.getPointer(3L * Native.POINTER_SIZE)
         val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
@@ -57,6 +57,8 @@ interface IInspectable : IUnknown, NativeMapped, IWinRTInterface {
     }
 
     object ABI: IABI<IInspectable, MemorySegment> {
+        val IID = Guid.IID("af86e2e0-b12d-4c6a-9c5a-d7aa65101e90")
+
         override fun fromNative(obj: MemorySegment): IInspectable {
             return IInspectable_Impl(obj.toPointer())
         }

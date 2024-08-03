@@ -1,7 +1,7 @@
 package com.github.knk190001.winrtbinding.runtime.com
 
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
-import com.github.knk190001.winrtbinding.runtime.base.IABI
 import com.github.knk190001.winrtbinding.runtime.invokeHR
 import com.github.knk190001.winrtbinding.runtime.toPointer
 import com.sun.jna.Function
@@ -18,7 +18,7 @@ import java.lang.foreign.ValueLayout
 
 @ABIMarker(IUnknown.ABI::class)
 @com.github.knk190001.winrtbinding.runtime.annotations.Guid("0000000000000000c000000000000046")
-interface IUnknown : NativeMapped, IWinRTInterface {
+interface IUnknown : NativeMapped {
     val iUnknown_Vtbl: Pointer
         get() = iUnknown_Ptr.getPointer(0)
 

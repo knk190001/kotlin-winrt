@@ -13,8 +13,6 @@ import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
 
-val propertyReferences = mutableListOf<PropertyValue<*>>()
-
 @Suppress("UNCHECKED_CAST")
 @ObjectImplements([IPropertyValue::class])
 class PropertyValue<T>(val type: KType?, val value: T) :
@@ -22,13 +20,6 @@ class PropertyValue<T>(val type: KType?, val value: T) :
 
     @Suppress("UNCHECKED_CAST")
     constructor() : this(null, null as T)
-
-    init {
-        if (type != null) {
-            initObj()
-        }
-        propertyReferences += this
-    }
 
     companion object {
         inline operator fun <reified T> invoke(value: T): PropertyValue<T> {

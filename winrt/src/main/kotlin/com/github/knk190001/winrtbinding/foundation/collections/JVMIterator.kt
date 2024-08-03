@@ -8,10 +8,6 @@ import kotlin.reflect.KType
 @ObjectImplements([IIterator::class])
 class JVMIterator<T>(type: KType, private val backingIterator: Iterator<T>) : KotlinWinRTObject(), IIterator<T>,
     Iterator<T> by backingIterator {
-    init {
-        initObj()
-    }
-
     override val Windows_Foundation_Collections_IIterator_Type: KType = type
 
     private var currentAssigned = false
