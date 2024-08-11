@@ -5,6 +5,7 @@ import Windows.Foundation.Collections.IKeyValuePair
 import Windows.Foundation.Collections.IMapView
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
+import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
 import kotlin.math.ceil
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
@@ -17,10 +18,10 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
     override val Windows_Foundation_Collections_IMapView_Type: KType = type
     override val Size: UInt = size.toUInt()
 
-    override fun Split(first: IMapView.ByReference<K, V>, second: IMapView.ByReference<K, V>) {
+    override fun Split(first: PointerTo<IMapView<K, V>>, second: PointerTo<IMapView<K, V>>) {
         if (isEmpty()) {
-            first.setValue(IMapView.IMapViewImpl(Windows_Foundation_Collections_IMapView_Type = Windows_Foundation_Collections_IMapView_Type))
-            second.setValue(IMapView.IMapViewImpl(Windows_Foundation_Collections_IMapView_Type = Windows_Foundation_Collections_IMapView_Type))
+            first.value = IMapView.IMapViewImpl(Windows_Foundation_Collections_IMapView_Type = Windows_Foundation_Collections_IMapView_Type)
+            second.value = IMapView.IMapViewImpl(Windows_Foundation_Collections_IMapView_Type = Windows_Foundation_Collections_IMapView_Type)
         }
         val half = ceil(size / 2f).toInt()
         val items = entries.chunked(half)
@@ -29,8 +30,8 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
             if (size != 1) JVMMapView(Windows_Foundation_Collections_IMapView_Type, items[1].associate { it.toPair() })
             else JVMMapView(Windows_Foundation_Collections_IMapView_Type, emptyMap())
 
-        first.setValue(firstHalf)
-        second.setValue(secondHalf)
+        first.value = firstHalf
+        second.value = secondHalf
     }
 
     override fun HasKey(key: K): Boolean {

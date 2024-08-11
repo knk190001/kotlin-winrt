@@ -11,21 +11,16 @@ import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.GenericType
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
-import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.delegate.Delegate
-import com.github.knk190001.winrtbinding.runtime.interop.IByReference
-import com.github.knk190001.winrtbinding.runtime.interop.ISpecializable
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmStatic
-import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.WinNT
-import com.sun.jna.ptr.ByReference
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
@@ -96,9 +91,6 @@ private fun FileSpec.Builder.addImports() {
     addImport(
         "com.github.knk190001.winrtbinding.runtime.interop",
         "guidOf",
-        "makeByReferenceType",
-        "marshalFromNative",
-        "marshalToNative",
         "runtimeFromNativeJF"
     )
     addImport("kotlin.reflect", "typeOf")
@@ -114,7 +106,6 @@ private fun TypeSpec.Builder.addDelegateTypeSpec(sparseDelegate: SparseDelegate)
     addPrimaryConstructor(sparseDelegate)
     addInvokeOperator(sparseDelegate)
     addCompanionObject(sparseDelegate)
-    addByReferenceType(sparseDelegate)
     addABI(sparseDelegate)
 }
 
@@ -191,58 +182,6 @@ private fun TypeSpec.Builder.addLayout() {
         initializer("%T.ADDRESS", ValueLayout::class)
     }.build()
     addProperty(layoutSpec)
-}
-
-private fun TypeSpec.Builder.addByReferenceType(sparseDelegate: SparseDelegate) {
-    val byReferenceInterfaceSpec = TypeSpec.classBuilder("ByReference").apply {
-        addTypeParameters(sparseDelegate)
-        superclass(ByReference::class)
-        addSuperclassConstructorParameter("%M", Native::class.member("POINTER_SIZE"))
-        addSuperinterface(
-            IByReference::class.asClassName()
-                .parameterizedBy(sparseDelegate.asTypeName())
-        )
-
-        if (sparseDelegate.isGeneric) {
-            addSuperinterface(ISpecializable::class)
-
-            val typePropertySpec = PropertySpec.builder("type", KType::class.asTypeName().copy(nullable = true)).apply {
-                mutable(true)
-                initializer("null")
-            }.build()
-
-            addProperty(typePropertySpec)
-
-            val specializeSpec = FunSpec.builder("specialize").apply {
-                addModifiers(KModifier.OVERRIDE)
-                addParameter("type", KType::class)
-                addStatement("this.type = type")
-            }.build()
-
-            addFunction(specializeSpec)
-        }
-
-        val getValueFn = FunSpec.builder("getValue").apply {
-            addModifiers(KModifier.OVERRIDE)
-            val typeParameter = if (sparseDelegate.isGeneric) "type!!" else null
-            val parameters = listOfNotNull(typeParameter, "pointer.getPointer(0)").joinToString()
-            addCode(
-                "return %T(${parameters})",
-                sparseDelegate.asTypeName()
-            )
-            returns(sparseDelegate.asTypeName())
-        }.build()
-        addFunction(getValueFn)
-
-        val setValueFn = FunSpec.builder("setValue").apply {
-            addParameter("value", sparseDelegate.asTypeName())
-            addCode("pointer = value.pointer!!")
-        }.build()
-        addFunction(setValueFn)
-
-    }.build()
-
-    addType(byReferenceInterfaceSpec)
 }
 
 private fun TypeSpec.Builder.addCompanionObject(sparseDelegate: SparseDelegate) {
@@ -566,17 +505,5 @@ private fun TypeSpec.Builder.addDelegateAnnotations(sparseDelegate: SparseDelega
     }
     addAnnotation(DelegateMarker::class)
     addGuidAnnotation(sparseDelegate.guid)
-    addByReferenceAnnotation(sparseDelegate)
-}
-
-private fun TypeSpec.Builder.addByReferenceAnnotation(sparseDelegate: SparseDelegate) {
-    val annotation = AnnotationSpec.builder(WinRTByReference::class).apply {
-        addMember(
-            "%T::class",
-            (sparseDelegate.asTypeReference()
-                .asClassName() as ClassName).nestedClass("ByReference")
-        )
-    }.build()
-    addAnnotation(annotation)
 }
 

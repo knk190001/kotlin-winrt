@@ -54,19 +54,14 @@ fun INamedEntity.asClassName(
             "Void" -> Unit::class.asClassName()
             "UInt32" -> UInt::class.asClassName()
             "String" -> String::class.asClassName()
-            "UInt32&" -> UIntByReference::class.asClassName()
+            "UInt32&" -> PointerTo::class.asClassName()
+                .parameterizedBy(UInt::class.asClassName())
             "Object" -> Any::class.asClassName()
             "UInt64" -> ULong::class.asClassName()
             "UInt16" -> UShort::class.asClassName()
             "Guid" -> Guid.IID::class.asClassName()
             else -> throw NotImplementedError("Type: $namespace.$name is not handled")
         }
-    }
-    if (this.isReference) {
-        if (isGeneric) {
-            return ClassName(name, "ByReference")
-        }
-        return ClassName(fullName(), "ByReference")
     }
     if (isGeneric) {
         return ClassName(this.namespace, name)
@@ -87,9 +82,9 @@ fun INamedEntity.hasTrivialABI(): Boolean {
 }
 
 fun INamedEntity.abiClassName(): ClassName {
-    if(this !is SparseTypeReference) return this.asTypeReference().abiClassName()
-    if(namespace == "System") {
-        return when(name) {
+    if (this !is SparseTypeReference) return this.asTypeReference().abiClassName()
+    if (namespace == "System") {
+        return when (name) {
             "UInt16" -> UShortABI::class.asClassName()
             "UInt32" -> UIntABI::class.asClassName()
             "UInt64" -> ULongABI::class.asClassName()
@@ -151,7 +146,7 @@ fun INamedEntity.valueLayout(): CodeBlock {
                         "com.github.knk190001.winrtbinding.runtime",
                         "structLayoutWithPadding"
                     )
-                    addStatement("%M(",structLayoutWithPadding)
+                    addStatement("%M(", structLayoutWithPadding)
                     indent()
                     addStatement("%M,", ValueLayout::class.member("JAVA_INT"))
                     addStatement("%M, ", ValueLayout::class.member("JAVA_SHORT"))
@@ -175,38 +170,13 @@ fun INamedEntity.valueLayout(): CodeBlock {
 
 fun INamedEntity.byReferenceClassName(withTypeParameters: Boolean = true): TypeName {
     if (this !is SparseTypeReference) return this.asTypeReference().byReferenceClassName(withTypeParameters)
-
-    if (isArray) {
-        return MUTABLE_LIST
-            .parameterizedBy(copy(isReference = false, isArray = false).asClassName())
-
+    val withoutReference = this.copy(isReference = false)
+    val componentType = if (withTypeParameters) {
+        withoutReference.asTypeName(nullable = this.isNullable())
+    } else {
+        withoutReference.asClassName(false)
     }
-    if (namespace == "System") {
-        return when (name) {
-            "UInt16" -> UShortByReference::class.asClassName()
-            "UInt32" -> UIntByReference::class.asClassName()
-            "UInt64" -> ULongByReference::class.asClassName()
-            "Single" -> FloatByReference::class.asClassName()
-            "Double" -> DoubleByReference::class.asClassName()
-            "Boolean" -> BooleanByReference::class.asClassName()
-            "Int16" -> ShortByReference::class.asClassName()
-            "Int32" -> IntByReference::class.asClassName()
-            "Int64" -> LongByReference::class.asClassName()
-            "Void" -> Unit::class.asClassName()
-            "String" -> StringByReference::class.asClassName()
-            "Object" -> AnyByReference::class.asClassName()
-            "Byte" -> ByteByReference::class.asClassName()
-            "Guid" -> GuidByReference::class.asClassName()
-            "Char" -> CharByReference::class.asClassName()
-            else -> throw NotImplementedError("Type: $namespace.$name is not handled")
-        }
-    }
-    if (isGeneric && withTypeParameters) {
-        val typeParameters = genericParameters!!.map { it.type!!.asTypeName(nullable = !it.type.isPrimitiveSystemType()) }
-        return ClassName(fullName(), "ByReference").parameterizedBy(typeParameters)
-    }
-
-    return ClassName(this.namespace + ".${this.name}", "ByReference")
+    return PointerTo::class.asClassName().parameterizedBy(componentType)
 }
 
 fun INamedEntity.foreignType(): KClass<*> {
@@ -303,7 +273,7 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IParameterizable<*>
                     Pointer::class
                 )
             } else {
-                val typeParameter = if(projectable.genericParameters.isNullOrEmpty()) null else "type"
+                val typeParameter = if (projectable.genericParameters.isNullOrEmpty()) null else "type"
                 val parameters = listOfNotNull(typeParameter, "%T(address)").joinToString()
                 addStatement(
                     "return %T$typeVariableString(${parameters})".fixSpaces(),
@@ -356,7 +326,8 @@ fun INamedEntity.asTypeName(
     usage: ClassNameUsage = ClassNameUsage.Other,
     nullable: Boolean = false
 ): TypeName {
-    if (this !is SparseTypeReference) return this.asTypeReference().asTypeName(emptyTypeParameters, nestedClass, usage, nullable)
+    if (this !is SparseTypeReference) return this.asTypeReference()
+        .asTypeName(emptyTypeParameters, nestedClass, usage, nullable)
     if (nullable) {
         return asTypeName(emptyTypeParameters, nestedClass, usage, false).copy(nullable = true)
     }
@@ -403,9 +374,7 @@ fun INamedEntity.asTypeName(
     }.toList()
 
     if (this.isReference) {
-        return ClassName(namespace, name)
-            .nestedClass("ByReference")
-            .parameterizedBy(typeParameters)
+        return byReferenceClassName()
     }
     return ClassName(namespace, name).parameterizedBy(typeParameters)
 
@@ -479,15 +448,20 @@ val substitutions = mapOf(
     )
 )
 
-fun TypeSpec.Builder.addEvents(typeReferencee: SparseTypeReference, withImplementation: Boolean, pointerExpr: String? = null, lazy: Boolean = false) {
+fun TypeSpec.Builder.addEvents(
+    typeReferencee: SparseTypeReference,
+    withImplementation: Boolean,
+    pointerExpr: String? = null,
+    lazy: Boolean = false
+) {
     val sparseInterface = lookUpTypeReference(typeReferencee) as SparseInterface
     sparseInterface.events()
         .map { (addMethod, removeMethod) ->
-            val projectedMethod = typeReferencee.genericParameters?.let{
-                if(it.any { params -> params.type == null }) return@let null
+            val projectedMethod = typeReferencee.genericParameters?.let {
+                if (it.any { params -> params.type == null }) return@let null
                 else it
             }?.let {
-                it.fold(addMethod){ acc, genericParameter ->
+                it.fold(addMethod) { acc, genericParameter ->
                     acc.projectType(genericParameter.name, genericParameter.type!!)
                 }
             } ?: addMethod
@@ -495,7 +469,7 @@ fun TypeSpec.Builder.addEvents(typeReferencee: SparseTypeReference, withImplemen
             val eventComponentType = projectedMethod.parameters[0].type.asTypeName()
             val eventType = IEvent::class.asTypeName().parameterizedBy(eventComponentType)
             val tokenType = addMethod.returnType.asTypeName()
-            val prefix = if(pointerExpr != null) "${pointerExpr}, " else ""
+            val prefix = if (pointerExpr != null) "${pointerExpr}, " else ""
             PropertySpec.builder(addMethod.name.replace("add_", ""), eventType).apply {
                 if (withImplementation) {
                     val initializerCb = buildCodeBlock {

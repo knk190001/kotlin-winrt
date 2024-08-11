@@ -1,11 +1,9 @@
 package com.github.knk190001.winrtbinding.generator
 
-import IStructABI
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseField
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseStruct
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseTypeReference
-import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmField
@@ -22,10 +20,6 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
         addModifiers(KModifier.OPEN)
         addABIAnnotation(sparseStruct.asClassName(false))
         addSignatureAnnotation(sparseStruct)
-        val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
-            .addMember("brClass = %L.ByReference::class", sparseStruct.name)
-            .build()
-        addAnnotation(brAnnotationSpec)
 
         val fields = sparseStruct.fields.sortedBy { it.index }
         addFieldOrderAnnotation(fields)
@@ -45,8 +39,6 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
             .addParameter(ptrParameterSpec)
             .build()
 
-        addByReferenceType(sparseStruct, ptrParameterSpec)
-        addByValueType(sparseStruct, ptrParameterSpec)
         addABI(sparseStruct)
 
         primaryConstructor(constructor)
@@ -54,47 +46,6 @@ fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.n
     }.build()
     addType(type)
 }.build()
-
-private fun TypeSpec.Builder.addByValueType(
-    sparseStruct: SparseStruct,
-    ptrParameterSpec: ParameterSpec
-) {
-    val byValue = TypeSpec.classBuilder("ByValue").apply {
-        superclass(ClassName(sparseStruct.namespace, sparseStruct.name))
-        addSuperinterface(Structure.ByValue::class)
-        val constructorSpec = FunSpec.constructorBuilder().apply {
-            addParameter(ptrParameterSpec)
-        }.build()
-        primaryConstructor(constructorSpec)
-        addSuperclassConstructorParameter("ptr")
-    }.build()
-    addType(byValue)
-}
-
-private fun TypeSpec.Builder.addByReferenceType(
-    sparseStruct: SparseStruct,
-    ptrParameterSpec: ParameterSpec
-) {
-    val byReference = TypeSpec.classBuilder("ByReference").apply {
-        superclass(sparseStruct.asClassName(false))
-        addSuperinterface(Structure.ByReference::class)
-        addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("", sparseStruct.name)))
-        val constructorSpec = FunSpec.constructorBuilder().apply {
-            addParameter(ptrParameterSpec)
-        }.build()
-        primaryConstructor(constructorSpec)
-        addSuperclassConstructorParameter("ptr")
-
-
-        val getValueFn = FunSpec.builder("getValue").apply {
-            addModifiers(KModifier.OVERRIDE)
-            addCode("return this")
-            returns(ClassName(sparseStruct.namespace, sparseStruct.name))
-        }.build()
-        addFunction(getValueFn)
-    }.build()
-    addType(byReference)
-}
 
 private fun TypeSpec.Builder.addFieldOrderAnnotation(fields: List<SparseField>) {
     val fieldOrderAnnotation = AnnotationSpec.builder(FieldOrder::class).apply {
@@ -172,29 +123,16 @@ private fun SparseTypeReference.managedToNativeUnsigned() = when (name) {
 private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
     val abi = TypeSpec.objectBuilder("ABI").apply {
         addSuperinterface(
-            IStructABI::class.asClassName().parameterizedBy(
-                sparseStruct.asClassName(false)
+            IABI::class.asClassName().parameterizedBy(
+                sparseStruct.asClassName(false),
+                MemorySegment::class.asClassName()
             )
         )
-        addByValue(sparseStruct)
         addFromNative(sparseStruct)
         addParameterToNative(sparseStruct)
         addLayout(sparseStruct)
     }.build()
     addType(abi)
-}
-
-private fun TypeSpec.Builder.addByValue(sparseStruct: SparseStruct) {
-    val byValue = FunSpec.builder("byValue").apply {
-        addModifiers(KModifier.OVERRIDE)
-        val type = sparseStruct.asClassName(structByValue = false)
-        addParameter("struct", type)
-        addCode(buildCodeBlock {
-            addStatement("return ByValue(struct.pointer)")
-        })
-        returns(type)
-    }.build()
-    addFunction(byValue)
 }
 
 private fun TypeSpec.Builder.addParameterToNative(sparseStruct: SparseStruct) {

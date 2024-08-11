@@ -3,7 +3,7 @@ package com.github.knk190001.winrtbinding.foundation.collections
 import Windows.Foundation.Collections.IIterator
 import Windows.Foundation.Collections.IVectorView
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
-import com.github.knk190001.winrtbinding.runtime.interop.UIntByReference
+import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
@@ -31,10 +31,10 @@ class JVMVectorView<T>(type: KType, private val backingList: List<T>) : KotlinWi
         return idx.toUInt()
     }
 
-    override fun IndexOf(value: T, index: UIntByReference): Boolean {
+    override fun IndexOf(value: T, index: PointerTo<UInt>): Boolean {
         val indexOf = backingList.indexOf(value)
         if (indexOf != -1) {
-            index.setValue(indexOf.toUInt())
+            index.value = indexOf.toUInt()
             return true
         }
         return false

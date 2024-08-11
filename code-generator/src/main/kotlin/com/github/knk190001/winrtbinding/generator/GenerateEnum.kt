@@ -1,15 +1,12 @@
 package com.github.knk190001.winrtbinding.generator
 
+import com.github.knk190001.winrtbinding.generator.model.entities.SparseEnum
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.sun.jna.FromNativeContext
 import com.sun.jna.NativeMapped
-import com.sun.jna.ptr.ByReference
-import com.github.knk190001.winrtbinding.generator.model.entities.SparseEnum
-import com.github.knk190001.winrtbinding.runtime.interop.IByReference
-import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
-import com.github.knk190001.winrtbinding.runtime.abi.IABI
-import com.squareup.kotlinpoet.MemberName.Companion.member
 import java.lang.foreign.ValueLayout
 
 fun generateEnum(sEnum : SparseEnum): FileSpec {
@@ -65,35 +62,10 @@ fun generateEnum(sEnum : SparseEnum): FileSpec {
             addCode("return %T::class.java",Integer::class.java)
         }.build()
 
-        val brAnnotationSpec = AnnotationSpec.builder(WinRTByReference::class)
-            .addMember("brClass = %L.ByReference::class", sEnum.name)
-            .build()
-        addAnnotation(brAnnotationSpec)
-
-        val byRefSpec = TypeSpec.classBuilder("ByReference").apply {
-            superclass(ByReference::class)
-            addSuperinterface(IByReference::class.asClassName().parameterizedBy(ClassName("",sEnum.name)))
-            addSuperclassConstructorParameter("4")
-            val setValueSpec = FunSpec.builder("setValue").apply {
-                addParameter("newValue",ClassName(sEnum.namespace,sEnum.name))
-                addCode("pointer.setInt(0, newValue.value)")
-            }.build()
-
-            val getValueSpec = FunSpec.builder("getValue").apply {
-                addModifiers(KModifier.OVERRIDE)
-                returns(ClassName(sEnum.namespace,sEnum.name))
-                addCode("return ${sEnum.name}.values()[0].fromNative(this.pointer.getInt(0), null)")
-            }.build()
-
-            addFunction(setValueSpec)
-            addFunction(getValueSpec)
-        }.build()
-
         addFunction(fromNativeSpec)
         addFunction(toNativeSpec)
         addFunction(nativeTypeSpec)
         addProperty(PropertySpec.builder("value",Int::class).initializer("value").build())
-        addType(byRefSpec)
         generateABI(sEnum)
     }.build()
     fileSpec.addType(type)

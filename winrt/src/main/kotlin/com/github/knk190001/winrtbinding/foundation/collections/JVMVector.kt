@@ -6,7 +6,7 @@ import Windows.Foundation.Collections.IVector
 import Windows.Foundation.Collections.IVectorView
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
-import com.github.knk190001.winrtbinding.runtime.interop.UIntByReference
+import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
@@ -72,10 +72,10 @@ class JVMVector<T>(type: KType, private val backingList: MutableList<T>) : Kotli
         backingList[index.toInt()] = value
     }
 
-    override fun IndexOf(value: T, index: UIntByReference): Boolean {
+    override fun IndexOf(value: T, index: PointerTo<UInt>): Boolean {
         val indexOf = backingList.indexOf(value)
         if (indexOf != -1) {
-            index.setValue(indexOf.toUInt())
+            index.value = indexOf.toUInt()
             return true
         }
         return false

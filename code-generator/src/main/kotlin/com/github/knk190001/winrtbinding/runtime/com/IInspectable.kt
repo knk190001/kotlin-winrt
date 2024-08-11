@@ -4,7 +4,6 @@ import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.checkHR
 import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
-import com.github.knk190001.winrtbinding.runtime.interop.ULongByReference
 import com.github.knk190001.winrtbinding.runtime.readReceiveArrayIntoList
 import com.github.knk190001.winrtbinding.runtime.toMemorySegment
 import com.github.knk190001.winrtbinding.runtime.toPointer
@@ -15,7 +14,6 @@ import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.WinNT
-import com.sun.jna.ptr.PointerByReference
 import java.lang.foreign.*
 import kotlin.reflect.typeOf
 
@@ -23,11 +21,11 @@ import kotlin.reflect.typeOf
 @ABIMarker(IInspectable::class)
 @com.github.knk190001.winrtbinding.runtime.annotations.Guid("af86e2e0b12d4c6a9c5ad7aa65101e90")
 interface IInspectable : IUnknown, NativeMapped {
-    fun GetIids(iidCount: ULongByReference, iids: MutableList<Guid.IID>) {
+    fun GetIids(iidCount: PointerTo<ULong>, iids: MutableList<Guid.IID>) {
         val fnPtr = iUnknown_Vtbl.getPointer(3L * Native.POINTER_SIZE).toMemorySegment()
-        val result = PointerByReference()
+        val result = PointerTo<PointerTo<*>>()
         val fn = ABI.downcallHandles[0]
-        val hr = fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment(), iidCount.pointer.toMemorySegment(), result.pointer.toMemorySegment()) as Int
+        val hr = fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment(), iidCount.segment, result.segment) as Int
         readReceiveArrayIntoList(typeOf<GUID>(), iidCount, result, iids)
         checkHR(WinNT.HRESULT(hr))
     }

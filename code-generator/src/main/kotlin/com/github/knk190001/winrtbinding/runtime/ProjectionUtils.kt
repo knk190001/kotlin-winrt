@@ -293,7 +293,8 @@ fun arrayToNative(type: KType, array: Array<*>): MemorySegment {
 fun writeArrayTo(componentType: KType, array: Array<*>, buffer: MemorySegment) {
     val abi = abiOf(componentType.jvmErasure) as IBaseABI<Any?, Any?>
     val nativeValues = array.map {
-        if (abi.layout == ValueLayout.ADDRESS && it == null) Pointer.NULL else marshalToNative(it, componentType)
+        if (abi.layout == ValueLayout.ADDRESS && it == null) Pointer.NULL
+        else abi.toNative(it)
     }
 
     array.indices
@@ -328,7 +329,7 @@ fun KType.javaForeignType(): Class<*> {
             Char::class -> Char::class.javaPrimitiveType!!
             MemorySegment::class -> MemorySegment::class.java
             MemorySegment::class -> MemorySegment::class.java
-            UIntByReference::class -> MemorySegment::class.java
+            PointerTo::class -> MemorySegment::class.java
             Any::class -> MemorySegment::class.java
             else -> throw NotImplementedError("Type: $kClass is not handled")
         }
@@ -524,19 +525,6 @@ fun <T> readReceiveArrayIntoList(type: KType, size: PointerTo<Int>, ptr: Pointer
     val abi = abiOf(type.jvmErasure)
     val bufferSize = abi.layout.byteSize() * size.value.toLong()
     val segment = ptr.value.segment.reinterpret(bufferSize)
-    segment.elements(abi.layout).toList()
-        .map {
-            @Suppress("UNCHECKED_CAST")
-            it as T
-        }
-        .forEach(list::add)
-
-}
-
-fun <T> readReceiveArrayIntoList(type: KType, size: ULongByReference, ptr: PointerByReference, list: MutableList<T>) {
-    val abi = abiOf(type.jvmErasure)
-    val bufferSize = abi.layout.byteSize() * size.getValue().toLong()
-    val segment = ptr.value.toMemorySegment().reinterpret(bufferSize)
     segment.elements(abi.layout).toList()
         .map {
             @Suppress("UNCHECKED_CAST")
