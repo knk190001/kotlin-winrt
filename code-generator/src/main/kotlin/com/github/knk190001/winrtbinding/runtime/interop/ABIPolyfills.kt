@@ -4,6 +4,7 @@ import com.github.knk190001.winrtbinding.runtime.*
 import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.abi.IAnyABI
 import com.github.knk190001.winrtbinding.runtime.abi.IBaseABI
+import com.github.knk190001.winrtbinding.runtime.abi.ITrivialABI
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
@@ -14,10 +15,12 @@ import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
 import kotlin.reflect.KClass
 
-const val AnyABIClass = "com.github.knk190001.winrtbinding.runtime.AnyABI"
+
+const val AnyABIPackage = "com.github.knk190001.winrtbinding.runtime"
+const val AnyABIClassName = "AnyABI"
 
 val AnyABI = try {
-    Class.forName(AnyABIClass).kotlin.objectInstance as IAnyABI
+    Class.forName("$AnyABIPackage.$AnyABIClassName").kotlin.objectInstance as IAnyABI
 } catch (e: Exception) {
     // Fallback to a dummy implementation when testing
     object : IAnyABI {
@@ -69,7 +72,7 @@ object UByteABI : IABI<UByte, Byte> {
     }
 }
 
-object StringABI: IABI<String, MemorySegment> {
+object StringABI: IABI<String?, MemorySegment> {
     override fun fromNative(obj: MemorySegment): String {
         return HANDLE(obj.toPointer()).handleToString()
     }
@@ -77,7 +80,10 @@ object StringABI: IABI<String, MemorySegment> {
     override val layout: MemoryLayout
         get() = ValueLayout.ADDRESS
 
-    override fun toNative(obj: String): MemorySegment {
+    override fun toNative(obj: String?): MemorySegment {
+        if(obj == null) {
+            return MemorySegment.NULL
+        }
         return MemorySegment.ofAddress(Pointer.nativeValue(obj.toHandle().pointer))
     }
 
@@ -125,32 +131,12 @@ object ULongABI : IABI<ULong, Long> {
 
 }
 
-object FloatABI : IABI<Float, Float> {
-    override fun fromNative(obj: Float): Float {
-        return obj
-    }
-
-    override val layout: MemoryLayout
-        get() = ValueLayout.JAVA_FLOAT
-
-    override fun toNative(obj: Float): Float {
-        return obj
-    }
-
+object FloatABI : ITrivialABI<Float> {
+    override val layout: MemoryLayout = ValueLayout.JAVA_FLOAT
 }
 
-object DoubleABI : IABI<Double, Double> {
-    override fun fromNative(obj: Double): Double {
-        return obj
-    }
-
-    override val layout: MemoryLayout
-        get() = ValueLayout.JAVA_DOUBLE
-
-    override fun toNative(obj: Double): Double {
-        return obj
-    }
-
+object DoubleABI : ITrivialABI<Double> {
+    override val layout: MemoryLayout = ValueLayout.JAVA_DOUBLE
 }
 
 object BooleanABI : IABI<Boolean, Byte> {
@@ -167,18 +153,8 @@ object BooleanABI : IABI<Boolean, Byte> {
 
 }
 
-object ShortABI : IABI<Short, Short> {
-    override fun fromNative(obj: Short): Short {
-        return obj
-    }
-
-    override val layout: MemoryLayout
-        get() = ValueLayout.JAVA_SHORT
-
-    override fun toNative(obj: Short): Short {
-        return obj
-    }
-
+object ShortABI : ITrivialABI<Short> {
+    override val layout: MemoryLayout = ValueLayout.JAVA_SHORT
 }
 
 object IntABI : IABI<Int, Int> {
@@ -209,18 +185,8 @@ object LongABI : IABI<Long, Long> {
 
 }
 
-object ByteABI : IABI<Byte, Byte> {
-    override fun fromNative(obj: Byte): Byte {
-        return obj
-    }
-
-    override val layout: MemoryLayout
-        get() = ValueLayout.JAVA_BYTE
-
-    override fun toNative(obj: Byte): Byte {
-        return obj
-    }
-
+object ByteABI : ITrivialABI<Byte> {
+    override val layout: MemoryLayout = ValueLayout.JAVA_BYTE
 }
 
 object GUIDABI : IABI<IID, MemorySegment> {
@@ -242,16 +208,6 @@ object GUIDABI : IABI<IID, MemorySegment> {
 
 }
 
-object CharABI : IABI<Char, Char> {
-    override fun fromNative(obj: Char): Char {
-        return obj
-    }
-
-    override val layout: MemoryLayout
-        get() = ValueLayout.JAVA_CHAR
-
-    override fun toNative(obj: Char): Char {
-        return obj
-    }
-
+object CharABI : ITrivialABI<Char> {
+    override val layout: MemoryLayout = ValueLayout.JAVA_CHAR
 }

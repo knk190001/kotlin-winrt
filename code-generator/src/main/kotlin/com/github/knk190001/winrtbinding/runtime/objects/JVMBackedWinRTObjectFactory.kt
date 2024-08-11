@@ -111,10 +111,14 @@ object JVMBackedWinRTObjectFactory {
         fun queryInterface(thisPtr: MemorySegment, refiid: MemorySegment, ppvObject: MemorySegment): Int {
             val objectStruct = JVMBackedObjectStruct(thisPtr)
             val requestedIID = GUIDABI.fromNative(refiid)
-            println(requestedIID.toGuidString().guidToSignatureFormat())
+            println(
+                "QueryInterface on ${objectStruct.className} at 0x${
+                    objectStruct.segment.address().toString(16)
+                }: " + requestedIID.toGuidString().guidToSignatureFormat()
+            )
             ppvObject.set(ValueLayout.ADDRESS, 0L, MemorySegment.NULL)
 
-            if(requestedIID == IUnknown.ABI.IID || requestedIID == IInspectable.ABI.IID) {
+            if (requestedIID == IUnknown.ABI.IID || requestedIID == IInspectable.ABI.IID) {
                 objectStruct.incrementRefCountAtomic()
                 ppvObject.set(ValueLayout.ADDRESS, 0L, thisPtr)
                 return 0
@@ -138,23 +142,28 @@ object JVMBackedWinRTObjectFactory {
             val queryInterfaceFnPtr = (objectStruct.inner
                 .get(ValueLayout.ADDRESS, 0) as MemorySegment)
                 .get(ValueLayout.ADDRESS, 0)
-            val result = queryInterfaceDCH.invoke(queryInterfaceFnPtr, refiid, ppvObject) as Int
-            return if(result != 0) WinNT.E_NOTIMPL else 0
+            val result = queryInterfaceDCH.invoke(queryInterfaceFnPtr, objectStruct.segment, refiid, ppvObject) as Int
+            return if (result != 0) WinNT.E_NOTIMPL else 0
         }
 
         @JvmStatic
         fun addRef(thisPtr: MemorySegment): Int {
             val objectStruct = JVMBackedObjectStruct(thisPtr)
+            println("AddRef on ${objectStruct.className} at 0x${objectStruct.segment.address().toString(16)}")
             val refCount = objectStruct.incrementRefCountAtomic() + 1
-            if (refCount == 1) ReferenceManager.setStrong(thisPtr.address())
+            println("RefCount: $refCount")
+            if (refCount == 2) ReferenceManager.setStrong(thisPtr.address())
             return refCount
+
         }
 
         @JvmStatic
         fun release(thisPtr: MemorySegment): Int {
             val objectStruct = JVMBackedObjectStruct(thisPtr)
+            println("Release on ${objectStruct.className} at 0x${objectStruct.segment.address().toString(16)}")
             val refCount = objectStruct.decrementRefCountAtomic() - 1
-            if (refCount == 0) ReferenceManager.setWeak(thisPtr.address())
+            println("RefCount: $refCount")
+            if (refCount == 1) ReferenceManager.setWeak(thisPtr.address())
             return refCount
         }
 
@@ -322,6 +331,7 @@ object JVMBackedWinRTObjectFactory {
         objectPeer.vtbl.getRuntimeClassName = RootObjectMethods.getRuntimeClassNameStub
         objectPeer.vtbl.getTrustLevel = RootObjectMethods.getTrustLevelStub
 
+        objectPeer.refCount = 1
         objectPeer.className = obj::class.qualifiedName!!
         if (!containsClassMetadata(objectPeer.className)) {
             val layout = objectPeer.layout
@@ -343,9 +353,11 @@ object JVMBackedWinRTObjectFactory {
             populateInterfaceStruct(obj, interfacePeer, type, handles, objectPeer.segment, arena)
         }
 
+        println("Instantiated ${objectPeer.className} at 0x${objectPeer.segment.address().toString(16)}")
+
         ReferenceManager.removeOnGC(obj, objectPeer.segment.address())
         ReferenceManager.registerArena(arena, objectPeer.segment.address())
-        ReferenceManager.registerBackingObject(listOf(obj), objectPeer.segment.address())
+        ReferenceManager.registerBackingObject(obj, objectPeer.segment.address())
 
         return objectPeer.segment
     }

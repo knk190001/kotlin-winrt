@@ -75,7 +75,7 @@ object ReferenceManager {
         arenaTable[address]!!.close()
         arenaTable.remove(address)
         backingObjects.remove(address)
-        println("Freed: $address")
+        println("Freed: 0x${address.toString(16)}")
     }
 
     fun removeOnGC(obj: IUnknown, address: Long) {

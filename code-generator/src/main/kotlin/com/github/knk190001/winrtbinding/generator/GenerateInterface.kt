@@ -3,17 +3,15 @@ package com.github.knk190001.winrtbinding.generator
 import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
-import com.github.knk190001.winrtbinding.mapIfInstanceOf
+import com.github.knk190001.winrtbinding.runtime.CallScope
 import com.github.knk190001.winrtbinding.runtime.abi.*
 import com.github.knk190001.winrtbinding.runtime.annotations.*
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
-import com.github.knk190001.winrtbinding.runtime.com.IUnknownVtbl
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmStatic
-import com.sun.jna.Function
 import com.sun.jna.Native
 import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
@@ -22,13 +20,14 @@ import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.platform.win32.WinNT
 import com.sun.jna.ptr.ByReference
-import com.sun.jna.ptr.PointerByReference
-import java.lang.IllegalStateException
+import java.lang.foreign.FunctionDescriptor
+import java.lang.foreign.Linker
 import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
 import java.lang.invoke.MethodType
+import java.lang.ref.Reference
 import kotlin.reflect.*
 
 fun generateInterface(sparseInterface: SparseInterface): FileSpec {
@@ -357,7 +356,7 @@ private fun CodeBlock.Builder.addReceiveArrayToManagedStatement(
 ): String {
     val componentType = param.type.copy(isArray = false, isReference = false)
     val componentClassName = componentType.asClassName(false)
-        .copy(nullable = !componentType.isPrimitiveSystemType())
+        .copy(nullable = componentType.isNullable())
     addStatement("val $managedName = mutableListOf<%T>()", componentClassName)
     return managedName
 }
@@ -591,7 +590,11 @@ private fun generateNativeToJVMBody(
             }
 
         method.parameters
-            .filter { it.arrayType() == ArrayType.None  && !it.type.isSystemType() && it.type.isReference && (it.type.isSystemType("Object") || lookUpTypeReference(it.type).isReferenceType()) }
+            .filter {
+                it.arrayType() == ArrayType.None && !it.type.isSystemType() && it.type.isReference && (it.type.isSystemType(
+                    "Object"
+                ) || lookUpTypeReference(it.type).isReferenceType())
+            }
             .forEach {
                 addStatement("addRefOutgoing(${it.name}_Type, ${it.name})")
             }
@@ -613,7 +616,10 @@ private fun generateNativeToJVMBody(
                     typeNameOf<IBaseABI<Any?, Any?>>()
                 )
                 addStatement("_result_ABI.copyTo(_result, _returnAddr)")
-                if(!method.returnType.isSystemType() && (method.returnType.isTypeParameter() || method.returnType.isSystemType("Object") || lookUpTypeReference(method.returnType).isReferenceType())) {
+                if (!method.returnType.isSystemType() && (method.returnType.isTypeParameter() || method.returnType.isSystemType(
+                        "Object"
+                    ) || lookUpTypeReference(method.returnType).isReferenceType())
+                ) {
                     addStatement("addRefOutgoing(_result_Type, _returnAddr)")
                 }
             }
@@ -676,8 +682,155 @@ private fun TypeSpec.Builder.generateABI(sparseInterface: SparseInterface) {
         if (substitutions[sparseInterface.fullName()] != null) {
             addJVMToNativeSubstitution(sparseInterface)
         }
+
+        addLinkerProperty()
+        addDownCallHandles(sparseInterface)
+        addDowncallHandlesProperty(sparseInterface)
     }.build()
     addType(abi)
+}
+
+fun TypeSpec.Builder.addLinkerProperty() {
+    addProperty(
+        PropertySpec.builder("linker", Linker::class).apply {
+            addModifiers(KModifier.PRIVATE)
+            initializer("%T.nativeLinker()", Linker::class)
+        }.build()
+    )
+}
+
+private fun TypeSpec.Builder.addDowncallHandlesProperty(sparseInterface: SparseInterface) {
+    if (sparseInterface.isGeneric) {
+        val property = PropertySpec.builder(
+            "downcallHandles",
+            memoizedDowncallHandleType
+        ).apply {
+            addModifiers(KModifier.INTERNAL)
+            initializer("memoize(::getDownCallHandlesForType)")
+        }.build()
+        addProperty(property)
+    }
+}
+
+var memoizedDowncallHandleType = LambdaTypeName.get(
+    null,
+    listOf(ParameterSpec("type", KType::class.asTypeName())),
+    LIST.parameterizedBy(MethodHandle::class.asClassName())
+)
+
+private fun generateListOfDowncallHandles(sparseInterface: SparseInterface): CodeBlock {
+    return buildCodeBlock {
+        add("listOf(")
+        indent()
+        sparseInterface.methods.forEach {
+            add(downcallPropertyInitializer(sparseInterface, it))
+            addStatement(",")
+        }
+        unindent()
+        add(")")
+    }
+}
+
+private fun TypeSpec.Builder.addDownCallHandles(sparseInterface: SparseInterface) {
+    if (sparseInterface.isGeneric) {
+        addDowncallHandleListFunction(sparseInterface)
+    } else {
+        addConstantDowncallHandleList(sparseInterface)
+    }
+}
+
+private fun TypeSpec.Builder.addDowncallHandleListFunction(sparseInterface: SparseInterface) {
+    val funSpec = FunSpec.builder("getDownCallHandlesForType").apply {
+        addModifiers(KModifier.INTERNAL)
+        addParameter("type", KType::class)
+        returns(LIST.parameterizedBy(MethodHandle::class.asClassName()))
+        addCode(buildCodeBlock {
+            add("${nbsp}return ")
+            add(generateListOfDowncallHandles(sparseInterface))
+        })
+    }.build()
+    addFunction(funSpec)
+}
+
+private fun TypeSpec.Builder.addConstantDowncallHandleList(sparseInterface: SparseInterface) {
+    val propertySpec =
+        PropertySpec.builder("downcallHandles", LIST.parameterizedBy(MethodHandle::class.asClassName())).apply {
+            addModifiers(KModifier.INTERNAL)
+            initializer(generateListOfDowncallHandles(sparseInterface))
+        }.build()
+    addProperty(propertySpec)
+}
+
+fun TypeSpec.Builder.addDownCallProperty(
+    method: SparseMethod,
+    type: IParameterizable<*>,
+    methodIdx: Int,
+    name: String = "${method.name}_$methodIdx"
+) {
+    val propertySpec = PropertySpec.builder(name, MethodHandle::class).apply {
+        initializer(downcallPropertyInitializer(type, method))
+    }.build()
+    addProperty(propertySpec)
+}
+
+fun downcallPropertyInitializer(
+    type: IParameterizable<*>,
+    method: SparseMethod,
+): CodeBlock {
+    val typeParameterIndices = type.genericParameters
+        ?.mapIndexed { index, sparseGenericParameter -> sparseGenericParameter.name to index }
+        ?.toMap() ?: emptyMap()
+    val intValueLayout = ValueLayout::class.member("JAVA_INT")
+        .let { CodeBlock.of("%M", it) }
+    val addressValueLayout = ValueLayout::class.member("ADDRESS")
+        .let { CodeBlock.of("%M", it) }
+
+    return buildCodeBlock {
+        add("linker.downcallHandle(")
+        add("%T.of(", FunctionDescriptor::class)
+        add(intValueLayout)
+        add(", ")
+        add(addressValueLayout)
+        add(", ")
+        method.parameters.flatMap {
+            when (it.arrayType()) {
+                ArrayType.None -> layoutStatementForNonArrayParameter(it, typeParameterIndices)
+                ArrayType.PassArray -> listOf(intValueLayout, addressValueLayout)
+                ArrayType.FillArray -> listOf(intValueLayout, addressValueLayout)
+                ArrayType.ReceiveArray -> listOf(addressValueLayout, addressValueLayout)
+            }
+        }.forEach {
+            add(it)
+            add(", ")
+        }
+        if (!method.returnType.isVoid()) {
+            if (method.returnType.isArray) {
+                add(addressValueLayout)
+                add(",")
+            }
+            add(addressValueLayout)
+        }
+        add("))")
+    }
+}
+
+private fun layoutStatementForNonArrayParameter(
+    it: SparseParameter,
+    typeParameterIndices: Map<String, Int>
+) = if (it.type.isTypeParameter()) {
+    listOf(CodeBlock.of(
+        "layoutOf(type.arguments[%L].type!!.jvmErasure)",
+        typeParameterIndices[it.type.name]
+    ))
+} else {
+    listOf(it.type.valueLayout())
+}
+
+private fun TypeSpec.Builder.addPrimaryConstructor() {
+    val constructor = FunSpec.constructorBuilder().apply {
+        addParameter("type", KType::class)
+    }.build()
+    primaryConstructor(constructor)
 }
 
 fun TypeSpec.Builder.addJVMToNativeSubstitution(sparseInterface: SparseInterface) {
@@ -720,7 +873,7 @@ private fun TypeSpec.Builder.addABISuperInterface(
     if (sparseInterface.genericParameters.isNullOrEmpty()) {
         addSuperinterface(
             IABI::class.asClassName().parameterizedBy(
-                sparseInterface.asClassName(),
+                sparseInterface.asClassName(nullable = true),
                 MemorySegment::class.asClassName()
             )
         )
@@ -729,7 +882,9 @@ private fun TypeSpec.Builder.addABISuperInterface(
         val starParameters = sparseInterface.genericParameters.map {
             STAR
         }.toTypedArray()
-        val withStarParams = ClassName("", sparseInterface.name).parameterizedBy(*starParameters)
+        val withStarParams = ClassName("", sparseInterface.name)
+            .parameterizedBy(*starParameters)
+            .copy(nullable = true)
         addSuperinterface(
             IParameterizedABI::class.asClassName().parameterizedBy(
                 withStarParams,
@@ -745,7 +900,7 @@ private fun TypeSpec.Builder.addGetType(sparseInterface: SparseInterface, typeNa
     val getTypeSpec = FunSpec.builder("getType").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", typeName)
-        addCode("return obj.${sparseInterface.typeName()}!!")
+        addCode("return obj!!.${sparseInterface.typeName()}!!")
     }.build()
     addFunction(getTypeSpec)
 }
@@ -753,8 +908,11 @@ private fun TypeSpec.Builder.addGetType(sparseInterface: SparseInterface, typeNa
 private fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", entity.asTypeName(emptyTypeParameters = true))
+        addParameter("obj", entity.asTypeName(emptyTypeParameters = true, nullable = true))
         returns(MemorySegment::class)
+        beginControlFlow("if (obj == null)")
+        addStatement("return %T.NULL", MemorySegment::class)
+        endControlFlow()
         addStatement(
             "return %T.ofAddress(%T.nativeValue(obj.toNative() as %T))",
             MemorySegment::class,
@@ -902,13 +1060,7 @@ private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
                 } else {
                     addStatement("val refiid = %T(guidOf<%T>())", REFIID::class, it.asTypeName())
                 }
-                addStatement("val result = %T()", PointerByReference::class)
-                addStatement(
-                    "%T(%L).queryInterface(pointer, refiid, result)",
-                    IUnknownVtbl::class,
-                    sparseInterface.vtblName()
-                )
-                addStatement("result.value")
+                addStatement("QueryInterface(refiid).iUnknown_Ptr")
                 endControlFlow()
             }.build()
             delegate(lazyCb)
@@ -999,8 +1151,23 @@ private fun TypeSpec.Builder.addMethods(sparseInterface: SparseInterface, withMe
         .forEach(this::addFunction)
 }
 
+/*fun SparseTypeReference.isNullable(): Boolean {
+    if (isReference) return false
+    return !isPrimitiveSystemType() && !isSystemType("Guid") && !isTypeParameter() && !(!isSystemTypeOrObject()
+            && lookUpTypeReference(this) is SparseEnum) && !(!isSystemTypeOrObject() && lookUpTypeReference(this) is SparseStruct)
+}*/
+
 fun SparseTypeReference.isNullable(): Boolean {
-    return !this.isPrimitiveSystemType() && !this.isTypeParameter()
+    if (isReference) return false
+    val isNotPrimitive = !isPrimitiveSystemType()
+    val isNotGuid = !isSystemType("Guid")
+    val isNotTypeParameter = !isTypeParameter()
+
+    val entity = if(isSystemTypeOrObject() || isTypeParameter()) null else lookUpTypeReference(this)
+    val isNotEnum = entity !is SparseEnum
+    val isNotStruct = entity !is SparseStruct
+
+    return isNotPrimitive && isNotGuid && isNotTypeParameter && isNotEnum && isNotStruct
 }
 
 enum class FunctionType {
@@ -1095,11 +1262,6 @@ fun generateInterfaceMethod(
         }
     }.build()
 
-sealed interface ParamType
-data class Synthetic(val name: String) : ParamType
-data class ExplicitType(val name: String, val typeReference: SparseTypeReference) : ParamType
-data class Standard(val name: String) : ParamType
-
 private fun CodeBlock.Builder.addInterfaceMethodBody(
     method: SparseMethod,
     type: IParameterizable<*>,
@@ -1108,6 +1270,7 @@ private fun CodeBlock.Builder.addInterfaceMethodBody(
     pointerName: String = type.pointerName(),
     typeVarName: String = type.typeName()
 ) {
+    beginControlFlow("${nbsp}return %T {", CallScope::class)
     val typeParameterIndexMap = type.genericParameters
         ?.mapIndexed { paramIndex, it -> it.name to paramIndex }
         ?.toMap() ?: emptyMap()
@@ -1115,13 +1278,8 @@ private fun CodeBlock.Builder.addInterfaceMethodBody(
     if (type.isGeneric) {
         addTypePropertyCheck(type, typeVarName)
     }
-
-    addStatement(
-        "val fnPtr = %L!!.getPointer(${6 + idx}L * %M)",
-        vtblName,
-        Native::class.member("POINTER_SIZE")
-    )
-    addStatement("val fn = %T.getFunction(fnPtr)", ClassName("", Function::class.qualifiedName!!))
+    addNonArrayToNativeStatements(method, typeParameterIndexMap, typeVarName, type)
+    addFnPtrVariable(type, idx, vtblName)
 
     if (!method.returnType.isVoid()) {
         addResultVariable(method.returnType, type)
@@ -1129,73 +1287,168 @@ private fun CodeBlock.Builder.addInterfaceMethodBody(
 
     addToNativeForPassAndFillArrays(method, typeParameterIndexMap, type, method.isPropertyComponent())
     addToNativeForReceiveArrays(method)
-    addInvokeStatement(type, method, typeParameterIndexMap, pointerName, typeVarName)
-
-    addStatement("checkHR(hr)")
-
+    addHandleVariable(type, typeVarName, idx)
+    addInvokeStatement(type, method, pointerName)
+    addStatement("checkHR(%T(hr))", WinNT.HRESULT::class)
     addReadFromNativeForFillArrays(method, typeParameterIndexMap, type)
     addReadFromNativeForReceiveArrays(method, typeParameterIndexMap, type)
+    addReachabilityFenceForParameters(method)
 
     if (!method.returnType.isVoid()) {
-        add("val returnType = ")
-        kTypeStatementFor(
-            method.returnType.copy(isArray = false),
-            typeParameterIndexMap,
-            root = true,
-            typeVarName = type.typeName()
-        )
-
-        addStatement("")
         if (method.returnType.isArray) {
-            val componentTypeRef = method.returnType.copy(isArray = false)
-            val componentType = componentTypeRef.asTypeName()
-                .copy(componentTypeRef.isNullable())
-            addStatement("val result = mutableListOf<%T>()", componentType)
-            addStatement("readReceiveArrayIntoList(returnType, result_Length, result_Native, result)")
-            addStatement("return result")
-            return
-        }
-
-        val returnType = if (method.returnType.isTypeParameter()) {
-            TypeVariableName(method.returnType.name)
+            addArrayReturnStatements(method, typeParameterIndexMap, type)
         } else {
-            method.returnType.asTypeName(usage = ClassNameUsage.ApiSurface)
-        }
-
-        add("return marshalFromNative<%T>(result.getValue(), returnType)".fixSpaces(), returnType)
-        if (method.returnType.isPrimitiveSystemType()) {
-            add("!!")
-        }
-
-        if (method.returnType.isTypeParameter()) {
-            add("as ${method.returnType.name}")
+            addReturnStatement(method)
         }
     }
+    endControlFlow()
 }
+
+private fun CodeBlock.Builder.addFnPtrVariable(
+    type: IParameterizable<*>,
+    idx: Int,
+    vtblName: String
+) {
+    val offset = if (type is SparseInterface) 6 else 3
+    addStatement(
+        "val fnPtr = %L!!.getPointer(${offset + idx}L * %M).toMemorySegment()",
+        vtblName,
+        Native::class.member("POINTER_SIZE")
+    )
+}
+
+private fun CodeBlock.Builder.addReturnStatement(method: SparseMethod) {
+    val returnType = if (method.returnType.isTypeParameter()) {
+        TypeVariableName(method.returnType.name)
+    } else {
+        method.returnType.asTypeName(usage = ClassNameUsage.ApiSurface)
+    }
+
+    add("return@CallScope result.value".fixSpaces(), returnType)
+    if (substitutions.containsKey(method.returnType.fullName())) {
+        add(" as %T", method.returnType.asTypeName(usage = ClassNameUsage.ApiSurface))
+    }
+    addStatement("")
+}
+
+private fun CodeBlock.Builder.addArrayReturnStatements(
+    method: SparseMethod,
+    typeParameterIndexMap: Map<String, Int>,
+    type: IParameterizable<*>
+) {
+    add("val returnType = ")
+    kTypeStatementFor(
+        method.returnType.copy(isArray = false),
+        typeParameterIndexMap,
+        root = true,
+        typeVarName = type.typeName()
+    )
+    addStatement("")
+    val componentTypeRef = method.returnType.copy(isArray = false)
+    val componentType = componentTypeRef.asTypeName()
+        .copy(componentTypeRef.isNullable())
+    addStatement("val result = mutableListOf<%T>()", componentType)
+    addStatement("readReceiveArrayIntoList(returnType, result_Length, result_Native, result)")
+    addStatement("return@CallScope result")
+}
+
+private fun CodeBlock.Builder.addReachabilityFenceForParameters(method: SparseMethod) {
+    method.parameters
+        .map(SparseParameter::name)
+        .map(::escapeReservedWords)
+        .forEach {
+            addStatement("%T.reachabilityFence(${it})", Reference::class)
+        }
+}
+
+private fun CodeBlock.Builder.addNonArrayToNativeStatements(
+    method: SparseMethod,
+    typeParameterIndexMap: Map<String, Int>,
+    typeVarName: String,
+    type: IParameterizable<*>
+) {
+    method.parameters.filter(::notArrayOrTrivialConversion)
+        .forEach {
+            if (it.type.isReference) {
+                addStatement("val ${it.name}_Native = ${it.name}.getPointer().toMemorySegment()")
+            } else if (shouldUseIndirectToNative(it)) {
+                addParameterToNativeIndirect(it, typeParameterIndexMap, typeVarName)
+            } else {
+                addParameterToNative(it, type)
+            }
+        }
+}
+
+private fun CodeBlock.Builder.addParameterToNative(
+    it: SparseParameter,
+    type: IParameterizable<*>
+) {
+    val name = escapeReservedWords(it.name)
+    val abiClassName = it.type.abiClassName()
+    if (type is SparseInterface && type.hasMemberWithName(it.type.name)) {
+        addStatement("val ${it.name}_ABI: %T = %L", abiClassName, abiClassName.canonicalName)
+    } else {
+        addStatement("val ${it.name}_ABI = %L", abiClassName)
+    }
+    addStatement("val ${it.name}_Native = ${it.name}_ABI.toNative($name)")
+}
+
+private fun CodeBlock.Builder.addParameterToNativeIndirect(
+    it: SparseParameter,
+    typeParameterIndexMap: Map<String, Int>,
+    typeVarName: String
+) {
+    val name = escapeReservedWords(it.name)
+    add("val ${it.name}_Native = nativeRepresentation($name, ")
+    kTypeStatementFor(it.type, typeParameterIndexMap, root = true, typeVarName = typeVarName)
+    addStatement(")")
+}
+
+private fun shouldUseIndirectToNative(it: SparseParameter) =
+    substitutions.containsKey(it.type.fullName()) || it.type.isTypeParameter() || it.type.isSystemType("Object")
+
+private fun notArrayOrTrivialConversion(it: SparseParameter) =
+    it.arrayType() == ArrayType.None && !it.type.hasTrivialABI()
 
 private fun CodeBlock.Builder.addInvokeStatement(
     type: IParameterizable<*>,
     method: SparseMethod,
-    typeParameterIndexMap: Map<String, Int>,
     pointerName: String = type.pointerName(),
-    typeVarName: String = type.typeName()
 ) {
-    add("val hr = fn.invokeHR(arrayOf(%L ", pointerName)
+    add("val hr = handle.invoke(fnPtr, %L.toMemorySegment() ", pointerName)
     method.parameters
         .flatMap(getInvokeParameterTypes())
-        .mapIfInstanceOf<ParamType, Standard>(::escapeReservedWords)
-        .map(invokeArgumentExpressionForParameter(typeParameterIndexMap, type, typeVarName))
+        .map(::escapeReservedWords)
         .map { ", $it" }
         .forEach { add(it) }
 
     if (!method.returnType.isVoid()) {
         if (method.returnType.isArray) {
-            add(", result_Length, result_Native")
+            add(", result_Length.segment, result_Native.segment")
         } else {
-            add(", result")
+            add(", result.segment")
         }
     }
-    add("))\n")
+    add(") as Int\n")
+}
+
+private fun CodeBlock.Builder.addHandleVariable(
+    type: IParameterizable<*>,
+    typeVarName: String,
+    idx: Int
+) {
+    if (type is SparseInterface) {
+        add("val handle = ABI.downcallHandles")
+    } else {
+        add("val handle = ABI.downcallHandle")
+    }
+    if (type.isGeneric) {
+        add("(${typeVarName}!!)")
+    }
+    if (type is SparseInterface) {
+        add("[${idx}]")
+    }
+    addStatement("")
 }
 
 private fun CodeBlock.Builder.addReadFromNativeForReceiveArrays(
@@ -1228,11 +1481,12 @@ private fun CodeBlock.Builder.addReadFromNativeForFillArrays(
 }
 
 private fun CodeBlock.Builder.addToNativeForReceiveArrays(method: SparseMethod) {
+    val pointer = PointerTo::class.asClassName()
     method.parameters
         .filter { it.arrayType() == ArrayType.ReceiveArray }
         .forEach {
-            addStatement("val ${it.name}_Native = %T()", PointerByReference::class)
-            addStatement("val ${it.name}_Length = %T()", IntByReference::class)
+            addStatement("val ${it.name}_Native = %T()", pointer.parameterizedBy(pointer.parameterizedBy(STAR)))
+            addStatement("val ${it.name}_Length = %T()", pointer.parameterizedBy(INT))
         }
 }
 
@@ -1260,52 +1514,30 @@ private fun CodeBlock.Builder.addToNativeForPassAndFillArrays(
         }
 }
 
-private fun invokeArgumentExpressionForParameter(
-    typeParameterIndexMap: Map<String, Int>,
-    type: IParameterizable<*>,
-    typeVarName: String = type.typeName()
-): (ParamType) -> String = {
-    when (it) {
-        is Standard -> "marshalToNative(${it.name})"
-        is Synthetic -> it.name
-        is ExplicitType -> {
-            val typeString = kTypeStringFor(
-                it.typeReference,
-                typeParameterIndexMap,
-                typeVarName = typeVarName
-            )
-            "marshalToNative(${it.name},$typeString)"
-        }
-    }
-}
-
-private fun escapeReservedWords(it: Standard): ParamType {
-    return if (reservedWords.contains(it.name)) {
-        Standard("`${it.name}`")
+private fun escapeReservedWords(it: String): String {
+    return if (reservedWords.contains(it)) {
+        "`$it`"
     } else {
         it
     }
 }
 
-private fun getInvokeParameterTypes(): (SparseParameter) -> List<ParamType> =
+private fun getInvokeParameterTypes(): (SparseParameter) -> List<String> =
     {
         when (it.arrayType()) {
             ArrayType.None -> {
-                if (it.type.isTypeParameter() || substitutions.containsKey(it.type.fullName())) {
-                    listOf(ExplicitType(it.name, it.type))
-                } else {
-                    listOf(Standard(it.name))
-                }
+                if (it.type.hasTrivialABI()) listOf(it.name)
+                else listOf("${it.name}_Native")
             }
 
             ArrayType.PassArray, ArrayType.FillArray -> listOf(
-                Synthetic("${it.name}.size"),
-                Synthetic("${it.name}_Native")
+                "${it.name}.size",
+                "${it.name}_Native"
             )
 
             ArrayType.ReceiveArray -> listOf(
-                Synthetic("${it.name}_Length"),
-                Synthetic("${it.name}_Native")
+                "${it.name}_Length.segment",
+                "${it.name}_Native.segment"
             )
         }
     }
@@ -1319,29 +1551,33 @@ private fun CodeBlock.Builder.addResultVariable(
         ?.toMap() ?: emptyMap()
 
     if (typeReference.isArray) {
-        addStatement("val result_Length = %T()", IntByReference::class)
-        addStatement("val result_Native = %T()", PointerByReference::class)
+        val pointer = PointerTo::class.asClassName()
+        addStatement("val result_Length = %T()", pointer.parameterizedBy(INT))
+        addStatement("val result_Native = %T()", pointer.parameterizedBy(pointer.parameterizedBy(STAR)))
         return
     }
 
     if (!typeReference.isGeneric) {
         if (typeReference.isTypeParameter()) {
             addStatement(
-                "val result = makeByReferenceType<%L>(%L!!.arguments[%L].type!!)",
+                "val result = %T<%L>(%L!!.arguments[%L].type!!)",
+                PointerTo::class,
                 typeReference.name,
                 sparseInterface.typeName(),
                 typeParameterIndexMap[typeReference.name]
             )
         } else {
-            addStatement("val result = makeByReferenceType<%T>()", typeReference.asClassName(structByValue = false))
+            addStatement("val result = %T<%T>()", PointerTo::class, typeReference.asClassName(structByValue = false))
         }
         return
     }
 
     addStatement(
-        "val result = makeByReferenceType<%T>(", typeReference.asTypeName()
+        "val result = %T<%T>(", PointerTo::class, typeReference.asTypeName()
     )
+    indent()
     kTypeStatementFor(typeReference, typeParameterIndexMap, typeVarName = sparseInterface.typeName())
+    unindent()
     addStatement(")")
 }
 
@@ -1530,7 +1766,6 @@ private fun FileSpec.Builder.addImports() {
         "handleToString",
         "toHandle",
         "abiOf",
-        "invokeHR",
         "getValue",
         "getValue",
         "arrayFromNative",
@@ -1542,7 +1777,11 @@ private fun FileSpec.Builder.addImports() {
         "writeListIntoBuffer",
         "checkHR",
         "writeArrayTo",
-        "addRefOutgoing"
+        "addRefOutgoing",
+        "layoutOf",
+        "memoize",
+        "toMemorySegment",
+        "nativeRepresentation"
     )
     addImport("kotlin.reflect.full", "createType")
     addImport("kotlin.reflect", "typeOf")

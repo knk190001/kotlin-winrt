@@ -2,19 +2,24 @@ package com.github.knk190001.winrtbinding.runtime.com
 
 import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
-import com.github.knk190001.winrtbinding.runtime.invokeHR
+import com.github.knk190001.winrtbinding.runtime.checkHR
+import com.github.knk190001.winrtbinding.runtime.interop.GUIDABI
+import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
+import com.github.knk190001.winrtbinding.runtime.toMemorySegment
 import com.github.knk190001.winrtbinding.runtime.toPointer
-import com.sun.jna.Function
 import com.sun.jna.Native
 import com.sun.jna.NativeMapped
 import com.sun.jna.Pointer
 import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
-import com.sun.jna.ptr.PointerByReference
-import java.lang.RuntimeException
-import java.lang.foreign.MemorySegment
+import com.sun.jna.platform.win32.WinNT
+import java.lang.foreign.FunctionDescriptor
+import java.lang.foreign.Linker
 import java.lang.foreign.MemoryLayout
-import java.lang.foreign.ValueLayout
+import java.lang.foreign.MemorySegment
+import java.lang.foreign.ValueLayout.ADDRESS
+import java.lang.foreign.ValueLayout.JAVA_INT
+import java.lang.ref.Reference
 
 @ABIMarker(IUnknown.ABI::class)
 @com.github.knk190001.winrtbinding.runtime.annotations.Guid("0000000000000000c000000000000046")
@@ -26,26 +31,26 @@ interface IUnknown : NativeMapped {
         get() = toNative() as Pointer
 
     fun QueryInterface(iid: Guid.REFIID): IUnknown {
-        val fnPtr = iUnknown_Vtbl.getPointer(0)
-        val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
-        val result = PointerByReference()
-        val hr = fn.invokeHR(arrayOf(iUnknown_Ptr, iid, result))
-        if (hr.toInt() != 0) {
-            throw RuntimeException(hr.toString())
-        }
-        return IUnknown_Impl(result.value)
+        val fnPtr = iUnknown_Vtbl.getPointer(0).toMemorySegment()
+        val fn = ABI.downCallHandles[0]
+        val iid_Native = GUIDABI.toNative(iid.value)
+        val result = PointerTo<IUnknown>()
+        val hr = fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment(), iid_Native, result.segment) as Int
+        checkHR(WinNT.HRESULT(hr))
+        Reference.reachabilityFence(iid)
+        return result.value
     }
 
     fun AddRef(): ULong {
-        val fnPtr = iUnknown_Vtbl.getPointer(Native.POINTER_SIZE.toLong())
-        val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
-        return fn.invokeLong(arrayOf(iUnknown_Ptr)).toULong()
+        val fnPtr = iUnknown_Vtbl.getPointer(Native.POINTER_SIZE.toLong()).toMemorySegment()
+        val fn = ABI.downCallHandles[1]
+        return (fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment()) as Long).toULong()
     }
 
     fun Release(): ULong {
-        val fnPtr = iUnknown_Vtbl.getPointer(2L * Native.POINTER_SIZE)
-        val fn = Function.getFunction(fnPtr, Function.ALT_CONVENTION)
-        return fn.invokeLong(arrayOf(iUnknown_Ptr)).toULong()
+        val fnPtr = iUnknown_Vtbl.getPointer(2 * Native.POINTER_SIZE.toLong()).toMemorySegment()
+        val fn = ABI.downCallHandles[2]
+        return (fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment()) as Long).toULong()
     }
 
     object ABI: IABI<IUnknown, MemorySegment> {
@@ -55,17 +60,22 @@ interface IUnknown : NativeMapped {
             IUnknown_Impl(ptr)
 
         override fun fromNative(obj: MemorySegment): IUnknown {
-            val address = obj.get(ValueLayout.ADDRESS, 0)
             return makeIUnknown(obj.toPointer())
         }
 
         override val layout: MemoryLayout
-            get() = ValueLayout.ADDRESS
+            get() = ADDRESS
 
         override fun toNative(obj: IUnknown): MemorySegment {
             return MemorySegment.ofAddress(Pointer.nativeValue(obj.iUnknown_Ptr))
         }
 
+        private val linker: Linker = Linker.nativeLinker()
+        internal val downCallHandles = listOf(
+            linker.downcallHandle(FunctionDescriptor.of(JAVA_INT, ADDRESS, ADDRESS, ADDRESS)),
+            linker.downcallHandle(FunctionDescriptor.of(JAVA_INT, ADDRESS)),
+            linker.downcallHandle(FunctionDescriptor.of(JAVA_INT, ADDRESS))
+        )
     }
 
     open class ByReference : com.sun.jna.ptr.ByReference(Native.POINTER_SIZE) {
@@ -81,7 +91,5 @@ interface IUnknown : NativeMapped {
 
         override val iUnknown_Vtbl: Pointer
             get() = pointer.getPointer(0)
-
-
     }
 }

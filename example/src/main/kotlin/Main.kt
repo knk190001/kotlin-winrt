@@ -10,30 +10,36 @@ import Windows.Graphics.Imaging.BitmapDecoder
 import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
+import com.github.knk190001.winrtbinding.runtime.PropertyValue
 import com.github.knk190001.winrtbinding.runtime.WinRT
 import com.github.knk190001.winrtbinding.runtime.cast
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
+import java.lang.ref.Reference
 import java.nio.file.Path
 import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 
 
 fun main(): Unit = runBlocking {
-    val pid = ProcessHandle.current().pid()
-    println("Pid: $pid")
-    WinRT.RoInitialize(1)
-    val initializationCallback = ApplicationInitializationCallback {
-        println("Start")
-        MyApplication()
-    }
-    Application.Start(initializationCallback)
+    try {
 
-    val array = JsonArray.Parse("[\"Hello\", \"World\"]")
-    array!!.map { it!! }
-        .map { it.Stringify() }
-        .forEach(::println)
+        val pid = ProcessHandle.current().pid()
+        println("Pid: $pid")
+        WinRT.RoInitialize(1)
+        var app: Application? = null
+        val initializationCallback = ApplicationInitializationCallback {
+            PropertyValue<Int>(1)
+            println("Start")
+            app = MyApplication()
+        }
+        Application.Start(initializationCallback)
+        Reference.reachabilityFence(app)
+        readln()
+    }catch (e: Exception) {
+        e.printStackTrace()
+    }
 
 }
 

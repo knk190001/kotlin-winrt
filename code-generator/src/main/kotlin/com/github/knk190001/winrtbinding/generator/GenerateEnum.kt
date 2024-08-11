@@ -110,12 +110,12 @@ private fun TypeSpec.Builder.generateABI(sparseEnum: SparseEnum) {
         )
         addFromNative(sparseEnum)
         addLayoutProperty()
-        addToNative(sparseEnum)
+        addParameterToNative(sparseEnum)
     }.build()
     addType(abi)
 }
 
-private fun TypeSpec.Builder.addToNative(sparseEnum: SparseEnum) {
+private fun TypeSpec.Builder.addParameterToNative(sparseEnum: SparseEnum) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", sparseEnum.asClassName())

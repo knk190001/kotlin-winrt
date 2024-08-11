@@ -1,19 +1,14 @@
 package com.github.knk190001.winrtbinding.runtime
 
 import com.github.knk190001.winrtbinding.generator.mapFirst
-import com.github.knk190001.winrtbinding.runtime.abi.IABI
-import com.github.knk190001.winrtbinding.runtime.abi.IBaseABI
-import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
-import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedNativeHandleProvider
+import com.github.knk190001.winrtbinding.runtime.abi.*
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
-import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.com.IAgileObject
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.*
 import com.sun.jna.*
-import com.sun.jna.Function.ALT_CONVENTION
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.platform.win32.Win32Exception
@@ -35,7 +30,6 @@ import kotlin.reflect.*
 import kotlin.reflect.full.*
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.jvmErasure
-import com.sun.jna.Function as JnaFunction
 
 val WinRT = JNAApiInterface.INSTANCE
 
@@ -191,37 +185,6 @@ inline fun <reified T : Any, reified R : Any> abiTypeConverter(): TypeConverter 
     }
 }
 
-private val winRTOptions = mapOf<String, Any?>(
-    Library.OPTION_TYPE_MAPPER to typeMapper,
-    Library.OPTION_CALLING_CONVENTION to ALT_CONVENTION
-)
-
-fun JnaFunction.invokeHR(params: Array<Any?>): HRESULT {
-    val jvmBacked = params
-        .filterNotNull()
-        .mapNotNull {
-            when (it) {
-                is IUnknown -> it
-                is Pointer -> IUnknown.ABI.makeIUnknown(it)
-                else -> null
-            }
-        }
-        .filter {
-            ReferenceManager.containsBackingObject(Pointer.nativeValue(it.iUnknown_Ptr))
-        }
-
-    jvmBacked.forEach {
-        it.AddRef()
-    }
-    println("Invoke HR: $this")
-    val hr = this.invoke(HRESULT::class.java, params, winRTOptions) as HRESULT
-
-    jvmBacked.forEach {
-        it.Release()
-    }
-    return hr
-}
-
 fun Guid.GUID.ByReference.getValue(): Guid.GUID {
     return this
 }
@@ -231,11 +194,11 @@ typealias JNAPointer = Pointer
 val iUnknownIID = IUnknown.ABI.IID
 val iAgileObjectIID = IAgileObject.ABI.IID
 
-val String.Companion.ABI: IABI<String, MemorySegment>
+val String.Companion.ABI: IABI<String?, MemorySegment>
     get() = StringABI
 
-fun guidFromNative(segment: MemorySegment): Guid.GUID {
-    return Guid.GUID(Pointer(segment.address()))
+fun guidFromNative(segment: MemorySegment): Guid.IID {
+    return Guid.IID(Pointer(segment.address()))
 }
 
 inline fun <reified T : Any> abiOf(): IBaseABI<*, *> {
@@ -301,7 +264,6 @@ fun <T> readArrayFromPtr(type: KType, segment: MemorySegment, into: Array<T>) {
 }
 
 fun readLayout(layout: MemoryLayout, segment: MemorySegment): Any {
-
     return when (layout) {
         is GroupLayout -> segment
         is AddressLayout -> segment[ValueLayout.ADDRESS, 0]
@@ -343,10 +305,6 @@ fun writeArrayTo(componentType: KType, array: Array<*>, buffer: MemorySegment) {
         .forEach(abi::copyTo)
 }
 
-fun booleanFromNative(segment: MemorySegment): Boolean {
-    val value = segment.get(ValueLayout.JAVA_BYTE, 0)
-    return value != 0.toByte()
-}
 
 fun KType.javaForeignType(): Class<*> {
     val kClass = this.classifier as KClass<*>
@@ -548,10 +506,36 @@ fun <T> readReceiveArrayIntoList(type: KType, size: IntByReference, ptr: Pointer
 
 }
 
+@JvmName("readReceiveArrayIntoListULong")
+fun <T> readReceiveArrayIntoList(type: KType, size: PointerTo<ULong>, ptr: PointerTo<PointerTo<*>>, list: MutableList<T>) {
+    val abi = abiOf(type.jvmErasure)
+    val bufferSize = abi.layout.byteSize() * size.value.toLong()
+    val segment = ptr.value.segment.reinterpret(bufferSize)
+    segment.elements(abi.layout).toList()
+        .map {
+            @Suppress("UNCHECKED_CAST")
+            it as T
+        }
+        .forEach(list::add)
+
+}
+
+fun <T> readReceiveArrayIntoList(type: KType, size: PointerTo<Int>, ptr: PointerTo<PointerTo<*>>, list: MutableList<T>) {
+    val abi = abiOf(type.jvmErasure)
+    val bufferSize = abi.layout.byteSize() * size.value.toLong()
+    val segment = ptr.value.segment.reinterpret(bufferSize)
+    segment.elements(abi.layout).toList()
+        .map {
+            @Suppress("UNCHECKED_CAST")
+            it as T
+        }
+        .forEach(list::add)
+
+}
+
 fun <T> readReceiveArrayIntoList(type: KType, size: ULongByReference, ptr: PointerByReference, list: MutableList<T>) {
     val abi = abiOf(type.jvmErasure)
     val bufferSize = abi.layout.byteSize() * size.getValue().toLong()
-//    val segment = MemorySegment.ofAddress(ptr.value.toMemorySegment(), bufferSize, MemorySession.global())
     val segment = ptr.value.toMemorySegment().reinterpret(bufferSize)
     segment.elements(abi.layout).toList()
         .map {
@@ -596,8 +580,10 @@ inline fun <reified T : Any> IUnknown.instanceOf(): Boolean {
     val refiid = REFIID(guidOf<T>())
 
     val obj = try {
+        println("Instance of check: ${typeOf<T>().jvmErasure.qualifiedName}")
         this.QueryInterface(refiid)
     } catch (e: Exception) {
+        println("Instance of check failed")
         return false
     }
     obj.Release()
@@ -652,3 +638,33 @@ fun addRefOutgoing(kType: KType, addr: MemorySegment) {
         obj.AddRef()
     }
 }
+
+fun <T, R> memoize(fn: (T) -> R): (T) -> R {
+    val cache = mutableMapOf<T, R>()
+    return { arg ->
+        cache.getOrPut(arg) {
+            fn(arg)
+        }
+    }
+}
+
+fun CallScope.nativeRepresentation(obj: Any?, type: KType): Any {
+    val abi = abiOf(type.jvmErasure) as IBaseABI<Any?, Any>
+    if (abi is IParameterizedNativePeerProvider && obj != type.jvmErasure.isInstance(obj)) {
+        val nativePeer = abi.makeNativePeer(type, obj) as IUnknown
+        nativePeer.AddRef()
+        onScopeExit {
+            nativePeer.Release()
+        }
+        return abi.toNative(nativePeer)
+    } else if (abi is IAnyABI) {
+        val native = abi.box(obj)
+        native?.AddRef()
+        onScopeExit {
+            native?.Release()
+        }
+        return native?.iUnknown_Ptr.toMemorySegment()
+    }
+    return abi.toNative(obj)
+}
+

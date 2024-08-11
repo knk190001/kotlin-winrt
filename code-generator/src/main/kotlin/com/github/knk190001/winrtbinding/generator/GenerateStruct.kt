@@ -4,8 +4,8 @@ import IStructABI
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseField
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseStruct
 import com.github.knk190001.winrtbinding.generator.model.entities.SparseTypeReference
-import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
+import com.github.knk190001.winrtbinding.runtime.interop.IByReference
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmField
@@ -13,7 +13,8 @@ import com.sun.jna.Pointer
 import com.sun.jna.Structure
 import com.sun.jna.Structure.FieldOrder
 import com.sun.jna.platform.win32.WinNT.HANDLE
-import java.lang.foreign.*
+import java.lang.foreign.GroupLayout
+import java.lang.foreign.MemorySegment
 
 fun generateStruct(sparseStruct: SparseStruct) = FileSpec.builder(sparseStruct.namespace, sparseStruct.name).apply {
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
@@ -120,7 +121,7 @@ fun generateUnsignedBackingFields(sparseField: SparseField): PropertySpec {
 
 private fun generateFieldProperty(it: SparseField): PropertySpec {
     val type = if (it.type.isString()) HANDLE::class.asClassName().copy(true)
-    else it.type.asTypeName(nullable = it.type.isNullable())
+    else it.type.asTypeName(nullable = it.type.defaultValue() == "null" && !it.type.isUnsigned())
     return PropertySpec.builder(it.name, type).apply {
         if (it.type.isUnsigned()) {
             getter(
@@ -177,7 +178,7 @@ private fun TypeSpec.Builder.addABI(sparseStruct: SparseStruct) {
         )
         addByValue(sparseStruct)
         addFromNative(sparseStruct)
-        addToNative(sparseStruct)
+        addParameterToNative(sparseStruct)
         addLayout(sparseStruct)
     }.build()
     addType(abi)
@@ -196,7 +197,7 @@ private fun TypeSpec.Builder.addByValue(sparseStruct: SparseStruct) {
     addFunction(byValue)
 }
 
-private fun TypeSpec.Builder.addToNative(sparseStruct: SparseStruct) {
+private fun TypeSpec.Builder.addParameterToNative(sparseStruct: SparseStruct) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", sparseStruct.asClassName(structByValue = false))

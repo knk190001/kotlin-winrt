@@ -53,5 +53,10 @@ data class SparseInterface(
                 getMethod to putMethod
             }
     }
+
+    fun hasMemberWithName(name: String): Boolean {
+        return methods.any { it.name == name }
+                || properties().any { it.first?.name?.endsWith(name) ?: it.second?.name?.endsWith(name)!! }
+    }
 }
 

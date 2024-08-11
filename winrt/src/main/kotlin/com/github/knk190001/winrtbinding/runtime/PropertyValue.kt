@@ -132,9 +132,9 @@ class PropertyValue<T>(val type: KType?, val value: T) :
         return value as String
     }
 
-    override fun GetGuid(): Guid.GUID {
+    override fun GetGuid(): Guid.IID {
         if (Type != PropertyType.Guid) throw IllegalStateException()
-        return value as Guid.GUID
+        return value as Guid.IID
     }
 
     override fun GetDateTime(): DateTime {
@@ -168,7 +168,7 @@ class PropertyValue<T>(val type: KType?, val value: T) :
     }
 
     override fun GetInt16Array(value: MutableList<Short>) {
-if (Type != PropertyType.Int16Array) throw IllegalStateException()
+        if (Type != PropertyType.Int16Array) throw IllegalStateException()
         value.addAll(value as List<Short>)
     }
 
@@ -227,33 +227,33 @@ if (Type != PropertyType.Int16Array) throw IllegalStateException()
         value.addAll(value as List<Any?>)
     }
 
-    override fun GetGuidArray(value: MutableList<Guid.GUID?>) {
+    override fun GetGuidArray(value: MutableList<Guid.IID>) {
         if (Type != PropertyType.GuidArray) throw IllegalStateException()
-        value.addAll(value as List<Guid.GUID?>)
+        value.addAll(value as List<Guid.IID>)
     }
 
-    override fun GetDateTimeArray(value: MutableList<DateTime?>) {
+    override fun GetDateTimeArray(value: MutableList<DateTime>) {
         if (Type != PropertyType.DateTimeArray) throw IllegalStateException()
-        value.addAll(value as List<DateTime?>)
+        value.addAll(value as List<DateTime>)
     }
 
-    override fun GetTimeSpanArray(value: MutableList<TimeSpan?>) {
+    override fun GetTimeSpanArray(value: MutableList<TimeSpan>) {
         if (Type != PropertyType.TimeSpanArray) throw IllegalStateException()
-        value.addAll(value as List<TimeSpan?>)
+        value.addAll(value as List<TimeSpan>)
     }
 
-    override fun GetPointArray(value: MutableList<Point?>) {
+    override fun GetPointArray(value: MutableList<Point>) {
         if (Type != PropertyType.PointArray) throw IllegalStateException()
-        value.addAll(value as List<Point?>)
+        value.addAll(value as List<Point>)
     }
 
-    override fun GetSizeArray(value: MutableList<Size?>) {
+    override fun GetSizeArray(value: MutableList<Size>) {
         if (Type != PropertyType.SizeArray) throw IllegalStateException()
-        value.addAll(value as List<Size?>)
+        value.addAll(value as List<Size>)
     }
 
-    override fun GetRectArray(value: MutableList<Rect?>) {
+    override fun GetRectArray(value: MutableList<Rect>) {
         if (Type != PropertyType.RectArray) throw IllegalStateException()
-        value.addAll(value as List<Rect?>)
+        value.addAll(value as List<Rect>)
     }
 }

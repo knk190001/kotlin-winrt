@@ -4,6 +4,7 @@ import Windows.Foundation.*
 import com.github.knk190001.winrtbinding.runtime.abi.IAnyABI
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
+import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.GUID
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.MemorySegment
@@ -33,12 +34,12 @@ object AnyABI: IAnyABI {
                 PropertyType.Boolean -> prop.GetBoolean()
                 PropertyType.String -> prop.GetString()!!
                 PropertyType.Inspectable -> it
-                PropertyType.DateTime -> prop.GetDateTime()!!
-                PropertyType.TimeSpan -> prop.GetTimeSpan()!!
-                PropertyType.Guid -> prop.GetGuid()!!
-                PropertyType.Point -> prop.GetPoint()!!
-                PropertyType.Size -> prop.GetSize()!!
-                PropertyType.Rect -> prop.GetRect()!!
+                PropertyType.DateTime -> prop.GetDateTime()
+                PropertyType.TimeSpan -> prop.GetTimeSpan()
+                PropertyType.Guid -> prop.GetGuid()
+                PropertyType.Point -> prop.GetPoint()
+                PropertyType.Size -> prop.GetSize()
+                PropertyType.Rect -> prop.GetRect()
                 PropertyType.OtherType -> throw IllegalArgumentException("OtherType is not supported")
                 PropertyType.UInt8Array -> mutableListOf<UByte>().apply { prop.GetUInt8Array(this) }
                 PropertyType.Int16Array -> mutableListOf<Short>().apply { prop.GetInt16Array(this) }
@@ -53,14 +54,13 @@ object AnyABI: IAnyABI {
                 PropertyType.BooleanArray -> mutableListOf<Boolean>().apply { prop.GetBooleanArray(this) }
                 PropertyType.StringArray -> mutableListOf<String?>().apply { prop.GetStringArray(this) }
                 PropertyType.InspectableArray -> mutableListOf<Any?>().apply { prop.GetInspectableArray(this) }
-                PropertyType.DateTimeArray -> mutableListOf<DateTime?>().apply { prop.GetDateTimeArray(this) }
-                PropertyType.TimeSpanArray -> mutableListOf<TimeSpan?>().apply { prop.GetTimeSpanArray(this) }
-                PropertyType.GuidArray -> mutableListOf<GUID?>().apply { prop.GetGuidArray(this) }
-                PropertyType.PointArray -> mutableListOf<Point?>().apply { prop.GetPointArray(this) }
-                PropertyType.SizeArray -> mutableListOf<Size?>().apply { prop.GetSizeArray(this) }
-                PropertyType.RectArray -> mutableListOf<Rect?>().apply { prop.GetRectArray(this) }
+                PropertyType.DateTimeArray -> mutableListOf<DateTime>().apply { prop.GetDateTimeArray(this) }
+                PropertyType.TimeSpanArray -> mutableListOf<TimeSpan>().apply { prop.GetTimeSpanArray(this) }
+                PropertyType.GuidArray -> mutableListOf<Guid.IID>().apply { prop.GetGuidArray(this) }
+                PropertyType.PointArray -> mutableListOf<Point>().apply { prop.GetPointArray(this) }
+                PropertyType.SizeArray -> mutableListOf<Size>().apply { prop.GetSizeArray(this) }
+                PropertyType.RectArray -> mutableListOf<Rect>().apply { prop.GetRectArray(this) }
                 PropertyType.OtherTypeArray -> throw IllegalArgumentException("OtherTypeArray is not supported")
-                null -> throw NullPointerException("PropertyType is null")
             }
         }
         return it

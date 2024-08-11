@@ -1,3 +1,5 @@
+
+
 import Microsoft.UI.Composition.SystemBackdrops.MicaKind
 import Microsoft.UI.Xaml.*
 import Microsoft.UI.Xaml.Controls.*
@@ -6,7 +8,6 @@ import Microsoft.UI.Xaml.Media.MicaBackdrop
 import Microsoft.UI.Xaml.XamlTypeInfo.XamlControlsXamlMetaDataProvider
 import com.github.knk190001.winrtbinding.runtime.annotations.AggregateImplements
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
-
 import java.math.BigInteger
 
 @AggregateImplements([IApplicationOverrides::class, IXamlMetadataProvider::class])

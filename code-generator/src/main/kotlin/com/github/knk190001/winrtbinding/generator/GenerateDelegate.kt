@@ -2,7 +2,10 @@ package com.github.knk190001.winrtbinding.generator
 
 import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
-import com.github.knk190001.winrtbinding.generator.model.entities.*
+import com.github.knk190001.winrtbinding.generator.model.entities.SparseDelegate
+import com.github.knk190001.winrtbinding.generator.model.entities.SparseGenericParameter
+import com.github.knk190001.winrtbinding.generator.model.entities.SparseMethod
+import com.github.knk190001.winrtbinding.generator.model.entities.SparseTypeReference
 import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
@@ -18,7 +21,6 @@ import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmStatic
-import com.sun.jna.Function
 import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.PointerType
@@ -74,7 +76,6 @@ fun FileSpec.Builder.addDelegateFunInterface(sparseDelegate: SparseDelegate) {
 private fun FileSpec.Builder.addImports() {
     addImport(
         "com.github.knk190001.winrtbinding.runtime",
-        "invokeHR",
         "checkHR",
         "toFunctionDescriptor",
         "transformParameterizedHandle",
@@ -86,7 +87,11 @@ private fun FileSpec.Builder.addImports() {
         "arrayToNative",
         "toHandle",
         "toPointer",
-        "writeArrayTo"
+        "writeArrayTo",
+        "toMemorySegment",
+        "nativeRepresentation",
+        "memoize",
+        "layoutOf"
     )
     addImport(
         "com.github.knk190001.winrtbinding.runtime.interop",
@@ -98,7 +103,9 @@ private fun FileSpec.Builder.addImports() {
     )
     addImport("kotlin.reflect", "typeOf")
     addImport("kotlin.reflect.full", "createType")
+    addImport("kotlin.reflect.jvm", "jvmErasure")
     addImport("com.sun.jna", "Memory")
+
 }
 
 private fun TypeSpec.Builder.addDelegateTypeSpec(sparseDelegate: SparseDelegate) {
@@ -117,9 +124,9 @@ private fun TypeSpec.Builder.addABI(sparseDelegate: SparseDelegate) {
             STAR
         }?.toTypedArray()
 
-        val withStarParams = starParameters?.let {
+        val withStarParams = (starParameters?.let {
             ClassName("", sparseDelegate.name).parameterizedBy(*it)
-        } ?: ClassName("", sparseDelegate.name)
+        } ?: ClassName("", sparseDelegate.name)).copy(nullable = true)
 
         val superInterface = if (sparseDelegate.isGeneric) {
             IParameterizedABI::class.asClassName()
@@ -141,15 +148,39 @@ private fun TypeSpec.Builder.addABI(sparseDelegate: SparseDelegate) {
             addIIDProperty(sparseDelegate)
         }
         addLayout()
+        addLinkerProperty()
+
+        if(sparseDelegate.isGeneric) {
+            addParameterizedDowncallHandleFn(sparseDelegate)
+        }else {
+            addDownCallProperty(sparseDelegate.asMethod(), sparseDelegate, 0, "downcallHandle")
+        }
     }.build()
     addType(abiTypeSpec)
+}
+
+private fun TypeSpec.Builder.addParameterizedDowncallHandleFn(sparseDelegate: SparseDelegate) {
+    addFunction(FunSpec.builder("downcallHandleForType").apply {
+        addParameter("type", KType::class)
+        returns(MethodHandle::class)
+        addCode("return ")
+        addCode(downcallPropertyInitializer(sparseDelegate, sparseDelegate.asMethod()))
+    }.build())
+    val downcallHandlePropertyType = LambdaTypeName.get(
+        null,
+        listOf(ParameterSpec("type", KType::class.asTypeName())),
+        MethodHandle::class.asTypeName()
+    )
+    addProperty(PropertySpec.builder("downcallHandle", downcallHandlePropertyType).apply {
+        initializer("memoize(::downcallHandleForType)")
+    }.build())
 }
 
 private fun TypeSpec.Builder.addGetType(typeName: TypeName) {
     val getTypeSpec = FunSpec.builder("getType").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", typeName)
-        addCode("return obj.type!!")
+        addCode("return obj!!.type!!")
     }.build()
     addFunction(getTypeSpec)
 }
@@ -331,96 +362,6 @@ private fun TypeSpec.Builder.addReifiedPointerInvokeOperator(sparseDelegate: Spa
     addFunction(invokeFn)
 }
 
-private fun TypeSpec.Builder.addPointerInvokeOperator(sparseDelegate: SparseDelegate) {
-    val typeParameterIndexMap =
-        sparseDelegate.genericParameters?.mapIndexed { idx, it -> it.name to idx }?.toMap()
-            ?: emptyMap()
-    val invokeFn = FunSpec.builder("invoke").apply {
-        addModifiers(KModifier.OPERATOR)
-        addMethodTypeParameters(sparseDelegate, reified = false)
-        if (sparseDelegate.isGeneric) {
-            addParameter("type", KType::class)
-        }
-        addParameter("ptr", nullablePtr)
-        returns(sparseDelegate.asTypeName())
-        val bodyClassName = getBodyClassName(sparseDelegate)
-        val cb = CodeBlock.builder().apply {
-            addStatement("val thisPtr = ptr!!.getPointer(0)")
-            addStatement("val vtbl = thisPtr!!.getPointer(0)")
-            addStatement(
-                "val function = %T.getFunction(vtbl.getPointer(3L * %T.POINTER_SIZE))",
-                Function::class,
-                Native::class
-            )
-            beginControlFlow("val body: %T = %T", bodyClassName, bodyClassName)
-            addStatement(sparseDelegate.parameters.joinToString(transform = SparseParameter::name, postfix = " ->"))
-            val marshaledParameters = Marshaller.marshalVariablesToNative(sparseDelegate.parameters, this)
-                .zip(sparseDelegate.parameters)
-                .map { (marshaled, sparseParameter) ->
-                    if (sparseParameter.type.namespace.isNotEmpty()) {
-                        marshaled
-                    } else {
-                        "marshalToNative(${marshaled}, ${kTypeStringFor(sparseParameter.type, typeParameterIndexMap)})"
-                    }
-                }
-
-            val result = if (sparseDelegate.returnType.name != "Void") {
-                addResultVariable(sparseDelegate)
-                "result"
-            } else null
-            val invokeParameters = listOfNotNull("thisPtr", *marshaledParameters.toTypedArray(), result).joinToString()
-            addStatement("val hr = function.invokeHR(arrayOf(${invokeParameters}))")
-            addStatement("checkHR(hr)")
-
-            if (sparseDelegate.returnType.name != "Void") {
-                add("val returnType = ")
-                kTypeStatementFor(sparseDelegate.returnType, typeParameterIndexMap)
-                addStatement("")
-
-                val notNullAssertion = if (sparseDelegate.returnType.isNullable()) "" else "!!"
-                addStatement(
-                    "marshalFromNative<%T>(result.getValue(), returnType)${notNullAssertion}",
-                    sparseDelegate.returnType.asTypeName()
-                )
-            }
-            endControlFlow()
-            val typeParameter = if (sparseDelegate.isGeneric) "type" else null
-            val parameters = listOfNotNull(typeParameter, "body", "thisPtr").joinToString()
-            addStatement("return %T(${parameters})", sparseDelegate.asClassName())
-        }.build()
-        addCode(cb)
-    }.build()
-    addFunction(invokeFn)
-}
-
-private fun CodeBlock.Builder.addResultVariable(sparseDelegate: SparseDelegate) {
-    val typeParameterIndexMap = sparseDelegate.genericParameters
-        ?.mapIndexed { idx, it -> it.name to idx }
-        ?.toMap() ?: emptyMap()
-
-
-    val resultType = sparseDelegate.returnType
-    if (!resultType.isGeneric) {
-        if (resultType.isTypeParameter()) {
-            addStatement(
-                "val result = makeByReferenceType<%L>(%L!!.arguments[%L].type!!)",
-                resultType.name,
-                "type",
-                typeParameterIndexMap[resultType.name]
-            )
-        } else {
-            addStatement("val result = makeByReferenceType<%T>()", resultType.asClassName())
-        }
-        return
-    }
-
-    addStatement(
-        "val result = makeByReferenceType<%T>(", resultType.asTypeName()
-    )
-    kTypeStatementFor(resultType, typeParameterIndexMap)
-    add(")\n")
-}
-
 fun kTypeStringFor(
     typeReference: SparseTypeReference,
     typeParameterIndexMap: Map<String, Int>,
@@ -543,7 +484,7 @@ private fun TypeSpec.Builder.addInvokeOperator(sparseDelegate: SparseDelegate) {
     val invokeFn = generateInterfaceMethod(
         sparseDelegate.asMethod(),
         sparseDelegate,
-        -3,
+        0,
         true,
         vtblName = "iUnknown_Vtbl",
         pointerName = "iUnknown_Ptr",

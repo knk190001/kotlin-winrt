@@ -58,7 +58,7 @@ fun INamedEntity.asClassName(
             "Object" -> Any::class.asClassName()
             "UInt64" -> ULong::class.asClassName()
             "UInt16" -> UShort::class.asClassName()
-            "Guid" -> Guid.GUID::class.asClassName()
+            "Guid" -> Guid.IID::class.asClassName()
             else -> throw NotImplementedError("Type: $namespace.$name is not handled")
         }
     }
@@ -78,53 +78,40 @@ fun INamedEntity.asClassName(
     return ClassName(this.namespace, this.name)
 }
 
-fun INamedEntity.asKClass(): KClass<*> {
-    if (this !is SparseTypeReference) return this.asKClass()
-    if (isArray) return WinRTTypeVariable::class
-    if (namespace.isEmpty()) return Nothing::class
-    if (namespace == "System") {
-        when (name) {
-            "UInt16" -> return UShort::class
-            "UInt32" -> return UInt::class
-            "UInt32&" -> return UIntByReference::class
-            "UInt64" -> return ULong::class
-            "Double" -> return Double::class
-            "Boolean" -> return Boolean::class
-            "Int16" -> return Short::class
-            "Int32" -> return Int::class
-            "Int64" -> return Long::class
-            "Void" -> return Unit::class
-            "String" -> return String::class
-            "Object" -> return Any::class
-            "Single" -> return Float::class
-            "Char" -> return Char::class
-            "Byte" -> return Byte::class
-            "Guid" -> return Guid.GUID::class
+fun INamedEntity.hasTrivialABI(): Boolean {
+    if (namespace != "System") return false
+    return when (name) {
+        "Single", "Double", "SByte", "Int16", "Int32", "Int64", "Char" -> true
+        else -> false
+    }
+}
+
+fun INamedEntity.abiClassName(): ClassName {
+    if(this !is SparseTypeReference) return this.asTypeReference().abiClassName()
+    if(namespace == "System") {
+        return when(name) {
+            "UInt16" -> UShortABI::class.asClassName()
+            "UInt32" -> UIntABI::class.asClassName()
+            "UInt64" -> ULongABI::class.asClassName()
+            "Single" -> FloatABI::class.asClassName()
+            "Double" -> DoubleABI::class.asClassName()
+            "Boolean" -> BooleanABI::class.asClassName()
+            "Int16" -> ShortABI::class.asClassName()
+            "Int32" -> IntABI::class.asClassName()
+            "Int64" -> LongABI::class.asClassName()
+            "String" -> StringABI::class.asClassName()
+            "Object" -> ClassName(AnyABIPackage, AnyABIClassName)
+            "Byte" -> UByteABI::class.asClassName()
+            "SByte" -> ByteABI::class.asClassName()
+            "Guid" -> GUIDABI::class.asClassName()
+            "Char" -> CharABI::class.asClassName()
+            else -> throw NotImplementedError("Type: $namespace.$name is not handled")
         }
     }
-
-    return when (lookUpTypeReference(this)) {
-        is SparseClass -> WinRTClass::class
-        is SparseInterface -> {
-            if (isGeneric) {
-                WinRTGenericInterface::class
-            } else {
-                WinRTInterface::class
-            }
-        }
-
-        is SparseDelegate -> {
-            if (isGeneric) {
-                WinRTGenericDelegate::class
-            } else {
-                WinRTDelegate::class
-            }
-        }
-
-        is SparseEnum -> WinRTEnum::class
-        is SparseStruct -> WinRTStruct::class
-        else -> Nothing::class
+    if (isReference || isArray) {
+        return this.copy(isReference = false, isArray = false).abiClassName()
     }
+    return this.asClassName(structByValue = false, nestedClass = "ABI") as ClassName
 }
 
 fun INamedEntity.valueLayout(): CodeBlock {
@@ -148,7 +135,7 @@ fun INamedEntity.valueLayout(): CodeBlock {
                 "UInt32" -> ValueLayout::class.member("JAVA_INT")
                 "UInt64" -> ValueLayout::class.member("JAVA_LONG")
                 "Double" -> ValueLayout::class.member("JAVA_DOUBLE")
-                "Boolean" -> ValueLayout::class.member("JAVA_BOOLEAN")
+                "Boolean" -> ValueLayout::class.member("JAVA_BYTE")
                 "Int16" -> ValueLayout::class.member("JAVA_SHORT")
                 "Int32" -> ValueLayout::class.member("JAVA_INT")
                 "Int64" -> ValueLayout::class.member("JAVA_LONG")
@@ -261,10 +248,6 @@ fun INamedEntity.foreignType(): KClass<*> {
         return Int::class
     }
 
-    if (lookUpTypeReference(this) is SparseStruct) {
-        return MemorySegment::class
-    }
-
     return MemorySegment::class
 }
 
@@ -344,14 +327,14 @@ fun TypeSpec.Builder.addABIAnnotation(abiClassName: TypeName) {
 fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity, pointerName: String = "pointer") {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", entity.asTypeName(emptyTypeParameters = true))
+        addParameter("obj", entity.asTypeName(emptyTypeParameters = true, nullable = true))
         returns(MemorySegment::class)
-        val objPointerExpression = if (entity is SparseInterface && entity.genericParameters.isNullOrEmpty()) {
-            "(obj as WithDefault).$pointerName"
-        } else {
-            "obj.$pointerName"
-        }
-        addStatement("return %T.ofAddress(%T.nativeValue($objPointerExpression))", MemorySegment::class, Pointer::class)
+
+        beginControlFlow("if (obj == null)")
+        addStatement("return %T.NULL", MemorySegment::class)
+        endControlFlow()
+
+        addStatement("return %T.ofAddress(%T.nativeValue(obj.$pointerName))", MemorySegment::class, Pointer::class)
     }.build()
     addFunction(toNative)
 }
@@ -386,7 +369,7 @@ fun INamedEntity.asTypeName(
             .asClassName()
             .parameterizedBy(
                 nonArray.asTypeName(emptyTypeParameters, nestedClass, usage)
-                    .copy(!nonArray.isPrimitiveSystemType())
+                    .copy(nonArray.isNullable())
             )
     }
 

@@ -10,10 +10,12 @@ import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.annotations.WinRTByReference
 import com.github.knk190001.winrtbinding.runtime.base.CompositionPointerType
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
-import com.github.knk190001.winrtbinding.runtime.com.*
-import com.github.knk190001.winrtbinding.runtime.interop.IEvent
+import com.github.knk190001.winrtbinding.runtime.com.IActivationFactory
+import com.github.knk190001.winrtbinding.runtime.com.IInspectable
+import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.interop.AnyByReference
 import com.github.knk190001.winrtbinding.runtime.interop.IByReference
+import com.github.knk190001.winrtbinding.runtime.interop.IEvent
 import com.github.knk190001.winrtbinding.runtime.interop.WinRTObjectInitializer
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
@@ -193,7 +195,7 @@ private fun generateStaticMethod(
             ArrayType.None -> {
                 addParameter(
                     it.name, it.type.asTypeName(usage = ClassNameUsage.ApiSurface)
-                        .copy(!it.type.isTypeParameter() && !it.type.isPrimitiveSystemType())
+                        .copy(it.type.isNullable())
                 )
             }
 
@@ -232,7 +234,7 @@ private fun TypeSpec.Builder.generateClassABI(sparseClass: SparseClass) {
     val abiSpec = TypeSpec.objectBuilder("ABI").apply {
         addSuperinterface(
             IABI::class.asClassName().parameterizedBy(
-                ClassName("", sparseClass.name),
+                ClassName("", sparseClass.name).copy(nullable = true),
                 MemorySegment::class.asClassName()
             )
         )
@@ -500,10 +502,7 @@ private fun TypeSpec.Builder.generateActivationFunction() {
     val activateSpec = FunSpec.builder("activate").apply {
         returns(jnaPointer)
         val cb = CodeBlock.builder().apply {
-            addStatement("val result = %T()", PointerByReference::class)
-            addStatement("val hr = activationFactory.activateInstance(activationFactory.ptr!!, result)")
-            addStatement("checkHR(hr)")
-            addStatement("return result.value")
+            addStatement("return activationFactory.activateInstance()")
         }.build()
         addCode(cb)
     }.build()
