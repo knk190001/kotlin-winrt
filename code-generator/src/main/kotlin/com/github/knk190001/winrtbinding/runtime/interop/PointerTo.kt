@@ -5,7 +5,11 @@ import com.github.knk190001.winrtbinding.runtime.abi.IBaseABI
 import com.github.knk190001.winrtbinding.runtime.abi.IParameterizedABI
 import com.github.knk190001.winrtbinding.runtime.abiOf
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.delegate.DelegateVtbl
+import com.github.knk190001.winrtbinding.runtime.delegate.IUnknownVtbl
 import com.github.knk190001.winrtbinding.runtime.layoutOf
+import com.github.knk190001.winrtbinding.runtime.objects.IInspectableVtbl
+import com.github.knk190001.winrtbinding.runtime.objects.Vtbl
 import com.github.knk190001.winrtbinding.runtime.readLayout
 import java.lang.foreign.Arena
 import java.lang.foreign.MemoryLayout
@@ -19,16 +23,20 @@ import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.typeOf
 
 @ABIMarker(PointerTo.ABI::class)
-class PointerTo<T>(val type: KType, val segment: MemorySegment) {
-    val abi = if(type.arguments[0].type != null) abiOf(type.arguments[0].type!!.jvmErasure) else null
+class PointerTo<out T>(val type: KType, segment: MemorySegment) {
+    val abi = if (isValidType()) abiOf(type.arguments[0].type!!.jvmErasure) as IBaseABI<Any?, Any> else null
+    val segment: MemorySegment = segment.reinterpret(abi?.layout?.byteSize() ?: 0)
 
-    var value: T
+    var value: @UnsafeVariance T
         get() = getValue(type, abi!!, segment) as T
         set(value) {
             setValue(abi!!, segment, value)
         }
 
+    private fun isValidType() = type.arguments[0].type != null && type.arguments[0].type != nothingType
+
     companion object {
+        private val nothingType = Nothing::class.createType()
 
         inline fun <reified T> createType(): KType {
             return PointerTo::class.createType(listOf(KTypeProjection(KVariance.INVARIANT, typeOf<T>())))
@@ -43,11 +51,8 @@ class PointerTo<T>(val type: KType, val segment: MemorySegment) {
         }
 
         inline operator fun <reified T : Any> invoke(value: T): PointerTo<T> {
-            Arena.ofConfined().use {
-
-            }
             val segment = Arena.global().allocate(layoutOf<T>())
-            setValue(abiOf<T>(), segment, value)
+            setValue(abiOf<T>() as IBaseABI<Any?, Any>, segment, value)
             return PointerTo(createType<T>(), segment)
         }
 
@@ -61,24 +66,24 @@ class PointerTo<T>(val type: KType, val segment: MemorySegment) {
             return PointerTo(createType(type), segment)
         }
 
-        fun getValue(type: KType, abi: IBaseABI<*, *>, segment: MemorySegment): Any? {
+        fun getValue(type: KType, abi: IBaseABI<Any?, Any>, segment: MemorySegment): Any? {
             val layout = abi.layout
             return when (abi) {
                 is IABI<*, *> -> (abi as IABI<Any?, Any>).fromNative(
-                    readLayout(layout, segment.reinterpret(layout.byteSize()))
+                    readLayout(layout, segment)
                 )
+
                 is IParameterizedABI<*, *> -> {
                     (abi as IParameterizedABI<Any?, Any>).fromNative(
                         type.arguments[0].type!!,
-                        readLayout(layout, segment.reinterpret(layout.byteSize()))
+                        readLayout(layout, segment)
                     )
                 }
             }
         }
 
-        fun setValue(abi: IBaseABI<*, *>, segment: MemorySegment, value: Any?) {
-            val casted = abi as IBaseABI<Any?, Any>
-            casted.copyTo(value, segment)
+        fun setValue(abi: IBaseABI<Any?, Any>, segment: MemorySegment, value: Any?) {
+            abi.copyTo(value, segment)
         }
     }
 
@@ -100,4 +105,36 @@ class PointerTo<T>(val type: KType, val segment: MemorySegment) {
         }
 
     }
+}
+
+typealias ObjectPtr = PointerTo<Vtbl>
+
+val ObjectPtr.vtbl
+    get() = value
+
+fun ObjectPtr(segment: MemorySegment): ObjectPtr {
+    return PointerTo<Vtbl>(segment)
+}
+
+typealias IUnknownPtr = PointerTo<IUnknownVtbl>
+
+val IUnknownPtr.vtbl
+    get() = value
+
+typealias IInspectablePtr = PointerTo<IInspectableVtbl>
+
+val IInspectablePtr.vtbl
+    get() = value
+
+typealias DelegatePtr = PointerTo<DelegateVtbl>
+
+val DelegatePtr.vtbl
+    get() = value
+
+fun DelegatePtr(segment: MemorySegment): DelegatePtr {
+    return PointerTo<DelegateVtbl>(segment)
+}
+
+fun <T> PointerTo<T>.setNull() {
+    segment[ValueLayout.ADDRESS, 0] = MemorySegment.NULL
 }

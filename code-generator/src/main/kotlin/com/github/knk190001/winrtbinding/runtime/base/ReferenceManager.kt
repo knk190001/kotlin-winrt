@@ -53,7 +53,7 @@ object ReferenceManager {
     }
 
     fun releaseOnGC(obj: IUnknown) {
-        val clone = IUnknown.ABI.makeIUnknown(obj.iUnknown_Ptr)
+        val clone = IUnknown.ABI.fromNative(obj.segment)
         cleaner.register(obj) {
             clone.Release()
         }
@@ -86,5 +86,9 @@ object ReferenceManager {
 
     fun containsBackingObject(address: Long): Boolean {
         return backingObjects.containsKey(address)
+    }
+
+    fun getBackingObject(address: Long): Any? {
+        return backingObjects[address]?.get()
     }
 }

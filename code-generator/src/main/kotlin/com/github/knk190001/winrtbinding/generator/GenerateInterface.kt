@@ -6,17 +6,16 @@ import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.github.knk190001.winrtbinding.runtime.CallScope
 import com.github.knk190001.winrtbinding.runtime.abi.*
 import com.github.knk190001.winrtbinding.runtime.annotations.*
+import com.github.knk190001.winrtbinding.runtime.base.IObjectReference
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceType
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.interop.Event
 import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
+import com.github.knk190001.winrtbinding.runtime.objects.Vtbl
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmStatic
-import com.sun.jna.Native
-import com.sun.jna.NativeMapped
-import com.sun.jna.Pointer
-import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.platform.win32.WinNT
@@ -282,27 +281,37 @@ fun CodeBlock.Builder.addToManagedStatementForParameter(
             )
             "${param.name}_Type, "
         } else ""
-        if (lookUpTypeReference(param.type) is SparseInterface) {
-            addStatement(
-                "val $managedName = %T.ABI.make%T(%T($paramName.address()), ${typeString.dropLast(1)})",
-                param.type.asClassName(),
-                param.type.asTypeName(),
-                Pointer::class
-            )
-        } else {
-            addStatement(
-                "val $managedName = %T($typeString %T($paramName.address()))",
-                param.type.asTypeName(),
-                Pointer::class
-            )
+
+        add(
+            "val $managedName = %T.fromNative(${typeString}$paramName)",
+            param.type.asClassName(nestedClass = "ABI")
+        )
+        if(substitutions.containsKey(param.type.fullName()) || param.type.isGeneric) {
+            add(" as %T", param.type.asTypeName(usage = ClassNameUsage.ApiSurface))
         }
+        addStatement("")
         return managedName
     }
 
     //Structs by reference
-    if ((param.type.isReference && !param.type.isSystemTypeOrObject() && lookUpTypeReference(param.type) is SparseStruct) || (param.type.isReference && param.type.isSystemType("Guid"))) {
-        addStatement("val ${paramName}_Type = ${kTypeStringFor(param.type.copy(isReference = false), typeParameterIndexMap, typeVarName = "_type")}")
-        addStatement("val $managedName = %T(%T.createType(${paramName}_Type), $paramName)", param.type.asTypeName(), PointerTo::class)
+    if ((param.type.isReference && !param.type.isSystemTypeOrObject() && lookUpTypeReference(param.type) is SparseStruct) || (param.type.isReference && param.type.isSystemType(
+            "Guid"
+        ))
+    ) {
+        addStatement(
+            "val ${paramName}_Type = ${
+                kTypeStringFor(
+                    param.type.copy(isReference = false),
+                    typeParameterIndexMap,
+                    typeVarName = "_type"
+                )
+            }"
+        )
+        addStatement(
+            "val $managedName = %T(%T.createType(${paramName}_Type), $paramName)",
+            param.type.asTypeName(),
+            PointerTo::class
+        )
         return managedName
     }
 
@@ -322,7 +331,11 @@ fun CodeBlock.Builder.addToManagedStatementForParameter(
                 )
             }"
         )
-        addStatement("val $managedName = %T(%T.createType(${param.name}_Type), $paramName)", param.type.asTypeName(), PointerTo::class)
+        addStatement(
+            "val $managedName = %T(%T.createType(${param.name}_Type), $paramName)",
+            param.type.asTypeName(),
+            PointerTo::class
+        )
         return managedName
     }
 
@@ -662,8 +675,6 @@ private fun TypeSpec.Builder.generateABI(sparseInterface: SparseInterface) {
             else IParameterizedNativeHandleProvider::class
         addSuperinterface(handleProviderType, CodeBlock.of("NativeWrappers"))
 
-        generateMakeFn(sparseInterface)
-        generateReifiedMakeFn(sparseInterface)
         addParameterizedFromNative(sparseInterface)
         addPtrToNative(sparseInterface)
         addLayout()
@@ -807,19 +818,14 @@ private fun layoutStatementForNonArrayParameter(
     it: SparseParameter,
     typeParameterIndices: Map<String, Int>
 ) = if (it.type.isTypeParameter()) {
-    listOf(CodeBlock.of(
-        "layoutOf(type.arguments[%L].type!!.jvmErasure)",
-        typeParameterIndices[it.type.name]
-    ))
+    listOf(
+        CodeBlock.of(
+            "layoutOf(type.arguments[%L].type!!.jvmErasure)",
+            typeParameterIndices[it.type.name]
+        )
+    )
 } else {
     listOf(it.type.valueLayout())
-}
-
-private fun TypeSpec.Builder.addPrimaryConstructor() {
-    val constructor = FunSpec.constructorBuilder().apply {
-        addParameter("type", KType::class)
-    }.build()
-    primaryConstructor(constructor)
 }
 
 fun TypeSpec.Builder.addJVMToNativeSubstitution(sparseInterface: SparseInterface) {
@@ -902,63 +908,12 @@ private fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity) {
         beginControlFlow("if (obj == null)")
         addStatement("return %T.NULL", MemorySegment::class)
         endControlFlow()
-        addStatement(
-            "return %T.ofAddress(%T.nativeValue(obj.toNative() as %T))",
-            MemorySegment::class,
-            Pointer::class,
-            nullablePtr
-        )
+        beginControlFlow("if (obj !is %T)", IObjectReference::class)
+        addStatement("throw %T(%S)", IllegalArgumentException::class, "obj is not an instance of IObjectReference")
+        endControlFlow()
+        addStatement("return obj.segment")
     }.build()
     addFunction(toNative)
-}
-
-private fun TypeSpec.Builder.generateReifiedMakeFn(sparseInterface: SparseInterface) {
-    if (!sparseInterface.isGeneric) return
-    val makeFn = FunSpec.builder("make${sparseInterface.name}").apply {
-        addModifiers(KModifier.INLINE)
-        sparseInterface.genericParameters!!
-            .map(SparseGenericParameter::name)
-            .map { TypeVariableName(it).copy(reified = true) }
-            .forEach { addTypeVariable(it) }
-        addParameter("ptr", nullablePtr)
-        addCode(
-            "return %T(ptr, typeOf<%T>())",
-            sparseInterface.asTypeReference()
-                .asTypeName(nestedClass = "${sparseInterface.name}Impl"),
-            sparseInterface.asTypeName(),
-        )
-    }.build()
-    addFunction(makeFn)
-}
-
-private fun TypeSpec.Builder.generateMakeFn(
-    sparseInterface: SparseInterface,
-) {
-    val makeFn = FunSpec.builder("make${sparseInterface.name}").apply {
-        sparseInterface.genericParameters
-            ?.map(SparseGenericParameter::name)
-            ?.map(TypeVariableName::invoke)
-            ?.forEach { addTypeVariable(it) }
-        addParameter("ptr", nullablePtr)
-        if (sparseInterface.isGeneric) {
-            addParameter("type", KType::class)
-        }
-
-        val typeParameterExpression = if (sparseInterface.isGeneric) {
-            ", type"
-        } else {
-            ""
-        }
-        val returnType =
-            sparseInterface.asTypeName(nestedClass = "${sparseInterface.name}Impl")
-        addCode(
-            "return %T(ptr%L)",
-            returnType,
-            typeParameterExpression
-        )
-        returns(returnType)
-    }.build()
-    addFunction(makeFn)
 }
 
 private fun TypeSpec.Builder.generateImplType(sparseInterface: SparseInterface) {
@@ -969,43 +924,34 @@ private fun TypeSpec.Builder.generateImplType(sparseInterface: SparseInterface) 
             ?.forEach(this::addTypeVariable)
 
         val constructor = FunSpec.constructorBuilder().apply {
-            val pointerParameter = ParameterSpec.builder("ptr", nullablePtr).apply {
-                defaultValue("%M", ptrNull)
-            }.build()
-            addParameter(pointerParameter)
-
+            addParameter("ptr", MemorySegment::class)
+            addModifiers(KModifier.INTERNAL)
             if (sparseInterface.isGeneric) {
-                val typeParameter =
-                    ParameterSpec.builder(sparseInterface.typeName(), KType::class.asClassName().copy(true)).apply {
-                        defaultValue("null")
-                        addModifiers(KModifier.OVERRIDE)
-                    }.build()
-                addParameter(typeParameter)
+                addParameter(sparseInterface.typeName(), KType::class, KModifier.OVERRIDE)
             }
 
         }.build()
         primaryConstructor(constructor)
 
-        val pointerProperty = PropertySpec.builder(sparseInterface.pointerName(), nullablePtr).apply {
-            getter(FunSpec.getterBuilder().addCode("return pointer").build())
+        val pointerProperty = PropertySpec.builder(sparseInterface.pointerName(), OBJECT_PTR).apply {
+            initializer("%T(segment)", OBJECT_PTR)
             addModifiers(KModifier.OVERRIDE)
         }.build()
         addProperty(pointerProperty)
 
-        val vtblProperty = PropertySpec.builder(sparseInterface.vtblName(), nullablePtr).apply {
-            getter(FunSpec.getterBuilder().addCode("return pointer.getPointer(0)").build())
+        val vtblProperty = PropertySpec.builder(sparseInterface.vtblName(), Vtbl::class).apply {
+            initializer("%L.vtbl.withMethodCount(%L)", sparseInterface.pointerName(), sparseInterface.methods.size)
             addModifiers(KModifier.OVERRIDE)
         }.build()
         addProperty(vtblProperty)
 
-        superclass(PointerType::class)
+        superclass(ReferenceType::class)
         addSuperclassConstructorParameter("ptr")
 
         if (sparseInterface.isGeneric) {
             val typeProperty =
-                PropertySpec.builder(sparseInterface.typeName(), KType::class.asClassName().copy(true)).apply {
+                PropertySpec.builder(sparseInterface.typeName(), KType::class).apply {
                     initializer(sparseInterface.typeName())
-                    mutable(true)
                     addModifiers(KModifier.OVERRIDE)
                 }.build()
             addProperty(typeProperty)
@@ -1033,15 +979,14 @@ private fun TypeSpec.Builder.addParameterizedSIProperties(sparseInterface: Spars
     val superInterfaceReferences = traverseSuperInterfaces(sparseInterface)
         .distinctBy { it.fullName() }
 
-    addParameterizedSIPtrProperties(superInterfaceReferences, sparseInterface)
+    addParameterizedSIPtrProperties(superInterfaceReferences)
 }
 
 private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
-    superInterfaces: List<SparseTypeReference>,
-    sparseInterface: SparseInterface
+    superInterfaces: List<SparseTypeReference>
 ) {
     superInterfaces.forEach {
-        val property = PropertySpec.builder(it.getInterfacePointerName(), nullablePtr).apply {
+        val property = PropertySpec.builder(it.getInterfacePointerName(), OBJECT_PTR).apply {
             val lazyCb = CodeBlock.builder().apply {
                 beginControlFlow("lazy { ".fixSpaces())
                 if (!it.isClosed()) {
@@ -1049,7 +994,10 @@ private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
                 } else {
                     addStatement("val refiid = %T(guidOf<%T>())", REFIID::class, it.asTypeName())
                 }
-                addStatement("QueryInterface(refiid).iUnknown_Ptr")
+                addStatement(
+                    "%T(QueryInterface(refiid).segment)",
+                    OBJECT_PTR
+                )
                 endControlFlow()
             }.build()
             delegate(lazyCb)
@@ -1088,11 +1036,15 @@ private fun traverseSuperInterfaces(sparseInterface: SparseInterface): Set<Spars
 }
 
 private fun TypeSpec.Builder.addInterfacePtrProperties(sparseInterface: SparseInterface) {
-    addProperty(sparseInterface.pointerName(), nullablePtr)
-    val vtblProperty = PropertySpec.builder(sparseInterface.vtblName(), nullablePtr)
+    addProperty(sparseInterface.pointerName(), OBJECT_PTR)
+    val vtblProperty = PropertySpec.builder(sparseInterface.vtblName(), Vtbl::class)
         .apply {
             val getter = FunSpec.getterBuilder().apply {
-                addStatement("return %L?.getPointer(0)", sparseInterface.pointerName())
+                addStatement(
+                    "return %L.vtbl.withMethodCount(%L)",
+                    sparseInterface.pointerName(),
+                    sparseInterface.methods.size
+                )
             }.build()
             getter(getter)
         }.build()
@@ -1117,6 +1069,7 @@ private fun TypeSpec.Builder.addWithDefaultType(sparseInterface: SparseInterface
             it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
         }.forEach(::addSuperinterface)
         addSuperinterface(sparseInterface.asTypeName())
+        addSuperinterface(IInspectable::class)
         addMethods(sparseInterface, true)
 
         addProperties(sparseInterface, true)
@@ -1133,13 +1086,14 @@ private fun TypeSpec.Builder.addMethods(sparseInterface: SparseInterface, withMe
         .forEach(this::addFunction)
 }
 
-fun SparseTypeReference.isNullable(): Boolean {
+fun INamedEntity.isNullable(): Boolean {
+    if (this !is SparseTypeReference) return this.asTypeReference().isNullable()
     if (isReference) return false
     val isNotPrimitive = !isPrimitiveSystemType()
     val isNotGuid = !isSystemType("Guid")
     val isNotTypeParameter = !isTypeParameter()
 
-    val entity = if(isSystemTypeOrObject() || isTypeParameter()) null else lookUpTypeReference(this)
+    val entity = if (isSystemTypeOrObject() || isTypeParameter()) null else lookUpTypeReference(this)
     val isNotEnum = entity !is SparseEnum
     val isNotStruct = entity !is SparseStruct
 
@@ -1165,7 +1119,6 @@ fun generateInterfaceMethod(
     idx: Int,
     withMethodBody: Boolean = true,
     functionType: FunctionType = FunctionType.Normal,
-    vtblName: String = entity.vtblName(),
     pointerName: String = entity.pointerName(),
     typeVarName: String = entity.typeName()
 ): FunSpec =
@@ -1227,7 +1180,7 @@ fun generateInterfaceMethod(
 
         if (withMethodBody) {
             addCode(buildCodeBlock {
-                addInterfaceMethodBody(method, entity, idx, vtblName, pointerName, typeVarName)
+                addInterfaceMethodBody(method, entity, idx, pointerName, typeVarName)
             })
             if (entity is SparseInterface && functionType == FunctionType.Normal) {
                 addModifiers(KModifier.OVERRIDE)
@@ -1242,7 +1195,6 @@ private fun CodeBlock.Builder.addInterfaceMethodBody(
     method: SparseMethod,
     type: IParameterizable<*>,
     idx: Int,
-    vtblName: String = type.vtblName(),
     pointerName: String = type.pointerName(),
     typeVarName: String = type.typeName()
 ) {
@@ -1251,10 +1203,12 @@ private fun CodeBlock.Builder.addInterfaceMethodBody(
         ?.mapIndexed { paramIndex, it -> it.name to paramIndex }
         ?.toMap() ?: emptyMap()
 
+    addNullCheck(pointerName)
     if (type.isGeneric) {
         addTypePropertyCheck(type, typeVarName)
     }
     addNonArrayToNativeStatements(method, typeParameterIndexMap, typeVarName, type)
+    val vtblName = if (type is SparseInterface) type.vtblName() else pointerName
     addFnPtrVariable(type, idx, vtblName)
 
     if (!method.returnType.isVoid()) {
@@ -1280,17 +1234,24 @@ private fun CodeBlock.Builder.addInterfaceMethodBody(
     endControlFlow()
 }
 
+private fun CodeBlock.Builder.addNullCheck(pointerName: String) {
+    beginControlFlow("if (%L.segment == %T.NULL)", pointerName, MemorySegment::class)
+    addStatement("throw %T(%S)", NullPointerException::class, "Attempted to call method on null pointer")
+    endControlFlow()
+}
+
 private fun CodeBlock.Builder.addFnPtrVariable(
     type: IParameterizable<*>,
     idx: Int,
     vtblName: String
 ) {
-    val offset = if (type is SparseInterface) 6 else 3
-    addStatement(
-        "val fnPtr = %L!!.getPointer(${offset + idx}L * %M).toMemorySegment()",
-        vtblName,
-        Native::class.member("POINTER_SIZE")
-    )
+    add("val fnPtr = %L", vtblName)
+    if (type is SparseInterface) {
+        add("[${idx}]")
+    } else {
+        add(".vtbl.invoke")
+    }
+    addStatement("")
 }
 
 private fun CodeBlock.Builder.addReturnStatement(method: SparseMethod) {
@@ -1391,7 +1352,7 @@ private fun CodeBlock.Builder.addInvokeStatement(
     method: SparseMethod,
     pointerName: String = type.pointerName(),
 ) {
-    add("val hr = handle.invoke(fnPtr, %L.toMemorySegment() ", pointerName)
+    add("val hr = handle.invoke(fnPtr, %L.segment ", pointerName)
     method.parameters
         .flatMap(getInvokeParameterTypes())
         .map(::escapeReservedWords)
@@ -1609,12 +1570,9 @@ private fun CodeBlock.Builder.kTypeStatementFor(
 }
 
 private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface) {
-    addSuperinterface(NativeMapped::class)
     sparseInterface.superInterfaces
         .map(SparseTypeReference::asTypeName)
         .forEach(this::addSuperinterface)
-
-    addSuperinterface(IInspectable::class)
 }
 
 private fun TypeSpec.Builder.addTypeParameters(sparseInterface: SparseInterface) {
@@ -1671,12 +1629,11 @@ private fun FileSpec.Builder.addImports() {
     addImport(
         "com.github.knk190001.winrtbinding.runtime.interop",
         "guidOf",
-        "runtimeFromNativeJF"
+        "runtimeFromNativeJF",
+        "vtbl"
     )
     addImport(
         "com.github.knk190001.winrtbinding.runtime",
-        "handleToString",
-        "toHandle",
         "abiOf",
         "getValue",
         "arrayFromNative",

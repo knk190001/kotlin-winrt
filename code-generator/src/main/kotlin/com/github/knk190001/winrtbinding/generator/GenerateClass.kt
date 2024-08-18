@@ -5,10 +5,11 @@ package com.github.knk190001.winrtbinding.generator
 import com.github.knk190001.winrtbinding.generator.model.ArrayType
 import com.github.knk190001.winrtbinding.generator.model.arrayType
 import com.github.knk190001.winrtbinding.generator.model.entities.*
-import com.github.knk190001.winrtbinding.runtime.JNAApiInterface
+import com.github.knk190001.winrtbinding.runtime.Combase
 import com.github.knk190001.winrtbinding.runtime.abi.IABI
-import com.github.knk190001.winrtbinding.runtime.base.CompositionPointerType
+import com.github.knk190001.winrtbinding.runtime.base.CompositionReferenceType
 import com.github.knk190001.winrtbinding.runtime.base.IKotlinWinRTAggregate
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceType
 import com.github.knk190001.winrtbinding.runtime.com.IActivationFactory
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
@@ -18,11 +19,7 @@ import com.github.knk190001.winrtbinding.runtime.interop.WinRTObjectInitializer
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.sun.jna.Pointer
-import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.Guid
-import com.sun.jna.platform.win32.Guid.REFIID
-import com.sun.jna.ptr.PointerByReference
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
@@ -42,17 +39,10 @@ fun generateClass(
             addModifiers(KModifier.OPEN)
         }
 
-        if (sparseClass.hasSuperclass) {
-            superclass(sparseClass.superclass.asClassName())
-        } else if (sparseClass.hasCompositionActivator) {
-            superclass(CompositionPointerType::class)
-        } else {
-            superclass(PointerType::class)
-        }
+        addSuperclass(sparseClass)
 
         sparseClass.nonCollidingInterfaces().forEach {
-            val superinterface =
-                it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
+            val superinterface = it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
             addSuperinterface(superinterface)
         }
 
@@ -66,6 +56,16 @@ fun generateClass(
     }.build()
     addType(classTypeSpec)
 }.build()
+
+private fun TypeSpec.Builder.addSuperclass(sparseClass: SparseClass) {
+    if (sparseClass.hasSuperclass) {
+        superclass(sparseClass.superclass.asClassName())
+    } else if (sparseClass.hasCompositionActivator) {
+        superclass(CompositionReferenceType::class)
+    } else {
+        superclass(ReferenceType::class)
+    }
+}
 
 private fun TypeSpec.Builder.generateCompanion(sparseClass: SparseClass, lookUp: LookUp) {
     val interfaces = sparseClass.staticInterfaces.map(lookUp)
@@ -238,7 +238,7 @@ private fun TypeSpec.Builder.addFromNative(sparseClass: SparseClass) {
         addModifiers(KModifier.OVERRIDE)
         addParameter("segment", MemorySegment::class)
         returns(sparseClass.asClassName())
-        addStatement("return %T(ptr = %T(segment.address()))".fixSpaces(), sparseClass.asClassName(), Pointer::class)
+        addStatement("return %T(ptr = segment)".fixSpaces(), sparseClass.asClassName())
     }.build()
     addFunction(fromNative)
 }
@@ -288,11 +288,11 @@ fun TypeSpec.Builder.generateFactoryActivationFunction(
         method.parameters.forEach {
             addParameter(it.name, it.type.asTypeName(usage = ClassNameUsage.ApiSurface))
         }
-        returns(nullablePtr)
+        returns(MemorySegment::class)
         val cb = CodeBlock.builder().apply {
             add("return ${factoryInterface.name}_Instance.${method.name}(")
             add(method.parameters.joinToString { it.name })
-            add(")?.pointer")
+            add(")?.segment ?: %T.NULL", MemorySegment::class)
         }.build()
         addCode(cb)
     }.build()
@@ -316,9 +316,9 @@ fun TypeSpec.Builder.generateCompositionFactoryActivationFunction(
             }.build()
         )
 
-        returns(nullablePtr)
+        returns(MemorySegment::class)
         val cb = CodeBlock.builder().apply {
-            addStatement("val inner = %T()", PointerTo::class.asClassName().parameterizedBy(ANY))
+            addStatement("val inner = %T()", PointerTo::class.asClassName().parameterizedBy(IUnknown::class.asClassName()))
 
             beginControlFlow("val baseInterface = if (aggregatingClass != null)")
             addStatement("%T(aggregatingClass.initAggregate())", IInspectable.IInspectable_Impl::class)
@@ -329,8 +329,8 @@ fun TypeSpec.Builder.generateCompositionFactoryActivationFunction(
             add((userParams.map { it.name } +
                     listOf("baseInterface", "inner")).joinToString(),
                 IInspectable.IInspectable_Impl::class)
-            add(")?.pointer\n")
-            addStatement("aggregatingClass?.inner = inner.value as? %T", IUnknown::class)
+            addStatement(")?.segment ?: %T.NULL", MemorySegment::class)
+            addStatement("aggregatingClass?.inner = inner.value.segment")
             addStatement("return obj")
         }.build()
         addCode(cb)
@@ -383,21 +383,17 @@ private fun TypeSpec.Builder.generateFactoryActivator(sparseClass: SparseClass, 
     val createFactoryActivatorFn = FunSpec.builder("create${factoryInterface.name}").apply {
         val factoryClassName = factoryInterface.asClassName() as ClassName
         val cb = CodeBlock.builder().apply {
-            addStatement("val refiid = %T(guidOf<%T>())", REFIID::class, factoryClassName)
-            addStatement("val factoryActivatorPtr = %T()", PointerByReference::class)
-
-            val win32 = ClassName("com.github.knk190001.winrtbinding.runtime", "JNAApiInterface")
-                .nestedClass("Companion")
-                .member("INSTANCE")
-
+            addStatement("val guid = guidOf<%T>()", factoryClassName)
+            addStatement("val factoryActivatorPtr = %T()", PointerTo::class.asClassName().parameterizedBy(factoryClassName))
             addStatement(
-                "val hr = %M.RoGetActivationFactory(%S.toHandle(),refiid,factoryActivatorPtr)",
-                win32,
+                "val hr = %T.roGetActivationFactory(%S, guid, factoryActivatorPtr)",
+                Combase::class,
                 sparseClass.fullName()
             )
+
             addStatement("checkHR(hr)")
             addStatement(
-                "return(%T.ABI.make${factoryInterface.name}(factoryActivatorPtr.value))",
+                "return factoryActivatorPtr.value",
                 factoryClassName
             )
         }.build()
@@ -418,23 +414,15 @@ fun TypeSpec.Builder.generateStaticInterface(staticInterface: SparseTypeReferenc
     val createStaticInterfaceSpec = FunSpec.builder("create${staticInterface.name}").apply {
         returns(staticInterfaceClass)
         val cb = CodeBlock.builder().apply {
-            addStatement("val refiid = %T(%T.ABI.IID)", REFIID::class, staticInterfaceClass)
-            addStatement("val interfacePtr = %T()", PointerByReference::class)
-
-            val win32 = ClassName("com.github.knk190001.winrtbinding.runtime", "JNAApiInterface")
-                .nestedClass("Companion")
-                .member("INSTANCE")
-
+            addStatement("val iid = %T.ABI.IID", staticInterfaceClass)
+            addStatement("val interfacePtr = %T()", PointerTo::class.asClassName().parameterizedBy(staticInterface.asClassName()))
             addStatement(
-                "val hr = %M.RoGetActivationFactory(%S.toHandle(),refiid,interfacePtr)",
-                win32,
+                "val hr = %T.roGetActivationFactory(%S, iid, interfacePtr)",
+                Combase::class,
                 sparseClass.fullName()
             )
-            addStatement(
-                "val result = %T.ABI.make${staticInterface.name}(interfacePtr.value)",
-                ClassName(staticInterface.namespace, staticInterface.name)
-            )
-            addStatement("return result")
+            addStatement("checkHR(hr)")
+            addStatement("return interfacePtr.value")
         }.build()
 
         addCode(cb)
@@ -462,7 +450,7 @@ private fun TypeSpec.Builder.generateDirectActivationCode(sparseClass: SparseCla
 
 private fun TypeSpec.Builder.generateActivationFunction() {
     val activateSpec = FunSpec.builder("activate").apply {
-        returns(jnaPointer)
+        returns(MemorySegment::class)
         val cb = CodeBlock.builder().apply {
             addStatement("return activationFactory.activateInstance()")
         }.build()
@@ -489,21 +477,15 @@ private fun TypeSpec.Builder.generateCreateActivationFactorySpec(sparseClass: Sp
     val createActivationFunSpec = FunSpec.builder("createActivationFactory").apply {
         val cb = CodeBlock.builder().apply {
             val iActivationFactoryVtblIID = IActivationFactory.Companion::class.member("IID")
-            addStatement("val refiid = %T(%M)", REFIID::class, iActivationFactoryVtblIID)
-            addStatement("val iAFPtr = %T()", PointerByReference::class)
-
-            val win32 = JNAApiInterface.Companion::class
-                .member("INSTANCE")
-
+            addStatement("val iAFPtr = %T()", PointerTo::class.parameterizedBy(IActivationFactory::class))
             addStatement(
-                "var hr = %M.RoGetActivationFactory(%S.toHandle(), refiid, iAFPtr)",
-                win32,
-                sparseClass.fullName()
+                "var hr = %T.roGetActivationFactory(%S, %M, iAFPtr)",
+                Combase::class,
+                sparseClass.fullName(),
+                iActivationFactoryVtblIID
             )
             addStatement("checkHR(hr)")
-
-
-            addStatement("return %T(iAFPtr.value)", IActivationFactory::class)
+            addStatement("return iAFPtr.value")
         }.build()
         addCode(cb)
         returns(IActivationFactory::class)
@@ -514,8 +496,9 @@ private fun TypeSpec.Builder.generateCreateActivationFactorySpec(sparseClass: Sp
 private fun FileSpec.Builder.addImports() {
     addImport("com.github.knk190001.winrtbinding.runtime", "getValue")
     addImport("com.github.knk190001.winrtbinding.runtime.interop", "guidOf")
-    addImport("com.github.knk190001.winrtbinding.runtime", "toHandle")
     addImport("com.github.knk190001.winrtbinding.runtime", "checkHR")
+    addImport("com.github.knk190001.winrtbinding.runtime", "toMemorySegment")
+    addImport("com.github.knk190001.winrtbinding.runtime", "toPointer")
     addImport("kotlin.reflect", "typeOf")
 
 }
@@ -576,7 +559,7 @@ private fun TypeSpec.Builder.generateInterfaceConflictProperties(sparseClass: Sp
             delegate(buildCodeBlock {
                 beginControlFlow("lazy")
                 addStatement(
-                    "%T(${it.getInterfacePointerName()})",
+                    "%T(${it.getInterfacePointerName()}.segment)",
                     it.asTypeName(nestedClass = "${it.name}Impl")
                 )
                 endControlFlow()
@@ -651,7 +634,7 @@ fun generateInterfacePointerProperty(
 ): PropertySpec {
     return PropertySpec.builder(
         sparseTypeReference.getInterfacePointerName(),
-        nullablePtr
+        OBJECT_PTR
     ).apply {
         if (!sparseClass.collisions().contains(lookUpTypeReference(sparseTypeReference))) {
             addModifiers(KModifier.OVERRIDE)
@@ -678,16 +661,10 @@ fun INamedEntity.getInterfaceTypeName(): String {
 
 private fun TypeSpec.Builder.generateConstructor(sparseClass: SparseClass) {
     val constructorSpec = FunSpec.constructorBuilder().apply {
-        addParameter("ptr", nullablePtr)
+        addParameter("ptr", MemorySegment::class)
     }.build()
     primaryConstructor(constructorSpec)
     addSuperclassConstructorParameter("ptr")
-
-    val jnaConstructor = FunSpec.constructorBuilder().apply {
-        callThisConstructor("null")
-        addModifiers(KModifier.INTERNAL)
-    }.build()
-    addFunction(jnaConstructor)
 
     if (sparseClass.isDirectlyActivatable) {
         generateDirectActivationConstructor()
@@ -724,23 +701,17 @@ private fun TypeSpec.Builder.generateCompositionFactoryConstructor(sparseMethod:
         userParams.forEach {
             addParameter(it.name, it.type.asTypeName(usage = ClassNameUsage.ApiSurface))
         }
-        if (userParams.isEmpty()) {
-            val markerParam = ParameterSpec.builder("activationMarker", UNIT).apply {
-                defaultValue(CodeBlock.of("%T", UNIT))
-            }.build()
-            addParameter(markerParam)
-        }
-        callThisConstructor("null")
+        callThisConstructor(CodeBlock.of("%T.NULL", MemorySegment::class))
 
 
         val parameterNames = (userParams
             .map { it.name } + "aggregatingClass = this as %T")
 
         val cb = buildCodeBlock {
-            beginControlFlow("pointer = if (this is %T)", IKotlinWinRTAggregate::class)
-            addStatement("ABI.activate(${parameterNames.joinToString()})!!", IKotlinWinRTAggregate::class)
+            beginControlFlow("segment = if (this is %T)", IKotlinWinRTAggregate::class)
+            addStatement("ABI.activate(${parameterNames.joinToString()})", IKotlinWinRTAggregate::class)
             nextControlFlow("else")
-            addStatement("ABI.activate(${parameterNames.dropLast(1).joinToString()})!!")
+            addStatement("ABI.activate(${parameterNames.dropLast(1).joinToString()})")
             endControlFlow()
         }
         addCode(cb)
@@ -761,11 +732,6 @@ private fun TypeSpec.Builder.generateFactoryConstructor(sparseMethod: SparseMeth
 
 private fun TypeSpec.Builder.generateDirectActivationConstructor() {
     val constructorSpec = FunSpec.constructorBuilder().apply {
-        val unit = ClassName("", "kotlin.Unit")
-        val activationMarkerParam = ParameterSpec.builder("activationMarker", unit).apply {
-            defaultValue(CodeBlock.of("%T", unit))
-        }.build()
-        addParameter(activationMarkerParam)
         callThisConstructor("ABI.activate()")
     }.build()
     addFunction(constructorSpec)

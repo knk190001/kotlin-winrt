@@ -7,18 +7,16 @@ import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarke
 import com.github.knk190001.winrtbinding.runtime.annotations.ReceiveArray
 import com.github.knk190001.winrtbinding.runtime.com.IAgileObject
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
-import com.github.knk190001.winrtbinding.runtime.interop.*
-import com.sun.jna.*
+import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
+import com.github.knk190001.winrtbinding.runtime.interop.StringABI
+import com.github.knk190001.winrtbinding.runtime.interop.abiPolyfillMap
+import com.github.knk190001.winrtbinding.runtime.interop.guidOf
+import com.sun.jna.Pointer
+import com.sun.jna.Structure
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.Guid.REFIID
 import com.sun.jna.platform.win32.Win32Exception
-import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinNT
-import com.sun.jna.platform.win32.WinNT.HANDLE
 import com.sun.jna.platform.win32.WinNT.HRESULT
-import com.sun.jna.ptr.IntByReference
-import com.sun.jna.ptr.PointerByReference
-import com.sun.jna.win32.StdCallLibrary
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
@@ -31,162 +29,11 @@ import kotlin.reflect.full.*
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.jvmErasure
 
-val WinRT = JNAApiInterface.INSTANCE
-
-interface JNAApiInterface : StdCallLibrary {
-    fun RoActivateInstance(filter: HANDLE, pref: PointerByReference): HRESULT
-    fun RoGetActivationFactory(
-        activatableClassId: HANDLE,
-        iid: Guid.REFIID,
-        factory: PointerByReference
-    ): HRESULT
-
-    fun RoInitialize(initType: Int): HRESULT
-    fun RoGetParameterizedTypeInstanceIID(
-        nameElementCount: WinDef.UINT,
-        nameElements: Pointer,
-        metadataLocator: Pointer?,
-        iid: Guid.GUID.ByReference,
-        pExtra: Pointer?
-    ): HRESULT
-
-    fun WindowsCreateString(sourceString: WString, length: Int, string: WinNT.HANDLEByReference): HRESULT
-    fun WindowsDeleteString(hstring: HANDLE?): Int
-
-    fun WindowsGetStringRawBuffer(str: HANDLE, length: IntByReference): WString
-
-    companion object {
-        val INSTANCE = Native.load(
-            "combase",
-            JNAApiInterface::class.java
-        ) as JNAApiInterface
-    }
-}
-
 fun checkHR(hr: HRESULT) {
     if (hr.toInt() != 0) {
         System.err.println("Native Error: 0x${hr.toInt().toUInt().toString(16)}")
         throw Win32Exception(hr)
     }
-}
-
-fun String.toHandle(): HANDLE {
-    val wString = WString(this)
-    val handleByReference = WinNT.HANDLEByReference()
-    val hr = JNAApiInterface.INSTANCE.WindowsCreateString(wString, this.length, handleByReference)
-    return handleByReference.value
-}
-
-fun HANDLE.handleToString(): String {
-    val ibr = IntByReference()
-    val wstr = JNAApiInterface.INSTANCE.WindowsGetStringRawBuffer(this, ibr)
-    return wstr.toString()
-}
-
-private val typeMapper = WinRTTypeMapper()
-
-class WinRTTypeMapper : DefaultTypeMapper() {
-    init {
-        val booleanConverter: TypeConverter = object : TypeConverter {
-            override fun toNative(value: Any, context: ToNativeContext): Any {
-                return if (value as Boolean) {
-                    1
-                } else {
-                    0
-                }.toByte()
-            }
-
-            override fun fromNative(value: Any, context: FromNativeContext): Boolean {
-                return (value as Byte).toInt() != 0
-            }
-
-            override fun nativeType(): Class<*>? {
-                return Byte::class.javaPrimitiveType
-            }
-
-        }
-
-        val stringConverter: TypeConverter = object : TypeConverter {
-            override fun toNative(value: Any, context: ToNativeContext): HANDLE {
-                val str = value as String
-                return str.toHandle()
-            }
-
-            override fun fromNative(value: Any, context: FromNativeContext): String {
-                val handle = value as HANDLE
-                return handle.handleToString()
-            }
-
-            override fun nativeType(): Class<*> {
-                return Pointer::class.java
-            }
-
-        }
-
-        val boxedLongConverter: TypeConverter = object : TypeConverter {
-            override fun toNative(value: Any, context: ToNativeContext): LongArray {
-                val longs = value as Array<Long>
-                return longs.toLongArray()
-            }
-
-            override fun fromNative(value: Any, context: FromNativeContext): Array<Long> {
-                val array = value as LongArray
-                return array.toTypedArray()
-            }
-
-            override fun nativeType(): Class<*> {
-                return LongArray::class.java
-            }
-
-        }
-        val boxedFloatArrayConverter: TypeConverter = object : TypeConverter {
-            override fun toNative(value: Any, context: ToNativeContext): FloatArray {
-                val longs = value as Array<Float>
-                return longs.toFloatArray()
-            }
-
-            override fun fromNative(value: Any, context: FromNativeContext): Array<Float> {
-                val array = value as FloatArray
-                return array.toTypedArray()
-            }
-
-            override fun nativeType(): Class<*> {
-                return FloatArray::class.java
-            }
-
-        }
-
-        addTypeConverter(Boolean::class.javaPrimitiveType, booleanConverter)
-        addTypeConverter(String::class.java, stringConverter)
-        addTypeConverter(Array<Long>::class.java, boxedLongConverter)
-        addTypeConverter(Array<Float>::class.java, boxedFloatArrayConverter)
-        addTypeConverter(UByte::class.java, abiTypeConverter<UByte, Byte>())
-        addTypeConverter(UShort::class.java, abiTypeConverter<UShort, Short>())
-        addTypeConverter(UInt::class.java, abiTypeConverter<UInt, Int>())
-        addTypeConverter(ULong::class.java, abiTypeConverter<ULong, Long>())
-    }
-}
-
-inline fun <reified T : Any, reified R : Any> abiTypeConverter(): TypeConverter {
-    @Suppress("UNCHECKED_CAST") val abi = abiOf<T>() as IABI<T, R>
-    return object : TypeConverter {
-        override fun toNative(value: Any, context: ToNativeContext): R {
-            return abi.toNative(value as T)
-        }
-
-        override fun fromNative(value: Any, context: FromNativeContext): T {
-            return abi.fromNative(value as R)
-        }
-
-        override fun nativeType(): Class<*> {
-            return R::class.java
-        }
-
-    }
-}
-
-fun Guid.GUID.ByReference.getValue(): Guid.GUID {
-    return this
 }
 
 typealias JNAPointer = Pointer
@@ -490,25 +337,13 @@ fun Pointer?.toMemorySegment(): MemorySegment {
     return MemorySegment.ofAddress(Pointer.nativeValue(this))
 }
 
-fun Callback.toFunctionPointer(): Pointer {
-    return CallbackReference.getFunctionPointer(this)
-}
-
-fun <T> readReceiveArrayIntoList(type: KType, size: IntByReference, ptr: PointerByReference, list: MutableList<T>) {
-    val abi = abiOf(type.jvmErasure)
-    val bufferSize = abi.layout.byteSize() * size.value
-    val segment = ptr.value.toMemorySegment().reinterpret(bufferSize)
-    segment.elements(abi.layout).toList()
-        .map {
-            @Suppress("UNCHECKED_CAST")
-            it as T
-        }
-        .forEach(list::add)
-
-}
-
 @JvmName("readReceiveArrayIntoListULong")
-fun <T> readReceiveArrayIntoList(type: KType, size: PointerTo<ULong>, ptr: PointerTo<PointerTo<*>>, list: MutableList<T>) {
+fun <T> readReceiveArrayIntoList(
+    type: KType,
+    size: PointerTo<ULong>,
+    ptr: PointerTo<PointerTo<*>>,
+    list: MutableList<T>
+) {
     val abi = abiOf(type.jvmErasure)
     val bufferSize = abi.layout.byteSize() * size.value.toLong()
     val segment = ptr.value.segment.reinterpret(bufferSize)
@@ -521,7 +356,12 @@ fun <T> readReceiveArrayIntoList(type: KType, size: PointerTo<ULong>, ptr: Point
 
 }
 
-fun <T> readReceiveArrayIntoList(type: KType, size: PointerTo<Int>, ptr: PointerTo<PointerTo<*>>, list: MutableList<T>) {
+fun <T> readReceiveArrayIntoList(
+    type: KType,
+    size: PointerTo<Int>,
+    ptr: PointerTo<PointerTo<*>>,
+    list: MutableList<T>
+) {
     val abi = abiOf(type.jvmErasure)
     val bufferSize = abi.layout.byteSize() * size.value.toLong()
     val segment = ptr.value.segment.reinterpret(bufferSize)
@@ -555,11 +395,11 @@ inline fun <reified T : Any> IUnknown.cast(): T {
     if (abi is IParameterizedABI) {
         return (abi as IParameterizedABI<T, MemorySegment>).fromNative(
             typeOf<T>(),
-            casted.iUnknown_Ptr.toMemorySegment()
+            casted.segment
         )
 
     } else if (abi is IABI) {
-        return (abi as IABI<T, MemorySegment>).fromNative(casted.iUnknown_Ptr.toMemorySegment())
+        return (abi as IABI<T, MemorySegment>).fromNative(casted.segment)
     }
     throw IllegalArgumentException("Unsupported ABI type: $abi")
 }
@@ -651,8 +491,11 @@ fun CallScope.nativeRepresentation(obj: Any?, type: KType): Any {
         onScopeExit {
             native?.Release()
         }
-        return native?.iUnknown_Ptr.toMemorySegment()
+        return native?.segment ?: MemorySegment.NULL
     }
     return abi.toNative(obj)
 }
 
+fun MemorySegment.alias(): MemorySegment {
+    return MemorySegment.ofAddress(this.address())
+}

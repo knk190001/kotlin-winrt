@@ -12,10 +12,12 @@ import java.math.BigInteger
 
 @AggregateImplements([IApplicationOverrides::class, IXamlMetadataProvider::class])
 class MyApplication : Application(), IApplicationOverrides, IKotlinWinRTAggregate,
-    IXamlMetadataProvider by XamlControlsXamlMetaDataProvider(){
+    IXamlMetadataProvider by XamlControlsXamlMetaDataProvider() {
     override fun OnLaunched(args: LaunchActivatedEventArgs?) {
         println("Launch")
-        this.Resources!!.MergedDictionaries!! += XamlControlsResources()
+        val xamlControlsResources = XamlControlsResources()
+        super.OnLaunched(args)
+        this.Resources!!.MergedDictionaries!! += xamlControlsResources
         initContents()
     }
 

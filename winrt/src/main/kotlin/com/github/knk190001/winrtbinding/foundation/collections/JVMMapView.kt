@@ -6,6 +6,7 @@ import Windows.Foundation.Collections.IMapView
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
 import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
+import com.github.knk190001.winrtbinding.runtime.interop.setNull
 import kotlin.math.ceil
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
@@ -20,8 +21,8 @@ class JVMMapView<K, V>(type: KType, backingMap: Map<K, V>) : KotlinWinRTObject()
 
     override fun Split(first: PointerTo<IMapView<K, V>>, second: PointerTo<IMapView<K, V>>) {
         if (isEmpty()) {
-            first.value = IMapView.IMapViewImpl(Windows_Foundation_Collections_IMapView_Type = Windows_Foundation_Collections_IMapView_Type)
-            second.value = IMapView.IMapViewImpl(Windows_Foundation_Collections_IMapView_Type = Windows_Foundation_Collections_IMapView_Type)
+            first.setNull()
+            second.setNull()
         }
         val half = ceil(size / 2f).toInt()
         val items = entries.chunked(half)

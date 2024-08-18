@@ -1,5 +1,6 @@
 package com.github.knk190001.winrtbinding.runtime.delegate
 
+import com.github.knk190001.winrtbinding.runtime.alias
 import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.iAgileObjectIID
 import com.github.knk190001.winrtbinding.runtime.iUnknownIID
@@ -98,6 +99,6 @@ object Delegate {
         delegateStruct.iid.copyFrom(MemorySegment.ofArray(iid.toByteArray()))
 
         ReferenceManager.registerArena(arena, delegateStruct.segment.address())
-        return delegateStruct.segment
+        return delegateStruct.segment.alias()
     }
 }

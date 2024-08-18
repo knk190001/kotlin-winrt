@@ -2,15 +2,13 @@ package com.github.knk190001.winrtbinding.runtime.com
 
 import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.base.IObjectReference
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceType
 import com.github.knk190001.winrtbinding.runtime.checkHR
+import com.github.knk190001.winrtbinding.runtime.delegate.IUnknownVtbl
 import com.github.knk190001.winrtbinding.runtime.interop.GUIDABI
 import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
-import com.github.knk190001.winrtbinding.runtime.toMemorySegment
-import com.github.knk190001.winrtbinding.runtime.toPointer
-import com.sun.jna.Native
-import com.sun.jna.NativeMapped
-import com.sun.jna.Pointer
-import com.sun.jna.PointerType
+import com.github.knk190001.winrtbinding.runtime.interop.vtbl
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.WinNT
 import java.lang.foreign.FunctionDescriptor
@@ -23,51 +21,48 @@ import java.lang.ref.Reference
 
 @ABIMarker(IUnknown.ABI::class)
 @com.github.knk190001.winrtbinding.runtime.annotations.Guid("0000000000000000c000000000000046")
-interface IUnknown : NativeMapped {
-    val iUnknown_Vtbl: Pointer
-        get() = iUnknown_Ptr.getPointer(0)
+interface IUnknown: IObjectReference {
+    val iUnknown_Vtbl: IUnknownVtbl
+        get() = iUnknown_Ptr.vtbl
 
-    val iUnknown_Ptr: Pointer
-        get() = toNative() as Pointer
+    val iUnknown_Ptr: PointerTo<IUnknownVtbl>
+        get() = PointerTo<IUnknownVtbl>(segment)
 
     fun QueryInterface(iid: Guid.REFIID): IUnknown {
-        val fnPtr = iUnknown_Vtbl.getPointer(0).toMemorySegment()
+        val fnPtr = iUnknown_Vtbl.queryInterface
         val fn = ABI.downCallHandles[0]
         val iid_Native = GUIDABI.toNative(iid.value)
         val result = PointerTo<IUnknown>()
-        val hr = fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment(), iid_Native, result.segment) as Int
+        val hr = fn.invoke(fnPtr, iUnknown_Ptr.segment, iid_Native, result.segment) as Int
         checkHR(WinNT.HRESULT(hr))
         Reference.reachabilityFence(iid)
         return result.value
     }
 
     fun AddRef(): ULong {
-        val fnPtr = iUnknown_Vtbl.getPointer(Native.POINTER_SIZE.toLong()).toMemorySegment()
+        val fnPtr = iUnknown_Vtbl.addRef
         val fn = ABI.downCallHandles[1]
-        return (fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment()) as Long).toULong()
+        return (fn.invoke(fnPtr, iUnknown_Ptr.segment) as Long).toULong()
     }
 
     fun Release(): ULong {
-        val fnPtr = iUnknown_Vtbl.getPointer(2 * Native.POINTER_SIZE.toLong()).toMemorySegment()
+        val fnPtr = iUnknown_Vtbl.release
         val fn = ABI.downCallHandles[2]
-        return (fn.invoke(fnPtr, iUnknown_Ptr.toMemorySegment()) as Long).toULong()
+        return (fn.invoke(fnPtr, iUnknown_Ptr.segment) as Long).toULong()
     }
 
     object ABI: IABI<IUnknown, MemorySegment> {
         val IID: Guid.IID = Guid.IID("0000000000000000C000000000000046")
 
-        fun makeIUnknown(ptr: Pointer?): IUnknown =
-            IUnknown_Impl(ptr)
-
         override fun fromNative(obj: MemorySegment): IUnknown {
-            return makeIUnknown(obj.toPointer())
+            return IUnknown_Impl(obj)
         }
 
         override val layout: MemoryLayout
             get() = ADDRESS
 
         override fun toNative(obj: IUnknown): MemorySegment {
-            return MemorySegment.ofAddress(Pointer.nativeValue(obj.iUnknown_Ptr))
+            return obj.iUnknown_Ptr.segment
         }
 
         private val linker: Linker = Linker.nativeLinker()
@@ -77,19 +72,5 @@ interface IUnknown : NativeMapped {
             linker.downcallHandle(FunctionDescriptor.of(JAVA_INT, ADDRESS))
         )
     }
-
-    open class ByReference : com.sun.jna.ptr.ByReference(Native.POINTER_SIZE) {
-        fun getValue() = ABI.makeIUnknown(pointer.getPointer(0))
-
-        fun setValue(value: IUnknown): Unit {
-            pointer.setPointer(0, value.toNative() as Pointer?)
-        }
-    }
-    class IUnknown_Impl(ptr: Pointer? = Pointer.NULL) : PointerType(ptr), IUnknown {
-        override val iUnknown_Ptr: Pointer
-            get() = pointer
-
-        override val iUnknown_Vtbl: Pointer
-            get() = pointer.getPointer(0)
-    }
+    class IUnknown_Impl(ptr: MemorySegment) : ReferenceType(ptr), IUnknown
 }

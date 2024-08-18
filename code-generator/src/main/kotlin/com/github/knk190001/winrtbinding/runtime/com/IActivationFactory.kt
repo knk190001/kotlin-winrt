@@ -1,27 +1,28 @@
 package com.github.knk190001.winrtbinding.runtime.com
 
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceType
 import com.github.knk190001.winrtbinding.runtime.checkHR
+import com.github.knk190001.winrtbinding.runtime.interop.ObjectPtr
 import com.github.knk190001.winrtbinding.runtime.interop.PointerTo
-import com.github.knk190001.winrtbinding.runtime.toMemorySegment
-import com.github.knk190001.winrtbinding.runtime.toPointer
-import com.sun.jna.Native.POINTER_SIZE
-import com.sun.jna.Pointer
-import com.sun.jna.PointerType
+import com.github.knk190001.winrtbinding.runtime.interop.vtbl
 import com.sun.jna.platform.win32.Guid
 import com.sun.jna.platform.win32.WinNT
-import java.lang.foreign.FunctionDescriptor
-import java.lang.foreign.Linker
-import java.lang.foreign.ValueLayout
+import java.lang.foreign.*
 
-class IActivationFactory(val ptr: Pointer? = Pointer.NULL) : PointerType(ptr), IInspectable {
-    private val vtblPtr = ptr?.getPointer(0)
+@ABIMarker(IActivationFactory.ABI::class)
+class IActivationFactory(ptr: MemorySegment) : ReferenceType(ptr), IInspectable {
 
-    fun activateInstance(): Pointer {
-        val fnPtr = vtblPtr!!.getPointer(6L * POINTER_SIZE).toMemorySegment()
+    private val thisPtr = ObjectPtr(segment)
+    private val vtblPtr = thisPtr.vtbl.withMethodCount(1)
+
+    fun activateInstance(): MemorySegment {
+        val fnPtr = vtblPtr[0]
         val returnVal = PointerTo<PointerTo<*>>()
-        val hr = downcallHandle.invoke(fnPtr, ptr.toMemorySegment(), returnVal.segment) as Int
+        val hr = downcallHandle.invoke(fnPtr, segment, returnVal.segment) as Int
         checkHR(WinNT.HRESULT(hr))
-        return returnVal.value.segment.toPointer()
+        return returnVal.value.segment
     }
 
     companion object {
@@ -30,5 +31,17 @@ class IActivationFactory(val ptr: Pointer? = Pointer.NULL) : PointerType(ptr), I
         val downcallHandle = linker.downcallHandle(
             FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS),
         )
+    }
+
+    object ABI: IABI<IActivationFactory, MemorySegment> {
+        override val layout: MemoryLayout = ValueLayout.ADDRESS
+        override fun toNative(obj: IActivationFactory): MemorySegment {
+            return obj.segment
+        }
+
+        override fun fromNative(segment: MemorySegment): IActivationFactory {
+            if(segment == MemorySegment.NULL) throw NullPointerException("Null pointer passed to fromNative")
+            return IActivationFactory(segment)
+        }
     }
 }

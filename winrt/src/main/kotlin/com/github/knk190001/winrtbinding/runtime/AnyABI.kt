@@ -16,7 +16,7 @@ object AnyABI: IAnyABI {
         if (obj.address() == 0L) {
             return null
         }
-        val it = IUnknown.ABI.makeIUnknown(obj.toPointer())
+        val it = IUnknown.ABI.fromNative(obj)
         if (it.instanceOf<IPropertyValue>()) {
             val prop = it.cast<IPropertyValue>()
             return when (prop.Type) {
@@ -122,7 +122,7 @@ object AnyABI: IAnyABI {
     }
 
     override fun toNative(obj: Any?): MemorySegment {
-        return box(obj)?.iUnknown_Ptr.toMemorySegment()
+        return box(obj)?.segment ?: MemorySegment.NULL
     }
 
 }

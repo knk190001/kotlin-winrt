@@ -1,12 +1,14 @@
 package com.github.knk190001.winrtbinding.runtime.delegate
 
-import java.lang.foreign.Arena
-import java.lang.foreign.MemoryLayout
-import java.lang.foreign.MemorySegment
-import java.lang.foreign.ValueLayout
+import com.github.knk190001.winrtbinding.runtime.abi.IABI
+import com.github.knk190001.winrtbinding.runtime.annotations.ABIMarker
+import java.lang.foreign.*
 
-class DelegateVtbl(val segment: MemorySegment) {
+@ABIMarker(DelegateVtbl.ABI::class)
+class DelegateVtbl(segment: MemorySegment) {
     constructor(arena: Arena) : this(arena.allocate(layout))
+
+    val segment: MemorySegment = segment.reinterpret(layout.byteSize())
 
     var queryInterface: MemorySegment
         get() = queryInterfaceVarHandle.get(segment, 0L) as MemorySegment
@@ -47,5 +49,17 @@ class DelegateVtbl(val segment: MemorySegment) {
         private val invokeVarHandle = layout.varHandle(
             MemoryLayout.PathElement.groupElement("invoke")
         )
+    }
+
+    object ABI: IABI<DelegateVtbl, MemorySegment> {
+        override val layout: AddressLayout = ValueLayout.ADDRESS
+
+        override fun fromNative(obj: MemorySegment): DelegateVtbl {
+            return DelegateVtbl(obj)
+        }
+
+        override fun toNative(obj: DelegateVtbl): MemorySegment {
+            return obj.segment
+        }
     }
 }

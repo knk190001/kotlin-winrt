@@ -12,14 +12,13 @@ import com.github.knk190001.winrtbinding.runtime.annotations.DelegateMarker
 import com.github.knk190001.winrtbinding.runtime.annotations.GenericType
 import com.github.knk190001.winrtbinding.runtime.annotations.NativeFunctionMarker
 import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
+import com.github.knk190001.winrtbinding.runtime.base.ReferenceType
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.delegate.Delegate
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.jvm.jvmStatic
-import com.sun.jna.Pointer
-import com.sun.jna.PointerType
 import com.sun.jna.platform.win32.WinNT
 import java.lang.foreign.*
 import java.lang.invoke.MethodHandle
@@ -36,7 +35,7 @@ fun generateDelegate(sparseDelegate: SparseDelegate): FileSpec {
         addDelegateFunInterface(sparseDelegate)
         val delegateTypeSpec = TypeSpec.classBuilder(sparseDelegate.name).apply {
             addABIAnnotation(sparseDelegate.asClassName())
-            superclass(PointerType::class)
+            superclass(ReferenceType::class)
             addSuperinterface(IUnknown::class)
             addSuperclassConstructorParameter("ptr")
             addDelegateTypeSpec(sparseDelegate)
@@ -49,7 +48,7 @@ fun FileSpec.Builder.addDelegateFunInterface(sparseDelegate: SparseDelegate) {
     val delegateParameters = sparseDelegate.parameters.map {
         ParameterSpec.builder(
             it.name,
-            it.type.asTypeName(nullable = !it.type.isPrimitiveSystemType() && !it.type.isArray)
+            it.type.asTypeName(nullable = it.type.isNullable(), usage = ClassNameUsage.ApiSurface)
         ).build()
     }
     val delegateTypeParameters = sparseDelegate.genericParameters
@@ -80,7 +79,6 @@ private fun FileSpec.Builder.addImports() {
         "abiOf",
         "arrayFromNative",
         "arrayToNative",
-        "toHandle",
         "toPointer",
         "writeArrayTo",
         "toMemorySegment",
@@ -91,7 +89,8 @@ private fun FileSpec.Builder.addImports() {
     addImport(
         "com.github.knk190001.winrtbinding.runtime.interop",
         "guidOf",
-        "runtimeFromNativeJF"
+        "runtimeFromNativeJF",
+        "vtbl"
     )
     addImport("kotlin.reflect", "typeOf")
     addImport("kotlin.reflect.full", "createType")
@@ -105,8 +104,17 @@ private fun TypeSpec.Builder.addDelegateTypeSpec(sparseDelegate: SparseDelegate)
     addTypeParameters(sparseDelegate)
     addPrimaryConstructor(sparseDelegate)
     addInvokeOperator(sparseDelegate)
+    addObjectPtrProperty()
     addCompanionObject(sparseDelegate)
     addABI(sparseDelegate)
+}
+
+private fun TypeSpec.Builder.addObjectPtrProperty() {
+    val spec = PropertySpec.builder("delegatePtr", DELEGATE_PTR).apply {
+        initializer("%T(segment)", DELEGATE_PTR)
+        addModifiers(KModifier.PRIVATE)
+    }.build()
+    addProperty(spec)
 }
 
 private fun TypeSpec.Builder.addABI(sparseDelegate: SparseDelegate) {
@@ -293,10 +301,10 @@ private fun TypeSpec.Builder.addReifiedPointerInvokeOperator(sparseDelegate: Spa
     val invokeFn = FunSpec.builder("invoke").apply {
         addModifiers(KModifier.OPERATOR, KModifier.INLINE)
         addMethodTypeParameters(sparseDelegate)
-        addParameter("pointer", nullablePtr)
+        addParameter("segment", MemorySegment::class)
         returns(sparseDelegate.asTypeName())
         addStatement("val type = typeOf<%T>()", sparseDelegate.asTypeName())
-        addStatement("return %T(type, pointer)", sparseDelegate.asClassName())
+        addStatement("return %T(type, segment)", sparseDelegate.asClassName())
     }.build()
     addFunction(invokeFn)
 }
@@ -394,12 +402,14 @@ private fun TypeSpec.Builder.addBodyInvokeOperator(sparseDelegate: SparseDelegat
 
             addStatement("val delegateStruct = %T.createDelegate(arena, guid, stub)", Delegate::class)
 
-            addStatement("val type = typeOf<%T>()", delegateType)
 
-            val typeParameter = if (sparseDelegate.isGeneric) "type" else null
+            val typeParameter = if (sparseDelegate.isGeneric) {
+                addStatement("val type = typeOf<%T>()", delegateType)
+                "type"
+            } else null
             val ctorParams = listOfNotNull(
                 typeParameter,
-                "delegateStruct.toPointer()",
+                "delegateStruct",
                 "arena"
             )
             addStatement("val newDelegate = %T(${ctorParams.joinToString()})", delegateType)
@@ -425,10 +435,8 @@ private fun TypeSpec.Builder.addInvokeOperator(sparseDelegate: SparseDelegate) {
         sparseDelegate,
         0,
         true,
-        vtblName = "iUnknown_Vtbl",
-        pointerName = "iUnknown_Ptr",
+        pointerName = "delegatePtr",
         typeVarName = "type"
-
     )
     addFunction(invokeFn)
 }
@@ -436,20 +444,14 @@ private fun TypeSpec.Builder.addInvokeOperator(sparseDelegate: SparseDelegate) {
 private fun TypeSpec.Builder.addPrimaryConstructor(sparseDelegate: SparseDelegate) {
     val constructor = FunSpec.constructorBuilder().apply {
         if (sparseDelegate.isGeneric) {
-            val typeParameterSpec = ParameterSpec.builder("type", KType::class.asClassName().copy(true)).apply {
-                defaultValue("null")
-            }.build()
-            addParameter(typeParameterSpec)
-            val typePropertySpec = PropertySpec.builder("type", KType::class.asClassName().copy(true)).apply {
+            addParameter("type", KType::class)
+            val typePropertySpec = PropertySpec.builder("type", KType::class).apply {
                 initializer("type")
             }.build()
             addProperty(typePropertySpec)
         }
 
-        val ptrParameterSpec = ParameterSpec.builder("ptr", typeNameOf<Pointer?>()).apply {
-            defaultValue("%T.NULL", Pointer::class)
-        }.build()
-        addParameter(ptrParameterSpec)
+        addParameter("ptr", MemorySegment::class)
 
         val arenaParameterSpec = ParameterSpec.builder("arena", typeNameOf<Arena?>()).apply {
             defaultValue("null")

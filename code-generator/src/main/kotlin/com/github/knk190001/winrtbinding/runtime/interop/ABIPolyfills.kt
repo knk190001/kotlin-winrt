@@ -6,10 +6,8 @@ import com.github.knk190001.winrtbinding.runtime.abi.IAnyABI
 import com.github.knk190001.winrtbinding.runtime.abi.IBaseABI
 import com.github.knk190001.winrtbinding.runtime.abi.ITrivialABI
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
-import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.Guid.GUID
 import com.sun.jna.platform.win32.Guid.IID
-import com.sun.jna.platform.win32.WinNT.HANDLE
 import java.lang.foreign.MemoryLayout
 import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
@@ -72,19 +70,23 @@ object UByteABI : IABI<UByte, Byte> {
     }
 }
 
-object StringABI: IABI<String?, MemorySegment> {
+object StringABI : IABI<String?, MemorySegment> {
     override fun fromNative(obj: MemorySegment): String {
-        return HANDLE(obj.toPointer()).handleToString()
+        val lengthPtr = PointerTo<Int>()
+        return Combase.windowsGetStringRawBuffer(obj, lengthPtr)
     }
 
     override val layout: MemoryLayout
         get() = ValueLayout.ADDRESS
 
     override fun toNative(obj: String?): MemorySegment {
-        if(obj == null) {
+        if (obj == null) {
             return MemorySegment.NULL
         }
-        return MemorySegment.ofAddress(Pointer.nativeValue(obj.toHandle().pointer))
+        val handlePtr = PointerTo<PointerTo<*>>()
+        val hr = Combase.windowsCreateString(obj, obj.length, handlePtr)
+        checkHR(hr)
+        return handlePtr.value.segment
     }
 
 }
@@ -145,10 +147,10 @@ object BooleanABI : IABI<Boolean, Byte> {
     }
 
     override val layout: MemoryLayout
-        get() =ValueLayout.JAVA_BYTE
+        get() = ValueLayout.JAVA_BYTE
 
     override fun toNative(obj: Boolean): Byte {
-        return if ( obj ) 1 else 0
+        return if (obj) 1 else 0
     }
 
 }

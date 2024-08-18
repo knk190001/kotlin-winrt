@@ -1,3 +1,4 @@
+
 import Microsoft.UI.Xaml.*
 import Windows.AI.MachineLearning.*
 import Windows.Data.Json.*
@@ -5,16 +6,13 @@ import Windows.Data.Text.SelectableWordSegment
 import Windows.Data.Text.SelectableWordSegmentsTokenizingHandler
 import Windows.Data.Text.SelectableWordsSegmenter
 import Windows.Foundation.*
-import Windows.Foundation.Collections.IIterable
 import Windows.Graphics.Imaging.BitmapDecoder
 import Windows.Media.VideoFrame
 import Windows.Storage.FileAccessMode
 import Windows.Storage.StorageFile
-import com.github.knk190001.winrtbinding.runtime.PropertyValue
-import com.github.knk190001.winrtbinding.runtime.WinRT
+import com.github.knk190001.winrtbinding.runtime.Combase
 import com.github.knk190001.winrtbinding.runtime.cast
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 import java.lang.ref.Reference
 import java.nio.file.Path
@@ -22,25 +20,21 @@ import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 
 
-fun main(): Unit = runBlocking {
+fun main() {
     try {
-
         val pid = ProcessHandle.current().pid()
         println("Pid: $pid")
-        WinRT.RoInitialize(1)
+        Combase.roInitialize(1)
         var app: Application? = null
         val initializationCallback = ApplicationInitializationCallback {
-            PropertyValue<Int>(1)
             println("Start")
             app = MyApplication()
         }
         Application.Start(initializationCallback)
         Reference.reachabilityFence(app)
-        readln()
     }catch (e: Exception) {
         e.printStackTrace()
     }
-
 }
 
 suspend fun IAsyncAction.await() {
@@ -80,15 +74,13 @@ private fun jsonTest() {
 
 private fun segmentTest() {
     val segmenter = SelectableWordsSegmenter("en-US")
-    val handler = SelectableWordSegmentsTokenizingHandler { precedingWords: IIterable<SelectableWordSegment?>?,
-                                                            words: IIterable<SelectableWordSegment?>? ->
-        val precedingWordsIttr = precedingWords!!.First()!!
-        for (selectableWordSegment in precedingWordsIttr) {
+    val handler = SelectableWordSegmentsTokenizingHandler { precedingWords: Iterable<SelectableWordSegment?>?,
+                                                            words: Iterable<SelectableWordSegment?>? ->
+        for (selectableWordSegment in precedingWords!!) {
             println("Preceding: " + selectableWordSegment!!.Text)
         }
 
-        val wordsItr = words!!.First()!!
-        for (selectableWordSegment in wordsItr) {
+        for (selectableWordSegment in words!!) {
             println("Word: " + selectableWordSegment!!.Text)
         }
     }

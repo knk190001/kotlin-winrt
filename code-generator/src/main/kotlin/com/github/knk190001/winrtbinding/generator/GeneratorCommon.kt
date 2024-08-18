@@ -254,13 +254,18 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IParameterizable<*>
             (projectable.asClassName() as ClassName).parameterizedBy(*typeVariables)
         } else projectable.asClassName()
 
-        returns(returnType)
+        returns(returnType.copy(projectable.isNullable()))
 
         val typeVariableString = if (typeVariables.isEmpty()) ""
         else "<${typeVariables.joinToString { "Unit" }}>"
 
         val cb = CodeBlock.builder().apply {
-            addStatement("val address = segment.address()")
+            if (projectable.isNullable()) {
+                beginControlFlow("if (segment == MemorySegment.NULL)")
+                addStatement("return null")
+                endControlFlow()
+            }
+
             if (projectable is SparseInterface) {
                 val typeString = if (projectable.genericParameters.isNullOrEmpty()) {
                     ""
@@ -268,17 +273,15 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IParameterizable<*>
                     ", type"
                 }
                 addStatement(
-                    "return make%T$typeVariableString(%T(address)$typeString)".fixSpaces(),
+                    "return %TImpl$typeVariableString(segment$typeString)".fixSpaces(),
                     projectable.asClassName(),
-                    Pointer::class
                 )
             } else {
                 val typeParameter = if (projectable.genericParameters.isNullOrEmpty()) null else "type"
-                val parameters = listOfNotNull(typeParameter, "%T(address)").joinToString()
+                val parameters = listOfNotNull(typeParameter, "segment").joinToString()
                 addStatement(
                     "return %T$typeVariableString(${parameters})".fixSpaces(),
                     projectable.asClassName(),
-                    Pointer::class
                 )
             }
         }.build()
@@ -304,7 +307,7 @@ fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity, pointerName: String = 
         addStatement("return %T.NULL", MemorySegment::class)
         endControlFlow()
 
-        addStatement("return %T.ofAddress(%T.nativeValue(obj.$pointerName))", MemorySegment::class, Pointer::class)
+        addStatement("return obj.segment")
     }.build()
     addFunction(toNative)
 }
@@ -474,8 +477,8 @@ fun TypeSpec.Builder.addEvents(
                 if (withImplementation) {
                     val initializerCb = buildCodeBlock {
                         add(
-                            "%T<%T, %T>(${prefix}this, ${sparseInterface.methods.indexOf(addMethod) + 6}, ${
-                                sparseInterface.methods.indexOf(removeMethod) + 6
+                            "%T<%T, %T>(${prefix}this, ${sparseInterface.methods.indexOf(addMethod)}, ${
+                                sparseInterface.methods.indexOf(removeMethod)
                             }, typeOf<%T>())", NativeEvent::class, eventComponentType, tokenType, tokenType
                         )
                     }

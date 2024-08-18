@@ -1,15 +1,12 @@
+
 import Windows.ApplicationModel.Activation.*
 import Windows.Foundation.IPropertyValue
-import Windows.UI.Xaml.Application
-import Windows.UI.Xaml.IApplication
 import Windows.UI.Xaml.IApplicationOverrides
 import Windows.UI.Xaml.WindowCreatedEventArgs
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
 import com.github.knk190001.winrtbinding.runtime.base.KotlinWinRTObject
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.instanceOf
-import com.github.knk190001.winrtbinding.runtime.interop.AnyABI
-import com.github.knk190001.winrtbinding.runtime.toPointer
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -25,7 +22,7 @@ class TestClassImpl {
     fun testAnyABI() {
         val str = "Hello"
         val native = com.github.knk190001.winrtbinding.runtime.AnyABI.toNative(str)
-        Assertions.assertTrue(IUnknown.ABI.makeIUnknown(native.toPointer()).instanceOf<IPropertyValue>())
+        Assertions.assertTrue(IUnknown.ABI.fromNative(native).instanceOf<IPropertyValue>())
     }
 }
 

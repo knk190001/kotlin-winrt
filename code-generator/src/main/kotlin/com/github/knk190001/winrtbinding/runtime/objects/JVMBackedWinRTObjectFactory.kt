@@ -9,14 +9,15 @@ import com.github.knk190001.winrtbinding.runtime.abiOf
 import com.github.knk190001.winrtbinding.runtime.annotations.AggregateImplements
 import com.github.knk190001.winrtbinding.runtime.annotations.InterfaceMethod
 import com.github.knk190001.winrtbinding.runtime.annotations.ObjectImplements
-import com.github.knk190001.winrtbinding.runtime.base.ICompositionPointer
+import com.github.knk190001.winrtbinding.runtime.base.ICompositionReference
 import com.github.knk190001.winrtbinding.runtime.base.ReferenceManager
 import com.github.knk190001.winrtbinding.runtime.com.IInspectable
 import com.github.knk190001.winrtbinding.runtime.com.IUnknown
 import com.github.knk190001.winrtbinding.runtime.com.TrustLevel
 import com.github.knk190001.winrtbinding.runtime.interop.GUIDABI
+import com.github.knk190001.winrtbinding.runtime.interop.ObjectPtr
 import com.github.knk190001.winrtbinding.runtime.interop.guidOf
-import com.github.knk190001.winrtbinding.runtime.toMemorySegment
+import com.github.knk190001.winrtbinding.runtime.interop.vtbl
 import com.github.knk190001.winrtbinding.runtime.transformParameterizedHandle
 import com.sun.jna.platform.win32.WinNT
 import java.lang.foreign.*
@@ -111,6 +112,8 @@ object JVMBackedWinRTObjectFactory {
         fun queryInterface(thisPtr: MemorySegment, refiid: MemorySegment, ppvObject: MemorySegment): Int {
             val objectStruct = JVMBackedObjectStruct(thisPtr)
             val requestedIID = GUIDABI.fromNative(refiid)
+            val reference = ReferenceManager.getBackingObject(thisPtr.address()) as? ICompositionReference
+            updateInner(objectStruct, reference)
             println(
                 "QueryInterface on ${objectStruct.className} at 0x${
                     objectStruct.segment.address().toString(16)
@@ -134,15 +137,19 @@ object JVMBackedWinRTObjectFactory {
             return 0
         }
 
+        private fun updateInner(objectStruct: JVMBackedObjectStruct, reference: ICompositionReference?) {
+            if (objectStruct.inner == MemorySegment.NULL && reference != null) {
+                objectStruct.inner = reference.inner ?: MemorySegment.NULL
+            }
+        }
+
         private fun queryInterfaceInner(
             objectStruct: JVMBackedObjectStruct,
             refiid: MemorySegment,
             ppvObject: MemorySegment
         ): Int {
-            val queryInterfaceFnPtr = (objectStruct.inner
-                .get(ValueLayout.ADDRESS, 0) as MemorySegment)
-                .get(ValueLayout.ADDRESS, 0)
-            val result = queryInterfaceDCH.invoke(queryInterfaceFnPtr, objectStruct.segment, refiid, ppvObject) as Int
+            val queryInterfaceFnPtr = ObjectPtr(objectStruct.inner).vtbl.queryInterface
+            val result = queryInterfaceDCH.invoke(queryInterfaceFnPtr, objectStruct.inner, refiid, ppvObject) as Int
             return if (result != 0) WinNT.E_NOTIMPL else 0
         }
 
@@ -177,6 +184,7 @@ object JVMBackedWinRTObjectFactory {
             val resultSliceHandle = resultLayout.sliceHandle(
                 MemoryLayout.PathElement.sequenceElement()
             )
+
 
             objectStruct.metadata.interfaces
                 .map(GUIDABI::toNative)
@@ -344,8 +352,8 @@ object JVMBackedWinRTObjectFactory {
             addClassMetadata(objectPeer.className, classMetadata)
         }
 
-        if (obj is ICompositionPointer) {
-            objectPeer.inner = obj.inner?.iUnknown_Ptr.toMemorySegment()
+        if (obj is ICompositionReference) {
+            objectPeer.inner = obj.inner ?: MemorySegment.NULL
         }
 
         typeVtblHandePairs.forEach { (type, handles) ->
