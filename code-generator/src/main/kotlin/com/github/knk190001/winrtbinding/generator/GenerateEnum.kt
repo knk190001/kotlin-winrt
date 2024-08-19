@@ -5,8 +5,6 @@ import com.github.knk190001.winrtbinding.runtime.abi.IABI
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.sun.jna.FromNativeContext
-import com.sun.jna.NativeMapped
 import java.lang.foreign.ValueLayout
 
 fun generateEnum(sEnum : SparseEnum): FileSpec {
@@ -14,62 +12,37 @@ fun generateEnum(sEnum : SparseEnum): FileSpec {
     val type = TypeSpec.enumBuilder(sEnum.name).apply {
         addABIAnnotation(sEnum.asClassName())
         addSignatureAnnotation(sEnum)
-        addSuperinterface(NativeMapped::class)
-        primaryConstructor(
-            FunSpec.constructorBuilder().apply {
-                addParameter("value",Int::class)
-            }.build()
-        )
-
-        sEnum.values.entries.map {
-            it.key to TypeSpec.anonymousClassBuilder()
-                .addSuperclassConstructorParameter(it.value.toString())
-                .build()
-        }.forEach {
-            addEnumConstant(it.first,it.second)
-        }
-
-        val fromNativeSpec = FunSpec.builder("fromNative").apply {
-            addModifiers(KModifier.OVERRIDE)
-            addParameter("nativeValue", ClassName("","kotlin.Any").copy(true))
-            addParameter("context", FromNativeContext::class.asClassName().copy(true))
-            returns(ClassName(sEnum.namespace, sEnum.name))
-
-            val cb = CodeBlock.builder().apply {
-                addStatement("if (nativeValue !is Int) throw %T()", IllegalArgumentException::class)
-                beginControlFlow("return when(nativeValue) ")
-                sEnum.values.entries.forEach {
-                    addStatement("${it.value} -> ${it.key}")
-                }
-                addStatement("else -> throw %T()", IllegalArgumentException::class)
-                endControlFlow()
-            }.build()
-
-            addCode(cb)
-        }.build()
-
-        val toNativeSpec = FunSpec.builder("toNative").apply {
-            addModifiers(KModifier.OVERRIDE)
-            returns(Int::class)
-            addCode(CodeBlock.of("return this.value"))
-        }.build()
-
-
-
-        val nativeTypeSpec = FunSpec.builder("nativeType").apply {
-            addModifiers(KModifier.OVERRIDE)
-            returns(ClassName("","java.lang.Class").parameterizedBy(STAR))
-            addCode("return %T::class.java",Integer::class.java)
-        }.build()
-
-        addFunction(fromNativeSpec)
-        addFunction(toNativeSpec)
-        addFunction(nativeTypeSpec)
-        addProperty(PropertySpec.builder("value",Int::class).initializer("value").build())
+        addPrimaryConstructor()
+        addEnumValues(sEnum)
+        addValueProperty()
         generateABI(sEnum)
     }.build()
     fileSpec.addType(type)
     return fileSpec.build()
+}
+
+private fun TypeSpec.Builder.addPrimaryConstructor() {
+    val ctor = FunSpec.constructorBuilder().apply {
+        addParameter("value", Int::class)
+    }.build()
+    primaryConstructor(ctor)
+}
+
+private fun TypeSpec.Builder.addValueProperty() {
+    val valueProperty = PropertySpec.builder("value", Int::class)
+        .initializer("value")
+        .build()
+    addProperty(valueProperty)
+}
+
+private fun TypeSpec.Builder.addEnumValues(sEnum: SparseEnum) {
+    sEnum.values.entries.map {
+        it.key to TypeSpec.anonymousClassBuilder()
+            .addSuperclassConstructorParameter(it.value.toString())
+            .build()
+    }.forEach {
+        addEnumConstant(it.first, it.second)
+    }
 }
 
 private fun TypeSpec.Builder.generateABI(sparseEnum: SparseEnum) {
@@ -106,11 +79,21 @@ private fun TypeSpec.Builder.addLayoutProperty() {
 }
 
 private fun TypeSpec.Builder.addFromNative(sparseEnum: SparseEnum) {
-    val fromNative = FunSpec.builder("fromNative").apply {
+    val fromNativeSpec = FunSpec.builder("fromNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("value", Int::class)
-        addStatement("return ${sparseEnum.name}.values()[0].fromNative(value, null)".fixSpaces())
-        returns(sparseEnum.asClassName())
+        addParameter("obj", INT)
+        returns(ClassName(sparseEnum.namespace, sparseEnum.name))
+
+        val cb = CodeBlock.builder().apply {
+            beginControlFlow("return when(obj) ")
+            sparseEnum.values.entries.forEach {
+                addStatement("${it.value} -> ${it.key}")
+            }
+            addStatement("else -> throw %T()", IllegalArgumentException::class)
+            endControlFlow()
+        }.build()
+
+        addCode(cb)
     }.build()
-    addFunction(fromNative)
+    addFunction(fromNativeSpec)
 }

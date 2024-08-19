@@ -343,9 +343,9 @@ fun CodeBlock.Builder.addToManagedStatementForParameter(
     val withOutReference = param.type.copy(isReference = false)
     addStatement(
         "val $managedName = (abiOf<%T>() as %T<%T, %T>).fromNative($paramName)",
-        withOutReference.asClassName(false),
+        withOutReference.asClassName(),
         IABI::class,
-        withOutReference.asClassName(false),
+        withOutReference.asClassName(),
         withOutReference.foreignType()
     )
 
@@ -357,7 +357,7 @@ private fun CodeBlock.Builder.addReceiveArrayToManagedStatement(
     managedName: String
 ): String {
     val componentType = param.type.copy(isArray = false, isReference = false)
-    val componentClassName = componentType.asClassName(false)
+    val componentClassName = componentType.asClassName()
         .copy(nullable = componentType.isNullable())
     addStatement("val $managedName = mutableListOf<%T>()", componentClassName)
     return managedName
@@ -1504,7 +1504,7 @@ private fun CodeBlock.Builder.addResultVariable(
                 typeParameterIndexMap[typeReference.name]
             )
         } else {
-            addStatement("val result = %T<%T>()", PointerTo::class, typeReference.asClassName(structByValue = false))
+            addStatement("val result = %T<%T>()", PointerTo::class, typeReference.asClassName())
         }
         return
     }
@@ -1542,7 +1542,7 @@ private fun CodeBlock.Builder.kTypeStatementFor(
         add("%T(%M,", KTypeProjection::class, KVariance::class.member("INVARIANT"))
     }
     if (!typeReference.isGeneric) {
-        add("%T::class.createType()", typeReference.asClassName(structByValue = false))
+        add("%T::class.createType()", typeReference.asClassName())
         if (projection) {
             add(")")
         }
@@ -1551,7 +1551,7 @@ private fun CodeBlock.Builder.kTypeStatementFor(
 
     val type = typeReference.copy(genericParameters = null)
 
-    add("%T::class.createType(listOf(\n", type.asClassName(structByValue = false))
+    add("%T::class.createType(listOf(\n", type.asClassName())
     indent()
     typeReference.genericParameters!!.forEach {
         if (it.type == null) {

@@ -15,13 +15,12 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
 fun INamedEntity.asClassName(
-    structByValue: Boolean = true,
     nullable: Boolean = false,
     nestedClass: String? = null
 ): TypeName {
-    if (this !is SparseTypeReference) return this.asTypeReference().asClassName(structByValue, nullable, nestedClass)
+    if (this !is SparseTypeReference) return this.asTypeReference().asClassName(nullable, nestedClass)
     if (nestedClass != null) {
-        return (asClassName(structByValue, nullable) as ClassName).nestedClass(nestedClass)
+        return (asClassName(nullable) as ClassName).nestedClass(nestedClass)
     }
     if (isArray) {
         val baseClass = if (isReference) {
@@ -35,7 +34,7 @@ fun INamedEntity.asClassName(
             .parameterizedBy(componentType.asClassName(nullable = !componentType.isPrimitiveSystemType()))
     }
     if (nullable) {
-        return asClassName(isReference).copy(true)
+        return asClassName().copy(true)
     }
     if (isReference) {
         return byReferenceClassName(withTypeParameters = false)
@@ -65,10 +64,6 @@ fun INamedEntity.asClassName(
     }
     if (isGeneric) {
         return ClassName(this.namespace, name)
-    }
-
-    if (lookUpTypeReference(this) is SparseStruct && structByValue) {
-        return ClassName(namespace, name).nestedClass("ByValue")
     }
     return ClassName(this.namespace, this.name)
 }
@@ -106,7 +101,7 @@ fun INamedEntity.abiClassName(): ClassName {
     if (isReference || isArray) {
         return this.copy(isReference = false, isArray = false).abiClassName()
     }
-    return this.asClassName(structByValue = false, nestedClass = "ABI") as ClassName
+    return this.asClassName(nestedClass = "ABI") as ClassName
 }
 
 fun INamedEntity.valueLayout(): CodeBlock {
@@ -165,7 +160,7 @@ fun INamedEntity.valueLayout(): CodeBlock {
     }
 
 
-    return CodeBlock.of("%T.ABI.layout", asClassName(structByValue = false))
+    return CodeBlock.of("%T.ABI.layout", asClassName())
 }
 
 fun INamedEntity.byReferenceClassName(withTypeParameters: Boolean = true): TypeName {
@@ -174,7 +169,7 @@ fun INamedEntity.byReferenceClassName(withTypeParameters: Boolean = true): TypeN
     val componentType = if (withTypeParameters) {
         withoutReference.asTypeName(nullable = this.isNullable())
     } else {
-        withoutReference.asClassName(false)
+        withoutReference.asClassName()
     }
     return PointerTo::class.asClassName().parameterizedBy(componentType)
 }
@@ -356,7 +351,7 @@ fun INamedEntity.asTypeName(
         if (result != null) return result
     }
     if (!isGeneric && !isArray) {
-        return this.asClassName(false, nestedClass = nestedClass)
+        return this.asClassName(nestedClass = nestedClass)
     }
 
     if (nestedClass != null) {
@@ -499,3 +494,15 @@ fun TypeSpec.Builder.addEvents(
         }.forEach(::addProperty)
 }
 
+fun lookupTypeReferenceSafe(typeReference: SparseTypeReference): SparseEntity? {
+    if(typeReference.isSystemTypeOrObject() || typeReference.isTypeParameter()) return null
+    return lookUpTypeReference(typeReference)
+}
+
+fun ClassName.fullyQualified(): ClassName {
+    return ClassName("", canonicalName)
+}
+
+fun String.fixSpaces(): String {
+    return this.replace(" ", nbsp)
+}

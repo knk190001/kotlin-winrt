@@ -1,7 +1,6 @@
 package com.github.knk190001.winrtbinding.generator
 
 import com.beust.klaxon.Klaxon
-import com.github.knk190001.winrtbinding.generator.TestUnsigned.Companion.test
 import com.github.knk190001.winrtbinding.generator.model.entities.*
 import com.squareup.kotlinpoet.FileSpec
 import java.io.InvalidObjectException
@@ -9,7 +8,6 @@ import java.io.InvalidObjectException
 typealias LookUp = (SparseTypeReference) -> SparseEntity
 
 lateinit var lookUpTypeReference: LookUp
-
 
 fun generateProjection(serializedMetadata: List<String>, serializedReferenceMetadata: List<List<String>>): Collection<FileSpec> {
     val entities = parseMetadata(listOf(serializedMetadata))
@@ -44,22 +42,7 @@ private fun parseMetadata(serializedReferenceMetadata: List<List<String>>): Muta
     serializedReferenceMetadata.parallelStream().flatMap {
         it.parallelStream().map { json ->
             val result = Klaxon().parse<SparseEntity>(json)
-//            println("Parsed: " + result!!.name)
             result!!
         }
     }.toList()
 
-fun String.fixSpaces(): String {
-    test(1u, 1u)
-    return this.replace(" ", nbsp)
-}
-
-
-class TestUnsigned {
-    companion object {
-        @JvmStatic
-        fun test(uInt: UInt, uLong: ULong): ULong {
-            return uInt + uLong
-        }
-    }
-}
