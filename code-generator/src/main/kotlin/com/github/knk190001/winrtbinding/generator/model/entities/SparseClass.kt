@@ -3,6 +3,7 @@ package com.github.knk190001.winrtbinding.generator.model.entities
 import com.beust.klaxon.Json
 import com.github.knk190001.winrtbinding.generator.lookUpTypeReference
 import com.github.knk190001.winrtbinding.generator.model.traits.*
+import com.github.knk190001.winrtbinding.generator.redundantInterfaces
 
 data class SparseClass(
     @Json("Name")
@@ -84,6 +85,7 @@ data class SparseClass(
     fun nonCollidingInterfaces(): List<SparseTypeReference> {
         val collisions = collisions()
         return interfaces
+            .filterNot { redundantInterfaces().contains(it) }
             .filterNot { collisions.contains(lookUpTypeReference(it)) }
     }
 

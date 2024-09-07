@@ -1,23 +1,18 @@
 package com.github.knk190001.winrtbinding.foundation.collections
 
 import Windows.Foundation.Collections.IIterable
-import Windows.Foundation.Collections.IIterator
+import kotlin.reflect.KType
 
-interface NativeIterable<T>: IIterable.WithDefault<T>, Iterable<T>  {
+class NativeIterable<T>(override val nativeIterable: IIterable<T>) : INativeIterable<T> {
+    override val Windows_Foundation_Collections_IIterable_Type: KType =
+        nativeIterable.Windows_Foundation_Collections_IIterable_Type!!
+}
+
+interface INativeIterable<T> : Iterable<T> {
+    val Windows_Foundation_Collections_IIterable_Type: KType
+
+    val nativeIterable: IIterable<T>
     override fun iterator(): Iterator<T> {
-        @Suppress("UNCHECKED_CAST")
-        return Itr(First()!! as IIterator<T>)
-    }
-
-    private class Itr<T>(private val iterator: IIterator<T>): Iterator<T> {
-        override fun hasNext(): Boolean {
-            return iterator.HasCurrent
-        }
-
-        override fun next(): T {
-            val current = iterator.Current
-            iterator.MoveNext()
-            return current
-        }
+        return nativeIterable.First()!!
     }
 }

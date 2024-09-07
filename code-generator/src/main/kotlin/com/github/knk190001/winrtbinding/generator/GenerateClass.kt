@@ -28,7 +28,7 @@ import kotlin.reflect.KType
 fun generateClass(
     sparseClass: SparseClass,
     lookUp: LookUp
-) = FileSpec.builder(sparseClass.namespace, sparseClass.name).apply {
+) = sparseClass.fileSpec {
     addImports()
     val classTypeSpec = TypeSpec.classBuilder(sparseClass.name).apply {
         addABIAnnotation(sparseClass.asClassName())
@@ -55,7 +55,8 @@ fun generateClass(
         }
     }.build()
     addType(classTypeSpec)
-}.build()
+}
+
 
 private fun TypeSpec.Builder.addSuperclass(sparseClass: SparseClass) {
     if (sparseClass.hasSuperclass) {
@@ -119,7 +120,10 @@ private fun generateStaticProperty(
         }
         if (setter != null) {
             setter(FunSpec.setterBuilder().apply {
-                addParameter("value", propertyType.asTypeName(usage = ClassNameUsage.ApiSurface, nullable = propertyType.isNullable()))
+                addParameter(
+                    "value",
+                    propertyType.asTypeName(usage = ClassNameUsage.ApiSurface, nullable = propertyType.isNullable())
+                )
                 addCode("ABI.${sparseInterface.name}_Instance.${propertyName} = value".fixSpaces())
             }.build())
         }
@@ -318,7 +322,10 @@ fun TypeSpec.Builder.generateCompositionFactoryActivationFunction(
 
         returns(MemorySegment::class)
         val cb = CodeBlock.builder().apply {
-            addStatement("val inner = %T()", PointerTo::class.asClassName().parameterizedBy(IUnknown::class.asClassName()))
+            addStatement(
+                "val inner = %T()",
+                PointerTo::class.asClassName().parameterizedBy(IUnknown::class.asClassName())
+            )
 
             beginControlFlow("val baseInterface = if (aggregatingClass != null)")
             addStatement("%T(aggregatingClass.initAggregate())", IInspectable.IInspectable_Impl::class)
@@ -384,7 +391,10 @@ private fun TypeSpec.Builder.generateFactoryActivator(sparseClass: SparseClass, 
         val factoryClassName = factoryInterface.asClassName() as ClassName
         val cb = CodeBlock.builder().apply {
             addStatement("val guid = guidOf<%T>()", factoryClassName)
-            addStatement("val factoryActivatorPtr = %T()", PointerTo::class.asClassName().parameterizedBy(factoryClassName))
+            addStatement(
+                "val factoryActivatorPtr = %T()",
+                PointerTo::class.asClassName().parameterizedBy(factoryClassName)
+            )
             addStatement(
                 "val hr = %T.roGetActivationFactory(%S, guid, factoryActivatorPtr)",
                 Combase::class,
@@ -415,7 +425,10 @@ fun TypeSpec.Builder.generateStaticInterface(staticInterface: SparseTypeReferenc
         returns(staticInterfaceClass)
         val cb = CodeBlock.builder().apply {
             addStatement("val iid = %T.ABI.IID", staticInterfaceClass)
-            addStatement("val interfacePtr = %T()", PointerTo::class.asClassName().parameterizedBy(staticInterface.asClassName()))
+            addStatement(
+                "val interfacePtr = %T()",
+                PointerTo::class.asClassName().parameterizedBy(staticInterface.asClassName())
+            )
             addStatement(
                 "val hr = %T.roGetActivationFactory(%S, iid, interfacePtr)",
                 Combase::class,
@@ -511,6 +524,16 @@ private fun TypeSpec.Builder.generateClassTypeSpec(sparseClass: SparseClass) {
     generateInterfaceGuidArray(sparseClass)
     generateInterfaceConflictProperties(sparseClass)
     generateDeconflictionProperties(sparseClass)
+    generateNativeCollectionProperties(sparseClass)
+}
+
+private fun TypeSpec.Builder.generateNativeCollectionProperties(sparseClass: SparseClass) {
+    sparseClass.nonCollidingInterfaces()
+        .filter {
+            substitutions.containsKey(it.fullName())
+        }.forEach {
+            addNativePropertyForSubstitutedType(it)
+        }
 }
 
 private fun TypeSpec.Builder.generateDeconflictionProperties(sparseClass: SparseClass) {
@@ -595,11 +618,12 @@ fun CodeBlock.Builder.addGuidStatement(sparseTypeReference: SparseTypeReference)
 }
 
 private fun TypeSpec.Builder.generateTypeProperties(sparseClass: SparseClass) {
-    val genericInterfaces = sparseClass.nonCollidingInterfaces()
+    val genericInterfaces = sparseClass.interfaces
         .filter { it.hasActualizedGenericParameter() }
 
     genericInterfaces.map {
-        PropertySpec.builder(it.getInterfaceTypeName(), KType::class, KModifier.OVERRIDE).apply {
+        PropertySpec.builder(it.getInterfaceTypeName(), KType::class).apply {
+            addModifiers(KModifier.OVERRIDE)
             initializer("typeOf<%T>()", it.asTypeName())
         }.build()
     }.forEach(this::addProperty)
@@ -636,7 +660,9 @@ fun generateInterfacePointerProperty(
         sparseTypeReference.getInterfacePointerName(),
         OBJECT_PTR
     ).apply {
-        if (!sparseClass.collisions().contains(lookUpTypeReference(sparseTypeReference))) {
+        if (!sparseClass.collisions().contains(lookUpTypeReference(sparseTypeReference)) &&
+            !substitutions.containsKey(sparseTypeReference.fullName())
+        ) {
             addModifiers(KModifier.OVERRIDE)
         }
 

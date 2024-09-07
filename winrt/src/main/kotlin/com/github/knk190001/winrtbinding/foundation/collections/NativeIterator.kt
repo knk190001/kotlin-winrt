@@ -1,15 +1,24 @@
 package com.github.knk190001.winrtbinding.foundation.collections
 
 import Windows.Foundation.Collections.IIterator
+import kotlin.reflect.KType
 
-interface NativeIterator<T>: IIterator.WithDefault<T>, Iterator<T> {
+class NativeIterator<T>(override val nativeIterator: IIterator<T>) : INativeIterator<T> {
+    override val Windows_Foundation_Collections_IIterator_Type: KType =
+        nativeIterator.Windows_Foundation_Collections_IIterator_Type!!
+}
+
+interface INativeIterator<T> : Iterator<T> {
+    val Windows_Foundation_Collections_IIterator_Type: KType
+
+    val nativeIterator: IIterator<T>
     override fun hasNext(): Boolean {
-        return HasCurrent
+        return nativeIterator.HasCurrent
     }
 
     override fun next(): T {
-        val current = Current
-        MoveNext()
+        val current = nativeIterator.Current
+        nativeIterator.MoveNext()
         return current
     }
 }

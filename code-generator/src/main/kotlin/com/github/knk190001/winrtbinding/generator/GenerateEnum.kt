@@ -8,17 +8,17 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.lang.foreign.ValueLayout
 
 fun generateEnum(sEnum : SparseEnum): FileSpec {
-    val fileSpec = FileSpec.builder(sEnum.namespace, sEnum.name)
-    val type = TypeSpec.enumBuilder(sEnum.name).apply {
-        addABIAnnotation(sEnum.asClassName())
-        addSignatureAnnotation(sEnum)
-        addPrimaryConstructor()
-        addEnumValues(sEnum)
-        addValueProperty()
-        generateABI(sEnum)
-    }.build()
-    fileSpec.addType(type)
-    return fileSpec.build()
+    return sEnum.fileSpec {
+        val type = TypeSpec.enumBuilder(sEnum.name).apply {
+            addABIAnnotation(sEnum.asClassName())
+            addSignatureAnnotation(sEnum)
+            addPrimaryConstructor()
+            addEnumValues(sEnum)
+            addValueProperty()
+            generateABI(sEnum)
+        }.build()
+        addType(type)
+    }
 }
 
 private fun TypeSpec.Builder.addPrimaryConstructor() {

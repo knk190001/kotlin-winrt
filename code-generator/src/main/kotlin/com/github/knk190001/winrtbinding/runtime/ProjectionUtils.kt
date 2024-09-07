@@ -479,10 +479,10 @@ fun <T, R> memoize(fn: (T) -> R): (T) -> R {
 fun CallScope.nativeRepresentation(obj: Any?, type: KType): Any {
     val abi = abiOf(type.jvmErasure) as IBaseABI<Any?, Any>
     if (abi is IParameterizedNativePeerProvider && obj != type.jvmErasure.isInstance(obj)) {
-        val nativePeer = abi.makeNativePeer(type, obj) as IUnknown
-        nativePeer.AddRef()
+        val nativePeer = abi.makeNativePeer(type, obj) as? IUnknown
+        nativePeer?.AddRef()
         onScopeExit {
-            nativePeer.Release()
+            nativePeer?.Release()
         }
         return abi.toNative(nativePeer)
     } else if (abi is IAnyABI) {

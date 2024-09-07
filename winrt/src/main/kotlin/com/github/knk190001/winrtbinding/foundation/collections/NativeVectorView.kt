@@ -1,44 +1,62 @@
 package com.github.knk190001.winrtbinding.foundation.collections
 
+import Windows.Foundation.Collections.IIterable
 import Windows.Foundation.Collections.IVectorView
 import java.util.*
+import kotlin.reflect.KType
+import kotlin.reflect.full.createType
 
-interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
+class NativeVectorView<T>(override val nativeVectorView: IVectorView<T>) : INativeVectorView<T> {
+    override val Windows_Foundation_Collections_IVectorView_Type: KType =
+        nativeVectorView.Windows_Foundation_Collections_IVectorView_Type!!
+    override val Windows_Foundation_Collections_IIterable_Type: KType
+        get() = nativeVectorView.Windows_Foundation_Collections_IIterable_Type
+}
+
+interface INativeVectorView<T> : List<T> {
+    val Windows_Foundation_Collections_IVectorView_Type: KType
+    val Windows_Foundation_Collections_IIterable_Type: KType
+        get() = IIterable::class.createType(listOf(
+            Windows_Foundation_Collections_IVectorView_Type.arguments[0],
+        ))
+
+    val nativeVectorView: IVectorView<T>
+
     override val size: Int
-        get() = Size.toInt()
+        get() = nativeVectorView.Size.toInt()
 
     override fun get(index: Int): T {
-        return GetAt(index.toUInt())
+        return nativeVectorView.GetAt(index.toUInt())
     }
 
     override fun isEmpty(): Boolean {
         return size == 0
     }
 
-    private open class Itr<T>(val backingVector: NativeVectorView<T>) : Iterator<T> {
+    private open class Itr<T>(val backingVector: IVectorView<T>) : Iterator<T> {
         var cursor = 0
         var lastRet = -1
         override fun hasNext(): Boolean {
-            return cursor != backingVector.size
+            return cursor != backingVector.Size.toInt()
         }
 
         override fun next(): T {
             val i = cursor
-            if (i >= backingVector.size) {
+            if (i >= backingVector.Size.toInt()) {
                 throw NoSuchElementException()
             }
             cursor = i + 1
             lastRet = i
-            return backingVector[i]
+            return backingVector.GetAt(i.toUInt())
         }
     }
 
 
     override fun iterator(): Iterator<T> {
-        return Itr(this)
+        return Itr(nativeVectorView)
     }
 
-    private class ListItr<T>(backingVector: NativeVectorView<T>, index: Int = 0) : Itr<T>(backingVector),
+    private class ListItr<T>(backingVector: IVectorView<T>, index: Int = 0) : Itr<T>(backingVector),
         ListIterator<T> {
         init {
             cursor = index
@@ -53,7 +71,7 @@ interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
             if (i < 0) throw NoSuchElementException()
             cursor = i
             lastRet = i
-            return backingVector[lastRet]
+            return backingVector.GetAt(lastRet.toUInt())
         }
 
         override fun previousIndex(): Int = cursor - 1
@@ -61,11 +79,11 @@ interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
 
 
     override fun listIterator(): ListIterator<T> {
-        return ListItr(this)
+        return ListItr(nativeVectorView)
     }
 
     override fun listIterator(index: Int): ListIterator<T> {
-        return ListItr(this, index)
+        return ListItr(nativeVectorView, index)
     }
 
     private class SubList<T>(val root: List<T>, fromIndex: Int, toIndex: Int) :
@@ -102,7 +120,7 @@ interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
 
         override fun indexOf(element: T): Int {
             val end = offset + size
-            for (i in offset until end) {
+            for (i in offset..<end) {
                 if (element == root[i]) return i - offset
             }
             return -1
@@ -183,7 +201,7 @@ interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
     }
 
     override fun indexOf(element: T): Int {
-        for (i in 0 until size) {
+        for (i in 0..<size) {
             if (element == this[i]) return i
         }
         return -1
@@ -204,5 +222,4 @@ interface NativeVectorView<T> : IVectorView.WithDefault<T>, List<T> {
             require(fromIndex <= toIndex) { "fromIndex($fromIndex) > toIndex($toIndex)" }
         }
     }
-
 }

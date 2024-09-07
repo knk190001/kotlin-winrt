@@ -15,8 +15,7 @@ import java.lang.invoke.MethodHandle
 import java.lang.invoke.VarHandle
 
 fun generateStruct(sparseStruct: SparseStruct): FileSpec {
-    return FileSpec.builder(sparseStruct.namespace, sparseStruct.name).apply {
-        indent("    ")
+    return sparseStruct.fileSpec {
         addImports()
         val typeSpec = TypeSpec.classBuilder(sparseStruct.name).apply {
             addAnnotations(sparseStruct)
@@ -27,7 +26,7 @@ fun generateStruct(sparseStruct: SparseStruct): FileSpec {
             addABI(sparseStruct)
         }.build()
         addType(typeSpec)
-    }.build()
+    }
 }
 
 private fun TypeSpec.Builder.addAnnotations(sparseStruct: SparseStruct) {

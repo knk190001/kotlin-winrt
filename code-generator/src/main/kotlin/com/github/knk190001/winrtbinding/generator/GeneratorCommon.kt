@@ -245,9 +245,15 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IParameterizable<*>
             ?.map { STAR }
             ?.toTypedArray() ?: emptyArray()
 
+        val className = if (substitutions.containsKey(projectable.fullName())) {
+            substitutions[projectable.fullName()]!!.apiTypeName
+        } else {
+            projectable.asClassName() as ClassName
+        }
+
         val returnType = if (typeVariables.isNotEmpty()) {
-            (projectable.asClassName() as ClassName).parameterizedBy(*typeVariables)
-        } else projectable.asClassName()
+            className.parameterizedBy(*typeVariables)
+        } else className
 
         returns(returnType.copy(projectable.isNullable()))
 
@@ -267,10 +273,18 @@ fun TypeSpec.Builder.addParameterizedFromNative(projectable: IParameterizable<*>
                 } else {
                     ", type"
                 }
-                addStatement(
-                    "return %TImpl$typeVariableString(segment$typeString)".fixSpaces(),
+                add("return ".fixSpaces())
+                if (substitutions.containsKey(projectable.fullName())) {
+                    add("%T(", substitutions[projectable.fullName()]!!.implTypeName)
+                }
+                add(
+                    "%TImpl$typeVariableString(segment$typeString)".fixSpaces(),
                     projectable.asClassName(),
                 )
+                if (substitutions.containsKey(projectable.fullName())) {
+                    add(")")
+                }
+                addStatement("")
             } else {
                 val typeParameter = if (projectable.genericParameters.isNullOrEmpty()) null else "type"
                 val parameters = listOfNotNull(typeParameter, "segment").joinToString()
@@ -315,7 +329,7 @@ fun FunSpec.Builder.addTypeParameters(projectable: IParameterizable<*>) {
 }
 
 enum class ClassNameUsage {
-    ApiSurface, ParentInterface, Other
+    ApiSurface, ParentInterface, ABI, Other
 }
 
 fun INamedEntity.asTypeName(
@@ -344,8 +358,9 @@ fun INamedEntity.asTypeName(
 
     if (usage != ClassNameUsage.Other) {
         val result = when (usage) {
-            ClassNameUsage.ParentInterface -> implTypeName(this)
-            ClassNameUsage.ApiSurface -> apiSurfaceTypeName(this)
+            ClassNameUsage.ParentInterface -> interfaceTypeName(this, emptyTypeParameters)
+            ClassNameUsage.ABI -> implTypeName(this, emptyTypeParameters)
+            ClassNameUsage.ApiSurface -> apiSurfaceTypeName(this, emptyTypeParameters)
             else -> throw IllegalArgumentException()
         }
         if (result != null) return result
@@ -378,9 +393,9 @@ fun INamedEntity.asTypeName(
 
 }
 
-fun apiSurfaceTypeName(typeReference: SparseTypeReference): TypeName? {
+fun apiSurfaceTypeName(typeReference: SparseTypeReference, emptyTypeParameters: Boolean): TypeName? {
     if (typeReference.isReference) return null
-    val typeArguments = (typeReference.asTypeName() as? ParameterizedTypeName)
+    val typeArguments = (typeReference.asTypeName(emptyTypeParameters) as? ParameterizedTypeName)
         ?.typeArguments
         ?.toTypedArray()
 
@@ -391,8 +406,8 @@ fun apiSurfaceTypeName(typeReference: SparseTypeReference): TypeName? {
     }
 }
 
-fun implTypeName(typeReference: SparseTypeReference): TypeName? {
-    val typeArguments = (typeReference.asTypeName() as? ParameterizedTypeName)
+fun implTypeName(typeReference: SparseTypeReference, emptyTypeParameters: Boolean): TypeName? {
+    val typeArguments = (typeReference.asTypeName(emptyTypeParameters = emptyTypeParameters) as? ParameterizedTypeName)
         ?.typeArguments
         ?.toTypedArray()
 
@@ -403,6 +418,18 @@ fun implTypeName(typeReference: SparseTypeReference): TypeName? {
     }
 }
 
+fun interfaceTypeName(typeReference: SparseTypeReference, emptyTypeParameters: Boolean): TypeName? {
+    val typeArguments = (typeReference.asTypeName(emptyTypeParameters = emptyTypeParameters) as? ParameterizedTypeName)
+        ?.typeArguments
+        ?.toTypedArray()
+
+    substitutions[typeReference.fullName()].let {
+        if (it == null) return null
+        if (typeArguments == null) return it.implTypeName
+        return it.interfaceTypeName.parameterizedBy(*typeArguments)
+    }
+}
+
 val ptrNull = Pointer::class.asClassName().member("NULL")
 val jnaPointer = ClassName("com.github.knk190001.winrtbinding.runtime", "JNAPointer")
 val nullablePtr = jnaPointer.copy(nullable = true)
@@ -410,39 +437,53 @@ val nullablePtr = jnaPointer.copy(nullable = true)
 data class InterfaceSubstitution(
     val apiTypeName: ClassName,
     val implTypeName: ClassName,
-    val jvmPeerType: ClassName
+    val interfaceTypeName: ClassName,
+    val jvmPeerType: ClassName,
+    val nativeProperty: String
 )
 
 val substitutions = mapOf(
     "Windows.Foundation.Collections.IVector" to InterfaceSubstitution(
         ClassName("kotlin.collections", "MutableList"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVector"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVector")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "INativeVector"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVector"),
+        "nativeVector"
     ),
     "Windows.Foundation.Collections.IVectorView" to InterfaceSubstitution(
         ClassName("kotlin.collections", "List"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeVectorView"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVectorView")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "INativeVectorView"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMVectorView"),
+        "nativeVectorView"
     ),
     "Windows.Foundation.Collections.IMap" to InterfaceSubstitution(
         ClassName("kotlin.collections", "MutableMap"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMap"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMap")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "INativeMap"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMap"),
+        "nativeMap"
     ),
     "Windows.Foundation.Collections.IMapView" to InterfaceSubstitution(
         ClassName("kotlin.collections", "Map"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeMapView"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMapView")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "INativeMapView"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMMapView"),
+        "nativeMapView"
     ),
     "Windows.Foundation.Collections.IIterable" to InterfaceSubstitution(
         ClassName("kotlin.collections", "Iterable"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterable"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterable")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "INativeIterable"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterable"),
+        "nativeIterable"
     ),
     "Windows.Foundation.Collections.IIterator" to InterfaceSubstitution(
         ClassName("kotlin.collections", "Iterator"),
         ClassName("com.github.knk190001.winrtbinding.foundation.collections", "NativeIterator"),
-        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterator")
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "INativeIterator"),
+        ClassName("com.github.knk190001.winrtbinding.foundation.collections", "JVMIterator"),
+        "nativeIterator"
     )
 )
 
@@ -495,7 +536,7 @@ fun TypeSpec.Builder.addEvents(
 }
 
 fun lookupTypeReferenceSafe(typeReference: SparseTypeReference): SparseEntity? {
-    if(typeReference.isSystemTypeOrObject() || typeReference.isTypeParameter()) return null
+    if (typeReference.isSystemTypeOrObject() || typeReference.isTypeParameter()) return null
     return lookUpTypeReference(typeReference)
 }
 
@@ -505,4 +546,77 @@ fun ClassName.fullyQualified(): ClassName {
 
 fun String.fixSpaces(): String {
     return this.replace(" ", nbsp)
+}
+
+fun SparseEntity.fileSpec(block: FileSpec.Builder.() -> Unit): FileSpec {
+    return FileSpec.builder(namespace, name)
+        .indent("    ")
+        .apply(block).build()
+}
+
+fun TypeSpec.Builder.addNativePropertyForSubstitutedType(sparseTypeReference: SparseTypeReference) {
+    val substitution = substitutions[sparseTypeReference.fullName()]!!
+    val propertySpec = PropertySpec.builder(substitution.nativeProperty, sparseTypeReference.asTypeName()).apply {
+        addModifiers(KModifier.OVERRIDE)
+        delegate(buildCodeBlock {
+            beginControlFlow("lazy")
+            val typeString = if (sparseTypeReference.genericParameters.isNullOrEmpty()) {
+                ""
+            } else {
+                "${sparseTypeReference.getInterfaceTypeName()}, "
+            }
+            addStatement(
+                "%T.makeImpl(${typeString}${sparseTypeReference.getInterfacePointerName()}.segment)",
+                sparseTypeReference.abiClassName()
+            )
+            endControlFlow()
+        })
+    }.build()
+    addProperty(propertySpec)
+}
+
+data class RedundantInterface(
+    val superseding: SparseTypeReference,
+    val redundant: SparseTypeReference
+)
+
+val interfaceRedundancies = listOf(
+    RedundantInterface(
+        superseding = SparseTypeReference("IVectorView", "Windows.Foundation.Collections"),
+        redundant = SparseTypeReference(originalName = "IIterable", namespace = "Windows.Foundation.Collections")
+    ),
+    RedundantInterface(
+        superseding = SparseTypeReference("IVector", "Windows.Foundation.Collections"),
+        redundant = SparseTypeReference("IIterable", "Windows.Foundation.Collections")
+    ),
+    RedundantInterface(
+        superseding = SparseTypeReference("IMapView", "Windows.Foundation.Collections"),
+        redundant = SparseTypeReference("IIterable", "Windows.Foundation.Collections")
+    ),
+    RedundantInterface(
+        superseding = SparseTypeReference("IMap", "Windows.Foundation.Collections"),
+        redundant = SparseTypeReference("IIterable", "Windows.Foundation.Collections")
+    )
+)
+
+fun SparseClass.redundantInterfaces(): List<SparseTypeReference> {
+    return interfaceRedundancies
+        .filter { redundancy ->
+            interfaces.any { redundancy.superseding.fullName() == it.fullName() }
+                    && interfaces.any { redundancy.redundant.fullName() == it.fullName() }
+        }
+        .map { redundancy -> interfaces.single {it.fullName() == redundancy.redundant.fullName()}}
+}
+
+fun SparseInterface.redundantInterfaces(): List<SparseTypeReference> {
+    return interfaceRedundancies
+        .filter { redundancy ->
+            superInterfaces.any { redundancy.superseding.fullName() == it.fullName() }
+                    && superInterfaces.any { redundancy.redundant.fullName() == it.fullName() }
+        }
+        .map { redundancy -> superInterfaces.single {it.fullName() == redundancy.redundant.fullName()}}
+}
+
+fun SparseInterface.nonRedundantInterfaces(): List<SparseTypeReference> {
+    return superInterfaces.filterNot { redundantInterfaces().contains(it) }
 }

@@ -30,10 +30,10 @@ import java.lang.ref.Reference
 import kotlin.reflect.*
 
 fun generateInterface(sparseInterface: SparseInterface): FileSpec {
-    return FileSpec.builder(sparseInterface.namespace, sparseInterface.name).apply {
+    return sparseInterface.fileSpec {
         addImports()
         addInterfaceTypeSpec(sparseInterface)
-    }.build()
+    }
 }
 
 private fun FileSpec.Builder.addInterfaceTypeSpec(sparseInterface: SparseInterface) {
@@ -286,7 +286,7 @@ fun CodeBlock.Builder.addToManagedStatementForParameter(
             "val $managedName = %T.fromNative(${typeString}$paramName)",
             param.type.asClassName(nestedClass = "ABI")
         )
-        if(substitutions.containsKey(param.type.fullName()) || param.type.isGeneric) {
+        if (substitutions.containsKey(param.type.fullName()) || param.type.isGeneric) {
             add(" as %T", param.type.asTypeName(usage = ClassNameUsage.ApiSurface))
         }
         addStatement("")
@@ -680,6 +680,7 @@ private fun TypeSpec.Builder.generateABI(sparseInterface: SparseInterface) {
         addLayout()
 
         if (substitutions[sparseInterface.fullName()] != null) {
+            addMakeImpl(sparseInterface)
             addJVMToNativeSubstitution(sparseInterface)
         }
 
@@ -688,6 +689,23 @@ private fun TypeSpec.Builder.generateABI(sparseInterface: SparseInterface) {
         addDowncallHandlesProperty(sparseInterface)
     }.build()
     addType(abi)
+}
+
+private fun TypeSpec.Builder.addMakeImpl(sparseInterface: SparseInterface) {
+    val funSpec = FunSpec.builder("makeImpl").apply {
+        addTypeParameters(sparseInterface)
+        addParameter("type", KType::class)
+        addParameter("segment", MemorySegment::class)
+        returns(sparseInterface.asTypeName())
+
+        addCode(buildCodeBlock {
+            addStatement(
+                "return %T(segment, type)",
+                sparseInterface.asTypeName(nestedClass = "${sparseInterface.name}Impl")
+            )
+        })
+    }.build()
+    addFunction(funSpec)
 }
 
 fun TypeSpec.Builder.addLinkerProperty() {
@@ -845,12 +863,19 @@ fun TypeSpec.Builder.addJVMToNativeSubstitution(sparseInterface: SparseInterface
             addStatement("return %M", ptrNull)
             endControlFlow()
 
+            val typeParameters = sparseInterface.genericParameters!!.map { STAR }
             val substitution = substitutions[sparseInterface.fullName()]!!
-            val starProjectedApiTypeName =
-                substitution.apiTypeName.parameterizedBy(sparseInterface.genericParameters!!.map { STAR })
+            val starProjectedApiTypeName = substitution.apiTypeName.parameterizedBy(typeParameters)
+            val starProjectedImplTypeName = substitution.interfaceTypeName.parameterizedBy(typeParameters)
+
+            beginControlFlow("if (obj is %T)", starProjectedImplTypeName)
+            addStatement("return obj.${substitution.nativeProperty}")
+            endControlFlow()
+
             beginControlFlow("if (obj is %T)", starProjectedApiTypeName)
             addStatement("return %T(type, obj)", substitution.jvmPeerType)
             endControlFlow()
+
             addStatement(
                 "throw %T(%S)",
                 IllegalArgumentException::class,
@@ -877,7 +902,14 @@ private fun TypeSpec.Builder.addABISuperInterface(
         val starParameters = sparseInterface.genericParameters.map {
             STAR
         }.toTypedArray()
-        val withStarParams = ClassName("", sparseInterface.name)
+
+        val className = if (substitutions.containsKey(sparseInterface.fullName())) {
+            substitutions[sparseInterface.fullName()]!!.apiTypeName
+        } else {
+            ClassName("", sparseInterface.name)
+        }
+
+        val withStarParams = className
             .parameterizedBy(*starParameters)
             .copy(nullable = true)
         addSuperinterface(
@@ -892,6 +924,10 @@ private fun TypeSpec.Builder.addABISuperInterface(
 }
 
 private fun TypeSpec.Builder.addGetType(sparseInterface: SparseInterface, typeName: TypeName) {
+    if (substitutions.containsKey(sparseInterface.fullName())) {
+        addSubstitutedGetType(sparseInterface, typeName)
+        return
+    }
     val getTypeSpec = FunSpec.builder("getType").apply {
         addModifiers(KModifier.OVERRIDE)
         addParameter("obj", typeName)
@@ -900,11 +936,43 @@ private fun TypeSpec.Builder.addGetType(sparseInterface: SparseInterface, typeNa
     addFunction(getTypeSpec)
 }
 
+private fun TypeSpec.Builder.addSubstitutedGetType(sparseInterface: SparseInterface, typeName: TypeName) {
+    val substitution = substitutions[sparseInterface.fullName()]!!
+    val getTypeSpec = FunSpec.builder("getType").apply {
+        addModifiers(KModifier.OVERRIDE)
+        addParameter("obj", typeName)
+        returns(KType::class)
+        addCode(buildCodeBlock {
+            val params = sparseInterface.genericParameters?.map { STAR } ?: emptyList()
+            beginControlFlow("if (obj is %T)", substitution.jvmPeerType.parameterizedBy(params))
+            addStatement("return obj.${sparseInterface.typeName()}")
+            endControlFlow()
+            beginControlFlow("if (obj is %T)", substitution.implTypeName.parameterizedBy(params))
+            addStatement("return obj.${substitution.nativeProperty}.${sparseInterface.typeName()}!!")
+            endControlFlow()
+            addStatement(
+                "throw %T(%S)",
+                IllegalArgumentException::class,
+                "obj is not an instance of ${substitution.apiTypeName.simpleName} or ${substitution.implTypeName.simpleName}"
+            )
+        })
+    }.build()
+    addFunction(getTypeSpec)
+}
+
 private fun TypeSpec.Builder.addPtrToNative(entity: INamedEntity) {
     val toNative = FunSpec.builder("toNative").apply {
         addModifiers(KModifier.OVERRIDE)
-        addParameter("obj", entity.asTypeName(emptyTypeParameters = true, nullable = true))
+        addParameter(
+            "obj",
+            entity.asTypeName(emptyTypeParameters = true, nullable = true, usage = ClassNameUsage.ApiSurface)
+        )
         returns(MemorySegment::class)
+        if (substitutions.containsKey(entity.fullName())) {
+            addStatement("TODO(%S)", "Not implemented for substituted types")
+            return@apply
+        }
+
         beginControlFlow("if (obj == null)")
         addStatement("return %T.NULL", MemorySegment::class)
         endControlFlow()
@@ -978,11 +1046,16 @@ private fun TypeSpec.Builder.addInterfaceEvents(sparseInterface: SparseInterface
 private fun TypeSpec.Builder.addParameterizedSIProperties(sparseInterface: SparseInterface) {
     val superInterfaceReferences = traverseSuperInterfaces(sparseInterface)
         .distinctBy { it.fullName() }
+    addParameterizedSIPtrProperties(sparseInterface, superInterfaceReferences)
 
-    addParameterizedSIPtrProperties(superInterfaceReferences)
+    if (substitutions.containsKey(sparseInterface.fullName())) return
+    sparseInterface.nonRedundantInterfaces()
+        .filter { substitutions.containsKey(it.fullName()) }
+        .forEach { addNativePropertyForSubstitutedType(it) }
 }
 
 private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
+    sparseInterface: SparseInterface,
     superInterfaces: List<SparseTypeReference>
 ) {
     superInterfaces.forEach {
@@ -1001,7 +1074,9 @@ private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
                 endControlFlow()
             }.build()
             delegate(lazyCb)
-            addModifiers(KModifier.OVERRIDE)
+            if (substitutions.containsKey(sparseInterface.fullName()) || !substitutions.containsKey(it.fullName())) {
+                addModifiers(KModifier.OVERRIDE)
+            }
         }.build()
         addProperty(property)
     }
@@ -1009,12 +1084,17 @@ private fun TypeSpec.Builder.addParameterizedSIPtrProperties(
 
 private fun TypeSpec.Builder.addParameterizedSuperInterfaces(sparseInterface: SparseInterface) {
     addSuperinterface(IInspectable::class)
-    sparseInterface.superInterfaces.map {
-        it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
+    val usage = if (substitutions.containsKey(sparseInterface.fullName())) {
+        ClassNameUsage.Other
+    } else {
+        ClassNameUsage.ParentInterface
+    }
+    sparseInterface.nonRedundantInterfaces().map {
+        it.asTypeName(nestedClass = "WithDefault", usage = usage)
     }.forEach(::addSuperinterface)
 
     val className = sparseInterface.asTypeReference()
-        .asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
+        .asTypeName(nestedClass = "WithDefault")
     addSuperinterface(className)
 }
 
@@ -1022,7 +1102,7 @@ private fun traverseSuperInterfaces(sparseInterface: SparseInterface): Set<Spars
     val genericParams = sparseInterface.genericParameters?.let { params ->
         if (params.all { param -> param.type != null }) params else null
     }
-    val superInterfaces = sparseInterface.superInterfaces
+    val superInterfaces = sparseInterface.nonRedundantInterfaces()
         .map { lookUpTypeReference(it) }
         .filterIsInstance<SparseInterface>()
         .map {
@@ -1031,7 +1111,7 @@ private fun traverseSuperInterfaces(sparseInterface: SparseInterface): Set<Spars
             } ?: it
         }
 
-    return sparseInterface.superInterfaces
+    return sparseInterface.nonRedundantInterfaces()
         .union(superInterfaces.flatMap { traverseSuperInterfaces(it) })
 }
 
@@ -1065,8 +1145,13 @@ private fun TypeSpec.Builder.addWithDefaultType(sparseInterface: SparseInterface
         if (sparseInterface.isGeneric) {
             addTypeParameters(sparseInterface)
         }
-        sparseInterface.superInterfaces.map {
-            it.asTypeName(nestedClass = "WithDefault", usage = ClassNameUsage.ParentInterface)
+        val usage = if (substitutions.containsKey(sparseInterface.fullName())) {
+            ClassNameUsage.Other
+        } else {
+            ClassNameUsage.ParentInterface
+        }
+        sparseInterface.nonRedundantInterfaces().map {
+            it.asTypeName(nestedClass = "WithDefault", usage = usage)
         }.forEach(::addSuperinterface)
         addSuperinterface(sparseInterface.asTypeName())
         addSuperinterface(IInspectable::class)
@@ -1570,8 +1655,13 @@ private fun CodeBlock.Builder.kTypeStatementFor(
 }
 
 private fun TypeSpec.Builder.addSuperInterfaces(sparseInterface: SparseInterface) {
-    sparseInterface.superInterfaces
-        .map(SparseTypeReference::asTypeName)
+    val usage = if (substitutions.containsKey(sparseInterface.fullName())) {
+        ClassNameUsage.Other
+    } else {
+        ClassNameUsage.ParentInterface
+    }
+    sparseInterface.nonRedundantInterfaces()
+        .map { it.asTypeName(usage = usage) }
         .forEach(this::addSuperinterface)
 }
 

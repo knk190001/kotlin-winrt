@@ -1,63 +1,81 @@
 package com.github.knk190001.winrtbinding.foundation.collections
 
+import Windows.Foundation.Collections.IIterable
 import Windows.Foundation.Collections.IVector
-import com.github.knk190001.winrtbinding.foundation.collections.NativeVector.SubList
+import com.github.knk190001.winrtbinding.foundation.collections.INativeVector.SubList
 import java.util.*
 import java.util.function.Predicate
+import kotlin.reflect.KType
+import kotlin.reflect.full.createType
 
+class NativeVector<T>(override val nativeVector: IVector<T>) : INativeVector<T> {
+    override val Windows_Foundation_Collections_IVector_Type: KType =
+        nativeVector.Windows_Foundation_Collections_IVector_Type!!
 
-interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
+    override val Windows_Foundation_Collections_IIterable_Type: KType =
+        nativeVector.Windows_Foundation_Collections_IIterable_Type
+}
+
+interface INativeVector<T> : MutableList<T> {
+    val Windows_Foundation_Collections_IVector_Type: KType
+    val Windows_Foundation_Collections_IIterable_Type: KType
+        get() = IIterable::class.createType(listOf(
+            Windows_Foundation_Collections_IVector_Type.arguments[0],
+        ))
+
+    val nativeVector: IVector<T>
+
     override val size: Int
-        get() = Size.toInt()
+        get() = nativeVector.Size.toInt()
 
     override fun clear() {
-        Clear()
+        nativeVector.Clear()
     }
 
     override fun addAll(elements: Collection<T>): Boolean {
-        elements.forEach(::Append)
+        elements.forEach(nativeVector::Append)
         return true
     }
 
     override fun addAll(index: Int, elements: Collection<T>): Boolean {
         elements.reversed().forEach {
-            InsertAt(index.toUInt(), it)
+            nativeVector.InsertAt(index.toUInt(), it)
         }
         return true
     }
 
     override fun add(index: Int, element: T) {
-        InsertAt(index.toUInt(), element)
+        nativeVector.InsertAt(index.toUInt(), element)
     }
 
     override fun add(element: T): Boolean {
-        Append(element)
+        nativeVector.Append(element)
         return true
     }
 
     override fun get(index: Int): T {
-        return GetAt(index.toUInt())
+        return nativeVector.GetAt(index.toUInt())
     }
 
     override fun isEmpty(): Boolean {
-        return Size.toInt() == 0
+        return nativeVector.Size.toInt() == 0
     }
 
-    private open class Itr<T>(val backingVector: NativeVector<T>) : MutableIterator<T> {
+    private open class Itr<T>(val backingVector: IVector<T>) : MutableIterator<T> {
         var cursor = 0
         var lastRet = -1
         override fun hasNext(): Boolean {
-            return cursor != backingVector.size
+            return cursor != backingVector.Size.toInt()
         }
 
         override fun next(): T {
             val i = cursor
-            if (i >= backingVector.size) {
+            if (i >= backingVector.Size.toInt()) {
                 throw NoSuchElementException()
             }
             cursor = i + 1
             lastRet = i
-            return backingVector[i]
+            return backingVector.GetAt(i.toUInt())
         }
 
         override fun remove() {
@@ -70,7 +88,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
 
     }
 
-    private class ListItr<T>(backingVector: NativeVector<T>, index: Int = 0) : Itr<T>(backingVector),
+    private class ListItr<T>(backingVector: IVector<T>, index: Int = 0) : Itr<T>(backingVector),
         MutableListIterator<T> {
         init {
             cursor = index
@@ -78,7 +96,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
 
         override fun add(element: T) {
             val i = cursor
-            backingVector.add(i, element)
+            backingVector.InsertAt(i.toUInt(), element)
             cursor = i + 1
             lastRet = -1
         }
@@ -92,7 +110,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
             if (i < 0) throw NoSuchElementException()
             cursor = i
             lastRet = i
-            return backingVector[lastRet]
+            return backingVector.GetAt(lastRet.toUInt())
         }
 
         override fun previousIndex(): Int = cursor - 1
@@ -102,26 +120,26 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
                 throw IllegalStateException()
             }
 
-            backingVector[lastRet] = element
+            backingVector.SetAt(lastRet.toUInt(), element)
         }
     }
 
     override fun iterator(): MutableIterator<T> {
-        return Itr(this)
+        return Itr(nativeVector)
     }
 
     override fun listIterator(): MutableListIterator<T> {
-        return ListItr(this)
+        return ListItr(nativeVector)
     }
 
     override fun listIterator(index: Int): MutableListIterator<T> {
-        return ListItr(this, index)
+        return ListItr(nativeVector, index)
     }
 
     override fun removeAt(index: Int): T {
         val uIndex = index.toUInt()
-        val result = GetAt(uIndex)
-        RemoveAt(uIndex)
+        val result = nativeVector.GetAt(uIndex)
+        nativeVector.RemoveAt(uIndex)
         return result
     }
 
@@ -142,9 +160,9 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
         AbstractMutableList<T>(), RandomAccess {
         var offset = fromIndex
         override var size = toIndex - fromIndex
-        var parent: NativeVector.SubList<T>? = null
+        var parent: INativeVector.SubList<T>? = null
 
-        constructor(parent: NativeVector.SubList<T>, fromIndex: Int, toIndex: Int) : this(
+        constructor(parent: INativeVector.SubList<T>, fromIndex: Int, toIndex: Int) : this(
             parent.root,
             fromIndex,
             toIndex
@@ -277,7 +295,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
         }
 
         private fun updateSize(sizeChange: Int) {
-            var slist: NativeVector.SubList<T>? = this
+            var slist: INativeVector.SubList<T>? = this
             do {
                 slist!!.size += sizeChange
                 slist = slist!!.parent
@@ -287,8 +305,8 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
 
     override fun set(index: Int, element: T): T {
         val uIndex = index.toUInt()
-        val prev = GetAt(uIndex)
-        SetAt(uIndex, element)
+        val prev = nativeVector.GetAt(uIndex)
+        nativeVector.SetAt(uIndex, element)
         return prev
     }
 
@@ -317,7 +335,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun remove(element: T): Boolean {
-        val iterator  = iterator()
+        val iterator = iterator()
         while (iterator.hasNext()) {
             if (iterator.next() == element) {
                 iterator.remove()
@@ -328,7 +346,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun lastIndexOf(element: T): Int {
-        for (i in (0 until size).reversed()) {
+        for (i in (0..<size).reversed()) {
             if (this[i] == element) {
                 return i
             }
@@ -337,7 +355,7 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun indexOf(element: T): Int {
-        for (i in 0 until size) {
+        for (i in 0..<size) {
             if (this[i] == element) {
                 return i
             }
@@ -350,6 +368,6 @@ interface NativeVector<T> : IVector.WithDefault<T>, MutableList<T> {
     }
 
     override fun contains(element: T): Boolean {
-        return any { it == element}
+        return any { it == element }
     }
 }

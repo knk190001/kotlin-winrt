@@ -30,7 +30,7 @@ import kotlin.reflect.KVariance
 
 
 fun generateDelegate(sparseDelegate: SparseDelegate): FileSpec {
-    return FileSpec.builder(sparseDelegate.namespace, sparseDelegate.name).apply {
+    return sparseDelegate.fileSpec {
         addImports()
         addDelegateFunInterface(sparseDelegate)
         val delegateTypeSpec = TypeSpec.classBuilder(sparseDelegate.name).apply {
@@ -41,7 +41,7 @@ fun generateDelegate(sparseDelegate: SparseDelegate): FileSpec {
             addDelegateTypeSpec(sparseDelegate)
         }.build()
         addType(delegateTypeSpec)
-    }.build()
+    }
 }
 
 fun FileSpec.Builder.addDelegateFunInterface(sparseDelegate: SparseDelegate) {
